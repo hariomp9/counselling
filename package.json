@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "nodemon server.js",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "build": "next build"
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",

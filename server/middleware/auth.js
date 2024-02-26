@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../Model/User");
 const ErrorResponse = require("../Utils/errorRes");
+const Admin = require("../Model/AdminModel");
 
 exports.isAuthenticatedUser = async (req, res, next) => {
   const authorizationHeader = req.headers.authorization;
@@ -15,20 +16,27 @@ exports.isAuthenticatedUser = async (req, res, next) => {
   try {
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = await User.findById({_id:decodedData.id});
+    let user;
 
-    if (!req.user) {
+    if (decodedData.role === 'admin') {
+      user = await Admin.findById(decodedData.id);
+    } else {
+      user = await User.findById(decodedData.id);
+    }
+
+    if (!user) {
       return next(new ErrorResponse("User not found", 404));
     }
 
-    if (req.user.activeToken && req.user.activeToken === token) {
+    if (user.activeToken && user.activeToken === token) {
+      req.user = user;
       next();
     } else {
       return res.status(401).json({ message: 'Token Expired, Please login again' });
     }
     
   } catch (error) {
-    console.log("Error:",error);
+    console.log("Error:", error);
     return next(new ErrorResponse("Token is invalid", 401));
   }
 };

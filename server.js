@@ -28,6 +28,8 @@ app.prepare().then(() => {
 
   // Routers
   server.use('/api/auth', require("./server/Route/AuthRouter"));
+  server.use('/api/collage', require("./server/Route/CollageRouter"));
+  server.use('/api/course', require("./server/Route/CourseRouter"));
 
   // Next.js request handling
   server.get('*', (req, res) => {

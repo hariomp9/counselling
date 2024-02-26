@@ -66,7 +66,8 @@ exports.login = async (req, res, next) => {
 
     // If user exists and is authenticated via a third-party provider
     if (findUser && !findUser.password) {
-      const token = generateToken({ id: findUser._id });
+      // const token = generateToken({ id: findUser._id });
+      const token = generateToken(findUser._id, findUser.role);
 
       await User.findByIdAndUpdate(
         { _id: findUser._id?.toString() },
@@ -91,8 +92,9 @@ exports.login = async (req, res, next) => {
 
     // If user exists and has a password, continue with password-based authentication
     if (findUser && (await findUser.matchPasswords(password))) {
-      const token = generateToken({ id: findUser._id });
-
+      // const token = generateToken({ id: findUser._id });
+      const token = generateToken(findUser._id, findUser.role);
+      
       await User.findByIdAndUpdate(
         { _id: findUser._id?.toString() },
         { activeToken: token },
@@ -166,7 +168,9 @@ exports.adminLogin = async (req, res, next) => {
     }
 
     if (await findAdmin.matchPasswords(password)) {
-      const token = generateToken({ id: findAdmin._id });
+      // const token = generateToken({ id: findAdmin._id });
+      const token = generateToken(findAdmin._id, findAdmin.role);
+
       await Admin.findByIdAndUpdate(
         { _id: findAdmin._id?.toString() },
         { activeToken: token },
@@ -475,7 +479,7 @@ exports.verifyAdmin = async (req, res) => {
 };
 
 exports.updatedUser = async (req, res) => {
-  const { _id } = req.user._id;
+  const { _id } = req.params.id;
   validateMongoDbId(_id);
 
   try {
@@ -552,11 +556,11 @@ exports.getaUser = async (req, res) => {
 };
 
 exports.getUserById = async (req, res) => {
-  const { _id } = req.body;
-  validateMongoDbId(_id);
+  const { id } = req.params;
+  validateMongoDbId(id);
 
   try {
-    const user = await User.findById(_id);
+    const user = await User.findById(id);
     res.status(200).json({
       user,
     });

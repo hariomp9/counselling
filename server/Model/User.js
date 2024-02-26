@@ -32,6 +32,18 @@ const UserSchema = new mongoose.Schema(
       type: String,
     },
     address: String,
+    documents: [String],
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    careerGoals: { 
+      type: String 
+    },
+    wishlist: [{ 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'College'
+    }],
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,

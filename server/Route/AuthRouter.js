@@ -45,7 +45,7 @@ router.route("/adminRegister").post(adminRegister);
 router.post("/updatePassword", isAuthenticatedUser, updatePassword);
 
 // Update User
-router.put("/edit-user", isAuthenticatedUser, updatedUser);
+router.put("/edit-user/:id", isAuthenticatedUser, updatedUser);
 
 // Get all Users
 router.get("/all-users", isAuthenticatedUser, authorizeRoles("admin"), getallUser);
@@ -54,7 +54,7 @@ router.get("/all-users", isAuthenticatedUser, authorizeRoles("admin"), getallUse
 router.route("/getaUser").get(isAuthenticatedUser, getaUser);
 
 // Get user by ID 
-router.route("/getUserById").post(isAuthenticatedUser, getUserById);
+router.route("/getUserById/:id").get(isAuthenticatedUser, getUserById);
 
 // Delete a user
 router.delete("/deleteaUser/:id",isAuthenticatedUser, authorizeRoles("admin"), deleteaUser);
