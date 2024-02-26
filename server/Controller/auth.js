@@ -38,8 +38,16 @@ exports.register = async (req, res, next) => {
     // provider_ID: req.body.provider_ID,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
+    mobile: req.body.mobile,
     // provider: req.body.provider,
-    role: req.body.role
+    // role: req.body.role
+    cast: req.body.cast,
+    address: req.body.address,
+    documents: req.body.documents,
+    careerGoals: req.body.careerGoals,
+    tenthPercentage: req.body.tenthPercentage,
+    twelfthPercentage: req.body.twelfthPercentage,
+    neetScore: req.body.neetScore
   };
 
   if (password) {

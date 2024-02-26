@@ -27,6 +27,7 @@ exports.getAllColleges = async (req, res, next) => {
     const totalPages = Math.ceil(totalCount / limit);
 
     const colleges = await College.find(filter)
+      .populate('courses')
       .skip((page - 1) * limit)
       .limit(limit);
 
@@ -46,7 +47,7 @@ exports.getAllColleges = async (req, res, next) => {
 // Get college by ID
 exports.getCollegeById = async (req, res, next) => {
   try {
-    const college = await College.findById(req.params.id);
+    const college = await College.findById(req.params.id).populate('courses');
     if (!college) {
       return res.status(404).json({ message: "College not found" });
     }

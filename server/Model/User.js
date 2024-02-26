@@ -23,6 +23,9 @@ const UserSchema = new mongoose.Schema(
       minlength: 6,
       select: false,
     },
+    cast: {
+      type: String
+    },
     role: {
       type: String,
       enum: ["student", "admin"],
@@ -39,6 +42,15 @@ const UserSchema = new mongoose.Schema(
     },
     careerGoals: { 
       type: String 
+    },
+    tenthPercentage: {
+      type: String
+    },
+    twelfthPercentage: {
+      type: String
+    },
+    neetScore: {
+      type: String
     },
     wishlist: [{ 
       type: mongoose.Schema.Types.ObjectId, 
