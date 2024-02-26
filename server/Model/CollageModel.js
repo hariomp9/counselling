@@ -11,9 +11,11 @@ const collegeSchema = new mongoose.Schema({
   website: {
     type: String,
   },
-  contact: {
-    phone: String,
-    email: String
+  phone: {
+    type: String,
+  },
+  email: {
+    type: String
   },
   courses: [{
     type: mongoose.Schema.Types.ObjectId,
