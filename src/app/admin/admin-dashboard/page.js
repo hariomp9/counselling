@@ -16,6 +16,7 @@ import logo from "../../../../public/logo.svg";
 import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Course from "@/app/component/admin/course";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,12 @@ const AdminDashboard = () => {
       label: "Student",
       component: <Students />,
       // icon: eventadd,
+    },
+    {
+      id: 3,
+      label: "Course",
+      component: <Course />,
+      // icon: eventlist,
     },
     // {
     //   id: 3,

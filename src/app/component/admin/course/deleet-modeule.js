@@ -4,8 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-
-const DeleteModuleC = ({ collegeID, closeModal, refreshData }) => {
+const DeleteCourse = ({ courseID, closeModal, refreshData }) => {
   const [isLoading, setLoading] = useState(false);
   const { token } = useSelector((state) => state?.auth);
 
@@ -15,11 +14,11 @@ const DeleteModuleC = ({ collegeID, closeModal, refreshData }) => {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    // setLoading(true);
 
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/collage/deleteCollege/${collegeID}`,
+        `http://localhost:4000/api/course/deleteCourse/${courseID}`,
         {
           headers: {
             Accept: "application/json",
@@ -29,7 +28,7 @@ const DeleteModuleC = ({ collegeID, closeModal, refreshData }) => {
       );
 
       if (response.status === 200) {
-        toast.success("College remove successfully!");
+        toast.success("Course remove successfully!");
         handleClose();
         refreshData();
       } else {
@@ -39,7 +38,7 @@ const DeleteModuleC = ({ collegeID, closeModal, refreshData }) => {
       console.error(error);
       toast.error("Failed. Something went wrong!");
     } finally {
-      setLoading(false);
+      //   setLoading(false);
     }
   };
 
@@ -80,4 +79,4 @@ const DeleteModuleC = ({ collegeID, closeModal, refreshData }) => {
   );
 };
 
-export default DeleteModuleC;
+export default DeleteCourse;
