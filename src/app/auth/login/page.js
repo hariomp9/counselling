@@ -8,6 +8,7 @@ import axios from "axios";
 import { setToken, removeToken, adDetails } from "@/redux/adminSlice/authSlice";
 import Link from "next/link";
 import RightSection from "../right-section/page";
+import Loader from "@/app/component/loader";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,8 @@ const Login = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoader, setLoader] = useState(false);
+
   // const state = useSelector((state) => state);
 
   const InputHandler = (e) => {
@@ -26,7 +28,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setLoader(true);
     try {
       const res = await axios.post(
         "/api/auth/adminLogin",
@@ -42,22 +44,24 @@ const Login = () => {
         toast.success("Login successfully!");
         dispatch(setToken(res?.data?.token));
         dispatch(adDetails(res?.data?.user));
-        setLoading(false);
+        setLoader(false);
         router.push("/admin/admin-dashboard");
       } else {
         toast.error("Login failed please try later!");
         dispatch(removeToken());
-        setLoading(false);
+        setLoader(false);
       }
     } catch (error) {
       console.error("Error during login:", error);
       toast.error(error?.response?.data?.error || "Server error !");
       dispatch(removeToken());
-      setLoading(false);
+      setLoader(false);
     }
   };
   return (
     <>
+     {isLoader && <Loader/> }
+
       <ToastContainer autoClose={1500} />
       <div className="flex items-center justify-center lg:min-h-screen  ">
         <div className="md:px-[50px] w-full mx-auto">
@@ -116,10 +120,10 @@ const Login = () => {
                   <div className="mt-6">
                     <button
                       type="submit"
-                      disabled={isLoading}
+                      disabled={isLoader}
                       className="w-full bg-[#1f2432] font-medium text-white p-2 rounded-lg  hover:bg-white hover:border hover:border-gray-300 h-[50px] login-btn"
                     >
-                      {isLoading ? "Loading.." : "Login"}
+                      {isLoader ? "Loading.." : "Login"}
                     </button>
 
                     <div className="text-[16px] font-medium underline text-center py-3 cursor-password">

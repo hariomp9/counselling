@@ -45,7 +45,7 @@ router.route("/adminRegister").post(adminRegister);
 router.post("/updatePassword", isAuthenticatedUser, updatePassword);
 
 // Update User
-router.put("/edit-user/:id", isAuthenticatedUser, updatedUser);
+router.put("/edit-user/:id",  updatedUser);
 
 // Get all Users
 router.get("/all-users", isAuthenticatedUser, authorizeRoles("admin"), getallUser);

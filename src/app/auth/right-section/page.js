@@ -1,5 +1,4 @@
 import React from "react";
-import {poster} from "../../../../public/counselling.webp";
 import Image from "next/image";
 
 const RightSection = () => {

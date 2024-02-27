@@ -3,6 +3,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import DeleteCourse from "./deleet-modeule";
+import Loader from "../../loader";
 
 export const headItems = [
   "S. No.",
@@ -19,6 +20,7 @@ const Course = () => {
   const [courseID, setCourseID] = useState("");
   const closeModal = () => setOpenDelete(false);
   const [isRefresh, setRefresh] = useState(false);
+  const [isLoader, setLoader] = useState(false);
 
   const refreshData = () => {
     setRefresh(!isRefresh);
@@ -34,18 +36,29 @@ const Course = () => {
   }, [isRefresh]);
 
   const defaultCourse = () => {
+    setLoader(true);
+
     const option = {
       method: "GET",
       url: "/api/course/getAllCourses",
     };
-    axios.request(option).then((response) => {
-      setGetAllCourse(response?.data?.courses);
-      console.log(response?.data?.courses);
-    });
+    axios
+      .request(option)
+      .then((response) => {
+        setGetAllCourse(response?.data?.courses);
+        console.log(response?.data?.courses);
+        setLoader(false);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+        setLoader(false);
+      });
   };
 
   return (
     <>
+      {isLoader && <Loader />}
+
       <section className="py-[30px] px-[20px] mt-[20px] lg:mt-0">
         <div className="rounded-[10px] bg-white py-[15px] flex justify-between items-center px-[20px]">
           <p className=" text-[22px] font-semibold">Course list</p>
@@ -104,7 +117,7 @@ const Course = () => {
                       <div className="flex flex-col md:flex-row items-center gap-x-5">
                         <button
                           className="px-4 text-[13px] border rounded h-[25px] text-[red] hover:bg-[#efb3b38a]"
-                          onClick={() => openModal(item._id)} // 
+                          onClick={() => openModal(item._id)} //
                         >
                           Delete
                         </button>

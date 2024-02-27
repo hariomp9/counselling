@@ -4,9 +4,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import axios from "axios"; // Import Axios library
+import Loader from "../../loader";
 
 const CreateCollege = ({ closeDrawer, refreshData }) => {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoader, setLoader] = useState(false);
   const { token } = useSelector((state) => state?.auth);
   const [collegeDetail, setCollegeDetail] = useState({
     name: "",
@@ -21,7 +22,7 @@ const CreateCollege = ({ closeDrawer, refreshData }) => {
     e.preventDefault();
 
     try {
-      setLoading(true);
+      setLoader(true);
 
       const response = await axios.post(
         "http://localhost:4000/api/collage/createCollege",
@@ -46,7 +47,7 @@ const CreateCollege = ({ closeDrawer, refreshData }) => {
       console.error(error);
       toast.error("An error occurred while adding the college.");
     } finally {
-      setLoading(false);
+      setLoader(false);
     }
   };
 
@@ -60,6 +61,8 @@ const CreateCollege = ({ closeDrawer, refreshData }) => {
 
   return (
     <>
+     {isLoader && <Loader/> }
+
       <div className="flex justify-center items-center border border-[#f3f3f3] rounded-lg bg-white 2xl:px-5  2xl:h-[50px] 2xl:my-5 xl:px-4  xl:h-[40px] xl:my-4 lg:px-3  lg:h-[35px] lg:my-2 md:px-2  md:h-[30px] md:my-2 sm:px-1 sm:h-[25px] sm:my-2 px-1 h-[25px] my-2">
         <h2 className="custom_heading_text font-semibold">Add New College</h2>
       </div>

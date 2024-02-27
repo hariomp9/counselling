@@ -7,9 +7,7 @@ import CreateCollege from "./addd-module";
 import UpdateMmodule from "./update-module";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-// import Pagination from "../Pagination/Index";
-// import DeleteUser from "./DeleteUser";
+import Loader from "../../loader";
 
 export const headItems = [
   "S. No.",
@@ -30,6 +28,8 @@ const CollageManagement = () => {
   const [editCollege, setCollegeEdit] = useState("");
   const [editData, setEditData] = useState([]);
   const [getCollage, setGetCollage] = useState("");
+  const [isLoader, setLoader] = useState(false);
+
 
   const closeDrawerO = () => {
     setIsDrawerOpenO(false);
@@ -43,11 +43,6 @@ const CollageManagement = () => {
     setCollegeID(id);
     setOpenDelete(true);
   }
-
-  // function openModall(id) {
-  //   setCollegeID(id);
-  //   setIsDrawerOpenO(true);
-  // }
 
   const openDrawer = () => {
     setIsDrawerOpen(true);
@@ -65,7 +60,7 @@ const CollageManagement = () => {
   }, [isRefresh]);
 
   const defaultCollage = () => {
-    // setLoader(true);
+    setLoader(true);
 
     const option = {
       method: "GET",
@@ -76,7 +71,7 @@ const CollageManagement = () => {
       .then((response) => {
         setGetCollage(response?.data?.colleges);
         setEditData(response?.data?.colleges);
-        // setLoader(false);
+        setLoader(false);
       })
       .catch((error) => {
         console.log("Error", error);
@@ -84,7 +79,7 @@ const CollageManagement = () => {
   };
 
   const openModall = async (id) => {
-    // setLoader(true);
+    setLoader(true);
     try {
       const options = {
         method: "GET",
@@ -98,7 +93,7 @@ const CollageManagement = () => {
         console.log(response, "A Event");
 
         setIsDrawerOpenO(true);
-        // setLoader(false);
+        setLoader(false);
       } else {
         console.error("Error: Unexpected response status");
         // setLoader(false);
@@ -110,12 +105,13 @@ const CollageManagement = () => {
   };
   return (
     <>
+     {isLoader && <Loader/> }
       <ToastContainer autoClose={1500} />
       <section className="py-[30px] px-[20px] mt-[20px] lg:mt-0">
         <div className=" mx-auto">
           <div className="rounded-[10px] bg-white py-[15px] flex justify-between items-center px-[20px]">
             <p className=" text-[22px] font-semibold">Collage Management</p>
-            <div className="flex gap-x-7 lg:gap-x-5 md:flex-auto flex-wrap gap-y-3  items-center justify-center md:justify-end">
+            <div className="flex gap-x-7 lg:gap-x-5 md:flex-auto flex-wrap gap-y-3  items-center justify-center ">
               <div className="border border-[gray] rounded-[5px] bg-[#302f2f82]] flex justify-center items-center h-[32px] pl-[10px] md:w-auto w-full">
                 <input
                   type="text"
@@ -130,14 +126,16 @@ const CollageManagement = () => {
                 </button>
               </div>
             </div>
-          </div>
-          <div className=" flex justify-end mt-10">
-            <button
-              onClick={openDrawer}
-              className="border hover:bg-gray-300 rounded-md my-auto bg-black text-white cursor-pointer 2xl:p-3  2xl:text-[22px] xl:p-2 xl:text-[14px] lg:p-[6px] lg:text-[12px] md:text-[10px] md:p-1 sm:text-[10px] sm:p-1 p-[3px] text-[12px]"
-            >
-              Add College
-            </button>
+            <div className=" flex justify-end  items-center">
+              <div>
+                <button
+                  onClick={openDrawer}
+                  className="border hover:bg-gray-300 rounded-md my-auto bg-black text-white cursor-pointer 2xl:p-3  2xl:text-[22px] xl:p-2 xl:text-[14px] lg:p-[6px] lg:text-[12px] md:text-[10px] md:p-1 sm:text-[10px] sm:p-1 p-[3px] text-[12px]"
+                >
+                  Add College
+                </button>
+              </div>
+            </div>
           </div>
           <div className="rounded-[10px] bg-white 2xl:py-[30px] 2xl:px-[20px] flex justify-between items-center mt-[20px] 2xl:p-6 overflow-x-scroll">
             <table className="w-full min-w-[640px] table-auto mt-[20px] ">
@@ -199,22 +197,7 @@ const CollageManagement = () => {
               )}
             </table>
           </div>
-
-          {/* {Array.isArray(allData?.users) && allData?.users?.length === 0 && (
-            <div className="py-4 px-4 w-full flex flex-col items-center justify-center border border-[#f3f3f3] bg-white rounded-[20px] mt-[10px]">
-              <p className="text-[18px] fontsemibold">No data</p>
-            </div>
-          )} */}
         </div>
-
-        {/* {allData?.pagination?.totalPages > 1 && (
-          <Pagination
-            currentpage={allData?.pagination?.currentPage}
-            totalCount={allData?.pagination?.totalPages}
-            visiblePageCount={visiblePageCount}
-            getAllData={getAllData}
-          />
-        )} */}
       </section>
 
       {/*---------- Delete popup---------- */}

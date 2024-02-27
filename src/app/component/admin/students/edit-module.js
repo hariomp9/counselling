@@ -4,7 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const UpdateStudent = ({ editData, closeDrawerO, refreshData }) => {
+const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
   const studentID = editData._id;
   const [studentDetail, setStudentDetail] = useState(editData);
   const { token } = useSelector((state) => state?.auth);
@@ -17,7 +17,7 @@ const UpdateStudent = ({ editData, closeDrawerO, refreshData }) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `/api/auth/edit-user/${studentID}`,
+        `http://localhost:4000/api/auth/edit-user/${studentID}`,
         studentDetail,
         {
           headers: {
@@ -30,7 +30,7 @@ const UpdateStudent = ({ editData, closeDrawerO, refreshData }) => {
       if (response.status === 200) {
         refreshData();
         toast.success("Update successfully!");
-        closeDrawerO();
+        closeDrawer();
       } else {
         console.log("Server error");
       }
@@ -50,7 +50,7 @@ const UpdateStudent = ({ editData, closeDrawerO, refreshData }) => {
       >
         {/* ------1.College First Name----- */}
         <div className="w-1/2">
-          <label className="custom_input_label">Student Name</label>
+          <label className="custom_input_label">First Name</label>
           <input
             defaultValue={
               editData?.firstname
@@ -67,7 +67,7 @@ const UpdateStudent = ({ editData, closeDrawerO, refreshData }) => {
         </div>
 
         <div className="w-1/2">
-          <label className="custom_input_label">Student Name</label>
+          <label className="custom_input_label">Last Name</label>
           <input
             defaultValue={
               editData?.lastname ? editData?.lastname : studentDetail?.lastname
@@ -136,8 +136,8 @@ const UpdateStudent = ({ editData, closeDrawerO, refreshData }) => {
             defaultValue={
               editData?.mobile ? editData?.mobile : studentDetail?.mobile
             }
-            type="mobile"
-            name="phone"
+            type="text"
+            name="mobile"
             pattern="[0-9]*"
             className="custom_inputt"
             required

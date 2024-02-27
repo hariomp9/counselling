@@ -7,6 +7,7 @@ import DeleteModuleC from "./delete-module";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UpdateStudent from "./edit-module";
+import Loader from "../../loader";
 
 export const headItems = [
   "S. No.",
@@ -29,6 +30,7 @@ const Students = () => {
   const [editData, setEditData] = useState([]);
   const [isDrawerOpenO, setIsDrawerOpenO] = useState(false);
   const [editStudent, setStudentEdit] = useState("");
+  const [isLoader, setLoader] = useState(false);
 
   const closeDrawerO = () => {
     setIsDrawerOpenO(false);
@@ -48,7 +50,7 @@ const Students = () => {
   }, [isRefresh]);
 
   const defaultStudent = () => {
-    // setLoader(true);
+    setLoader(true);
 
     const option = {
       method: "GET",
@@ -63,8 +65,7 @@ const Students = () => {
       .request(option)
       .then((response) => {
         setGetAllStudent(response.data.users);
-        console.log(response.data.users, "cc");
-        // setLoader(false);
+        setLoader(false);
       })
       .catch((error) => {
         console.log("Error", error);
@@ -72,7 +73,7 @@ const Students = () => {
   };
 
   const openModall = async (id) => {
-    // setLoader(true);
+    setLoader(true);
     try {
       const options = {
         method: "GET",
@@ -87,22 +88,21 @@ const Students = () => {
       if (response.status === 200) {
         setEditData(response?.data?.user);
         setUserID(id);
-
-        console.log(response, "A Event");
-
         setIsDrawerOpenO(true);
-        // setLoader(false);
+        setLoader(false);
       } else {
         console.error("Error: Unexpected response status");
-        // setLoader(false);
+        setLoader(false);
       }
     } catch (error) {
       console.error(error);
-      // setLoader(false);
+      setLoader(false);
     }
   };
   return (
     <>
+      {isLoader && <Loader />}
+
       <ToastContainer autoClose={1500} />
       <section className="py-[30px] px-[20px] mt-[20px] lg:mt-0">
         <div className=" mx-auto">
@@ -259,7 +259,10 @@ const Students = () => {
                 <Dialog.Panel className="w-2/3 sm:w-full sm:max-w-[500px]  transform overflow-hidden rounded-2xl bg-white p-4  sm:px-8 lg:px-8 text-left align-middle shadow-xl transition-all">
                   <div className="flex justify-end">
                     <button onClick={closeDrawerO}>
-                      <img src="/images/close-square.svg"  className="w-7 md:w-7 lg:w-8 xl:w-9 2xl:w-14"/>{" "}
+                      <img
+                        src="/images/close-square.svg"
+                        className="w-7 md:w-7 lg:w-8 xl:w-9 2xl:w-14"
+                      />{" "}
                     </button>
                   </div>
                   <UpdateStudent
