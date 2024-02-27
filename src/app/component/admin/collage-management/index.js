@@ -44,13 +44,10 @@ const CollageManagement = () => {
     setOpenDelete(true);
   }
 
-  function openModall(id) {
-    setCollegeID(id);
-    setIsDrawerOpenO(true);
-  }
-
-
-
+  // function openModall(id) {
+  //   setCollegeID(id);
+  //   setIsDrawerOpenO(true);
+  // }
 
   const openDrawer = () => {
     setIsDrawerOpen(true);
@@ -67,7 +64,6 @@ const CollageManagement = () => {
     defaultCollage();
   }, [isRefresh]);
 
-
   const defaultCollage = () => {
     // setLoader(true);
 
@@ -80,7 +76,6 @@ const CollageManagement = () => {
       .then((response) => {
         setGetCollage(response?.data?.colleges);
         setEditData(response?.data?.colleges);
-        console.log(response.data.colleges, "cc");
         // setLoader(false);
       })
       .catch((error) => {
@@ -88,34 +83,34 @@ const CollageManagement = () => {
       });
   };
 
+  const openModall = async (id) => {
+    // setLoader(true);
+    try {
+      const options = {
+        method: "GET",
+        url: `http://localhost:4000/api/collage/getCollegeById/${id}`,
+      };
+      const response = await axios.request(options);
+      if (response.status === 200) {
+        setEditData(response?.data);
+        setCollegeID(id);
 
-  // const openDrawerO = async (_id) => {
-  //   setLoader(true);
-  //   try {
-  //     const options = {
-  //       method: "POST",
-  //       url: `http://localhost:4000/api/collage/getCollegeById/${_id}`,
-       
-  //     };
-  //     const response = await axios.request(options);
-  //     if (response.status === 200) {
-  //       setEditData(response?.data);
-  //       console.log(response, "A Event");
+        console.log(response, "A Event");
 
-  //       setIsDrawerOpenO(true);
-  //       setLoader(false);
-  //     } else {
-  //       console.error("Error: Unexpected response status");
-  //       setLoader(false);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     setLoader(false);
-  //   }
-  // };
+        setIsDrawerOpenO(true);
+        // setLoader(false);
+      } else {
+        console.error("Error: Unexpected response status");
+        // setLoader(false);
+      }
+    } catch (error) {
+      console.error(error);
+      // setLoader(false);
+    }
+  };
   return (
     <>
-     <ToastContainer autoClose={1500} />
+      <ToastContainer autoClose={1500} />
       <section className="py-[30px] px-[20px] mt-[20px] lg:mt-0">
         <div className=" mx-auto">
           <div className="rounded-[10px] bg-white py-[15px] flex justify-between items-center px-[20px]">
@@ -139,7 +134,7 @@ const CollageManagement = () => {
           <div className=" flex justify-end mt-10">
             <button
               onClick={openDrawer}
-              className="border hover:bg-gray-300 rounded-md my-auto bg-sky-600 text-white cursor-pointer 2xl:p-3  2xl:text-[22px] xl:p-2 xl:text-[14px] lg:p-[6px] lg:text-[12px] md:text-[10px] md:p-1 sm:text-[10px] sm:p-1 p-[3px] text-[12px]"
+              className="border hover:bg-gray-300 rounded-md my-auto bg-black text-white cursor-pointer 2xl:p-3  2xl:text-[22px] xl:p-2 xl:text-[14px] lg:p-[6px] lg:text-[12px] md:text-[10px] md:p-1 sm:text-[10px] sm:p-1 p-[3px] text-[12px]"
             >
               Add College
             </button>
@@ -184,7 +179,7 @@ const CollageManagement = () => {
                       </td>
                       <td className="text-[14px] font-[400] py-3 px-5">
                         <div className="flex flex-col md:flex-row items-center gap-x-5">
-                        <button
+                          <button
                             className="px-4 text-[13px] border rounded h-[25px] text-sky-600 hover:bg-[#efb3b38a]"
                             onClick={() => openModall(item?._id)}
                           >
@@ -196,7 +191,6 @@ const CollageManagement = () => {
                           >
                             Delete
                           </button>
-                        
                         </div>
                       </td>
                     </tr>
@@ -296,7 +290,12 @@ const CollageManagement = () => {
               >
                 <Dialog.Panel className="w-2/3 sm:w-full sm:max-w-[500px] transform overflow-hidden rounded-2xl bg-white sm:py-6 p-4  sm:px-8 lg:px-8 text-left align-middle shadow-xl transition-all">
                   <div className="flex justify-end">
-                    <button onClick={closeDrawer}>close</button>
+                    <button onClick={closeDrawer}>
+                      <img
+                        src="/images/close-square.svg"
+                        className="w-7 md:w-7 lg:w-8 xl:w-9 2xl:w-14"
+                      />
+                    </button>
                   </div>
                   <CreateCollege
                     closeDrawer={closeDrawer}
@@ -337,16 +336,18 @@ const CollageManagement = () => {
                 <Dialog.Panel className="w-2/3 sm:w-full sm:max-w-[500px]  transform overflow-hidden rounded-2xl bg-white p-4  sm:px-8 lg:px-8 text-left align-middle shadow-xl transition-all">
                   <div className="flex justify-end">
                     <button onClick={closeDrawerO}>
-                    close
+                      <img
+                        src="/images/close-square.svg"
+                        className="w-7 md:w-7 lg:w-8 xl:w-9 2xl:w-14"
+                      />
                     </button>
                   </div>
                   <UpdateMmodule
                     cateEdit={editCollege}
-                    closeDrawer={closeDrawerO}
+                    closeDrawerO={closeDrawerO}
                     refreshData={refreshData}
                     editData={editData}
                   />
-                
                 </Dialog.Panel>
               </Transition.Child>
             </div>

@@ -6,15 +6,14 @@ import { useSelector } from "react-redux";
 import DeleteModuleC from "./delete-module";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-
+import UpdateStudent from "./edit-module";
 
 export const headItems = [
   "S. No.",
   "Name",
-  " Grade",
+  " NEET Score",
   " Cast",
-  "Course",
+  "Email",
   "Contact No",
   "Action",
 ];
@@ -27,6 +26,9 @@ const Students = () => {
   const [isOpenDelete, setOpenDelete] = useState(false);
   const [allStudent, setGetAllStudent] = useState();
   const [isRefresh, setRefresh] = useState(false);
+  const [editData, setEditData] = useState([]);
+  const [isDrawerOpenO, setIsDrawerOpenO] = useState(false);
+  const [editStudent, setStudentEdit] = useState("");
 
   const closeDrawerO = () => {
     setIsDrawerOpenO(false);
@@ -40,7 +42,6 @@ const Students = () => {
   const refreshData = () => {
     setRefresh(!isRefresh);
   };
-
 
   useEffect(() => {
     defaultStudent();
@@ -69,9 +70,40 @@ const Students = () => {
         console.log("Error", error);
       });
   };
+
+  const openModall = async (id) => {
+    // setLoader(true);
+    try {
+      const options = {
+        method: "GET",
+        url: `http://localhost:4000/api/auth/getUserById/${id}`,
+
+        headers: {
+          Accept: "application/json",
+          authorization: token,
+        },
+      };
+      const response = await axios.request(options);
+      if (response.status === 200) {
+        setEditData(response?.data?.user);
+        setUserID(id);
+
+        console.log(response, "A Event");
+
+        setIsDrawerOpenO(true);
+        // setLoader(false);
+      } else {
+        console.error("Error: Unexpected response status");
+        // setLoader(false);
+      }
+    } catch (error) {
+      console.error(error);
+      // setLoader(false);
+    }
+  };
   return (
     <>
-     <ToastContainer autoClose={1500} />
+      <ToastContainer autoClose={1500} />
       <section className="py-[30px] px-[20px] mt-[20px] lg:mt-0">
         <div className=" mx-auto">
           <div className="rounded-[10px] bg-white py-[15px] flex justify-between items-center px-[20px]">
@@ -117,20 +149,26 @@ const Students = () => {
                         {item.firstname} {item.lastname}
                       </td>
                       <td className="text-[14px] font-[400] py-3 px-5 capitalize">
-                        {item.grade}
+                        {item.neetScore}
                       </td>
                       <td className="text-[14px] font-[400] py-3 px-5">
                         {item.cast}
                       </td>
                       <td className="text-[14px] font-[400] py-3 px-5">
-                        {item.course}
+                        {item.email}
                       </td>
                       <td className="text-[14px] font-[400] py-3 px-5 capitalize">
                         {item.mobile}
                       </td>
                       <td className="text-[14px] font-[400] py-3 px-5">
                         <div className="flex flex-col md:flex-row items-center gap-x-5">
-                          <button 
+                          <button
+                            className="px-4 text-[13px] border rounded h-[25px] text-sky-600 hover:bg-[#efb3b38a]"
+                            onClick={() => openModall(item?._id)}
+                          >
+                            Edit
+                          </button>
+                          <button
                             className="px-4 text-[13px] border rounded h-[25px] text-[red] hover:bg-[#efb3b38a]"
                             onClick={() => openModal(item._id)}
                           >
@@ -185,6 +223,50 @@ const Students = () => {
                     userID={userID}
                     closeModal={closeModal}
                     refreshData={refreshData}
+                  />
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+
+      <Transition appear show={isDrawerOpenO} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-2/3 sm:w-full sm:max-w-[500px]  transform overflow-hidden rounded-2xl bg-white p-4  sm:px-8 lg:px-8 text-left align-middle shadow-xl transition-all">
+                  <div className="flex justify-end">
+                    <button onClick={closeDrawerO}>
+                      <img src="/images/close-square.svg"  className="w-7 md:w-7 lg:w-8 xl:w-9 2xl:w-14"/>{" "}
+                    </button>
+                  </div>
+                  <UpdateStudent
+                    cateEdit={editStudent}
+                    closeDrawerO={closeDrawerO}
+                    refreshData={refreshData}
+                    editData={editData}
                   />
                 </Dialog.Panel>
               </Transition.Child>
