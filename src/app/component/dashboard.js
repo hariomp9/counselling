@@ -1,5 +1,5 @@
 import React from "react";
-import poster from "../../../public/dashboard.jpg";
+import poster from "../../../public/dashboard.svg";
 import Image from "next/image";
 
 const Dashashboard = () => {

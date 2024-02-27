@@ -2,6 +2,7 @@
 import React, { useState, Fragment } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 import Students from "@/app/component/admin/students";
 import Counsellor from "@/app/component/admin/counsellor";
 import Teachers from "@/app/component/admin/teachers";
@@ -11,24 +12,21 @@ import ReportAnalytical from "@/app/component/admin/report-analytical";
 import Setting from "@/app/component/admin/setting";
 import Link from "next/link";
 import Dashashboard from "@/app/component/dashboard";
-import logo from "../../../../public/logo.png";
+import logo from "../../../../public/logo.svg";
+import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminDashboard = () => {
+  const dispatch = useDispatch();
   const [showDrawer, setShowDrawer] = useState("");
-
   const [ComponentId, setComponentId] = useState(1);
-
+  const { token } = useSelector((state) => state?.auth);
+  const router = useRouter();
   const handleClick = (id) => {
     setComponentId(id);
     setShowDrawer(false);
   };
-
-  // const signoutFunc = () => {
-  //   handleSignout(
-  //     (message) => toast.success(message),
-  //     (message) => toast.error(message)
-  //   );
-  // };
 
   const menulist = [
     {
@@ -43,12 +41,12 @@ const AdminDashboard = () => {
       component: <Students />,
       // icon: eventadd,
     },
-    {
-      id: 3,
-      label: "Counsellor",
-      component: <Counsellor />,
-      // icon: eventlist,
-    },
+    // {
+    //   id: 3,
+    //   label: "Counsellor",
+    //   component: <Counsellor />,
+    //   // icon: eventlist,
+    // },
     // {
     //   id: 4,
     //   label: "Teacher",
@@ -81,8 +79,39 @@ const AdminDashboard = () => {
     },
   ];
 
+  const handleSignout = async () => {
+    try {
+      const res = await axios.get(`/api/auth/logout`, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
+      // console.log(res);
+      if (res?.data?.success) {
+        toast.success("Logout successfully !");
+        dispatch(removeToken());
+        dispatch(rem_AdDetails());
+        router.push("/admin-login");
+      } else {
+        dispatch(removeToken());
+        dispatch(rem_AdDetails());
+        router.push("/admin-login");
+        toast.error("Logout failed try again !");
+      }
+    } catch (error) {
+      dispatch(removeToken());
+      dispatch(rem_AdDetails());
+      router.push("/admin-login");
+      console.error("Error occurred:", error);
+      // toast.error(error?.response?.data?.error || "Invalid token !");
+      toast.success("Logout successfully !");
+    }
+  };
+
   return (
     <>
+      <ToastContainer autoClose={1500} />
       {/* {loader && <Loader />} */}
 
       <section className="z-50">
@@ -151,31 +180,25 @@ const AdminDashboard = () => {
               ))}
             </div>
             <div className="">
-              <Link href="/admin-login">
-                <div>
-                  <div
-                    // onClick={signoutFunc}
-                    className="lg:mt-5 xl:mt-7 2xl:mt-12 pl-1 sm:pl-5 xl:pl-6 py-3 mx-3 xl:mx-5 rounded text-center cursor-pointer my-3 flex items-center transition-colors dash-menu gap-x-3  font-semibold hover:bg-menu_secondary hover:text-white hover:rounded-md  hover:bg-gray-700 xl:text-[14px] 2xl:text-[20px] lg:text-[12px] md:text-[14px] sm:text-[12px] text-[11px] dashboard_box_t "
+              <div>
+                <div onClick={handleSignout} className="lg:mt-5 xl:mt-7 2xl:mt-12 pl-1 sm:pl-5 xl:pl-6 py-3 mx-3 xl:mx-5 rounded text-center cursor-pointer my-3 flex items-center transition-colors dash-menu gap-x-3  font-semibold hover:bg-menu_secondary hover:text-white hover:rounded-md  hover:bg-gray-700 xl:text-[14px] 2xl:text-[20px] lg:text-[12px] md:text-[14px] sm:text-[12px] text-[11px] dashboard_box_t ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="h-[20px] w-[20px] xl:h-[20px] xl:w-[20px] 2xl:h-[30px] 2xl:w-[30px] "
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="h-[20px] w-[20px] xl:h-[20px] xl:w-[20px] 2xl:h-[30px] 2xl:w-[30px] "
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
-                      />
-                    </svg>
-
-                    <p>Sign Out</p>
-                  </div>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+                    />
+                  </svg>
+                  <button>Sign Out</button>
                 </div>
-              </Link>
+              </div>
             </div>
           </div>
           <div className=" w-full">
