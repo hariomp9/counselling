@@ -487,22 +487,8 @@ exports.verifyAdmin = async (req, res) => {
 };
 
 exports.updatedUser = async (req, res) => {
-  const { _id } = req.params.id;
-  // validateMongoDbId(_id);
-
   try {
-    const updatedUser = await User.findByIdAndUpdate(
-      _id,
-      {
-        firstname: req?.body?.firstname,
-        lastname: req?.body?.lastname,
-        email: req?.body?.email,
-        mobile: req?.body?.mobile,
-      },
-      {
-        new: true,
-      }
-    );
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updatedUser);
   } catch (error) {
     throw new Error(error);
@@ -564,11 +550,8 @@ exports.getaUser = async (req, res) => {
 };
 
 exports.getUserById = async (req, res) => {
-  const { id } = req.params;
-  validateMongoDbId(id);
-
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(req.params.id);
     res.status(200).json({
       user,
     });

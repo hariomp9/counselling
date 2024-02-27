@@ -28,14 +28,22 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["student", "admin"],
-      default: "student",
+      enum: ['student', 'parent'],
+      default: 'student',
     },
     activeToken: {
       type: String,
     },
     address: String,
-    documents: [String],
+    state: {
+      type: String
+    },
+    city: {
+      type: String
+    },
+    documents: [{ 
+      type: String 
+    }],
     isVerified: {
       type: Boolean,
       default: false,
@@ -50,6 +58,18 @@ const UserSchema = new mongoose.Schema(
       type: String
     },
     neetScore: {
+      type: String
+    },
+    fathersName: { 
+      type: String 
+    },
+    fathersOccupation: {
+      type: String
+    },
+    mothersName: {
+      type: String
+    },
+    mothersOccupation: {
       type: String
     },
     wishlist: [{ 
