@@ -116,7 +116,7 @@ const CollageManagement = () => {
                 <input
                   type="text"
                   className="focus-visible:outline-none border-none w-full rounded-[5px] font-normal text-[15px] text-[#6a6969] placeholder:text-[11px]"
-                  placeholder="Search by name, contact, email."
+                  placeholder="Search by name, course , contact, email"
                 />
 
                 <button className="px-1 rounded text-[12px] text-[gray] border border-[#6a696917] hover:text-black mr-1"></button>
