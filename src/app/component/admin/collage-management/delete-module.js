@@ -3,11 +3,14 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Loader from "../../loader";
 
 
 const DeleteModuleC = ({ collegeID, closeModal, refreshData }) => {
   const [isLoading, setLoading] = useState(false);
   const { token } = useSelector((state) => state?.auth);
+  const [isLoader, setLoader] = useState(false);
+
 
   const handleClose = () => {
     closeModal();
@@ -45,6 +48,7 @@ const DeleteModuleC = ({ collegeID, closeModal, refreshData }) => {
 
   return (
     <>
+     {isLoader && <Loader/>}
       <div className="mt-2">
         <p className="text-[12px] sm:text-[16px] font-normal ms:leading-[30px] text-gray-500 mt-4">
           Do you really want to delete these records? You cant view this in your

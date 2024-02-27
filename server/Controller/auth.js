@@ -488,7 +488,7 @@ exports.verifyAdmin = async (req, res) => {
 
 exports.updatedUser = async (req, res) => {
   const { _id } = req.params.id;
-  validateMongoDbId(_id);
+  // validateMongoDbId(_id);
 
   try {
     const updatedUser = await User.findByIdAndUpdate(

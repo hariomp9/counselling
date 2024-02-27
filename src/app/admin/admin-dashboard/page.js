@@ -17,12 +17,15 @@ import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Course from "@/app/component/admin/course";
+import Loader from "@/app/component/loader";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
   const [showDrawer, setShowDrawer] = useState("");
   const [ComponentId, setComponentId] = useState(1);
   const { token } = useSelector((state) => state?.auth);
+  const [isLoader, setLoader] = useState(false);
+
   const router = useRouter();
   const handleClick = (id) => {
     setComponentId(id);
@@ -87,6 +90,8 @@ const AdminDashboard = () => {
   ];
 
   const handleSignout = async () => {
+    setLoader(true);
+    
     try {
       const res = await axios.get(`/api/auth/logout`, {
         headers: {
@@ -100,6 +105,8 @@ const AdminDashboard = () => {
         dispatch(removeToken());
         dispatch(rem_AdDetails());
         router.push("/admin-login");
+    setLoader(false);
+
       } else {
         dispatch(removeToken());
         dispatch(rem_AdDetails());
@@ -118,6 +125,8 @@ const AdminDashboard = () => {
 
   return (
     <>
+     {isLoader && <Loader/> }
+
       <ToastContainer autoClose={1500} />
       {/* {loader && <Loader />} */}
 
