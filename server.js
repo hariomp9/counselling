@@ -1,20 +1,17 @@
-const express = require('express');
+const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const next = require('next');
-const mongoose = require('mongoose');
-require('dotenv').config();
-const dev = process.env.NODEENV !== 'production';
+const next = require("next");
+const mongoose = require("mongoose");
+require("dotenv").config();
+const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
-const connectDB = require("./server/Utils/db") 
+const connectDB = require("./server/Utils/db");
 // console.log(process.env);
 
 const corsOptions = {
-  origin: [
-  "http://localhost:3000",
-  "*"
-],
+  origin: ["http://localhost:3000", "*"],
   credentials: true,
 };
 
@@ -27,17 +24,17 @@ app.prepare().then(() => {
   connectDB();
 
   // Routers
-  server.use('/api/auth', require("./server/Route/AuthRouter"));
-  server.use('/api/collage', require("./server/Route/CollageRouter"));
-  server.use('/api/course', require("./server/Route/CourseRouter"));
+  server.use("/api/auth", require("./server/Route/AuthRouter"));
+  server.use("/api/collage", require("./server/Route/CollageRouter"));
+  server.use("/api/course", require("./server/Route/CourseRouter"));
 
   // Next.js request handling
-  server.get('*', (req, res) => {
+  server.get("*", (req, res) => {
     return handle(req, res);
   });
 
   const PORT = process.env.PORT || 4000;
-  server.listen(PORT, '0.0.0.0', (err) => {
+  server.listen(PORT, "0.0.0.0", (err) => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${PORT}`);
   });

@@ -2,86 +2,76 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import DeleteModuleC from "./delete-module";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// import Pagination from "../Pagination/Index";
-// import DeleteUser from "./DeleteUser";
+
 
 export const headItems = [
   "S. No.",
   "Name",
-  "Age",
   " Grade",
-  " Collage Name",
+  " Cast",
   "Course",
   "Contact No",
   "Action",
 ];
 
-export const students = [
-  {
-    name: "Alice",
-    age: 20,
-    grade: "A",
-    contact: "123-456-7890",
-    email: "alice@example.com",
-    collegeName: "Example University",
-    course : "B.Tech",
-  },
-  {
-    name: "Bob",
-    age: 21,
-    grade: "B",
-    contact: "234-567-8901",
-    email: "bob@example.com",
-    collegeName: "Example University",
-     course : "MBA",
-  },
-  {
-    name: "Charlie",
-    age: 19,
-    grade: "C",
-    contact: "345-678-9012",
-    email: "charlie@example.com",
-    collegeName: "Example University",
-     course : "M.Com",
-  },
-  {
-    name: "Diana",
-    age: 22,
-    grade: "A",
-    contact: "456-789-0123",
-    email: "diana@example.com",
-    collegeName: "Example University",
-     course : "B.Tech",
-  },
-  {
-    name: "Eva",
-    age: 20,
-    grade: "B",
-    contact: "567-890-1234",
-    email: "eva@example.com",
-    collegeName: "Example University",
-     course : "BBA",
-  },
-];
-
 const Students = () => {
+  const { token } = useSelector((state) => state?.auth);
+  const [userID, setUserID] = useState("");
   const [isLoading, setLoading] = useState(false);
   const closeModal = () => setOpenDelete(false);
-  let [openDelete, setOpenDelete] = useState(false);
+  const [isOpenDelete, setOpenDelete] = useState(false);
+  const [allStudent, setGetAllStudent] = useState();
+  const [isRefresh, setRefresh] = useState(false);
 
-  const handleDelete = () => {
+  const closeDrawerO = () => {
+    setIsDrawerOpenO(false);
+  };
+
+  function openModal(id) {
+    setUserID(id);
     setOpenDelete(true);
+  }
+
+  const refreshData = () => {
+    setRefresh(!isRefresh);
   };
 
-  const closeDeleteModal = () => {
-    setOpenDelete(false);
-  };
-  const handleClose = () => {
-    closeModal();
+
+  useEffect(() => {
+    defaultStudent();
+  }, [isRefresh]);
+
+  const defaultStudent = () => {
+    // setLoader(true);
+
+    const option = {
+      method: "GET",
+      url: "http://localhost:4000/api/auth/all-users",
+
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setGetAllStudent(response.data.users);
+        console.log(response.data.users, "cc");
+        // setLoader(false);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
   };
   return (
     <>
+     <ToastContainer autoClose={1500} />
       <section className="py-[30px] px-[20px] mt-[20px] lg:mt-0">
         <div className=" mx-auto">
           <div className="rounded-[10px] bg-white py-[15px] flex justify-between items-center px-[20px]">
@@ -116,44 +106,42 @@ const Students = () => {
                   ))}
                 </tr>
               </thead>
-              <tbody>
-                {students.map((student, index) => (
-                  <tr key={index}>
-                  <td className="text-[14px] font-[400] py-3 px-5 ">
-                      {index + 1 }
-                    </td>
-                    <td className="text-[14px] font-[400] py-3 px-5">
-                      {student.name}
-                    </td>
-                 
-                    <td className="text-[14px] font-[400] py-3 px-5 capitalize">
-                      {student.age}
-                    </td>
-                    <td className="text-[14px] font-[400] py-3 px-5">
-                      {student.grade}
-                    </td>
-                    <td className="text-[14px] font-[400] py-3 px-5">
-                      {student.collegeName}
-                    </td>
-                    <td className="text-[14px] font-[400] py-3 px-5 capitalize">
-                      {student.course}
-                    </td>
-                    <td className="text-[14px] font-[400] py-3 px-5">
-                      {student.contact}
-                    </td>
-                    <td className="text-[14px] font-[400] py-3 px-5">
-                      <div className="flex flex-col md:flex-row items-center gap-x-5">
-                        <button
-                          className="px-4 text-[13px] border rounded h-[25px] text-[red] hover:bg-[#efb3b38a]"
-                          onClick={() => handleDelete()}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+              {Array.isArray(allStudent) && allStudent.length > 0 && (
+                <tbody>
+                  {allStudent.map((item, index) => (
+                    <tr key={index}>
+                      <td className="text-[14px] font-[400] py-3 px-5">
+                        {index + 1}
+                      </td>
+                      <td className="text-[14px] font-[400] py-3 px-5">
+                        {item.firstname} {item.lastname}
+                      </td>
+                      <td className="text-[14px] font-[400] py-3 px-5 capitalize">
+                        {item.grade}
+                      </td>
+                      <td className="text-[14px] font-[400] py-3 px-5">
+                        {item.cast}
+                      </td>
+                      <td className="text-[14px] font-[400] py-3 px-5">
+                        {item.course}
+                      </td>
+                      <td className="text-[14px] font-[400] py-3 px-5 capitalize">
+                        {item.mobile}
+                      </td>
+                      <td className="text-[14px] font-[400] py-3 px-5">
+                        <div className="flex flex-col md:flex-row items-center gap-x-5">
+                          <button 
+                            className="px-4 text-[13px] border rounded h-[25px] text-[red] hover:bg-[#efb3b38a]"
+                            onClick={() => openModal(item._id)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
             </table>
           </div>
         </div>
@@ -161,8 +149,8 @@ const Students = () => {
 
       {/*---------- Delete popup---------- */}
 
-      <Transition appear show={openDelete} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeDeleteModal}>
+      <Transition appear show={isOpenDelete} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -186,41 +174,18 @@ const Students = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-[500px] transform overflow-hidden rounded-2xl bg-white py-10 px-12 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-[90%] sm:w-full sm:max-w-[500px] transform overflow-hidden rounded-2xl bg-white p-4  sm:px-8 lg:px-8 2xl:p-10 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="xl:text-[20px] text-[18px] font-medium leading-6 text-gray-900"
+                    className="custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-5"
                   >
-                    <div className="mt-2">
-                      <p className="custom_table_text font-normal  text-gray-500 mt-4">
-                        Do you really want to delete these records? You can't
-                        view this in your list anymore if you delete!
-                      </p>
-                    </div>
-
-                    <div className="mt-4 lg:mt-8">
-                      <div className="flex justify-between gap-x-5">
-                        <button
-                          className="w-full border border-1 rounded-md border-lightBlue-400 text-lightBlue-700 hover:bg-lightBlue-200 text-sm  px-2 py-3
-                              hover:border-none  border-sky-400 text-sky-700 hover:bg-sky-200 custom_btn_d "
-                          onClick={handleClose}
-                        >
-                          No, Keep It
-                        </button>
-
-                        <button
-                          className={`w-full  rounded-md 
-            custom_btn_d 
-                              border-red-400 text-red-700 bg-red-200  
-                              hover:border-none
-                        ${isLoading ? "bg-gray-200" : "hover:bg-red-200"}
-                        hover:border-none`}
-                        >
-                          {isLoading ? "Deleting..." : "Yes, Delete It"}
-                        </button>
-                      </div>
-                    </div>
+                    Are You Sure! Want to Delete?
                   </Dialog.Title>
+                  <DeleteModuleC
+                    userID={userID}
+                    closeModal={closeModal}
+                    refreshData={refreshData}
+                  />
                 </Dialog.Panel>
               </Transition.Child>
             </div>
