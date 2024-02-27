@@ -4,20 +4,26 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Students from "@/app/component/admin/students";
-import Counsellor from "@/app/component/admin/counsellor";
-import Teachers from "@/app/component/admin/teachers";
 import CollageManagement from "@/app/component/admin/collage-management";
 import ApplicationManagement from "@/app/component/admin/application-management";
 import ReportAnalytical from "@/app/component/admin/report-analytical";
 import Setting from "@/app/component/admin/setting";
-import Link from "next/link";
 import Dashashboard from "@/app/component/dashboard";
 import logo from "../../../../public/logo.svg";
 import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import Course from "@/app/component/admin/course";
 import Loader from "@/app/component/loader";
+import dashboard from "../../../../public/images/dashboard.svg";
+import student from "../../../../public/images/student.svg";
+import college from "../../../../public/images/college.svg";
+import application from "../../../../public/images/application.svg";
+import setting from "../../../../public/images/setting.svg";
+import report from "../../../../public/images/report.svg";
+import course from "../../../../public/images/course.svg";
+import logout from "../../../../public/images/logout-.svg";
+
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -37,61 +43,49 @@ const AdminDashboard = () => {
       id: 1,
       label: "Dashboard",
       component: <Dashashboard />,
-      // icon: dashboard,
+      icon: dashboard,
     },
     {
       id: 2,
       label: "Student",
       component: <Students />,
-      // icon: eventadd,
+      icon: student,
     },
     {
       id: 3,
       label: "Course",
       component: <Course />,
-      // icon: eventlist,
+      icon: course,
     },
-    // {
-    //   id: 3,
-    //   label: "Counsellor",
-    //   component: <Counsellor />,
-    //   // icon: eventlist,
-    // },
-    // {
-    //   id: 4,
-    //   label: "Teacher",
-    //   component: <Teachers />,
-    //   // icon: eventlist,
-    // },
     {
       id: 4,
-      label: "Collage Management",
+      label: "Collage ",
       component: <CollageManagement />,
-      // icon: alluser,
+      icon: college,
     },
     {
       id: 5,
-      label: "Application Management",
+      label: "Application ",
       component: <ApplicationManagement />,
-      // icon: alluser,
+      icon: application,
     },
     {
       id: 6,
       label: "Report & analytical",
       component: <ReportAnalytical />,
-      // icon: redirect,
+      icon: report,
     },
     {
       id: 7,
       label: "Setting",
       component: <Setting />,
-      // icon: setting,
+      icon: setting,
     },
   ];
 
   const handleSignout = async () => {
     setLoader(true);
-    
+
     try {
       const res = await axios.get(`/api/auth/logout`, {
         headers: {
@@ -105,8 +99,7 @@ const AdminDashboard = () => {
         dispatch(removeToken());
         dispatch(rem_AdDetails());
         router.push("/admin-login");
-    setLoader(false);
-
+        setLoader(false);
       } else {
         dispatch(removeToken());
         dispatch(rem_AdDetails());
@@ -125,9 +118,9 @@ const AdminDashboard = () => {
 
   return (
     <>
-     {isLoader && <Loader/> }
+      {isLoader && <Loader />}
 
-      <ToastContainer autoClose={1500} />
+      <ToastContainer autoClose={1000} />
       {/* {loader && <Loader />} */}
 
       <section className="z-50">
@@ -184,34 +177,30 @@ const AdminDashboard = () => {
                                     }  `}
                   onClick={() => handleClick(item.id)}
                 >
-                  {/* <Image
+                  <Image
                     src={item?.icon}
                     alt={item.label}
                     height={30}
                     width={30}
                     className="h-[20px] w-[20px] xl:h-[20px] xl:w-[20px] 2xl:h-[30px] 2xl:w-[30px] fill-white"
-                  /> */}
+                  />
                   <p className=" capitalize whitespace-nowrap ">{item.label}</p>
                 </div>
               ))}
             </div>
             <div className="">
               <div>
-                <div onClick={handleSignout} className="lg:mt-5 xl:mt-7 2xl:mt-12 pl-1 sm:pl-5 xl:pl-6 py-3 mx-3 xl:mx-5 rounded text-center cursor-pointer my-3 flex items-center transition-colors dash-menu gap-x-3  font-semibold hover:bg-menu_secondary hover:text-white hover:rounded-md  hover:bg-gray-700 xl:text-[14px] 2xl:text-[20px] lg:text-[12px] md:text-[14px] sm:text-[12px] text-[11px] dashboard_box_t ">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
+                <div
+                  onClick={handleSignout}
+                  className="lg:mt-5 xl:mt-7 2xl:mt-12 pl-1 sm:pl-5 xl:pl-6 py-3 mx-3 xl:mx-5 rounded text-center cursor-pointer my-3 flex items-center transition-colors dash-menu gap-x-3  font-semibold hover:bg-menu_secondary hover:text-white hover:rounded-md  hover:bg-gray-700 xl:text-[14px] 2xl:text-[20px] lg:text-[12px] md:text-[14px] sm:text-[12px] text-[11px] dashboard_box_t "
+                >
+                  <Image
+                    src={logout}
                     className="h-[20px] w-[20px] xl:h-[20px] xl:w-[20px] 2xl:h-[30px] 2xl:w-[30px] "
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
-                    />
-                  </svg>
+                    width={100}
+                    height={100}
+                  />
+
                   <button>Sign Out</button>
                 </div>
               </div>

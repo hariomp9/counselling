@@ -186,7 +186,6 @@ const Students = () => {
       </section>
 
       {/*---------- Delete popup---------- */}
-
       <Transition appear show={isOpenDelete} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
