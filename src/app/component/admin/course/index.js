@@ -40,7 +40,7 @@ const Course = () => {
 
     const option = {
       method: "GET",
-      url: "/api/course/getAllCourses",
+      url: "http://localhost:4000/api/course/getAllCourses",
     };
     axios
       .request(option)
