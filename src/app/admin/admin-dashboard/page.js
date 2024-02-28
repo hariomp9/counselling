@@ -24,7 +24,6 @@ import report from "../../../../public/images/report.svg";
 import course from "../../../../public/images/course.svg";
 import logout from "../../../../public/images/logout-.svg";
 
-
 const AdminDashboard = () => {
   const dispatch = useDispatch();
   const [showDrawer, setShowDrawer] = useState("");

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
-import axios from "axios"; // Import Axios library
+import axios from "axios";
 import Loader from "../../loader";
 
 const CreateCollege = ({ closeDrawer, refreshData }) => {

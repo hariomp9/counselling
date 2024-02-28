@@ -30,7 +30,6 @@ const CollageManagement = () => {
   const [getCollage, setGetCollage] = useState("");
   const [isLoader, setLoader] = useState(false);
 
-
   const closeDrawerO = () => {
     setIsDrawerOpenO(false);
   };
@@ -105,9 +104,9 @@ const CollageManagement = () => {
   };
   return (
     <>
-     {isLoader && <Loader/> }
+      {isLoader && <Loader />}
       <ToastContainer autoClose={1500} />
-      <section className="py-[30px] px-[20px] mt-[20px] lg:mt-0">
+      <section className="py-[30px] px-[20px] mt-[20px] lg:mt-0 w-11/12">
         <div className=" mx-auto">
           <div className="rounded-[10px] bg-white py-[15px] flex justify-between items-center px-[20px]">
             <p className=" text-[22px] font-semibold">Collage Management</p>
@@ -118,9 +117,7 @@ const CollageManagement = () => {
                   className="focus-visible:outline-none border-none w-full rounded-[5px] font-normal text-[15px] text-[#6a6969] placeholder:text-[11px]"
                   placeholder="Search by name, course , contact, email"
                 />
-
                 <button className="px-1 rounded text-[12px] text-[gray] border border-[#6a696917] hover:text-black mr-1"></button>
-
                 <button className="px-6 rounded text-[12px] text-[gray] h-[32px] bg-[#6a696917] hover:text-black">
                   Search
                 </button>
@@ -142,8 +139,8 @@ const CollageManagement = () => {
               <thead className="">
                 <tr className=" ">
                   {headItems.map((items, inx) => (
-                    <th className="py-3 px-5 text-left bg-white" key={inx}>
-                      <p className="block text-[13px] font-medium uppercase text-[#72727b]">
+                    <th className="py-3 px-5 text-left bg-white " key={inx}>
+                      <p className="block text-[13px] font-medium uppercase text-[#72727b] ">
                         {" "}
                         {items}
                       </p>
