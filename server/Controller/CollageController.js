@@ -12,6 +12,7 @@ exports.createCollege = async (req, res, next) => {
 
 // Get all colleges
 exports.getAllColleges = async (req, res, next) => {
+  const { city, state } = req.query;
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
@@ -21,6 +22,14 @@ exports.getAllColleges = async (req, res, next) => {
 
     if (search) {
       filter.name = { $regex: search, $options: 'i' };
+    }
+
+    if (state) {
+      filter.state = state;
+    }
+
+    if (city) {
+      filter.city = city;
     }
 
     const totalCount = await College.countDocuments(filter);

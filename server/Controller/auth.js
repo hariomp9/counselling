@@ -503,7 +503,7 @@ exports.getallUser = async (req, res) => {
     const currentPage = parseInt(page, 10);
     const itemsPerPage = parseInt(limit, 10);
 
-    const userQuery = User.find();
+    const userQuery = User.find().populate("wishlist");
 
     if (searchQuery) {
       userQuery.or([
@@ -540,7 +540,7 @@ exports.getaUser = async (req, res) => {
   validateMongoDbId(_id);
 
   try {
-    const getaUser = await User.findById(_id)
+    const getaUser = await User.findById(_id).populate("wishlist")
     res.json({
       getaUser
     });
@@ -551,7 +551,7 @@ exports.getaUser = async (req, res) => {
 
 exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).populate("wishlist");
     res.status(200).json({
       user,
     });
@@ -594,5 +594,53 @@ exports.updatePassword = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Password change failed" });
+  }
+};
+
+exports.addToWishlist = async (req, res) => {
+  const { collegeId } = req.body;
+  const userId = req.user._id;
+
+  try {
+    const user = await User.findById(userId).populate("wishlist");
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const alreadyAdded = user.wishlist.includes(collegeId);
+
+    if (alreadyAdded) {
+      return res.status(400).json({ error: "College already added to wishlist" });
+    }
+
+    user.wishlist.push(collegeId);
+    await user.save();
+
+    res.json({ message: "College added to wishlist successfully", wishlist: user.wishlist });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while adding college to wishlist" });
+  }
+};
+
+exports.deleteAllWishlistItems = async (req, res) => {
+  const { _id } = req.user._id;
+
+  try {
+    const user = await User.findById(_id);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.wishlist = [];
+
+    await user.save();
+
+    res.json({ message: "All wishlist items deleted" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while deleting wishlist items" });
   }
 };

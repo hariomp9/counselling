@@ -4,7 +4,7 @@ const choiceListSchema = new mongoose.Schema(
   {
     studentId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
+      ref: "User",
       required: true,
     },
     collegeIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "College" }],
@@ -12,4 +12,6 @@ const choiceListSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("ChoiceList", choiceListSchema);
+const ChoiceList = mongoose.model("ChoiceList", choiceListSchema);
+
+module.exports = ChoiceList;

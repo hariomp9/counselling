@@ -30,6 +30,7 @@ app.use(express.urlencoded({ limit: "5mb", extended: true }));
 app.use("/api/auth", require("./Route/AuthRouter"));
 app.use("/api/collage", require("./Route/CollageRouter"));
 app.use("/api/course", require("./Route/CourseRouter"));
+app.use("/api/choice", require("./Route/ChoiceFillingRouter"));
 
 const PORT = process.env.PORT || 4000;
 
