@@ -646,7 +646,7 @@ exports.deleteAllWishlistItems = async (req, res) => {
 };
 
 exports.removeFromWishlist = async (req, res) => {
-  const { collegeId } = req.body;
+  const { collegeId } = req.params;
   const userId = req.user._id;
 
   try {

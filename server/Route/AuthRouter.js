@@ -69,7 +69,7 @@ router.route("/addToWishlist").post(isAuthenticatedUser , addToWishlist);
 
 router.route("/deleteAllWishlistItems").delete(isAuthenticatedUser , deleteAllWishlistItems);
 
-router.route("/removeFromWishlist").delete(isAuthenticatedUser , removeFromWishlist);
+router.route("/removeFromWishlist/:collegeId").delete(isAuthenticatedUser , removeFromWishlist);
 
 router.route("/uploadImage").post(isAuthenticatedUser, authorizeRoles("admin"), upload.single('file'),uploadImage)
 
