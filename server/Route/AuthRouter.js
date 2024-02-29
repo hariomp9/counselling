@@ -20,7 +20,8 @@ const {
   verifyUser,
   verifyAdmin,
   addToWishlist,
-  deleteAllWishlistItems
+  deleteAllWishlistItems,
+  removeFromWishlist
 } = require("../Controller/auth");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const storage = multer.memoryStorage();
@@ -47,7 +48,7 @@ router.route("/adminRegister").post(adminRegister);
 router.post("/updatePassword", isAuthenticatedUser, updatePassword);
 
 // Update User
-router.put("/edit-user/:id",  updatedUser);
+router.put("/edit-user/:id",isAuthenticatedUser, updatedUser);
 
 // Get all Users
 router.get("/all-users", isAuthenticatedUser, authorizeRoles("admin"), getallUser);
@@ -67,6 +68,8 @@ router.route("/resetpassword/:resetToken").put(resetPassword);
 router.route("/addToWishlist").post(isAuthenticatedUser , addToWishlist);
 
 router.route("/deleteAllWishlistItems").delete(isAuthenticatedUser , deleteAllWishlistItems);
+
+router.route("/removeFromWishlist").delete(isAuthenticatedUser , removeFromWishlist);
 
 router.route("/uploadImage").post(isAuthenticatedUser, authorizeRoles("admin"), upload.single('file'),uploadImage)
 
