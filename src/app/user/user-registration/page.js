@@ -150,11 +150,12 @@ const UserRegistration = () => {
                 <select
                   id="role"
                   name="role"
+                  value={studentDetails.role}
                   className="border rounded-lg px-3 py-2 w-full"
                   onChange={inputHandler}
                 >
-                  <option value={studentDetails.role}>Student</option>
-                  <option value={studentDetails.role}>Parent</option>
+                  <option value={studentDetails.student}>Student</option>
+                  <option value={studentDetails.parent}>Parent</option>
                 </select>
               </div>
             </div>

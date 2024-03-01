@@ -12,6 +12,8 @@ const UserDetails = () => {
   const [isLoader, setLoader] = useState(false);
   const { token } = useSelector((state) => state?.auth);
   const [getUser, setGetUser] = useState("");
+  const [isRefresh, setRefresh] = useState(false);
+
   const userID = getUser._id;
 
   const [studentDetails, setStudentDetails] = useState({
@@ -37,10 +39,13 @@ const UserDetails = () => {
       [name]: value,
     }));
   };
+  const refreshData = () => {
+    setRefresh(!isRefresh);
+  };
 
   useEffect(() => {
     defaultUser();
-  }, []);
+  }, [isRefresh]);
 
   const defaultUser = () => {
     const option = {

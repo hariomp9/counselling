@@ -23,6 +23,7 @@ import setting from "../../../../public/images/setting.svg";
 import report from "../../../../public/images/report.svg";
 import course from "../../../../public/images/course.svg";
 import logout from "../../../../public/images/logout-.svg";
+import protectedRoute from "@/config/protectedRoute";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -218,4 +219,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default protectedRoute(AdminDashboard);

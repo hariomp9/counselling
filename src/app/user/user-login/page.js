@@ -62,7 +62,7 @@ const UserLogin = () => {
 
   return (
     <>
-      <ToastContainer autoClose={1500} />
+      <ToastContainer autoClose={1000} />
       {isLoader && <Loader />}
       <section className="py-10 px-5">
         <div className="mx-auto w-1/2">

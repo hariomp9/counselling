@@ -1,13 +1,14 @@
 import React, { Fragment, useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
-import axios from "axios";
 import DeleteModule from "./delete-module";
 import CreateCollege from "./addd-module";
 import UpdateMmodule from "./update-module";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../loader";
+import { useSelector } from "react-redux";
 
 export const headItems = [
   "S. No.",
@@ -20,6 +21,7 @@ export const headItems = [
 ];
 
 const CollageManagement = () => {
+  const { token } = useSelector((state) => state?.auth);
   const [collegeID, setCollegeID] = useState("");
   const [isRefresh, setRefresh] = useState(false);
   const [isOpenDelete, setOpenDelete] = useState(false);
@@ -77,6 +79,31 @@ const CollageManagement = () => {
       });
   };
 
+  const handleSearch = (e) => {
+    const search = e.target.value;
+    if (search.trim() === "") {
+      refreshData();
+    } else {
+      const options = {
+        method: "GET",
+        url: `http://localhost:4000/api/collage/getAllColleges?search=${search}`,
+        headers: {
+          authorization: token,
+        },
+      };
+      axios
+        .request(options)
+        .then(function (response) {
+          if (response.status === 200) {
+            setGetCollage(response?.data?.colleges);
+          }
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+  };
+
   const openModall = async (id) => {
     setLoader(true);
     try {
@@ -102,6 +129,7 @@ const CollageManagement = () => {
       // setLoader(false);
     }
   };
+
   return (
     <>
       {isLoader && <Loader />}
@@ -116,6 +144,7 @@ const CollageManagement = () => {
                   type="text"
                   className="focus-visible:outline-none border-none w-full rounded-[5px] font-normal text-[15px] text-[#6a6969] placeholder:text-[11px]"
                   placeholder="Search by name, course , contact, email"
+                  onChange={handleSearch}
                 />
                 <button className="px-1 rounded text-[12px] text-[gray] border border-[#6a696917] hover:text-black mr-1"></button>
                 <button className="px-6 rounded text-[12px] text-[gray] h-[32px] bg-[#6a696917] hover:text-black">
@@ -170,7 +199,9 @@ const CollageManagement = () => {
                         {item.email}
                       </td>
                       <td className="text-[14px] font-[400] py-3 px-5">
-                        {item.website}
+                        <a target="_blank" href={item.website}>
+                          {item.website}
+                        </a>
                       </td>
                       <td className="text-[14px] font-[400] py-3 px-5">
                         <div className="flex flex-col md:flex-row items-center gap-x-5">
