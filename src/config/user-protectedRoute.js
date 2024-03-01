@@ -3,39 +3,41 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { removeToken } from "@/redux/adminSlice/authSlice";
+import { setToken, removeToken, adDetails } from "@/redux/adminSlice/authSlice";
 import Loader from "@/app/component/loader";
 
-const protectedRoute = (WrappedComponent) => {
+const UserProtectedRoute = (WrappedComponent) => {
   const Wrapper = (props) => {
     const router = useRouter();
     const dispatch = useDispatch();
-    const adminAuthToken = useSelector((state) => state.auth?.token);
+    const userAuthToken = useSelector((state) => state.auth?.token);
+    // const loading = true
     const [isLoading, setIsLoading] = useState(false);
     const [isAuth, setIsAuth] = useState(false);
+    console.log(userAuthToken);
 
     useEffect(() => {
       const checkAuth = () => {
-        if (!adminAuthToken) {
-          router.push("/admin-login");
+        if (!userAuthToken) {
+          router.push("/user/user-login");
         }
-        if (adminAuthToken) {
+        if (userAuthToken) {
           verify();
         }
       };
 
       checkAuth();
-    }, [adminAuthToken, router]);
+    }, [userAuthToken, router]);
 
     const verify = async () => {
       setIsLoading(true);
       setIsAuth(false);
       try {
         const res = await axios.get(
-          `http://localhost:4000/api/auth/verifyAdminToken/${adminAuthToken}`
+          `http://localhost:4000/api/auth/verifyUserToken/${userAuthToken}`
         );
         if (res?.data?.data === null) {
-          router.push("/admin-login ");
+          router.push("/user/user-login ");
           dispatch(removeToken());
         }
         if (res.status === 200) {
@@ -44,12 +46,12 @@ const protectedRoute = (WrappedComponent) => {
           return;
         } else {
           dispatch(removeToken());
-          router.push("/admin-login");
+          router.push("/user/user-login");
           setIsLoading(false);
         }
       } catch (error) {
         console.error("Error occurred:", error);
-        router.push("/admin-login");
+        router.push("/user/user-login");
         setIsLoading(false);
       }
     };
@@ -58,13 +60,14 @@ const protectedRoute = (WrappedComponent) => {
       <>
         {isLoading ? (
           <Loader />
-        ) : adminAuthToken && isAuth ? (
+        ) : userAuthToken && isAuth ? (
           <WrappedComponent {...props} />
         ) : null}
       </>
     );
   };
+
   return Wrapper;
 };
 
-export default protectedRoute;
+export default UserProtectedRoute;

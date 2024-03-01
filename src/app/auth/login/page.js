@@ -60,7 +60,7 @@ const Login = () => {
   };
   return (
     <>
-     {isLoader && <Loader/> }
+      {isLoader && <Loader />}
 
       <ToastContainer autoClose={1500} />
       <div className="flex items-center justify-center lg:min-h-screen  ">

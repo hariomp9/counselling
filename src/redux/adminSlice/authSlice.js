@@ -1,5 +1,4 @@
-"use client"; //this is a client side component
-
+"use client";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -17,8 +16,8 @@ export const authSlice = createSlice({
     removeToken: (state, action) => {
       state.token = null;
     },
-    adDetails : (state, action) => {
-        state.ad_details = action.payload;
+    adDetails: (state, action) => {
+      state.ad_details = action.payload;
     },
     rem_AdDetails: (state, action) => {
       state.ad_details = null;
@@ -26,6 +25,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setToken, removeToken, adDetails,rem_AdDetails } = authSlice.actions;
+export const { setToken, removeToken, adDetails, rem_AdDetails } =
+  authSlice.actions;
 
 export default authSlice.reducer;

@@ -72,6 +72,31 @@ const Students = () => {
       });
   };
 
+  const handleSearch = (e) => {
+    const search = e.target.value;
+    if (search.trim() === "") {
+      refreshData();
+    } else {
+      const options = {
+        method: "GET",
+        url: `http://localhost:4000/api/auth/all-users?search=${search}`,
+        headers: {
+          authorization: token,
+        },
+      };
+      axios
+        .request(options)
+        .then(function (response) {
+          if (response.status === 200) {
+            setGetAllStudent(response.data.users);
+          }
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+  };
+
   const openModall = async (id) => {
     setLoader(true);
     try {
@@ -114,6 +139,7 @@ const Students = () => {
                   type="text"
                   className="focus-visible:outline-none border-none w-full rounded-[5px] font-normal text-[15px] text-[#6a6969] placeholder:text-[11px]"
                   placeholder="Search by name, contact, email."
+                  onChange={handleSearch}
                 />
 
                 <button className="px-1 rounded text-[12px] text-[gray] border border-[#6a696917] hover:text-black mr-1"></button>
@@ -255,7 +281,7 @@ const Students = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-2/3 sm:w-full sm:max-w-[500px]  transform overflow-hidden rounded-2xl bg-white p-4  sm:px-8 lg:px-8 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-2/3 sm:w-full sm:max-w-[700px]  transform overflow-hidden rounded-2xl bg-white p-4  sm:px-8 lg:px-8 text-left align-middle shadow-xl transition-all">
                   <div className="flex justify-end">
                     <button onClick={closeDrawerO}>
                       <img

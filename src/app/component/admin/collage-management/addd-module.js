@@ -15,9 +15,12 @@ const CreateCollege = ({ closeDrawer, refreshData }) => {
     email: "",
     phone: "",
     website: "",
+    admissionCriteria: {
+      cutOffPercentage: "",
+      entranceExamScore: "",
+    },
   });
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -55,13 +58,20 @@ const CreateCollege = ({ closeDrawer, refreshData }) => {
     const { name, value } = e.target;
     setCollegeDetail((prevDetails) => ({
       ...prevDetails,
-      [name]: value,
+      admissionCriteria: {
+        ...prevDetails.admissionCriteria,
+        [name]: value,
+      },
+      // If the name is not part of admissionCriteria, it will directly update the state
+      ...(prevDetails.admissionCriteria.hasOwnProperty(name)
+        ? {}
+        : { [name]: value }),
     }));
   };
 
   return (
     <>
-     {isLoader && <Loader/> }
+      {isLoader && <Loader />}
 
       <div className="flex justify-center items-center border border-[#f3f3f3] rounded-lg bg-white 2xl:px-5  2xl:h-[50px] 2xl:my-5 xl:px-4  xl:h-[40px] xl:my-4 lg:px-3  lg:h-[35px] lg:my-2 md:px-2  md:h-[30px] md:my-2 sm:px-1 sm:h-[25px] sm:my-2 px-1 h-[25px] my-2">
         <h2 className="custom_heading_text font-semibold">Add New College</h2>
@@ -138,6 +148,30 @@ const CreateCollege = ({ closeDrawer, refreshData }) => {
             className="custom_inputt"
             required
             value={collegeDetail.email}
+          />
+        </div>
+
+        <div className="w-1/2">
+          <label className="custom_input_label">Cut Off Percentage</label>
+          <input
+            onChange={inputHandler}
+            type="text"
+            name="cutOffPercentage"
+            className="custom_inputt"
+            required
+            value={collegeDetail.admissionCriteria.cutOffPercentage}
+          />
+        </div>
+
+        <div className="w-1/2">
+          <label className="custom_input_label">Entrance Exam Score</label>
+          <input
+            onChange={inputHandler}
+            type="text"
+            name="entranceExamScore"
+            className="custom_inputt"
+            required
+            value={collegeDetail.admissionCriteria.entranceExamScore}
           />
         </div>
 
