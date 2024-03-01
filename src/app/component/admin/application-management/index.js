@@ -11,6 +11,23 @@ export const headItems = ["S. No.", "Name", " Contact No", "Email", "Action"];
 const ApplicationManagement = () => {
   let [openDelete, setOpenDelete] = useState(false);
 
+  const [size, setSize] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [items, setItems] = useState([]);
+
+  const addItem = () => {
+    const newItem = { size, quantity };
+    setItems([...items, newItem]);
+    setSize("");
+    setQuantity("");
+  };
+
+  const removeItem = (index) => {
+    const newItems = [...items];
+    newItems.splice(index, 1);
+    setItems(newItems);
+  };
+
   const handleDelete = () => {
     setOpenDelete(true);
   };
@@ -18,13 +35,16 @@ const ApplicationManagement = () => {
   const closeDeleteModal = () => {
     setOpenDelete(false);
   };
+
   return (
     <>
       <section className="py-[30px] px-[20px] mt-[20px] lg:mt-0">
         <div className=" mx-auto">
           <div className="rounded-[10px] bg-white py-[15px] flex justify-between items-center px-[20px]">
-           
-            <p className=" text-[22px] font-semibold"> Application Management</p>
+            <p className=" text-[22px] font-semibold">
+              {" "}
+              Application Management
+            </p>
             <div className="flex gap-x-7 lg:gap-x-5 md:flex-auto flex-wrap gap-y-3  items-center justify-center md:justify-end">
               <div className="border border-[gray] rounded-[5px] bg-[#302f2f82]] flex justify-center items-center h-[32px] pl-[10px] md:w-auto w-full">
                 <input
@@ -76,22 +96,9 @@ const ApplicationManagement = () => {
               </tbody>
             </table>
           </div>
-
-          {/* {Array.isArray(allData?.users) && allData?.users?.length === 0 && (
-            <div className="py-4 px-4 w-full flex flex-col items-center justify-center border border-[#f3f3f3] bg-white rounded-[20px] mt-[10px]">
-              <p className="text-[18px] fontsemibold">No data</p>
-            </div>
-          )} */}
         </div>
 
-        {/* {allData?.pagination?.totalPages > 1 && (
-          <Pagination
-            currentpage={allData?.pagination?.currentPage}
-            totalCount={allData?.pagination?.totalPages}
-            visiblePageCount={visiblePageCount}
-            getAllData={getAllData}
-          />
-        )} */}
+       
       </section>
 
       {/*---------- Delete popup---------- */}
