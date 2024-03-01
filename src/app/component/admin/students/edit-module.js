@@ -81,7 +81,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------8. student email----- */}
         <div className="w-1/2">
           <label className="custom_input_label">Student Fathers Name</label>
           <input
@@ -99,7 +98,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------9. student email----- */}
         <div className="w-1/2">
           <label className="custom_input_label">
             Student Fathers Occupation
@@ -118,7 +116,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
             onChange={inputHandler}
           />
         </div>
-        {/* ------10. student email----- */}
         <div className="w-1/2">
           <label className="custom_input_label">Student Mothers Name</label>
           <input
@@ -136,7 +133,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------11. student email----- */}
         <div className="w-1/2">
           <label className="custom_input_label">
             Student Mothers Occupation
@@ -156,7 +152,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------2. student location----- */}
         <div className="w-1/2">
           <label className="custom_input_label">NEET Score</label>
           <input
@@ -174,7 +169,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------3. student website----- */}
         <div className="w-1/2">
           <label className="custom_input_label">Cast</label>
           <input
@@ -188,7 +182,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------4. student phone----- */}
         <div className="w-1/2">
           <label className="custom_input_label">Student Email </label>
           <input
@@ -204,7 +197,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------5. student email----- */}
         <div className="w-1/2">
           <label className="custom_input_label">Student Phone.no</label>
           <input
@@ -220,7 +212,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------6. student email----- */}
         <div className="w-1/2">
           <label className="custom_input_label">Student Address</label>
           <input
@@ -236,7 +227,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------7. student email----- */}
         <div className="w-1/2">
           <label className="custom_input_label">Student City</label>
           <input
@@ -250,7 +240,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------15. student email----- */}
         <div className="w-1/2">
           <label className="custom_input_label">Student Phone.no</label>
           <input
@@ -266,7 +255,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------13. student email----- */}
         <div className="w-1/2">
           <label className="custom_input_label">Student 10th Percentage</label>
           <input
@@ -284,7 +272,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------14. student email----- */}
         <div className="w-1/2">
           <label className="custom_input_label">Student 12th Percentage</label>
           <input
@@ -302,7 +289,6 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
           />
         </div>
 
-        {/* ------17. student email----- */}
         <div className="w-1/2">
           <label className="custom_input_label">Student Career Goals</label>
           <input
