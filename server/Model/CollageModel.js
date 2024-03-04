@@ -32,12 +32,20 @@ const collegeSchema = new mongoose.Schema(
       cutOffPercentage: Number,
       entranceExamScore: Number,
     },
-    courses: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course",
-      },
-    ],
+    courses: {
+      branch: String,
+      name: String,
+      fees: String,
+      admissionCriteria: String,
+      duration: Number,
+      minScore: String,
+    },
+    // courses: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Course",
+    //   },
+    // ],
   },
   { timestamps: true }
 );

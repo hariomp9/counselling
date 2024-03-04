@@ -1,5 +1,6 @@
 const User = require("../Model/User");
 const Admin = require("../Model/AdminModel");
+const OTP = require("../Model/OtpModel")
 const sendEmail = require("../Utils/SendEmail");
 const validateMongoDbId = require("../Utils/validateMongodbId");
 const { generateToken , verifyToken} = require("../config/jwtToken");
@@ -308,6 +309,55 @@ exports.adminLogout = async (req, res) => {
     }
   }
 };
+
+exports.generateOtp = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const otpCode = Math.floor(100000 + Math.random() * 900000).toString(); // Generate 6-digit OTP
+    const otp = new OTP({ user: user._id, otp: otpCode });
+    await otp.save();
+
+    // await sendOTP(user.email, otpCode);
+
+    res.status(200).json({ message: 'OTP sent successfully', otpCode });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+exports.verifyOtp = async (req, res) => {
+  try {
+    const { userId, otp } = req.body;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const otpRecord = await OTP.findOne({ user: userId, otp });
+    if (!otpRecord) {
+      return res.status(400).json({ message: 'Invalid OTP' });
+    }
+
+    // Check if OTP has expired
+    if (otpRecord.expiresAt < new Date()) {
+      return res.status(400).json({ message: 'OTP has expired' });
+    }
+
+    // Delete OTP record after verification
+    await OTP.deleteOne({ _id: otpRecord._id });
+
+    res.status(200).json({ message: 'OTP verified successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
 
 exports.forgotPassword = async (req, res, next) => {
   const { email } = req.body;

@@ -21,7 +21,9 @@ const {
   verifyAdmin,
   addToWishlist,
   deleteAllWishlistItems,
-  removeFromWishlist
+  removeFromWishlist,
+  generateOtp,
+  verifyOtp
 } = require("../Controller/auth");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const storage = multer.memoryStorage();
@@ -38,6 +40,10 @@ router.route("/adminLogout").get(isAuthenticatedUser, adminLogout);
 router.route("/verifyUserToken/:token").get(verifyUser);
 
 router.route("/verifyAdminToken/:token").get(verifyAdmin);
+
+router.route("/generate-otp").post(generateOtp);
+
+router.route("/verify-otp").post(verifyOtp);
 
 // Create User
 router.route("/register").post(register);
