@@ -14,7 +14,6 @@ const UserProtectedRoute = (WrappedComponent) => {
     // const loading = true
     const [isLoading, setIsLoading] = useState(false);
     const [isAuth, setIsAuth] = useState(false);
-    console.log(userAuthToken);
 
     useEffect(() => {
       const checkAuth = () => {

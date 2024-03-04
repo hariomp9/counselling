@@ -153,19 +153,19 @@ const AdminDashboard = () => {
             </div>
 
             <div className="">
-              <div className="flex justify-center items-center lg:mt-4 xl:mt-5 2xl:mt-7 md:mt-2 mb-6 sm:mb-0">
-                <div className="mx-auto w-2/3">
+              <div className="flex justify-center items-center lg:mt-4 xl:mt-1 2xl:mt-3 md:mt-2 mb-6 sm:mb-0">
+                <div className="mx-auto w-3/3">
                   <Image
                     src={logo}
                     alt="me"
                     width="100"
                     height="100"
-                    className=" w-[50%] mx-auto"
+                    className=" w-full mx-auto"
                   />
                 </div>
               </div>
             </div>
-            <div className="flex flex-col 2xl:gap-6 gap-1 sm:mt-10 lg:mt-10 xl:mt-14 2xl:mt-20">
+            <div className="flex flex-col 2xl:gap-6 gap-1 sm:mt-10 lg:mt-10 xl:mt-8 2xl:mt-20">
               {menulist.map((item, index) => (
                 <div
                   key={index}
@@ -200,7 +200,6 @@ const AdminDashboard = () => {
                     width={100}
                     height={100}
                   />
-
                   <button>Sign Out</button>
                 </div>
               </div>

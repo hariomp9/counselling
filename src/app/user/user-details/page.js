@@ -84,6 +84,7 @@ const UserDetails = () => {
         refreshData();
         toast.success("Update successfully!");
         closeDrawerO();
+        router.push("/user/user-dashboard");
       } else {
         console.log("Server error");
       }

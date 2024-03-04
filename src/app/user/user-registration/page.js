@@ -1,13 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "@/app/component/loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
+import VerifyOTP from "../otp-verify/page";
 
 const UserRegistration = () => {
   const router = useRouter();
+  const [userId, setUserId] = useState("");
+  const userID = userId._id;
   const [isLoader, setLoader] = useState(false);
   const [studentDetails, setStudentDetails] = useState({
     firstname: "",
@@ -36,7 +39,9 @@ const UserRegistration = () => {
       );
       if (response.status === 201) {
         toast.success("Registration Successful!");
-        router.push("/user/user-login");
+        router.push("/user/otp-verify");
+        setUserId(response?.data?.user);
+        handleSendOTP(response?.data?.user);
       } else {
         toast.error("Failed to Register. Please try again later.");
       }
@@ -48,10 +53,28 @@ const UserRegistration = () => {
     }
   };
 
+  const handleSendOTP = async (userID) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/auth/generate-otp",
+        { userId: userID }
+      );
+      console.log(response?.data);
+    } catch (error) {
+      console.error(error);
+      console.log("Error occurred while sending OTP");
+    }
+  };
+
   return (
     <>
       <ToastContainer autoClose={1500} />
       {isLoader && <Loader />}
+
+      <div className="hidden">
+        <VerifyOTP userID={userID} />
+      </div>
+
       <section className="py-10 px-5">
         <div className="mx-auto w-1/2">
           <div className="flex justify-center items-center border border-gray-300 rounded-lg bg-white px-5 h-10 my-5">
