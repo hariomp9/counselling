@@ -147,7 +147,8 @@ exports.adminRegister = async (req, res, next) => {
     email,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    mobile: req.body.mobile
+    mobile: req.body.mobile,
+    role: req.body.role
   };
 
   if (password) {
