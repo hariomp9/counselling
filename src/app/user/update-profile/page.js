@@ -9,9 +9,9 @@ const UserProfile = () => {
     <>
       <section>
         <div className="flex">
-         <SideBar/>
+          <SideBar />
           <div className="lg:w-11/12 w-full">
-           <Navbar/>
+            <Navbar />
 
             <div>
               <div className="2xl:h-[58px] xl:h-[50px] lg:h-[45px] md:h-[40px] sm:h-[35px] h-[35px] text-[14px] bg-[#E7F4FD] flex items-center">
