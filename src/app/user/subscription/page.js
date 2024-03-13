@@ -35,7 +35,7 @@ const Subscription = () => {
               <div className="flex flex-col justify-center md:flex md:flex-row lg:justify-start flex-wrap gap-7 m-7">
                 <div
                   id="subscription-first"
-                  className=" 2xl:w-[30%] 2xl:h-[320px] xl:w-[36%] xl:h-[235px] lg:w-[41%] lg:h-[200px] md:w-[47%] sm:w-[80%] w-[90%] sm:h-[185px] border rounded-lg mx-auto md:mx-0"
+                  className=" 2xl:w-[30%] 2xl:h-[320px] xl:w-[36%] xl:h-[235px] lg:w-[41%] lg:h-[200px] md:w-[47%] sm:w-[90%]  sm:h-[185px] border rounded-lg mx-auto md:mx-0"
                 >
                   <div className="2xl:p-7 xl:p-4 p-3">
                     <div className="flex justify-between">
@@ -75,7 +75,7 @@ const Subscription = () => {
 
                 <div
                   id="subscription-second"
-                  className=" 2xl:w-[30%] 2xl:h-[320px] xl:w-[36%] xl:h-[235px] lg:w-[41%] lg:h-[200px] md:w-[47%] sm:w-[80%] w-[90%] sm:h-[185px] border rounded-lg mx-auto lg:mx-0"
+                  className=" 2xl:w-[30%] 2xl:h-[320px] xl:w-[36%] xl:h-[235px] lg:w-[41%] lg:h-[200px] md:w-[47%] sm:w-[90%]  sm:h-[185px] border rounded-lg mx-auto lg:mx-0"
                 >
                   <div className="2xl:p-7 xl:p-4 p-3 ">
                     <div className="flex justify-between">
@@ -117,7 +117,7 @@ const Subscription = () => {
               <div className="flex flex-col justify-center md:flex md:flex-row lg:justify-start flex-wrap gap-7 m-7">
                 <div
                   id="subscription-third"
-                  className=" 2xl:w-[30%] 2xl:h-[320px] xl:w-[36%] xl:h-[235px] lg:w-[41%] lg:h-[200px]  md:w-[47%] sm:w-[80%] w-[90%] sm:h-[185px] border rounded-lg mx-auto lg:mx-0"
+                  className=" 2xl:w-[30%] 2xl:h-[320px] xl:w-[36%] xl:h-[235px] lg:w-[41%] lg:h-[200px]  md:w-[47%] sm:w-[90%] sm:h-[185px] border rounded-lg mx-auto lg:mx-0"
                 >
                   <div className="2xl:p-7 xl:p-4 p-3">
                     <div className="flex justify-between">
@@ -157,7 +157,7 @@ const Subscription = () => {
 
                 <div
                   id="subscription-fourth"
-                  className=" 2xl:w-[30%] 2xl:h-[320px] xl:w-[36%] xl:h-[235px] lg:w-[41%] lg:h-[200px] md:w-[47%] sm:w-[80%] w-[90%] sm:h-[185px] border rounded-lg mx-auto lg:mx-0"
+                  className=" 2xl:w-[30%] 2xl:h-[320px] xl:w-[36%] xl:h-[235px] lg:w-[41%] lg:h-[200px] md:w-[47%] sm:w-[90%] sm:h-[185px] border rounded-lg mx-auto lg:mx-0"
                 >
                   <div className="2xl:p-7 xl:p-4 p-3">
                     <div className="flex justify-between">
