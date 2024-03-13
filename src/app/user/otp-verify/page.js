@@ -84,13 +84,59 @@
 // };
 
 // export default VerifyOTP;
-
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import logo from "../../../../public/images/logo.svg";
 import poster from "../../../../public/images/poster.svg";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const VerifyOTP = () => {
+const VerifyOTP = (props) => {
+  const { id } = props;
+  console.log(id, "jj");
+  const [verifyOTP, setVerifyOTP] = useState("");
+  const [userId, setUserId] = useState("");
+
+  const router = useRouter();
+
+  const inputHandler = (e) => {
+    const { value } = e.target;
+    setVerifyOTP(value);
+  };
+
+  const handleVerify = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/auth/verify-otp",
+        {
+          userId: id,
+          otp: verifyOTP,
+        }
+      );
+      toast.success("Verification Successful!");
+      router.push("/user/user-login");
+      console.log("Verification Response:", response.data);
+    } catch (error) {
+      console.error("Error occurred while sending OTP:", error);
+      toast.error("Error occurred while sending OTP");
+    }
+  };
+
+  const handleSendOTP = async (userID) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/auth/generate-otp",
+        { userId: userID }
+      );
+      console.log(response?.data);
+    } catch (error) {
+      console.error(error);
+      console.log("Error occurred while sending OTP");
+    }
+  };
   return (
     <>
       <section>
@@ -120,7 +166,6 @@ const VerifyOTP = () => {
                     <label
                       htmlFor="email"
                       className="montserrat-lable block text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px] "
-
                     >
                       Enter your phone number
                     </label>
@@ -136,7 +181,7 @@ const VerifyOTP = () => {
                       placeholder="Number"
                     />
                     <div className="flex justify-end xl:my-1">
-                      <button>
+                      <button onClick={handleSendOTP}>
                         <p className="montserrat-otp  text-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[12px]">
                           Get OTP
                         </p>
@@ -147,13 +192,12 @@ const VerifyOTP = () => {
                     <label
                       htmlFor="email"
                       className="montserrat-lable block text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px] "
-
                     >
                       Enter 6 digit number
                     </label>
                     <input
-                      // value={studentDetails.firstname}
-                      // onChange={inputHandler}
+                      value={verifyOTP}
+                      onChange={inputHandler}
                       maxLength={6}
                       required
                       type="number"
@@ -164,11 +208,12 @@ const VerifyOTP = () => {
                     />
                   </div>
                   <button
-                      type="submit"
-                      className="bg-[#0071BC] montserrat-btn  text-white p-3 w-full rounded-full 2xl:h-[70px] xl:h-[45px] lg:h-[35px]  2xl:my-10 lg:my-5  xl:my-8 2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-5"
-                    >
-                      Login
-                    </button>
+                    onClick={handleVerify}
+                    type="submit"
+                    className="bg-[#0071BC] montserrat-btn  text-white p-3 w-full rounded-full 2xl:h-[70px] xl:h-[45px] lg:h-[35px]  2xl:my-10 lg:my-5  xl:my-8 2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-5"
+                  >
+                    Login
+                  </button>
                 </form>
               </div>
             </div>

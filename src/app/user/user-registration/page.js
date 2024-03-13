@@ -343,7 +343,7 @@ const UserRegistration = () => {
                           id="circleCheckbox"
                           class="hidden"
                         />
-                        <label
+                        {/* <label
                           for="circleCheckbox"
                           class="lg:w-4 lg:h-4 xl:w-4 xl:h-4 2xl:w-6 2xl:h-6 rounded-full border border-gray-400 flex items-center justify-center cursor-pointer"
                         >
@@ -353,7 +353,12 @@ const UserRegistration = () => {
                           >
                             <path d="M19 3.7a9 9 0 1 0 0 16.6 7.5 7.5 0 0 0-1.5-.6 7 7 0 1 1 0-15.4 7.4 7.4 0 0 0 1.5-.6zM10 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
                           </svg>
-                        </label>
+                        </label> */}
+                        <input
+                          type="radio"
+                          name="radio-7"
+                          className="radio p-0 radio-info w-4 h-4 sm:w-5 sm:h-5  2xl:w-6 2xl:h-6"
+                        />
                         <span className="2xl:text-[18px] xl:text-[12px] text-[12px] leading-[19.5px]">
                           NEET UG
                         </span>
@@ -361,10 +366,10 @@ const UserRegistration = () => {
                       <div class="flex items-center space-x-2">
                         <input
                           type="checkbox"
-                          id="circleCheckbox"
+                          id="circleCheckbox "
                           class="hidden"
                         />
-                        <label
+                        {/* <label
                           for="circleCheckbox"
                           class="lg:w-4 lg:h-4 xl:w-4 xl:h-4 2xl:w-6 2xl:h-6 rounded-full border border-gray-400 flex items-center justify-center cursor-pointer"
                         >
@@ -374,7 +379,12 @@ const UserRegistration = () => {
                           >
                             <path d="M19 3.7a9 9 0 1 0 0 16.6 7.5 7.5 0 0 0-1.5-.6 7 7 0 1 1 0-15.4 7.4 7.4 0 0 0 1.5-.6zM10 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path>
                           </svg>
-                        </label>
+                        </label> */}
+                        <input
+                          type="radio"
+                          name="radio-7"
+                          className="radio radio-info w-4 h-4 sm:w-5 sm:h-5  2xl:w-6 2xl:h-6"
+                        />
                         <span className="2xl:text-[18px] xl:text-[12px] text-[12px] leading-[19.5px]">
                           NEET PG
                         </span>
@@ -396,7 +406,7 @@ const UserRegistration = () => {
                           type="text"
                           id="firstname"
                           name="firstname"
-                          className=" montserrat-otp  text-[#979797] border rounded-full lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                          className=" montserrat-otp  text-[#979797] border rounded-full lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                           placeholder="First"
                         />
                         <input
@@ -407,7 +417,7 @@ const UserRegistration = () => {
                           type="text"
                           id="lastname"
                           name="lastname"
-                          className=" montserrat-otp  text-[#979797] border rounded-full lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                          className=" montserrat-otp  text-[#979797] border rounded-full lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                           placeholder="Last"
                         />
                       </div>
@@ -444,7 +454,7 @@ const UserRegistration = () => {
                         <button
                           type="button"
                           className=" absolute  transform -translate-y-1/2 cursor-pointer 
-                        2xl:right-7 2xl:top-[45px] xl:right-5 xl:top-[22px] lg:right-5 lg:top-[15px]"
+                        2xl:right-7 2xl:top-[45px] xl:right-5 xl:top-[28px] lg:right-5 lg:top-[15px]"
                           onClick={handleToggle}
                         >
                           {showPassword ? (

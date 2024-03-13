@@ -56,9 +56,8 @@ const SideBar = () => {
          <a href="/user/user-dashboard">
          <Image src={sideLogo} className="mx-auto w-12 h-12 mt-5" />
          </a>
-          <hr />
+          <hr/>
         </div>
-
         <div className="flex justify-center mt-5">
           <div className="w-4/6">
             <Image src={user} className="w-16  mx-auto " />

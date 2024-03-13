@@ -37,11 +37,9 @@ const ChangePassword = () => {
     setError("");
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { oldPassword, newPassword } = formData;
-
     if (oldPassword === newPassword) {
       setError("Old password and new password can't be the same");
     } else if (newPassword !== cnfmPassword) {
@@ -91,9 +89,9 @@ const ChangePassword = () => {
       <ToastContainer autoClose={3000} />
       <section>
         <div className="flex">
-          <SideBar/>
+          <SideBar />
           <div className="w-full lg:w-11/12">
-            <Navbar/>
+            <Navbar />
             <div className="flex items-center justify-center">
               <div className="md:px-[50px] w-full mx-auto">
                 <div className="relative flex flex-col 2xl:gap-x-20 xl:gap-x-10 gap-x-7 justify-center lg:shadow-none  items-center lg:flex-row space-y-8 md:space-y-0 w-[100%] px-[10px]bg-white lg:px-[40px] py-[20px] md:py-[40px] ">
