@@ -7,11 +7,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import Loader from "@/app/component/loader";
 import SideBar from "../sideBar";
+import Link from "next/link";
 
 export const headItems = [
   "S. No.",
   "College Name",
-  "Courses",
+  // "Courses",
   " Contact No",
   "Email",
   "Website",
@@ -115,13 +116,13 @@ const Colleges = () => {
                           <td className="text-[14px] font-[400] py-3 px-5 capitalize">
                             {item.name}
                           </td>
-                          <td className="text-[14px] font-[400] py-3 px-5">
+                          {/* <td className="text-[14px] font-[400] py-3 px-5">
                             {Array.isArray(item.courses)
                               ? item.courses
                                   .map((course) => course.name)
                                   .join(", ")
                               : item.courses.name}
-                          </td>
+                          </td> */}
                           <td className="text-[14px] font-[400] py-3 px-5">
                             {item.phone}
                           </td>
@@ -129,7 +130,9 @@ const Colleges = () => {
                             {item.email}
                           </td>
                           <td className="text-[14px] font-[400] py-3 px-5 ">
-                            {item.website}
+                            <Link href={item.website} target="_blank">
+                              {item.website}
+                            </Link>
                           </td>
                           <td className="text-[14px] font-[400] py-3 px-5">
                             <div className="flex flex-col md:flex-row items-center gap-x-5">

@@ -39,7 +39,7 @@ const UserDashboard = () => {
               <div className="md:flex 2xl:gap-10 xl:gap-7 gap-7">
                 <div className="flex 2xl:w-1/3 xl:w-[40%] lg:w-[40%] md:w-[48%] w-full my-5 bg-[#F3F5F9] rounded-[10px] 2xl:p-8 p-5">
                   <div className="2xl:w-10/12 xl:w-11/12 w-11/12">
-                    <h1 className="poppins font-[500] 2xl:text-[30px] xl:text-[22px] sm:text-[16px] text-[14px]">
+                    <h1 className="poppins-five 2xl:text-[30px] xl:text-[22px] sm:text-[16px] text-[14px]">
                       Announcement & Events
                     </h1>
                     <p className="montserrat font-[300] 2xl:my-5 xl:my-3 lg:my-2 my-3 2xl:text-[16px] xl:text-[14px] text-[12px]">
@@ -59,7 +59,7 @@ const UserDashboard = () => {
                 <div className=" flex 2xl:w-1/3 xl:w-[40%] lg:w-[40%] md:w-[48%] w-full my-5 bg-[#FEF8E1] rounded-[10px] 2xl:p-8 p-5">
                   {" "}
                   <div className="2xl:w-10/12 xl:w-11/12 w-11/12">
-                    <h1 className="poppins font-[500] 2xl:text-[30px] xl:text-[22px] sm:text-[16px] text-[14px]">
+                    <h1 className="poppins-five 2xl:text-[30px] xl:text-[22px] sm:text-[16px] text-[14px]">
                       Private counselling
                     </h1>
                     <p className="montserrat font-[300] 2xl:my-5 xl:my-3 lg:my-2 my-3 2xl:text-[16px] xl:text-[14px] text-[12px]">
@@ -76,7 +76,6 @@ const UserDashboard = () => {
                   </div>
                 </div>
               </div>
-
               <div className="overflow-x-auto 2xl:mt-20 xl:mt-8 lg:mt-10 mt-14">
                 <table className="table 2xl:w-[900px] xl:w-[800px] lg:w-[700px]  md:w-[90%] sm:w-[110%] w-[120%] 2xl:h-[440px] bg-[#F2FAFF] rounded-md u_table">
                   <thead>

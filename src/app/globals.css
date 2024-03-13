@@ -203,7 +203,7 @@ html {
 
 @font-face {
   font-family: "poppins";
-  src: url("../../src//fonts/Poppins/Poppins-Regular.ttf");
+  src: url("../../src/fonts/Poppins/Poppins-Regular.ttf");
 }
 
 @font-face {
@@ -219,6 +219,12 @@ html {
 .poppins {
   font-family: "Poppins", sans-serif;
   font-style: normal;
+}
+
+.poppins-five {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 500;
 }
 
 .poppins-plan {
@@ -295,9 +301,11 @@ html {
 
 
 .image-item {
-  transition: fill 0.3s; /* Smooth transition effect */
+  transition: fill 0.3s;
+  /* Smooth transition effect */
 }
 
 .svg-Image:hover .image-item {
-  fill: blue; /* Change the color to blue on hover */
+  fill: blue;
+  /* Change the color to blue on hover */
 }
