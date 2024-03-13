@@ -422,7 +422,6 @@ const UserRegistration = () => {
                         />
                       </div>
                     </div>
-
                     <div className="2xl:my-5 xl:my-3 my-2">
                       <label
                         htmlFor="email"
