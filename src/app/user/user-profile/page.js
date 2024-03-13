@@ -1,16 +1,43 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import female from "../../../../public/images/female.svg";
 import Navbar from "../navbar";
 import SideBar from "../sideBar";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const UserProfile = () => {
+  const { token } = useSelector((state) => state?.auth);
+  const [getUser, setGetUser] = useState("");
+
+  useEffect(() => {
+    defaultUser();
+  }, []);
+  const defaultUser = () => {
+    const option = {
+      method: "GET",
+      url: "http://localhost:4000/api/auth/getaUser",
+      headers: {
+        authorization: token,
+      },
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setGetUser(response?.data?.getaUser);
+        // console.log(response?.data?.getaUser);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
   return (
     <>
       <section>
         <div className="flex">
-         <SideBar/>
+          <SideBar />
           <div className="w-full lg:w-11/12">
             <Navbar />
 
@@ -115,6 +142,7 @@ const UserProfile = () => {
                               <Image
                                 src={female}
                                 className="mx-auto lg:w-auto w-3"
+                                alt="icon"
                               />
 
                               <p className=" text-[#323232] my-1 2xl:text-[16px] xl:text-[14px] lg:text-[12px] text-[14px]">

@@ -39,6 +39,7 @@ const UserDetails = () => {
       [name]: value,
     }));
   };
+
   const refreshData = () => {
     setRefresh(!isRefresh);
   };
@@ -79,7 +80,6 @@ const UserDetails = () => {
           },
         }
       );
-
       if (response.status === 200) {
         refreshData();
         toast.success("Update successfully!");
@@ -92,6 +92,7 @@ const UserDetails = () => {
       console.log(error?.response?.data?.message || "Server error");
     }
   };
+  
   return (
     <>
       <ToastContainer autoClose={1500} />

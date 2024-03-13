@@ -102,7 +102,7 @@ const Subscription = () => {
                       ))}
                     </div>
                     <div className="lg:mt-6 xl:2xl:mt-7 mt-5 2xl:mt-12">
-                      <hr className=" border-[#2F3642]" />
+                      <hr className=" border-[#1a1f28]" />
                       <div className="flex gap-2 my-2 xl:my-3">
                         <h1 className="montserrat-countinue 2xl:text-[20px] xl:text-[16px] text-[14px]">
                           Continue
@@ -113,7 +113,6 @@ const Subscription = () => {
                   </div>
                 </div>
               </div>
-
               <div className="flex flex-col justify-center md:flex md:flex-row lg:justify-start flex-wrap gap-7 m-7">
                 <div
                   id="subscription-third"

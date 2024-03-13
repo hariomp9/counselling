@@ -2,14 +2,11 @@
 import React from "react";
 import Navbar from "../navbar";
 import Image from "next/image";
-import user from "../../../../public/images/user.svg";
-import sideLogo from "../../../../public/images/Group 179.svg";
 import arrorRight from "../../../../public/images/right-arrow.svg";
 import UserProtectedRoute from "@/config/userProtectedRoute";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SideBar from "../sideBar";
-
 
 const UserDashboard = () => {
   const data = [
@@ -29,16 +26,15 @@ const UserDashboard = () => {
       link: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been industry's standard dummy ever 1500s",
     },
   ];
- 
+
   return (
     <>
       <ToastContainer autoClose={1000} />
       <section>
         <div className="flex">
-          <SideBar/>
+          <SideBar />
           <div className="w-full lg:w-11/12">
             <Navbar />
-
             <div className="sm:m-10 m-5">
               <div className="md:flex 2xl:gap-10 xl:gap-7 gap-7">
                 <div className="flex 2xl:w-1/3 xl:w-[40%] lg:w-[40%] md:w-[48%] w-full my-5 bg-[#F3F5F9] rounded-[10px] 2xl:p-8 p-5">
