@@ -81,7 +81,7 @@ const UserDashboard = () => {
                 </div>
               </div>
 
-              <div className="overflow-x-auto 2xl:mt-20 xl:mt-12 lg:mt-10 mt-14">
+              <div className="overflow-x-auto 2xl:mt-20 xl:mt-8 lg:mt-10 mt-14">
                 <table className="table 2xl:w-[900px] xl:w-[800px] lg:w-[700px]  md:w-[90%] sm:w-[110%] w-[120%] 2xl:h-[440px] bg-[#F2FAFF] rounded-md u_table">
                   <thead>
                     <tr className="">

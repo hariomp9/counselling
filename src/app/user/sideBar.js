@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Image from "next/image";
 import user from "../../../public/images/user.svg";
@@ -11,51 +11,51 @@ import UserProtectedRoute from "@/config/userProtectedRoute";
 import Loader from "../component/loader.js";
 import { ToastContainer, toast } from "react-toastify";
 
-
-
 const SideBar = () => {
-    const router = useRouter();
-    const dispatch = useDispatch();
-  
-    const { token } = useSelector((state) => state?.auth);
-  
-    const handleLogout = async () => {
-      // setLoader(true);
-  
-      try {
-        const res = await axios.get("http://localhost:4000/api/auth/logout", {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        });
-        // console.log(res);
-        if (res?.data?.success) {
-          toast.success("Logout successfully !");
-          dispatch(removeToken());
-          dispatch(rem_AdDetails());
-          router.push("/user/user-login");
-          // setLoader(false);
-        } else {
-          router.push("/user/user-login");
-          toast.error("Logout failed try again !");
-          dispatch(removeToken());
-          dispatch(rem_AdDetails());
-        }
-      } catch (error) {
-        router.push("/user/user-login");
-        console.error("Error occurred:", error);
-        // toast.error(error?.response?.data?.error || "Invalid token !");
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const { token } = useSelector((state) => state?.auth);
+
+  const handleLogout = async () => {
+    // setLoader(true);
+
+    try {
+      const res = await axios.get("http://localhost:4000/api/auth/logout", {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
+      // console.log(res);
+      if (res?.data?.success) {
         toast.success("Logout successfully !");
         dispatch(removeToken());
         dispatch(rem_AdDetails());
+        router.push("/user/user-login");
+        // setLoader(false);
+      } else {
+        router.push("/user/user-login");
+        toast.error("Logout failed try again !");
+        dispatch(removeToken());
+        dispatch(rem_AdDetails());
       }
-    };
+    } catch (error) {
+      router.push("/user/user-login");
+      console.error("Error occurred:", error);
+      // toast.error(error?.response?.data?.error || "Invalid token !");
+      toast.success("Logout successfully !");
+      dispatch(removeToken());
+      dispatch(rem_AdDetails());
+    }
+  };
   return (
     <>
       <div className="hidden lg:block w-1/12 border h-screen">
-        <div className="flex border pb-2  ">
-          <Image src={sideLogo} className="mx-auto w-12 h-12 mt-5" />
+        <div className="flex justify-center border pb-2  ">
+         <a href="/user/user-dashboard">
+         <Image src={sideLogo} className="mx-auto w-12 h-12 mt-5" />
+         </a>
           <hr />
         </div>
 
@@ -129,7 +129,7 @@ const SideBar = () => {
             </a>
           </div>
         </div>
-        <div className="flex justify-center 2xl:mt-7 mt-5">
+        {/* <div className="flex justify-center 2xl:mt-7 mt-5">
           <div className="w-4/6 hover:text-[#2083C4]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -146,6 +146,26 @@ const SideBar = () => {
               {" "}
               Advance Profile Search
             </p>
+          </div>
+        </div> */}
+        <div className="flex justify-center 2xl:mt-7 mt-5">
+          <div className="w-4/6 hover:text-[#2083C4]">
+           <a href="/user/colleges">
+           <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="bi bi-paperclip w-6 h-6 mx-auto"
+              viewBox="0 0 16 16"
+            >
+              <path d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.5.5 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89zM3.777 3h8.447L8 1zM2 6v7h1V6zm2 0v7h2.5V6zm3.5 0v7h1V6zm2 0v7H12V6zM13 6v7h1V6zm2-1V4H1v1zm-.39 9H1.39l-.25 1h13.72z" />
+            </svg>
+            <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center">
+              {" "}
+              Colleges
+            </p>
+           </a>
           </div>
         </div>
         <div className="flex justify-center  2xl:mt-7 mt-5">
