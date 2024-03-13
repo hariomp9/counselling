@@ -76,7 +76,7 @@ const AdminDashboard = () => {
       icon: report,
     },
     {
-      id: 7,
+      id: 8,
       label: "Setting",
       component: <Setting />,
       icon: setting,
