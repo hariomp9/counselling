@@ -23,43 +23,27 @@
     @apply text-[14px] font-[400] py-3 px-5 border-b;
   }
 }
+
 .custom_table_text {
   @apply text-[12px] sm:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[14px] 2xl:text-[16px];
 }
+
 .custom_btn_d {
-  @apply border 2xl:text-[20px] 2xl:p-2 2xl:m-0 2xl:mt-0
-              xl:text-[14px] xl:py-2 xl:px-4  xl:mb-2 xl:mt-0
-              lg:text-[12px] lg:py-2 lg:px-3 lg:mb-2 lg:mt-0
-              md:text-[12px] md:py-1 md:px-2 md:mb-2 md:mt-0
-              sm:text-[12px] sm:py-1  sm:px-2 sm:m-0 sm:mt-0
-              text-[10px] py-[3px] px-2 m-0 mt-0;
+  @apply border 2xl:text-[20px] 2xl:p-2 2xl:m-0 2xl:mt-0 xl:text-[14px] xl:py-2 xl:px-4 xl:mb-2 xl:mt-0 lg:text-[12px] lg:py-2 lg:px-3 lg:mb-2 lg:mt-0 md:text-[12px] md:py-1 md:px-2 md:mb-2 md:mt-0 sm:text-[12px] sm:py-1 sm:px-2 sm:m-0 sm:mt-0 text-[10px] py-[3px] px-2 m-0 mt-0;
 }
+
 .custom_inputt {
-  @apply rounded relative border border-gray-300 bg-gray-50 text-gray-500 focus:bg-white dark:border dark:border-gray-600  focus:outline-none  w-10/12  lg:w-10/12 2xl:text-sm 2xl:m-10 2xl:px-3 2xl:py-2 2xl:h-[50px]
-         xl:m-5 xl:px-3 xl:py-1 xl:h-[40px]
-             lg:m-5 lg:px-2 lg:py-1 lg:h-[35px]
-            md:m-4 md:px-3 md:py-2 md:h-[30px]
-          sm:m-3 sm:px-2 sm:py-1 sm:h-[30px]
-         m-2 px-2 py-1 h-[25px] text-[10px];
+  @apply rounded relative border border-gray-300 bg-gray-50 text-gray-500 focus:bg-white dark:border dark:border-gray-600 focus:outline-none w-10/12 lg:w-10/12 2xl:text-sm 2xl:m-10 2xl:px-3 2xl:py-2 2xl:h-[50px] xl:m-5 xl:px-3 xl:py-1 xl:h-[40px] lg:m-5 lg:px-2 lg:py-1 lg:h-[35px] md:m-4 md:px-3 md:py-2 md:h-[30px] sm:m-3 sm:px-2 sm:py-1 sm:h-[30px] m-2 px-2 py-1 h-[25px] text-[10px];
 }
+
 .custom_input_label {
-  @apply absolute bg-white z-20 text-gray-800
-  2xl:text-[18px] 2xl:mt-6 2xl:ml-14
-  xl:text-[14px] xl:mt-2 xl:ml-8
-  lg:text-[12px] lg:mt-[10px] lg:ml-[26px]
-  md:text-[10px] md:mt-2 md:ml-6
-  sm:text-[10px] sm:mt-1 sm:ml-5
-  text-[10px] ml-4;
+  @apply absolute bg-white z-20 text-gray-800 2xl:text-[18px] 2xl:mt-6 2xl:ml-14 xl:text-[14px] xl:mt-2 xl:ml-8 lg:text-[12px] lg:mt-[10px] lg:ml-[26px] md:text-[10px] md:mt-2 md:ml-6 sm:text-[10px] sm:mt-1 sm:ml-5 text-[10px] ml-4;
 }
 
 .custom_btn {
-  @apply border bg-black text-white rounded-md lg:rounded-lg  2xl:text-[20px] 2xl:p-2 2xl:m-10 2xl:mt-0
-              xl:text-[14px] xl:py-2 xl:px-4  xl:m-5 xl:mt-0
-              lg:text-[12px] lg:py-2 lg:px-3 lg:m-5 lg:mt-0
-              md:text-[12px] md:py-1 md:px-2 md:m-4 md:mt-0
-              sm:text-[11px] sm:py-1  sm:px-2 sm:m-3 sm:mt-0
-              text-[9px] py-[3px] px-2 m-2 mt-0;
+  @apply border bg-black text-white rounded-md lg:rounded-lg 2xl:text-[20px] 2xl:p-2 2xl:m-10 2xl:mt-0 xl:text-[14px] xl:py-2 xl:px-4 xl:m-5 xl:mt-0 lg:text-[12px] lg:py-2 lg:px-3 lg:m-5 lg:mt-0 md:text-[12px] md:py-1 md:px-2 md:m-4 md:mt-0 sm:text-[11px] sm:py-1 sm:px-2 sm:m-3 sm:mt-0 text-[9px] py-[3px] px-2 m-2 mt-0;
 }
+
 @layer base {
   html {
     /* / font-family: 'Montserrat', sans-serif; / */
@@ -119,25 +103,23 @@ html {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 .login-btn {
-  background: linear-gradient(
-    109.6deg,
-    rgb(102, 203, 149) 11.2%,
-    rgb(39, 210, 175) 98.7%
-  );
+  background: linear-gradient(109.6deg,
+      rgb(102, 203, 149) 11.2%,
+      rgb(39, 210, 175) 98.7%);
   font-size: 16px;
   font-weight: 700;
   line-height: 26px;
   border: 1px solid transparent;
   transition: background 0.3s ease, color 0.3s ease;
 }
+
 .login-btn:hover {
   color: #f3f3f3;
-  background: linear-gradient(
-    109.6deg,
-    rgb(102, 203, 149) 11.2%,
-    rgb(39, 210, 175) 98.7%
-  );
+  background: linear-gradient(109.6deg,
+      rgb(102, 203, 149) 11.2%,
+      rgb(39, 210, 175) 98.7%);
 }
 
 .dash-menu svg {
@@ -151,6 +133,7 @@ html {
   height: 30px;
   width: 30px;
 }
+
 .side-profile svg {
   height: 25px;
   width: 25px;
@@ -163,14 +146,158 @@ html {
   border-color: #f3f3f3;
   border-radius: 10px;
 }
+
 .custom-input:focus {
   border: 1px solid #2c4783;
 }
+
 .is-show {
   transition: show;
   transform: translateX(0);
 }
 
 .drawer {
-  transition: transform 0.3s ease-in-out; /* You can adjust the duration and easing function */
+  transition: transform 0.3s ease-in-out;
+  /* You can adjust the duration and easing function */
+}
+
+
+#register-bg {
+  background-image: url('../../public/images/poster.svg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+#subscription-first {
+  background-image: url('../../public/images/Rectangle\ 401.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+#subscription-second {
+  background-image: url('../../public/images/Rectangle\ 402.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+#subscription-third {
+  background-image: url('../../public/images/Rectangle\ 403.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+#subscription-fourth {
+  background-image: url('../../public/images/Rectangle\ 404.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 768px) {
+  .register-bg {
+    background-image: url('');
+  }
+}
+
+
+
+@font-face {
+  font-family: "poppins";
+  src: url("../../src//fonts/Poppins/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: "quicksand";
+  src: url("../../src/fonts/Quicksand/Quicksand-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "montserrat";
+  src: url("../../src/fonts/Montserrat/Montserrat-VariableFont_wght.ttf");
+}
+
+.poppins {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+}
+
+.poppins-plan {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.quicksand {
+  font-family: "Quicksand", sans-serif;
+  font-style: normal;
+}
+
+.montserrat {
+  font-family: "montserrat", sans-serif;
+  font-style: normal;
+}
+
+.montserrat-btn {
+  font-family: "montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.montserrat-otp {
+  font-family: "montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.montserrat-lable {
+  font-family: "montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.montserrat-countinue {
+  font-family: "montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
+
+
+@media (max-width:530px) {
+  .u_table {
+    width: 150%;
+  }
+}
+
+@media (max-width:430px) {
+  .u_table {
+    width: 180%;
+  }
+}
+
+@media (max-width:360px) {
+  .u_table {
+    width: 240%;
+  }
+}
+
+.userprofileU {
+  @apply text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px]
+}
+
+
+.userupdateBtn {
+  @apply bg-[#0071BC] text-white 2xl:text-[16px] xl:text-[12px] text-[10px] 2xl:w-[168px] 2xl:h-[52px] xl:h-[35px] h-[30px] rounded-full 2xl:p-3 px-2 2xl:my-10
+}
+
+.userupdateInputs {
+  @apply outline-[#0071BC] border rounded-full 2xl:text-[16px] xl:text-[12px] text-[10px] 2xl:h-[52px] xl:h-[35px] h-[30px] 2xl:w-[286px] xl:w-[200px] md:w-[170px]
+}
+
+
+.image-item {
+  transition: fill 0.3s; /* Smooth transition effect */
+}
+
+.svg-Image:hover .image-item {
+  fill: blue; /* Change the color to blue on hover */
 }
