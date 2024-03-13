@@ -434,7 +434,7 @@ const Navbar = () => {
                       </div>
                     </a>
                   </li>
-                  <li className="">
+                  {/* <li className="">
                     <a className="mx-auto">
                       {" "}
                       <div className="flex justify-center 2xl:mt-7 mt-5">
@@ -453,6 +453,29 @@ const Navbar = () => {
                           <p className="text-[12px] montserrat-countinue text-center">
                             {" "}
                             Advance Profile Search
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li> */}
+                  <li className="">
+                    <a className="mx-auto" href="/user/colleges">
+                      {" "}
+                      <div className="flex justify-center 2xl:mt-7 mt-5">
+                        <div className=" hover:text-[#2083C4]">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-paperclip  w-[25px] h-[25px] mx-auto"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.5.5 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89zM3.777 3h8.447L8 1zM2 6v7h1V6zm2 0v7h2.5V6zm3.5 0v7h1V6zm2 0v7H12V6zM13 6v7h1V6zm2-1V4H1v1zm-.39 9H1.39l-.25 1h13.72z" />
+                          </svg>
+                          <p className="text-[12px] montserrat-countinue text-center">
+                            {" "}
+                         Colleges
                           </p>
                         </div>
                       </div>
@@ -600,16 +623,19 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content mt-16 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <a
-                    href="/user/user-profile"
-                    className="justify-between 2xl:text-xl"
-                  >
+                  <a href="/user/user-profile" className=" 2xl:text-xl">
                     Profile
-                    <span className="badge">New</span>
                   </a>
                 </li>
                 <li>
-                  <a className="2xl:text-xl">Settings</a>
+                  <a href="/user/user-favoritelist" className=" 2xl:text-xl">
+                    Favorite List
+                  </a>
+                </li>
+                <li>
+                  <a href="/user/update-password" className="2xl:text-xl">
+                    Settings
+                  </a>
                 </li>
                 <li>
                   <button onClick={handleLogout}>
