@@ -23,8 +23,8 @@ export const headItems = [
 const CollageManagement = () => {
   const { token } = useSelector((state) => state?.auth);
   const [collegeID, setCollegeID] = useState("");
-  const [isRefresh, setRefresh] = useState(false);
   const [isOpenDelete, setOpenDelete] = useState(false);
+  const [isRefresh, setRefresh] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isDrawerOpenO, setIsDrawerOpenO] = useState(false);
   const [editCollege, setCollegeEdit] = useState("");
