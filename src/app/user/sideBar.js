@@ -52,7 +52,7 @@ const SideBar = () => {
   return (
     <>
       <div className="hidden lg:block w-1/12 border h-screen">
-        <div className="flex justify-center border pb-2  ">
+        <div className="flex justify-center border border-x-0 pb-2  ">
          <a href="/user/user-dashboard">
          <Image src={sideLogo} className="mx-auto w-12 h-12 mt-5" />
          </a>
