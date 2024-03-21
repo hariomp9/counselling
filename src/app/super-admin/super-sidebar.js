@@ -9,21 +9,21 @@ import s2 from "../../../public/images/s2.svg";
 import s3 from "../../../public/images/s3.svg";
 import s4 from "../../../public/images/s4.svg";
 import s5 from "../../../public/images/s5.svg";
+import SuperNavbar from "./super-navbar";
 
 const SuperSidebar = () => {
   return (
     <>
       <section>
         <div className="flex">
-          <div className="hidden lg:block w-1/12 border h-screen">
+        <div className="hidden lg:block w-1/12 border h-screen">
             <div className="flex justify-center border border-x-0 pb-8  ">
               <a href="/user/user-dashboard">
                 <Image src={sideLogo} className="mx-auto w-10 h-10 mt-5" />
               </a>
               <hr />
             </div>
-
-            <div className="flex justify-center mt-10 2xl:mt-16">
+            <div className="flex justify-center mt-6 2xl:mt-10 mx-4">
               <div className="w-4/6 hover:text-[#2083C4]">
                 <a href="/user/user-dashboard">
                   <svg
@@ -44,29 +44,31 @@ const SuperSidebar = () => {
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-person-plus w-6 h-6 mx-auto"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-                  <path
-                    fill-rule="evenodd"
-                    d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"
-                  />
-                </svg>
-                <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center">
-                  {" "}
-                  Create User
-                </p>
+                <a href="/super-admin/create-user">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-person-plus w-6 h-6 mx-auto"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                    <path
+                      fill-rule="evenodd"
+                      d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"
+                    />
+                  </svg>
+                  <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center">
+                    {" "}
+                    Create User
+                  </p>
+                </a>
               </div>
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/user/subscription">
+                <a href="/super-admin">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -84,9 +86,32 @@ const SuperSidebar = () => {
                 </a>
               </div>
             </div>
+            <div className="flex justify-center  2xl:mt-7 mt-5">
+              <div className="w-4/6 hover:text-[#2083C4]">
+                <a href="/super-admin/approve">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor "
+                    class="w-6 h-6  mx-auto"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+                    />
+                  </svg>
+                  <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center">
+                    Approve
+                  </p>
+                </a>
+              </div>
+            </div>
             <div className="flex justify-center 2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/user/colleges">
+                <a href="/super-admin/student-list">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -107,7 +132,7 @@ const SuperSidebar = () => {
             </div>
             <div className="flex justify-center 2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/user/colleges">
+                <a href="/super-admin/page2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -127,7 +152,7 @@ const SuperSidebar = () => {
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6  hover:text-[#2083C4]">
-                <a>
+                <a href="/super-admin/page3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -171,55 +196,10 @@ const SuperSidebar = () => {
             </div>
           </div>
           <div className="w-full">
-            <nav className="p-4 flex ">
-              <div className="relative">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6 absolute left-8 top-2 text-[#A8A8A8]"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                  />
-                </svg>
+            <SuperNavbar />
 
-                <input
-                  type="search"
-                  className="p-2 px-10 border rounded-full  ml-5"
-                  placeholder="Search"
-                />
-              </div>
-              <div className="relative">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6 absolute right-3 top-2 text-[#A8A8A8]"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
-                  />
-                </svg>
-
-                <input
-                  type="search"
-                  className="py-2  p-2 border rounded-full ml-5 w-[100px]"
-                  placeholder="Filters"
-                />
-              </div>
-            </nav>
-
-            <div className="flex h-screen  my-10 2xl:my-16">
-              <div className="w-8/12">
+            <div className="flex h-screen w-full my-10 2xl:my-16">
+              <div className=" w-8/12">
                 <div className="flex xl:gap-8 2xl:gap-16 2xl:ml-16 ml-5">
                   <div className="super_box">
                     <div className="flex  items-center">
@@ -290,7 +270,7 @@ const SuperSidebar = () => {
 
                 {/* ============================ */}
                 <div className="bg-[#EDF8FF] 2xl:w-[1187px] 2xl:h-[321px] 2xl:ml-16 xl:ml-5 p-5 rounded-[10px]">
-                  <h1 className="legend font-[500] text-[30px] leading-[40px]">
+                  <h1 className="legend font-[500] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[22px] xl:leading-[30px] lg:text-[18px] lg:leading-[25px]">
                     Counsellor’s News
                   </h1>
                   <div className="flex gap-10 my-5">
@@ -336,44 +316,45 @@ const SuperSidebar = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-[418px] ml-[70px] bg-[#FEF8E1]">
+
+              <div className="2xl:w-[468px] xl:w-[320px] ml-[70px] bg-[#FEF8E1]">
                 <div className="flex justify-between p-5">
-                  <h1 className="legend font-[500] text-[30px] leading-[40px]">
+                  <h1 className="legend font-[500] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[22px] xl:leading-[30px] lg:text-[18px] lg:leading-[25px]">
                     Student’s News
                   </h1>
 
-                  <button className="legend font-[700] text-[16px] leading-[24px] text-[#0071BC] underline">
+                  <button className="legend font-[700] 2xl:text-[16px] 2xl:leading-[24px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[16px] text-[#0071BC] underline">
                     View All
                   </button>
                 </div>
                 <div className="">
                   <div>
                     <div className="superAD_sdiv  mx-auto">
-                    <div className="flex justify-between items-center gap-2">
-                      <div className="flex items-center gap-3">
-                        <Image src={s1} className="superAD_sImg" />
+                      <div className="flex justify-between items-center gap-2">
+                        <div className="flex items-center gap-3">
+                          <Image src={s1} className="superAD_sImg" />
+                          <div>
+                            <h1 className="superAD_sName text-[#323232]">
+                              Suresh Inamdar
+                            </h1>
+                            <h1 className="superAD_sdate">Under Graduate</h1>
+                          </div>
+                        </div>
                         <div>
-                          <h1 className="superAD_sName text-[#323232]">
-                            Suresh Inamdar
-                          </h1>
-                          <h1 className="superAD_sdate">Under Graduate</h1>
+                          <button className="superAD_sbtn">View Detail</button>
                         </div>
                       </div>
-                      <div>
-                        <button className="superAD_sbtn">View Detail</button>
+                      <div className="flex gap-6 my-3">
+                        <div>
+                          <h1 className="superAD_sdate">Start date</h1>
+                          <h1 className="superAD_sBdate">13-03-2024</h1>
+                        </div>
+                        <div>
+                          <h1 className="superAD_sdate">Start date</h1>
+                          <h1 className="superAD_sBdate">13-03-2024</h1>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex gap-6 my-3">
-                      <div>
-                        <h1 className="superAD_sdate">Start date</h1>
-                        <h1 className="superAD_sBdate">13-03-2024</h1>
-                      </div>
-                      <div>
-                        <h1 className="superAD_sdate">Start date</h1>
-                        <h1 className="superAD_sBdate">13-03-2024</h1>
-                      </div>
-                    </div>
-                  </div>
                   </div>
                   <div className="superAD_sdiv mt-5  mx-auto">
                     <div className="flex justify-between items-center gap-2">

@@ -1,17 +1,14 @@
 import React from "react";
 import Image from "next/image";
+import posterAdmin from "../../../../public/images/adminPoster.svg";
 
 const RightSection = () => {
-    return (
-        <div className="block lg:w-[50%] px-[10px] lg:px-0">
-            <Image
-                src="/counselling.svg"
-                alt="img"
-                className="w-full mx-auto"
-                width={100}
-                height={100}
-            />
-        </div>)
+  return (
+    <div
+      className="block w-full lg:w-[75%] px-[10px] lg:px-0"
+      id="registerad-bg"
+    ></div>
+  );
 };
 
 export default RightSection;
