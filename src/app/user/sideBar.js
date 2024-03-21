@@ -21,7 +21,7 @@ const SideBar = () => {
     // setLoader(true);
 
     try {
-      const res = await axios.get("http://localhost:4000/api/auth/logout", {
+      const res = await axios.get("https://counselling-backend.vercel.app/api/auth/logout", {
         headers: {
           Authorization: token,
           "Content-Type": "application/json",

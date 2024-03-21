@@ -54,7 +54,7 @@ const Students = () => {
 
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/auth/all-users",
+      url: "https://counselling-backend.vercel.app/api/auth/all-users",
 
       headers: {
         Accept: "application/json",
@@ -79,7 +79,7 @@ const Students = () => {
     } else {
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/auth/all-users?search=${search}`,
+        url: `https://counselling-backend.vercel.app/api/auth/all-users?search=${search}`,
         headers: {
           authorization: token,
         },
@@ -102,7 +102,7 @@ const Students = () => {
     try {
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/auth/getUserById/${id}`,
+        url: `https://counselling-backend.vercel.app/api/auth/getUserById/${id}`,
 
         headers: {
           Accept: "application/json",

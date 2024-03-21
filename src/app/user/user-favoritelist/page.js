@@ -35,7 +35,7 @@ const UserFavoritrList = () => {
   const defaultUser = () => {
     const options = {
       method: "GET",
-      url: "http://localhost:4000/api/auth/getaUser",
+      url: "https://counselling-backend.vercel.app/api/auth/getaUser",
       headers: {
         Accept: "application/json",
         authorization: token,
@@ -57,7 +57,7 @@ const UserFavoritrList = () => {
 
     try {
       const response = await axios.delete(
-        "http://localhost:4000/api/auth/deleteAllWishlistItems",
+        "https://counselling-backend.vercel.app/api/auth/deleteAllWishlistItems",
 
         {
           headers: {
@@ -86,7 +86,7 @@ const UserFavoritrList = () => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/auth/removeFromWishlist/${id}`,
+        `https://counselling-backend.vercel.app/api/auth/removeFromWishlist/${id}`,
 
         {
           headers: {

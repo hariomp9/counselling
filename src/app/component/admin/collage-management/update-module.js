@@ -17,7 +17,7 @@ const UpdateModule = ({ editData, closeDrawerO, refreshData }) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/collage/updateCollege/${collageID}`,
+        `https://counselling-backend.vercel.app/api/collage/updateCollege/${collageID}`,
         collegeDetail,
         {
           headers: {

@@ -26,7 +26,7 @@ const Pages = () => {
 
             <div className="flex justify-center mt-6 2xl:mt-10 mx-4">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/user/user-dashboard">
+               <a href="/super-admin">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"

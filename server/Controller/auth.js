@@ -372,7 +372,7 @@ exports.forgotPassword = async (req, res, next) => {
     const resetToken = user.getResetPasswordToken();
     await user.save();
 
-    const resetUrl = `http://localhost:4000/auth/reset-password/${resetToken}`;
+    const resetUrl = `https://counselling-backend.vercel.app/auth/reset-password/${resetToken}`;
 
     const message = `
     <!DOCTYPE html>

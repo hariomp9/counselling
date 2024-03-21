@@ -51,7 +51,7 @@ const UserDetails = () => {
   const defaultUser = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/auth/getaUser",
+      url: "https://counselling-backend.vercel.app/api/auth/getaUser",
       headers: {
         Accept: "application/json",
         authorization: token,
@@ -71,7 +71,7 @@ const UserDetails = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/edit-user/${userID}`,
+        `https://counselling-backend.vercel.app/api/auth/edit-user/${userID}`,
         studentDetails,
         {
           headers: {

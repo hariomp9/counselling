@@ -33,7 +33,7 @@ const UserProtectedRoute = (WrappedComponent) => {
       setIsAuth(false);
       try {
         const res = await axios.get(
-          `http://localhost:4000/api/auth/verifyUserToken/${userAuthToken}`
+          `https://counselling-backend.vercel.app/api/auth/verifyUserToken/${userAuthToken}`
         );
         if (res?.data?.data === null) {
           router.push("/user/user-login ");

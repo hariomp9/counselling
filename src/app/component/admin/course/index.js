@@ -40,7 +40,7 @@ const Course = () => {
 
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/course/getAllCourses",
+      url: "https://counselling-backend.vercel.app/api/course/getAllCourses",
     };
     axios
       .request(option)
