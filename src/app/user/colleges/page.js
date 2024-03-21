@@ -38,7 +38,7 @@ const Colleges = () => {
 
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/collage/getAllColleges",
+      url: "https://counselling-backend.vercel.app/api/collage/getAllColleges",
     };
     axios
       .request(option)
@@ -55,7 +55,7 @@ const Colleges = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/addToWishlist",
+        "https://counselling-backend.vercel.app/api/auth/addToWishlist",
         {
           collegeId: id,
         },

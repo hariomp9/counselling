@@ -32,7 +32,7 @@ const protectedRoute = (WrappedComponent) => {
       setIsAuth(false);
       try {
         const res = await axios.get(
-          `http://localhost:4000/api/auth/verifyAdminToken/${adminAuthToken}`
+          `https://counselling-backend.vercel.app/api/auth/verifyAdminToken/${adminAuthToken}`
         );
         if (res?.data?.data === null) {
           router.push("/admin-login ");

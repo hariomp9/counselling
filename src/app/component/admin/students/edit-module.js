@@ -17,7 +17,7 @@ const UpdateStudent = ({ editData, closeDrawer, refreshData }) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/edit-user/${studentID}`,
+        `https://counselling-backend.vercel.app/api/auth/edit-user/${studentID}`,
         studentDetail,
         {
           headers: {

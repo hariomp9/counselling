@@ -48,7 +48,7 @@ const ChangePassword = () => {
       try {
         setLoader(true);
         const res = await axios.post(
-          "http://localhost:4000/api/auth/updatePassword",
+          "https://counselling-backend.vercel.app/api/auth/updatePassword",
           formData,
           {
             headers: {

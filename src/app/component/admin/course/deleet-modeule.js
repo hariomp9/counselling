@@ -18,7 +18,7 @@ const DeleteCourse = ({ courseID, closeModal, refreshData }) => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/course/deleteCourse/${courseID}`,
+        `https://counselling-backend.vercel.app/api/course/deleteCourse/${courseID}`,
         {
           headers: {
             Accept: "application/json",

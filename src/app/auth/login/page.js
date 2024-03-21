@@ -35,7 +35,7 @@ const Login = () => {
     setLoader(true);
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/auth/adminLogin",
+        "https://counselling-backend.vercel.app/api/auth/adminLogin",
         loginDetails,
         {
           headers: {

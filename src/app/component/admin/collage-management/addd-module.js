@@ -28,7 +28,7 @@ const CreateCollege = ({ closeDrawer, refreshData }) => {
       setLoader(true);
 
       const response = await axios.post(
-        "http://localhost:4000/api/collage/createCollege",
+        "https://counselling-backend.vercel.app/api/collage/createCollege",
         collegeDetail,
         {
           headers: {

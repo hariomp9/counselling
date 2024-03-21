@@ -17,7 +17,7 @@ const UserProfile = () => {
   const defaultUser = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/auth/getaUser",
+      url: "https://counselling-backend.vercel.app/api/auth/getaUser",
       headers: {
         authorization: token,
       },

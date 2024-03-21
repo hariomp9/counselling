@@ -65,7 +65,7 @@ const CollageManagement = () => {
 
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/collage/getAllColleges",
+      url: "https://counselling-backend.vercel.app/api/collage/getAllColleges",
     };
     axios
       .request(option)
@@ -86,7 +86,7 @@ const CollageManagement = () => {
     } else {
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/collage/getAllColleges?search=${search}`,
+        url: `https://counselling-backend.vercel.app/api/collage/getAllColleges?search=${search}`,
         headers: {
           authorization: token,
         },
@@ -109,7 +109,7 @@ const CollageManagement = () => {
     try {
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/collage/getCollegeById/${id}`,
+        url: `https://counselling-backend.vercel.app/api/collage/getCollegeById/${id}`,
       };
       const response = await axios.request(options);
       if (response.status === 200) {

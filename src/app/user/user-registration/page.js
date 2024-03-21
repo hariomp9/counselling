@@ -34,7 +34,7 @@
 //     try {
 //       setLoader(true);
 //       const response = await axios.post(
-//         "http://localhost:4000/api/auth/register",
+//         "https://counselling-backend.vercel.app/api/auth/register",
 //         studentDetails
 //       );
 //       if (response.status === 201) {
@@ -56,7 +56,7 @@
 //   const handleSendOTP = async (userID) => {
 //     try {
 //       const response = await axios.post(
-//         "http://localhost:4000/api/auth/generate-otp",
+//         "https://counselling-backend.vercel.app/api/auth/generate-otp",
 //         { userId: userID }
 //       );
 //       console.log(response?.data);
@@ -254,7 +254,7 @@ const UserRegistration = () => {
     try {
       setLoader(true);
       const response = await axios.post(
-        "http://localhost:4000/api/auth/register",
+        "https://counselling-backend.vercel.app/api/auth/register",
         studentDetails
       );
       if (response.status === 201) {
@@ -276,7 +276,7 @@ const UserRegistration = () => {
   const handleSendOTP = async (userID) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/generate-otp",
+        "https://counselling-backend.vercel.app/api/auth/generate-otp",
         { userId: userID }
       );
       console.log(response?.data);

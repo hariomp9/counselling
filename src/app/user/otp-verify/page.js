@@ -19,7 +19,7 @@
 //   const handleVerify = async () => {
 //     try {
 //       const response = await axios.post(
-//         "http://localhost:4000/api/auth/verify-otp",
+//         "https://counselling-backend.vercel.app/api/auth/verify-otp",
 //         {
 //           userId: id,
 //           otp: verifyOTP,
@@ -110,7 +110,7 @@ const VerifyOTP = (props) => {
   const handleVerify = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/verify-otp",
+        "https://counselling-backend.vercel.app/api/auth/verify-otp",
         {
           userId: id,
           otp: verifyOTP,
@@ -128,7 +128,7 @@ const VerifyOTP = (props) => {
   const handleSendOTP = async (userID) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/generate-otp",
+        "https://counselling-backend.vercel.app/api/auth/generate-otp",
         { userId: userID }
       );
       console.log(response?.data);
