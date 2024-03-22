@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import sideLogo from "../../../public/images/Group 179.svg";
 import one from "../../../public/images/fi_137.svg";
@@ -10,13 +11,58 @@ import s3 from "../../../public/images/s3.svg";
 import s4 from "../../../public/images/s4.svg";
 import s5 from "../../../public/images/s5.svg";
 import SuperNavbar from "./super-navbar";
+import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const SuperSidebar = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [showDrawer, setShowDrawer] = useState("");
+  const [ComponentId, setComponentId] = useState(1);
+  const { token } = useSelector((state) => state?.auth);
+  const [isLoader, setLoader] = useState(false);
+
+  const handleSignout = async () => {
+    setLoader(true);
+
+    try {
+      const res = await axios.get(`api/counselor/logoutCounselor`, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
+      // console.log(res);
+      if (res?.data?.success) {
+        toast.success("Logout successfully !");
+        dispatch(removeToken());
+        dispatch(rem_AdDetails());
+        router.push("/counsellor/counsellor-login");
+        setLoader(false);
+      } else {
+        dispatch(removeToken());
+        dispatch(rem_AdDetails());
+        router.push("/counsellor/counsellor-login");
+        toast.error("Logout failed try again !");
+      }
+    } catch (error) {
+      dispatch(removeToken());
+      dispatch(rem_AdDetails());
+      router.push("/counsellor/counsellor-login");
+      console.error("Error occurred:", error);
+      // toast.error(error?.response?.data?.error || "Invalid token !");
+      toast.success("Logout successfully !");
+    }
+  };
+
   return (
     <>
       <section>
         <div className="flex">
-        <div className="hidden lg:block w-1/12 border h-screen">
+          <div className="hidden lg:block w-1/12 border h-screen">
             <div className="flex justify-center border border-x-0 pb-8  ">
               <a href="/user/user-dashboard">
                 <Image src={sideLogo} className="mx-auto w-10 h-10 mt-5" />
@@ -25,7 +71,7 @@ const SuperSidebar = () => {
             </div>
             <div className="flex justify-center mt-6 2xl:mt-10 mx-4">
               <div className="w-4/6 hover:text-[#2083C4]">
-               <a href="/super-admin">
+                <a href="/super-admin">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -173,9 +219,7 @@ const SuperSidebar = () => {
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6 flex justify-center hover:text-[#2083C4]">
-                <button
-                //  onClick={handleLogout}
-                >
+                <a href="/counsellor/update-password">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -190,6 +234,31 @@ const SuperSidebar = () => {
                   <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center">
                     {" "}
                     Setting
+                  </p>
+                </a>
+              </div>
+            </div>
+            <div className="flex justify-center  2xl:mt-7 mt-5">
+              <div className="w-4/6 flex justify-center hover:text-[#2083C4]">
+                <button onClick={handleSignout}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-7 h-7 mx-auto"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
+                    />
+                  </svg>
+
+                  <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center">
+                    {" "}
+                    Logout
                   </p>
                 </button>
               </div>

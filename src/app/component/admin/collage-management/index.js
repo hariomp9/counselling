@@ -109,15 +109,13 @@ const CollageManagement = () => {
     try {
       const options = {
         method: "GET",
-        url: `https://counselling-backend.vercel.app/api/collage/getCollegeById/${id}`,
+        url: `https://counselling-backend.vercel.app/api/counselor/getCounselorById/${id}`,
       };
       const response = await axios.request(options);
       if (response.status === 200) {
         setEditData(response?.data);
         setCollegeID(id);
-
         console.log(response, "A Event");
-
         setIsDrawerOpenO(true);
         setLoader(false);
       } else {

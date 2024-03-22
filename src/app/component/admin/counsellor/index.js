@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import AddCounsellor from "./add-counsellor";
+import UpdateCounsellor from "./edit-Counsellor";
 
 // import Pagination from "../Pagination/Index";
 // import DeleteUser from "./DeleteUser";
@@ -13,6 +14,11 @@ const Counsellor = () => {
   let [openDelete, setOpenDelete] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isRefresh, setRefresh] = useState(false);
+  const [getCounsellor, setGetCounsellor] = useState("");
+  const [counsellorID, setCounsellorID] = useState("");
+  const [isDrawerOpenO, setIsDrawerOpenO] = useState(false);
+  const [editData, setEditData] = useState([]);
+  const [isLoader, setLoader] = useState(false);
 
   const handleDelete = () => {
     setOpenDelete(true);
@@ -27,8 +33,56 @@ const Counsellor = () => {
   const closeDrawer = () => {
     setIsDrawerOpen(false);
   };
+
+  const closeDrawerO = () => {
+    setIsDrawerOpenO(false);
+  };
+
   const refreshData = () => {
     setRefresh(!isRefresh);
+  };
+  useEffect(() => {
+    defaultCounsellor();
+  }, [!isRefresh]);
+
+  const defaultCounsellor = () => {
+    const option = {
+      method: "GET",
+      url: "https://counselling-backend.vercel.app/api/counselor/getAllCounselors",
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setGetCounsellor(response?.data?.counselors);
+        refreshData();
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
+  const openModall = async (id) => {
+    setLoader(true);
+    try {
+      const options = {
+        method: "GET",
+        url: `https://counselling-backend.vercel.app/api/counselor/getCounselorById/${id}`,
+      };
+      const response = await axios.request(options);
+      if (response.status === 200) {
+        setEditData(response?.data?.counselor);
+        setCounsellorID(id);
+        console.log(response?.data?.counselor, "A Counsellor");
+        setIsDrawerOpenO(true);
+        setLoader(false);
+      } else {
+        console.error("Error: Unexpected response status");
+        // setLoader(false);
+      }
+    } catch (error) {
+      console.error(error);
+      // setLoader(false);
+    }
   };
 
   return (
@@ -78,24 +132,42 @@ const Counsellor = () => {
                 </tr>
               </thead>
 
-              <tbody>
-                <tr>
-                  <td className="text-[14px] font-[400] py-3 px-5"></td>
-                  <td className="text-[14px] font-[400] py-3 px-5 capitalize"></td>
-                  <td className="text-[14px] font-[400] py-3 px-5"></td>
-                  <td className="text-[14px] font-[400] py-3 px-5"></td>
-                  <td className="text-[14px] font-[400] py-3 px-5">
-                    <div className="flex flex-col md:flex-row items-center gap-x-5">
-                      <button
-                        className="px-4 text-[13px] border rounded h-[25px] text-[red] hover:bg-[#efb3b38a]"
-                        onClick={() => handleDelete()}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
+              {Array.isArray(getCounsellor) && getCounsellor.length > 0 && (
+                <tbody>
+                  {getCounsellor.map((item, index) => (
+                    <tr key={index}>
+                      <td className="text-[14px] font-[400] py-3 px-5">
+                        {index + 1}
+                      </td>
+                      <td className="text-[14px] font-[400] py-3 px-5">
+                        {item.firstname} {item.lastname}
+                      </td>
+                      <td className="text-[14px] font-[400] py-3 px-5">
+                        {item.email}
+                      </td>
+                      <td className="text-[14px] font-[400] py-3 px-5 capitalize">
+                        {item.mobile}
+                      </td>
+                      <td className="text-[14px] font-[400] py-3 px-5">
+                        <div className="flex flex-col md:flex-row items-center gap-x-5">
+                          <button
+                            className="px-4 text-[13px] border rounded h-[25px] text-sky-600 hover:bg-[#efb3b38a]"
+                            onClick={() => openModall(item?._id)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="px-4 text-[13px] border rounded h-[25px] text-[red] hover:bg-[#efb3b38a]"
+                            onClick={() => handleDelete(item._id)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
             </table>
           </div>
 
@@ -194,6 +266,52 @@ const Counsellor = () => {
                   <AddCounsellor
                     closeDrawer={closeDrawer}
                     refreshData={refreshData}
+                  />
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+
+      <Transition appear show={isDrawerOpenO} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-2/3 sm:w-full sm:max-w-[500px]  transform overflow-hidden rounded-2xl bg-white p-4  sm:px-8 lg:px-8 text-left align-middle shadow-xl transition-all">
+                  <div className="flex justify-end">
+                    <button onClick={closeDrawerO}>
+                      <img
+                        src="/images/close-square.svg"
+                        className="w-7 md:w-7 lg:w-8 xl:w-9 2xl:w-14"
+                      />
+                    </button>
+                  </div>
+                  <UpdateCounsellor
+                    closeDrawerO={closeDrawerO}
+                    refreshData={refreshData}
+                    editData={editData}
                   />
                 </Dialog.Panel>
               </Transition.Child>
