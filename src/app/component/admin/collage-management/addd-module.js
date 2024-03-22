@@ -68,6 +68,10 @@ const CreateCollege = ({ closeDrawer, refreshData }) => {
         : { [name]: value }),
     }));
   };
+  const InputHandler = (e) => {
+    setError("");
+    setCollegeDetail({ ...collegeDetail, [e.target.name]: e.target.value });
+  };
 
   return (
     <>
