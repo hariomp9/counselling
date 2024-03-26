@@ -10,7 +10,10 @@ const UpdateCounsellor = ({ editData, closeDrawerO, refreshData }) => {
   const { token } = useSelector((state) => state?.auth);
 
   const inputHandler = (e) => {
-    setCounsellorDetail({ ...counsellorDetail, [e.target.name]: e.target.value });
+    setCounsellorDetail({
+      ...counsellorDetail,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleUpdateCounselor = async (e) => {
@@ -52,7 +55,11 @@ const UpdateCounsellor = ({ editData, closeDrawerO, refreshData }) => {
         <div className="w-1/2">
           <label className="custom_input_label">Counselor Name</label>
           <input
-            defaultValue={editData?.firstname ? editData?.firstname : counsellorDetail?.firstname}
+            defaultValue={
+              editData?.firstname
+                ? editData?.firstname
+                : counsellorDetail?.firstname
+            }
             maxLength={100}
             required
             type="text"
@@ -67,7 +74,9 @@ const UpdateCounsellor = ({ editData, closeDrawerO, refreshData }) => {
           <label className="custom_input_label">Counselor Location</label>
           <input
             defaultValue={
-              editData?.lastname ? editData?.lastname : counsellorDetail?.lastname
+              editData?.lastname
+                ? editData?.lastname
+                : counsellorDetail?.lastname
             }
             type="text"
             name="lastname"
@@ -106,13 +115,10 @@ const UpdateCounsellor = ({ editData, closeDrawerO, refreshData }) => {
             name="email"
             className="custom_inputt"
             required
-        
             title="Please enter only numbers"
             onChange={inputHandler}
           />
         </div>
-
-    
 
         <div className="w-full">
           <button type="submit" className="custom_btn">
