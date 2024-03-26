@@ -264,7 +264,7 @@ const SuperSidebar = () => {
               </div>
             </div>
           </div>
-          <div className="w-full">
+          <div className="w-11/12">
             <SuperNavbar />
 
             <div className="flex h-screen w-full my-10 2xl:my-16">

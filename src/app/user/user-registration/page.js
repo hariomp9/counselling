@@ -306,15 +306,15 @@ const UserRegistration = () => {
                     </div>
                     <div className="flex justify-center lg:gap-1 xl:gap-2 2xl:gap-5 text-center 2xl:mt-16 gap-2">
                       <div className="text-center">
-                        <h1 className=" w-full poppins font-[600] 2xl:text-[30px] xl:text-[20px]  lg:text-[16px] text-[20px] 2xl:leading-[36.57px] text-center">
-                          Get Started
+                        <h1 className=" w-full inter font-[600] 2xl:text-[30px] xl:text-[25px] lg:text-[18px] text-[22px] 2xl:leading-[36.31px] xl:leading-[30.31px] text-center">
+                          Begin your journey
                         </h1>
                       </div>
-                      <Image
+                      {/* <Image
                         src={together}
                         alt="together-icon"
                         className="2xl:w-[35px] 2xl:h-[35px] xl:w-[20px] xl:h-[20px] lg:w-[15px] lg:h-[15px] lg:mt-[2px] xl:mt-[6px] 2xl:mt-1 w-[15px]"
-                      />
+                      /> */}
                     </div>
                     <div className="flex justify-center sm:gap-2 2xl:my-2  mb-1">
                       <p className="poppins font-[400] text-[#323232] xl:leading-[19.5px] 2xl:text-[16px] xl:text-[12px] text-[10px]">
@@ -397,7 +397,7 @@ const UserRegistration = () => {
                           type="text"
                           id="firstname"
                           name="firstname"
-                          className=" montserrat-otp  text-[#979797] border rounded-full lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                          className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                           placeholder="First"
                         />
                         <input
@@ -408,7 +408,7 @@ const UserRegistration = () => {
                           type="text"
                           id="lastname"
                           name="lastname"
-                          className=" montserrat-otp  text-[#979797] border rounded-full lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                          className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                           placeholder="Last"
                         />
                       </div>
@@ -429,7 +429,7 @@ const UserRegistration = () => {
                         type="text"
                         id="email"
                         name="email"
-                        className=" montserrat-otp  text-[#979797] border rounded-full lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                        className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                         placeholder="Enter"
                       />
                     </div>
@@ -444,7 +444,7 @@ const UserRegistration = () => {
                         <button
                           type="button"
                           className=" absolute  transform -translate-y-1/2 cursor-pointer 
-                        2xl:right-7 2xl:top-[45px] xl:right-5 xl:top-[28px] lg:right-5 lg:top-[20px]"
+                        2xl:right-7 2xl:top-[37px] xl:right-5 xl:top-[28px] lg:right-5 lg:top-[20px]"
                           onClick={handleToggle}
                         >
                           {showPassword ? (
@@ -492,20 +492,20 @@ const UserRegistration = () => {
                           required
                           id="password"
                           name="password"
-                          className=" montserrat-otp  text-[#979797] border rounded-full lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                          className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                           placeholder="Password"
                         />
                       </div>
                     </div>
-                    <div className="flex justify-between w-full items-center my-3 xl:my-4 2xl:my-6">
+                    {/* <div className="flex justify-between w-full items-center my-3 xl:my-4 2xl:my-6">
                       <hr className="w-[45%] border-2" />
                       <p className="poppins text-[#BCBCBC] font-[400] 2xl:text-[18px] xl:text-[16px] lg:text-[12px] ">
                         or
                       </p>
                       <hr className="w-[45%] border-2" />
-                    </div>
-                    <div className="flex gap-3 lg:mb-4 xl:mb-3 2xl:mb-10">
-                      <div className="w-full flex justify-center border-[1.49px] border-[#E1E1E1] rounded-full p-1 xl:p-2 2xl:p-3">
+                    </div> */}
+                    {/* <div className="flex gap-3 lg:mb-4 xl:mb-3 2xl:mb-10">
+                      <div className="w-full flex justify-center border-[1.49px] border-[#E1E1E1] rounded-[6.41px] p-1 xl:p-2 2xl:p-3">
                         <a
                           target="_blank"
                           href="https://accounts.google.com/v3/signin/identifier?authuser=0&continue=https%3A%2F%2Fwww.google.co.in%2F%3Fpli%3D1&ec=GAlAmgQ&hl=en&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S1375757007%3A1709800522255495&theme=glif"
@@ -522,22 +522,29 @@ const UserRegistration = () => {
                           </div>
                         </a>
                       </div>
+                    </div> */}
+                    <div className="my-2">
+                      <label className="cursor-pointer label p-0 ">
+                        <input
+                          type="checkbox"
+                          defaultChecked
+                          className="checkbox rounded-[2.57px] bg-transparent 2xl:w-[22px] 2xl:h-[22px] w-[16px] h-[16px]"
+                        />
+                        <p className="w-full inter text-[#3F3F3F] font-[400] 2xl:text-[16px] xl:text-[12px] text-[12px]  2xl:leading-[19.36px] xl:leading-[16.36px] text-center ">
+                          {" "}
+                          By signing up, I agree with the
+                          <span className="w-full inter text-[#0071BC] font-[400] 2xl:text-[16px] xl:text-[12px] text-[12px]  2xl:leading-[19.36px] xl:leading-[16.36px] text-center 2xl:mx-2 xl:mx-1">
+                            Terms of Use & Privacy Policy
+                          </span>
+                        </p>
+                      </label>
                     </div>
                     <button
                       type="submit"
-                      className="bg-[#0071BC] montserrat-btn  text-white p-3 w-full rounded-full 2xl:h-[70px] xl:h-[45px] lg:h-[35px]  lg:my-0  2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-5 "
+                      className="bg-[#0071BC] montserrat-btn  text-white p-3 w-full rounded-[6.41px] 2xl:h-[56px] xl:h-[45px] lg:h-[35px]  lg:my-0  2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-5 2xl:mt-10 xl:mt-7"
                     >
                       Register
                     </button>
-                  </div>
-
-                  <div className="lg:my-5 flex justify-center 2xl:text-[16px] xl:text-[14px] text-[10px]">
-                    <p>
-                      By clicking Next, you agree to our{" "}
-                      <span className="text-[#0071BC]">
-                        Terms and Conditions
-                      </span>
-                    </p>
                   </div>
                 </div>
               </form>
@@ -552,5 +559,5 @@ const UserRegistration = () => {
 
 export default UserRegistration;
 {
-  /* <button className="bg-[#0071BC] quicksand font-[700] text-white p-3 w-full rounded-full  2xl:h-[70px] xl:h-[40px] lg:h-[35px] 2xl:text-[16px] xl:text-[14px] lg:text-[10px]"> */
+  /* <button className="bg-[#0071BC] quicksand font-[700] text-white p-3 w-full rounded-[6.41px]  2xl:h-[56px] xl:h-[40px] lg:h-[35px] 2xl:text-[16px] xl:text-[14px] lg:text-[10px]"> */
 }

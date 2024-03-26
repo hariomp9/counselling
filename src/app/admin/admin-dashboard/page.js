@@ -3,13 +3,13 @@ import React, { useState, Fragment } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import Students from "@/app/component/admin/students";
-import CollageManagement from "@/app/component/admin/collage-management";
+import Students from "../../component/admin/students/page"
+import CollageManagement from "@/app/component/admin/collage-management/page";
 import ApplicationManagement from "@/app/component/admin/application-management";
 import ReportAnalytical from "@/app/component/admin/report-analytical";
 import Setting from "@/app/component/admin/setting";
 import Dashashboard from "@/app/component/dashboard";
-import logo from "../../../../public/logo.svg";
+import logo from "../../../../public/images/Group 179.svg";
 import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -161,18 +161,18 @@ const AdminDashboard = () => {
 
             <div className="">
               <div className="flex justify-center items-center lg:mt-4 xl:mt-1 2xl:mt-3 md:mt-2 mb-6 sm:mb-0">
-                <div className="mx-auto w-3/3">
+                <div className="mx-auto ">
                   <Image
                     src={logo}
                     alt="me"
-                    width="100"
-                    height="100"
+                    width="240"
+                    height="240"
                     className=" w-full mx-auto"
                   />
                 </div>
               </div>
             </div>
-            <div className="flex flex-col 2xl:gap-6 gap-1 sm:mt-10 lg:mt-10 xl:mt-8 2xl:mt-20">
+            <div className="flex flex-col 2xl:gap-6 gap-1 sm:mt-10 lg:mt-10 xl:mt-8 2xl:mt-10">
               {menulist.map((item, index) => (
                 <div
                   key={index}

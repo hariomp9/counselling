@@ -75,7 +75,7 @@ const UserLogin = () => {
       <section>
         <div className="  lg:flex  lg:flex-row ">
           <div className="lg:hidden">
-            <Image src={poster} className=" mx-auto"/>
+            <Image src={poster} className=" mx-auto" />
           </div>
           <div className="lg:w-1/2 lg:h-screen flex mb-16 lg:mb-0 ">
             <div className="w-full">
@@ -95,17 +95,20 @@ const UserLogin = () => {
                   onSubmit={handleSubmit}
                 >
                   <div className="flex gap-1  2xl:gap-2 text-center xl:my-8 2xl:my-12">
-                    <div className="text-center">
-                      <h1 className=" w-full montserrat-otp font-[600] 2xl:text-[40px] xl:text-[25px] lg:text-[18px] text-[22px] leading-[48.76px] text-center">
-                        Login
+                    <div className="text-center mx-auto">
+                      <h1 className=" w-full inter font-[600] 2xl:text-[30px] xl:text-[25px] lg:text-[18px] text-[22px] 2xl:leading-[36.31px] xl:leading-[30.31px] text-center">
+                        Welcome back
                       </h1>
+                      <p className=" w-full inter text-[#3F3F3F] font-[400] 2xl:text-[20px] xl:text-[16px] lg:text-[14px] text-[22px] 2xl:leading-[24.2px] text-center">
+                        Log in to your account
+                      </p>
                     </div>
 
-                    <Image
+                    {/* <Image
                       src={together}
                       alt="together-icon "
                       className="2xl:w-[35px] 2xl:h-[35px] xl:w-[25px] xl:h-[25px] lg:w-[20px] lg:h-[20px] lg:mt-[10px] xl:mt-2 2xl:mt-1"
-                    />
+                    /> */}
                   </div>
                   <div className="my-3">
                     <label
@@ -121,7 +124,7 @@ const UserLogin = () => {
                       type="email"
                       id="email"
                       name="email"
-                      className=" montserrat-otp  text-[#979797] border rounded-full lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                      className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                       placeholder="Enter Email"
                     />
                   </div>
@@ -186,11 +189,23 @@ const UserLogin = () => {
                         id="password"
                         name="password"
                         checked={showPassword}
-                        className=" montserrat-otp  text-[#979797] border rounded-full lg:px-6 lg:py-4 w-full  2xl:h-[52px] xl:h-[40px] lg:h-[25px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px]  text-[10px] py-3 px-4"
+                        className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full  2xl:h-[52px] xl:h-[40px] lg:h-[25px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px]  text-[10px] py-3 px-4"
                         placeholder="Password"
                       />
                     </div>
-                    <div className="flex justify-end 2xl:my-1">
+                    <div className="flex justify-between 2xl:my-1">
+                      <div className="">
+                        <label className="cursor-pointer label p-0 flex items-center">
+                          <input
+                            type="checkbox"
+                            defaultChecked
+                            className="checkbox rounded-[2.57px] bg-transparent 2xl:w-[22px] 2xl:h-[22px] w-[16px] h-[16px]"
+                          />
+                          <span className="w-full inter text-[#3F3F3F] font-[400] 2xl:text-[16px] xl:text-[12px] text-[12px]  2xl:leading-[19.36px] xl:leading-[16.36px] text-center 2xl:mx-2 xl:mx-1">
+                            Remember me
+                          </span>
+                        </label>
+                      </div>
                       <Link href="/user/user-login">
                         <p className="montserrat-lable  text-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[12px]">
                           Forget Password?
@@ -200,10 +215,21 @@ const UserLogin = () => {
                     <button
                       type="submit"
                       disabled={isLoader}
-                      className="bg-[#0071BC] montserrat-btn  text-white p-3 w-full rounded-full 2xl:h-[70px] xl:h-[45px] lg:h-[35px]  2xl:my-10 lg:my-5  xl:my-8 2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-3"
+                      className="bg-[#0071BC] inter font-[700] text-white p-3 w-full rounded-[5px] 2xl:h-[70px] xl:h-[45px] lg:h-[35px]  2xl:my-10 lg:my-5  xl:my-8 2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-3"
                     >
                       Login
                     </button>
+                  </div>
+                  <div>
+                    <p className="inter text-[#3F3F3F] font-[400] 2xl:text-[20px] xl:text-[16px] text-[14px] text-center">
+                      Don’t have an account?
+                      <a href="/user/user-registration">
+                        <span className="inter font-[700] text-[#0071BC]">
+                          {" "}
+                          Sign up
+                        </span>
+                      </a>
+                    </p>
                   </div>
                 </form>
               </div>
