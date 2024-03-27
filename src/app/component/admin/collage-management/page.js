@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import DeleteModule from "./delete-module";
-import CreateCollege from "./addd-module";
+import CreateCollege from "./add-college/page";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../loader";
@@ -129,12 +129,14 @@ const CollageManagement = () => {
             </div>
             <div className=" flex justify-end  items-center">
               <div>
-                <button
-                  onClick={openDrawer}
-                  className="border hover:bg-gray-300 rounded-md my-auto bg-black text-white cursor-pointer 2xl:p-3  2xl:text-[22px] xl:p-2 xl:text-[14px] lg:p-[6px] lg:text-[12px] md:text-[10px] md:p-1 sm:text-[10px] sm:p-1 p-[3px] text-[12px]"
-                >
-                  Add College
-                </button>
+                <a href="/component/admin/collage-management/add-college">
+                  <button
+                    // onClick={openDrawer}
+                    className="border hover:bg-gray-300 rounded-md my-auto bg-black text-white cursor-pointer 2xl:p-3  2xl:text-[22px] xl:p-2 xl:text-[14px] lg:p-[6px] lg:text-[12px] md:text-[10px] md:p-1 sm:text-[10px] sm:p-1 p-[3px] text-[12px]"
+                  >
+                    Add College
+                  </button>
+                </a>
               </div>
             </div>
           </div>

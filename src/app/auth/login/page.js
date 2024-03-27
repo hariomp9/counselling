@@ -79,7 +79,7 @@ const Login = () => {
                 <div className="flex gap-1  2xl:gap-2 text-center xl:my-8 2xl:my-12">
                   <div className="text-center">
                     <h1 className=" w-full legend font-[600] 2xl:text-[40px] xl:text-[25px] lg:text-[18px] text-[22px] leading-[48.76px] text-center mx-auto">
-                      Login
+                     Admin Login
                     </h1>
                   </div>
 

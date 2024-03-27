@@ -50,6 +50,7 @@ const Colleges = () => {
         console.log("Error", error);
       });
   };
+
   const handleAddToFavorite = async (id) => {
     setLoader(true);
 

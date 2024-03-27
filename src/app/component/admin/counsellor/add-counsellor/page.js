@@ -1,70 +1,61 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import Loader from "../../../loader";
 import { useRouter } from "next/navigation";
 
-const UpdateCounsellor = ({ params }) => {
+const AddCounsellor = () => {
   const router = useRouter();
-  const [counsellorDetail, setCounsellorDetail] = useState();
+  const [isLoader, setLoader] = useState(false);
   const { token } = useSelector((state) => state?.auth);
+  const [isError, setError] = useState("");
+  const [counselloDetail, setCounsellorDetail] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    mobile: "",
+    password: "",
+  });
 
-  const inputHandler = (e) => {
-    setCounsellorDetail({
-      ...counsellorDetail,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleUpdateCounselor = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await axios.put(
-        `https://counselling-backend.vercel.app/api/counselor/updateCounselor/${params.slug}`,
-        counsellorDetail,
+      setLoader(true);
+
+      const response = await axios.post(
+        "https://counselling-backend.vercel.app/api/counselor/addCounselor",
+        counselloDetail,
         {
           headers: {
             "Content-Type": "application/json",
-            authorization: token,
+            Authorization: token,
           },
         }
       );
 
-      if (response.status === 200) {
-        toast.success("Update successfully!");
+      if (response.status === 201) {
+        toast.success("counsellor Added Successfully!");
+        router.push("/component/admin/counsellor");
       } else {
-        console.log("Server error");
-      }
-    } catch (error) {
-      console.log(error?.response?.data?.message || "Server error");
-    }
-  };
-
-  useEffect(() => {
-    openModall();
-  }, []);
-
-  const openModall = async () => {
-    // setLoader(true);
-    try {
-      const options = {
-        method: "GET",
-        url: `https://counselling-backend.vercel.app/api/counselor/getCounselorById/${params.slug}`,
-      };
-      const response = await axios.request(options);
-      if (response.status === 200) {
-        setCounsellorDetail(response?.data?.counselor);
-        // setLoader(false);
-      } else {
-        console.error("Error: Unexpected response status");
-        // setLoader(false);
+        toast.error("Failed to add college. Please try again later.");
       }
     } catch (error) {
       console.error(error);
-      // setLoader(false);
+      toast.error("An error occurred while adding the college.");
+    } finally {
+      setLoader(false);
     }
+  };
+  const inputHandler = (e) => {
+    setError("");
+    setCounsellorDetail({
+      ...counselloDetail,
+      [e.target.name]: e.target.value,
+    });
   };
   return (
     <>
@@ -141,73 +132,82 @@ const UpdateCounsellor = ({ params }) => {
       <div className="w-1/2 mx-auto">
         <div className="flex justify-center items-center border border-[#f3f3f3] rounded-lg bg-white 2xl:px-5  2xl:h-[50px] 2xl:my-5 xl:px-4  xl:h-[40px] xl:my-4 lg:px-3  lg:h-[35px] lg:my-2 md:px-2  md:h-[30px] md:my-2 sm:px-1 sm:h-[25px] sm:my-2 px-1 h-[25px] my-2">
           <h2 className="custom_heading_text font-semibold">
-            Update Counselor
+            Add New Counsellor
           </h2>
         </div>
+
         <form
-          onSubmit={handleUpdateCounselor}
+          onSubmit={handleSubmit}
           className="flex flex-wrap bg-white border rounded-lg 2xl:p-2 xl:p-2 lg:p-1 md:p-2 p-1 mx-auto"
         >
-          {/* ------1.Counselor Name----- */}
+          {/* ------1.counsellor Name----- */}
           <div className="w-1/2">
-            <label className="custom_input_label">Counselor Name</label>
+            <label className="custom_input_label">Counsellor lastname</label>
             <input
-              defaultValue={counsellorDetail?.firstname}
+              onChange={inputHandler}
+              value={counselloDetail.firstname}
               maxLength={100}
               required
               type="text"
               name="firstname"
               className="custom_inputt"
-              onChange={inputHandler}
             />
           </div>
-
-          {/* ------2. Counselor location----- */}
           <div className="w-1/2">
-            <label className="custom_input_label">Counselor Location</label>
+            <label className="custom_input_label">Counsellor lastname</label>
             <input
-              defaultValue={counsellorDetail?.lastname}
+              onChange={inputHandler}
+              value={counselloDetail.lastname}
+              maxLength={100}
+              required
               type="text"
               name="lastname"
               className="custom_inputt"
-              required
-              maxLength={200}
-              onChange={inputHandler}
             />
           </div>
 
-          {/* ------3. Counselor website----- */}
+          {/* ------4. counsellor phone----- */}
           <div className="w-1/2">
-            <label className="custom_input_label">Counselor Website</label>
+            <label className="custom_input_label">Counsellor Phone.no</label>
             <input
-              defaultValue={counsellorDetail?.mobile}
-              type="number"
+              onChange={inputHandler}
+              value={counselloDetail.mobile}
+              type="text"
               name="mobile"
               className="custom_inputt"
               required
-              maxLength={10}
               pattern="[0-9]*"
-              onChange={inputHandler}
+              title="Please enter only numbers"
             />
           </div>
 
-          {/* ------4. Counselor phone----- */}
+          {/* ------5. counsellor email----- */}
           <div className="w-1/2">
-            <label className="custom_input_label">Counselor Email</label>
+            <label className="custom_input_label">Counsellor Email</label>
             <input
-              defaultValue={counsellorDetail?.email}
-              type="text"
+              onChange={inputHandler}
+              value={counselloDetail.email}
+              type="email"
               name="email"
               className="custom_inputt"
               required
-              title="Please enter only numbers"
+            />
+          </div>
+          <div className="w-1/2">
+            <label className="custom_input_label">Counsellor Email</label>
+            <input
               onChange={inputHandler}
+              value={counselloDetail.password}
+              type="password"
+              name="password"
+              className="custom_inputt"
+              required
             />
           </div>
 
-          <div className="w-full">
+          <div className="w-full flex justify-center">
             <button type="submit" className="custom_btn">
-              Update Counsellor
+              Add Counsellor
             </button>
           </div>
         </form>
@@ -216,4 +216,4 @@ const UpdateCounsellor = ({ params }) => {
   );
 };
 
-export default UpdateCounsellor;
+export default AddCounsellor;

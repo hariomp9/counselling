@@ -8,9 +8,19 @@ import profile from "../../../../../public/images/profile.svg";
 const Setting = () => {
   return (
     <>
-      <section className="py-[30px] px-[20px] mt-[20px] lg:mt-0">
+      <section className=" px-[20px] 2xl:mt-[20px] lg:mt-0">
+        <div className="navbar bg-base-100">
+          <div className="flex-1">
+            <a className="btn btn-ghost 2xl:text-2xl text-xl  mb-2">Profile</a>
+          </div>
+          <div className="flex-none">
+            <h1 className="font-semibold 2xl:text-2xl text-xl mr-7 mb-2">
+              {" "}
+              Welcome
+            </h1>
+          </div>
+        </div>
         <div>
-          <h1 className="font-semibold text-2xl ml-5 mb-2">Profile</h1>
           <div className="relative">
             <Image src={poster} className="" />
             <Image
@@ -25,7 +35,7 @@ const Setting = () => {
             type="radio"
             name="my_tabs_2"
             role="tab"
-            className="tab font-semibold 2xl:text-[22px]"
+            className="tab font-semibold 2xl:text-[22px] "
             aria-label="  Update Password"
           />
           <div
