@@ -210,6 +210,17 @@ html {
   background-size: cover;
   background-position: center;
 }
+.neetBG{
+  background-image: url('../../public/images/neetPoster.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+.neetyellow{
+  background-image: url('../../public/images/neet6.svg');
+  background-size: cover;
+  background-position: center;
+}
 
 @media (max-width: 768px) {
   .register-bg {

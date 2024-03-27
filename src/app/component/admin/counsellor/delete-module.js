@@ -1,6 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import Loader from "../../loader";
 
-const DeleteModule = () => {
+const DeleteModule = ({ counsellorID, closeModal, refreshData }) => {
+  const [isLoading, setLoading] = useState(false);
+  const { token } = useSelector((state) => state?.auth);
+  const [isLoader, setLoader] = useState(false);
+
+  const handleClose = () => {
+    closeModal();
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await axios.delete(
+        `https://counselling-backend.vercel.app/api/counselor/deleteCounselor/${counsellorID}`,
+        {
+          headers: {
+            Accept: "application/json",
+            authorization: token,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("College remove successfully!");
+        handleClose();
+        refreshData();
+      } else {
+        toast.error("Failed. Something went wrong!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed. Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <>
       <div className="mt-2">
@@ -15,7 +57,7 @@ const DeleteModule = () => {
           <button
             className="w-full border border-1 rounded-md border-lightBlue-400 text-lightBlue-700 hover:bg-lightBlue-200 text-sm  px-2 py-3
                               hover:border-none  border-sky-400 text-sky-700 hover:bg-sky-200 custom_btn_d "
-            // onClick={handleClose}
+            onClick={handleClose}
           >
             No, Keep It
           </button>
@@ -27,8 +69,8 @@ const DeleteModule = () => {
                               hover:border-none
                         ${isLoading ? "bg-gray-200" : "hover:bg-red-200"}
                         hover:border-none`}
-            // onClick={handleDelete}
-            // disabled={isLoading}
+            onClick={handleDelete}
+            disabled={isLoading}
           >
             {/* {isLoading ? "Deleting..." : "Yes, Delete It"} */}
             Yes, Delete It

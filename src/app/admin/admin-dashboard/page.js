@@ -24,7 +24,7 @@ import report from "../../../../public/images/report.svg";
 import course from "../../../../public/images/course.svg";
 import logout from "../../../../public/images/logout-.svg";
 import protectedRoute from "@/config/protectedRoute";
-import Counsellor from "@/app/component/admin/counsellor";
+import Counsellor from "@/app/component/admin/counsellor/page";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();

@@ -1,16 +1,18 @@
+"use client";
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import Link from "next/link";
-import AddCounsellor from "./add-counsellor";
-
+import AddCounsellor from "./add-counsellor/page";
+import DeleteModule from "./delete-module";
+import { useSelector } from "react-redux";
 // import Pagination from "../Pagination/Index";
-// import DeleteUser from "./DeleteUser";
 
 export const headItems = ["S. No.", "Name", " Contact No", "Email", "Action"];
 
 const Counsellor = () => {
+  const { token } = useSelector((state) => state?.auth);
   const [openDelete, setOpenDelete] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isRefresh, setRefresh] = useState(false);
@@ -19,10 +21,14 @@ const Counsellor = () => {
   const [editData, setEditData] = useState([]);
   const [isLoader, setLoader] = useState(false);
 
-  const handleDelete = () => {
+  function openModal(id) {
+    setCounsellorID(id);
     setOpenDelete(true);
-  };
+  }
 
+  function closeModal() {
+    setOpenDelete(false);
+  }
   const closeDeleteModal = () => {
     setOpenDelete(false);
   };
@@ -36,9 +42,10 @@ const Counsellor = () => {
   const refreshData = () => {
     setRefresh(!isRefresh);
   };
+
   useEffect(() => {
     defaultCounsellor();
-  }, []);
+  }, [!isRefresh]);
 
   const defaultCounsellor = () => {
     const option = {
@@ -49,14 +56,36 @@ const Counsellor = () => {
       .request(option)
       .then((response) => {
         setGetCounsellor(response?.data?.counselors);
-        refreshData();
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
 
-
+  const handleSearch = (e) => {
+    const search = e.target.value;
+    if (search.trim() === "") {
+      refreshData();
+    } else {
+      const options = {
+        method: "GET",
+        url: `https://counselling-backend.vercel.app/api/counselor/getAllCounselors?search=${search}`,
+        headers: {
+          authorization: token,
+        },
+      };
+      axios
+        .request(options)
+        .then(function (response) {
+          if (response.status === 200) {
+            setGetCounsellor(response?.data?.counselors);
+          }
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+  };
 
   return (
     <>
@@ -70,6 +99,7 @@ const Counsellor = () => {
                   type="text"
                   className="focus-visible:outline-none border-none w-full rounded-[5px] font-normal text-[15px] text-[#6a6969] placeholder:text-[11px]"
                   placeholder="Search by name, contact, email."
+                  onChange={handleSearch}
                 />
 
                 <button className="px-1 rounded text-[12px] text-[gray] border border-[#6a696917] hover:text-black mr-1"></button>
@@ -81,12 +111,14 @@ const Counsellor = () => {
             </div>
             <div className=" flex justify-end  items-center">
               <div>
-                <button
-                  onClick={openDrawer}
-                  className="border hover:bg-gray-300 rounded-md my-auto bg-black text-white cursor-pointer 2xl:p-3  2xl:text-[22px] xl:p-2 xl:text-[14px] lg:p-[6px] lg:text-[12px] md:text-[10px] md:p-1 sm:text-[10px] sm:p-1 p-[3px] text-[12px]"
-                >
-                  Add Counsellor
-                </button>
+                <a href="/component/admin/counsellor/add-counsellor">
+                  <button
+                    // onClick={openDrawer}
+                    className="border hover:bg-gray-300 rounded-md my-auto bg-black text-white cursor-pointer 2xl:p-3  2xl:text-[22px] xl:p-2 xl:text-[14px] lg:p-[6px] lg:text-[12px] md:text-[10px] md:p-1 sm:text-[10px] sm:p-1 p-[3px] text-[12px]"
+                  >
+                    Add Counsellor
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -123,17 +155,17 @@ const Counsellor = () => {
                       </td>
                       <td className="text-[14px] font-[400] py-3 px-5">
                         <div className="flex flex-col md:flex-row items-center gap-x-5">
-                        <Link href={`/pages/counsellor-update/${item?._id}`}>
-                          <button
-                            className="px-4 text-[13px] border rounded h-[25px] text-sky-600 hover:bg-[#efb3b38a]"
-                            // onClick={() => openModall(item?._id)}
-                          >
-                            Edit
-                          </button>
+                          <Link href={`/pages/counsellor-update/${item?._id}`}>
+                            <button
+                              className="px-4 text-[13px] border rounded h-[25px] text-sky-600 hover:bg-[#efb3b38a]"
+                              // onClick={() => openModall(item?._id)}
+                            >
+                              Edit
+                            </button>
                           </Link>
                           <button
                             className="px-4 text-[13px] border rounded h-[25px] text-[red] hover:bg-[#efb3b38a]"
-                            onClick={() => handleDelete(item._id)}
+                            onClick={() => openModal(item._id)}
                           >
                             Delete
                           </button>
@@ -195,7 +227,11 @@ const Counsellor = () => {
                     as="h3"
                     className="xl:text-[20px] text-[18px] font-medium leading-6 text-gray-900"
                   >
-                    Delete user
+                    <DeleteModule
+                      counsellorID={counsellorID}
+                      closeModal={closeModal}
+                      refreshData={refreshData}
+                    />
                   </Dialog.Title>
                 </Dialog.Panel>
               </Transition.Child>
@@ -248,8 +284,6 @@ const Counsellor = () => {
           </div>
         </Dialog>
       </Transition>
-
-  
     </>
   );
 };
