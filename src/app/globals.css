@@ -210,13 +210,32 @@ html {
   background-size: cover;
   background-position: center;
 }
-.neetBG{
+
+.neetBG {
   background-image: url('../../public/images/neetPoster.svg');
   background-size: cover;
   background-position: center;
 }
 
-.neetyellow{
+.neet1 {
+  background-image: url('../../public/images/neet3.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+.neet2 {
+  background-image: url('../../public/images/neet2.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+.neet3 {
+  background-image: url('../../public/images/neet1.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+.neetyellow {
   background-image: url('../../public/images/neet6.svg');
   background-size: cover;
   background-position: center;
@@ -376,8 +395,7 @@ html {
 }
 
 .super_box_no {
-  @apply text-[#323232] 2xl:text-[40px] 2xl:leading-[40px] xl:text-[22px] xl:leading-[35px] 2xl:my-2 lg:text-[18px] lg:leading-[30px]
-  sm:text-[18px] sm:leading-[30px] my-1
+  @apply text-[#323232] 2xl:text-[40px] 2xl:leading-[40px] xl:text-[22px] xl:leading-[35px] 2xl:my-2 lg:text-[18px] lg:leading-[30px] sm:text-[18px] sm:leading-[30px] my-1
 }
 
 .super_box_img {
@@ -417,8 +435,7 @@ html {
 
 /* =========================SuperAdmin yellow panel=================== */
 .superAD_sdiv {
-  @apply rounded-[10px] 2xl:w-[374px] 2xl:h-[141px] xl:w-[260px] xl:h-[100px] lg:w-[47%] lg:h-[95px] bg-white 2xl:p-5 xl:p-3 lg:p-2
-  sm:w-[45%] sm:h-[110px] sm:p-3 p-3
+  @apply rounded-[10px] 2xl:w-[374px] 2xl:h-[141px] xl:w-[260px] xl:h-[100px] lg:w-[47%] lg:h-[95px] bg-white 2xl:p-5 xl:p-3 lg:p-2 sm:w-[45%] sm:h-[110px] sm:p-3 p-3
 }
 
 .superAD_sdate {
@@ -430,12 +447,11 @@ html {
 }
 
 .superAD_sbtn {
-  @apply legend font-[500] 2xl:text-[14px] 2xl:leading-[20px] 2xl:w-[98px] 2xl:h-[30px] lg:h-[20px] xl:h-[25px] bg-[#0071BC] text-white rounded-[3px] xl:text-[10px] lg:text-[10px] sm:text-[12px] text-[9px] 2xl:py-[3px] 2xl:px-[6px] xl:py-[1px] xl:px-[6px] lg:py-[1px] lg:px-[2px] h-[25px]
-   sm:py-[3px] sm:px-[6px]  py-[3px] px-[6px]
+  @apply legend font-[500] 2xl:text-[14px] 2xl:leading-[20px] 2xl:w-[98px] 2xl:h-[30px] lg:h-[20px] xl:h-[25px] bg-[#0071BC] text-white rounded-[3px] xl:text-[10px] lg:text-[10px] sm:text-[12px] text-[9px] 2xl:py-[3px] 2xl:px-[6px] xl:py-[1px] xl:px-[6px] lg:py-[1px] lg:px-[2px] h-[25px] sm:py-[3px] sm:px-[6px] py-[3px] px-[6px]
 }
 
 .add_btn {
-  @apply legend font-[700] 2xl:text-[16px] 2xl:leading-[20px] 2xl:w-[208px] 2xl:h-[51px] rounded-[5px] flex justify-center items-center xl:gap-2 text-white xl:text-[12px] xl:leading-[18px] xl:w-[180px] xl:h-[40px] lg:text-[10px] lg:leading-[16px] lg:w-[140px] lg:h-[30px] gap-1 md:text-[10px] md:leading-[16px] md:w-[140px] md:h-[30px] sm:text-[11px] sm:leading-[16px] sm:w-[170px] sm:h-[35px] text-[11px] leading-[16px] w-[39%] h-[32px] 
+  @apply legend font-[700] 2xl:text-[16px] 2xl:leading-[20px] 2xl:w-[208px] 2xl:h-[51px] rounded-[5px] flex justify-center items-center xl:gap-2 text-white xl:text-[12px] xl:leading-[18px] xl:w-[180px] xl:h-[40px] lg:text-[10px] lg:leading-[16px] lg:w-[140px] lg:h-[30px] gap-1 md:text-[10px] md:leading-[16px] md:w-[140px] md:h-[30px] sm:text-[11px] sm:leading-[16px] sm:w-[170px] sm:h-[35px] text-[11px] leading-[16px] w-[39%] h-[32px]
 }
 
 .add_img {
@@ -485,4 +501,33 @@ html {
   .table_w {
     width: 265%;
   }
-} 
+}
+
+/* ===============neet table =================== */
+.tablerow {
+  @apply inter font-[400] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[11px]
+}
+.neethead {
+  @apply inter font-[600] text-[#000000] 2xl:text-[16px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[22px] lg:text-[10px] lg:leading-[12px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[11px] text-center my-1
+}
+.neethead3 {
+  @apply inter font-[600] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[18px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] 2xl:my-2 xl:my-1
+}
+.neetbtn {
+  @apply bg-[#EB2027] 2xl:w-[136px] 2xl:h-[35px] xl:w-[80px] xl:h-[25px] lg:w-[60px] lg:h-[20px] rounded-[3px] text-white inter font-[700] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[18px] lg:text-[8px] lg:leading-[12px] sm:text-[10px]
+}
+.neetpara {
+  @apply 2xl:text-[12px] 2xl:leading-[20px] xl:text-[8px] xl:leading-[18px] lg:text-[8px] lg:leading-[12px] sm:text-[10px]
+}
+.campusimg {
+  @apply 2xl:w-[202px] 2xl:h-[116px] xl:w-[160px] h-auto lg:w-[100px] 2xl:my-5 xl:my-3 lg:my-2
+}
+.neethead2 {
+  @apply inter font-[700] text-[#000000] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[16px] xl:leading-[22px] lg:text-[12px] lg:leading-[12px]
+}
+.neetCard {
+  @apply absolute 2xl:right-5 2xl:top-3 xl:right-3 lg:right-3 2xl:w-[172px] 2xl:h-[180px] xl:w-[140px] xl:h-[150px] lg:w-[100px] lg:h-[110px]
+}
+.neetdata {
+  @apply 2xl:w-[200px] 2xl:h-[233px] xl:w-[160px] lg:w-[120px] h-auto
+}
