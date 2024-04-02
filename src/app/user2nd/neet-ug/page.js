@@ -57,7 +57,7 @@ const NeetUG = () => {
                   </div>
                 </div>
 
-                <div className="neet3 2xl:w-[304.33px] rounded-[10px] xl:w-[31%]  2xl:h-[193px] lg:w-[120.33px] lg:h-[100px]">
+                <div className="neet3 2xl:w-[304.33px] rounded-[10px] xl:w-[31%] xl:h-[143px]  2xl:h-[193px] lg:w-[120.33px] lg:h-[100px]">
                   <div className="neet3 flex justify-center items-center 2xl:w-[304.33px] mx-auto 2xl:h-[193px] xl:h-[143px] lg:w-[120.33px] lg:h-[100px]">
                     <div className="">
                       <div className="flex justify-center mx-auto items-center border rounded-full 2xl:w-[67px] 2xl:h-[67px] bg-white xl:w-[50px] xl:h-[50px] lg:w-[40px] lg:h-[40px]">

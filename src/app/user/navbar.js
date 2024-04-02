@@ -2,18 +2,12 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import sideLogo from "../../../public/images/Group 179.svg";
-import homeB from "../../../public/images/homeb.svg";
-import rank from "../../../public/images/rank-p.svg";
-import rs from "../../../public/images/rsb.svg";
-import adSearch from "../../../public/images/ad-search.svg";
-import docm from "../../../public/images/document-management.svg";
 import user from "../../../public/images/user.svg";
 import notify from "../../../public/images/bell.svg";
-import quary from "../../../public/images/quary.svg";
 import line from "../../../public/images/Line 21.svg";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
@@ -23,7 +17,6 @@ const Navbar = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [isLoader, setLoader] = useState(false);
-
   const handleLogout = async () => {
     setLoader(true);
 
