@@ -525,7 +525,7 @@ html {
 }
 
 .campusimg {
-  @apply 2xl:w-[202px] 2xl:h-[116px] xl:w-[160px] h-auto lg:w-[100px] 2xl:my-5 xl:my-3 lg:my-2
+  @apply 2xl:w-[202px] 2xl:h-[116px] xl:w-[160px] h-auto lg:w-[100px] 2xl:my-5 xl:my-3 lg:my-2 rounded-[3px]
 }
 
 .neethead2 {
@@ -533,11 +533,12 @@ html {
 }
 
 .neetCard {
-  @apply absolute 2xl:right-5 2xl:top-3 xl:right-3 lg:right-3 2xl:w-[172px] 2xl:h-[180px] xl:w-[140px] xl:h-[150px] lg:w-[100px] lg:h-[110px]
+  @apply absolute 2xl:right-[0px] 2xl:top-0 xl:right-3 lg:right-3 2xl:w-[172px] 2xl:h-[calculated_height_2xl] xl:w-[140px] xl:h-[calculated_height_xl] lg:w-[100px] lg:h-[calculated_height_lg] rounded-[10px];
+
 }
 
 .neetdata {
-  @apply 2xl:w-[200px] 2xl:h-[233px] xl:w-[160px] lg:w-[120px] h-auto
+  @apply 2xl:w-[200px] 2xl:h-[233px] xl:w-[160px] lg:w-[120px] h-auto rounded-[3px]
 }
 
 .userdetailHead {
