@@ -37,7 +37,7 @@ const UserSubscription = () => {
           <div className="">
             <UserSidebar />
           </div>
-          <div className="w-11/12">
+          <div className="w-full">
             <UserNavbar />
             <div>
               <div className="flex justify-center 2xl:mt-[45px] xl:mt-[30px] lg:mt-[30px]">

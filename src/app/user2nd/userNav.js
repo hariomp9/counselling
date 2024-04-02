@@ -6,8 +6,8 @@ const UserNavbar = () => {
   return (
     <>
       <section>
-        <nav className="2xl:px-10 xl:px-6 lg:px-4 lg:py-[13px] xl:py-[13px] 2xl:p-[9px] flex justify-between border border-s-0">
-          <div>
+        <nav className="2xl:px-10 xl:px-6 lg:px-4 lg:py-[13px] xl:py-[13px] 2xl:p-[9px] flex justify-between border border-s-0 w-full">
+          <div className="flex items-center">
             <h1 className="inter font-[600] 2xl:text-[25px] 2xl:leading-[45px] xl:text-[18px] xl:leading-[28px] lg:text-[14px] lg:leading-[20px] sm:text-[10px] sm:leading-[16px]">
               NEET UG 2024
             </h1>
