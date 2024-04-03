@@ -88,7 +88,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import logo from "../../../../public/images/logo.svg";
-import poster from "../../../../public/images/poster.svg";
+import poster from "../../../../public/images/poster.webp";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";

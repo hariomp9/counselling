@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 import UserSidebar from "../userSidebar";
 import UserNavbar from "../userNav";
-import cllgPre from "../../../../public/images/coursepredictor.png";
-import cllgData from "../../../../public/images/collegedatabase.png";
-import choice from "../../../../public/images/choicefilling.png";
+import cllgPre from "../../../../public/images/coursepredictor.svg";
+import cllgData from "../../../../public/images/collegedatabase.svg";
+import choice from "../../../../public/images/choicefilling.svg";
 import first from "../../../../public/images/1st.png";
 import second from "../../../../public/images/2nd.png";
 import third from "../../../../public/images/3rd.png";
@@ -69,16 +69,16 @@ const page = () => {
           </div>
           <div className="w-full">
             <UserNavbar />
-            <div className="w-[1725px] mx-auto ">
-              <div className="flex gap-[30px]  2xl:mt-[30px]">
+            <div className="2xl:w-[1725px] xl:w-[1150px] lg:w-[880px] mx-auto px-[15px] sm:px-[30px] mt-[20px] lg:px-0 ">
+              <div className="flex flex-col lg:flex-row gap-[30px]  2xl:mt-[30px] xl:mt-[25px] lg:mt-[20px]">
                 <div className="relative 2xl:w-[1090px] xl:w-[750px] lg:w-[600px] ">
                   <Image src={neetcard} alt="neetcard" className="neetCard" />
-                  <div className="bg-[#F5F6FF] rounded-[10px] flex items-center 2xl:p-10 xl:p-5 lg:p-4 2xl:h-[127px] xl:h-[80px] lg:h-[60px] ">
+                  <div className="bg-[#F5F6FF] rounded-[10px] flex items-center 2xl:p-10 xl:p-5 lg:p-4 p-3 2xl:h-[127px] xl:h-[80px] lg:h-[60px] h-[70px] ">
                     <div>
-                      <h1 className="inter font-[400] 2xl:text-[30px] 2xl:leading-[36.31px] xl:text-[20px] xl:leading-[25px] lg:text-[16px] lg:leading-[25px]">
+                      <h1 className="inter font-[400] 2xl:text-[30px] 2xl:leading-[36.31px] xl:text-[20px] xl:leading-[25px] lg:text-[16px] lg:leading-[25px] sm:text-[14px] sm:leading-[20px] text-[14px] leading-[20px]">
                         Welcome <span className="font-semibold">Mayank!</span>
                       </h1>
-                      <p className="inter font-[400] 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] xl:leading-[18px] lg:text-[8px] lg:leading-[14px] 2xl:my-1">
+                      <p className="inter font-[400] 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] xl:leading-[18px] lg:text-[8px] lg:leading-[14px] 2xl:my-1 sm:text-[10px] sm:leading-[14px] text-[10px] leading-[14px] para_h">
                         Welcome back and explore the knowledge |{" "}
                         <span className="text-[#FF0000]">
                           {" "}
@@ -88,23 +88,35 @@ const page = () => {
                     </div>
                   </div>
 
-                  <div className="flex gap-5 2xl:my-10 xl:my-7 lg:my-4">
+                  <div className="flex gap-5 2xl:my-10 xl:my-7 lg:my-4 sm:my-6 my-8">
                     <div>
-                      <Image src={cllgPre} alt="coursepredictor" className="neetdata" />
+                      <Image
+                        src={cllgPre}
+                        alt="coursepredictor"
+                        className="neetdata"
+                      />
                       <h1 className="neethead">Course Predictor</h1>
                     </div>
                     <div>
-                      <Image src={cllgData} alt="collegedatabase" className="neetdata" />
+                      <Image
+                        src={cllgData}
+                        alt="collegedatabase"
+                        className="neetdata"
+                      />
                       <h1 className="neethead">College Database</h1>
                     </div>
                     <div>
-                      <Image src={choice} alt="choicefilling" className="neetdata" />
+                      <Image
+                        src={choice}
+                        alt="choicefilling"
+                        className="neetdata"
+                      />
                       <h1 className="neethead">Choice Filling</h1>
                     </div>
                   </div>
 
                   <div className="overflow-x-auto">
-                    <table className="table bg-[#F5F6FF]">
+                    <table className="table table_h bg-[#F5F6FF] sm:w-[110%] lg:w-auto  ">
                       <thead>
                         <tr>
                           <th className=" tablerow">Counselling Type</th>
@@ -116,16 +128,16 @@ const page = () => {
                         {data.map((item) => (
                           <tr key={item.id}>
                             <td className="tablerow">{item.CounsellingType}</td>
-                            <td className="tablerow 2xl:w-[426px] xl:w-[300px] lg:w-[280px]">
+                            <td className="tablerow 2xl:w-[426px] xl:w-[300px] lg:w-[240px] sm:w-[280px] table-para">
                               {item.Details}
                             </td>
                             <td className=" tablerow flex 2xl:gap-5 gap-3">
                               <Image
                                 src={item.image}
                                 alt={item.name}
-                                className="2xl:w-[94px] 2xl:h-[75px] xl:w-[60px] lg:w-[60px] h-auto rounded-[3px]"
+                                className="2xl:w-[94px] 2xl:h-[75px] xl:w-[60px] lg:w-[60px] w-[60px] h-auto rounded-[3px]"
                               />
-                              <p className="tablerow 2xl:w-[200px] xl:w-[120px]">
+                              <p className="tablerow 2xl:w-[200px] xl:w-[120px] w-[120px]">
                                 {item.Links}
                               </p>
                             </td>
@@ -143,22 +155,22 @@ const page = () => {
                       Join AN’24’s Upcoming Counselling Webinars
                     </h1>
                     <div>
-                      <div className="flex xl:gap-5 gap-3 mt-3 ">
+                      <div className="flex xl:gap-5 gap-3 mt-5 ">
                         <div>
                           <Image
                             src={web1}
                             alt="webinars1"
-                            className="2xl:w-[160px] 2xl:h-[112px] xl:w-[120px] xl:h-auto rounded-[3px] "
+                            className="2xl:w-[160px] 2xl:h-[112px] xl:w-[120px] sm:w-[120px] w-[100px] h-auto rounded-[3px] "
                           />
                         </div>
                         <div>
-                          <h1 className="inter font-[600] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[18px] lg:text-[8px] lg:leading-[12px] sm:text-[10px]">
+                          <h1 className="inter font-[600] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[18px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] text-[10px]">
                             College Counselling Session
                           </h1>
-                          <p className="text-[#A6A6A6] inter font-[600] 2xl:text-[12px] 2xl:leading-[20px] xl:text-[8px] xl:leading-[18px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] ">
+                          <p className="text-[#A6A6A6] inter font-[600] 2xl:text-[12px] 2xl:leading-[20px] xl:text-[8px] xl:leading-[18px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] text-[10px] ">
                             15th April 2024
                           </p>
-                          <p className="tablerow 2xl:my-3 my-1 2xl:w-[361px] xl:w-[240px]">
+                          <p className="tablerow 2xl:my-3 my-1 2xl:w-[361px] xl:w-[240px] ">
                             Lorem Ipsum is simply dummy text of the printing and
                             typesetting industry.
                           </p>
@@ -169,17 +181,17 @@ const page = () => {
                           <Image
                             src={web2}
                             alt="webinars2"
-                            className="2xl:w-[160px] 2xl:h-[112px] xl:w-[120px] xl:h-auto rounded-[3px]"
+                            className="2xl:w-[160px] 2xl:h-[112px] xl:w-[120px] sm:w-[120px] w-[100px] h-auto rounded-[3px]"
                           />
                         </div>{" "}
                         <div>
-                          <h1 className="inter font-[600] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[18px] lg:text-[8px] lg:leading-[12px] sm:text-[10px]">
+                          <h1 className="inter font-[600] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[18px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] text-[10px]">
                             College Counselling Session
                           </h1>
-                          <p className="text-[#A6A6A6] inter font-[600] 2xl:text-[12px] 2xl:leading-[20px] xl:text-[8px] xl:leading-[18px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] ">
+                          <p className="text-[#A6A6A6] inter font-[600] 2xl:text-[12px] 2xl:leading-[20px] xl:text-[8px] xl:leading-[18px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] text-[10px] ">
                             15th April 2024
                           </p>
-                          <p className="tablerow 2xl:my-3 my-1 2xl:w-[361px] xl:w-[240px]">
+                          <p className="tablerow 2xl:my-3 my-1 2xl:w-[361px] xl:w-[240px] ">
                             Lorem Ipsum is simply dummy text of the printing and
                             typesetting industry.
                           </p>
@@ -192,12 +204,12 @@ const page = () => {
                     <Image
                       src={college}
                       alt="college"
-                      className="2xl:w-[227px] 2xl:h-[304px] xl:w-[160px] lg:w-[100px] rounded-[10px]"
+                      className="2xl:w-[227px] 2xl:h-[304px] xl:w-[160px] lg:w-[120px] sm:w-[120px] w-[100px] rounded-[10px]"
                     />
 
                     <div className="2xl:w-[254px] xl:w-[180px] flex items-center">
                       <div>
-                        <h1 className="inter font-[700]  2xl:text-[20px] 2xl:leading-[27px] xl:text-[14px] xl:leading-[20px] lg:text-[8px] lg:leading-[12px] sm:text-[10px]">
+                        <h1 className="inter font-[700]  2xl:text-[20px] 2xl:leading-[27px] xl:text-[14px] xl:leading-[20px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] text-[10px]">
                           Contrary to popular belief Lorem Ipsum
                         </h1>
                         <p className="mt-4 text-[#A6A6A6] inter font-[600] neetpara">
@@ -221,31 +233,39 @@ const page = () => {
                   </div>
 
                   <div className="bg-[#F5F6FF]  2xl:mt-10 mt-5 2xl:p-8 p-4 ">
-                    <h1 className="inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] ">
+                    <h1 className="inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[16px] sm:text-[13px] text-[12px] ">
                       Contrary to popular belief Lorem Ipsum
                     </h1>
                     <hr className="2xl:my-3 my-2" />
 
-                    <div className="flex 2xl:gap-10 xl:gap-5 gap-3">
-                      <div className="2xl:w-[245px] xl:w-[180px] lg:w-[120px]">
+                    <div className="flex flex-col sm:flex-row 2xl:gap-10 xl:gap-5 gap-3">
+                      <div className="2xl:w-[245px] xl:w-[180px] lg:w-[120px] sm:w-1/2">
                         <h1 className="neethead3">There are many variations</h1>
-                        <p className="tablerow">
+                        <p className="tablerow 2xl:w-[245px] xl:w-[180px] lg:w-[120px] w-[200px] my-2">
                           Lorem Ipsum is simply dummy text of the printing and
                           typesetting industry Lorem Ipsum has been the
                           industry,s standard
                         </p>
-                        <Image src={campus1} alt="campus1" className="campusimg" />
+                        <Image
+                          src={campus1}
+                          alt="campus1"
+                          className="campusimg"
+                        />
                       </div>
-                      <div className="2xl:w-[245px] xl:w-[180px] lg:w-[120px]">
+                      <div className="2xl:w-[245px] xl:w-[180px] lg:w-[120px] sm:w-1/2">
                         <h1 className="neethead3">
                           Passages Lorem Ipsum available
                         </h1>
-                        <p className="tablerow ">
+                        <p className="tablerow 2xl:w-[245px] xl:w-[180px] lg:w-[120px] w-[200px] my-2 ">
                           Lorem Ipsum is simply dummy text of the printing and
                           typesetting industry Lorem Ipsum has been the
                           industry,s standard
                         </p>
-                        <Image src={campus2} alt="campus2" className="campusimg" />
+                        <Image
+                          src={campus2}
+                          alt="campus2"
+                          className="campusimg"
+                        />
                       </div>
                     </div>
                   </div>

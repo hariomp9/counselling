@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setToken, removeToken, adDetails } from "@/redux/adminSlice/authSlice";
-import poster from "../../../../public/images/poster.svg";
+import poster from "../../../../public/images/poster.webp";
 
 const UserLogin = () => {
   const dispatch = useDispatch();

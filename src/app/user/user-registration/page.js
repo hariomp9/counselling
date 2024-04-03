@@ -214,7 +214,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import VerifyOTP from "../otp-verify/page";
-import poster from "../../../../public/images/poster.svg";
+import poster from "../../../../public/images/poster.webp";
 
 const UserRegistration = () => {
   const router = useRouter();
