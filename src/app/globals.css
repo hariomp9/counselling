@@ -577,3 +577,48 @@ html {
 .subsBtn{
   @apply w-full 2xl:h-[48px] xl:h-[30px] lg:h-[25px] rounded-[4px] bg-[#4F9ED9] text-white 2xl:text-[14px] xl:text-[10px] lg:text-[8px] 2xl:leading-[20px] 2xl:mt-[35px] xl:mt-[15px] lg:mt-[5px]
 }
+
+.user-input-label {
+  @apply inter font-[300] 2xl:text-[14px] 2xl:leading-[17px] xl:text-[11px] xl:leading-[15px] lg:text-[9px] lg:leading-[12px] text-[10px] leading-[12px] mb-1 xl:mb-2;
+}
+.user-input {
+  @apply outline-none px-3 border rounded-[5px] 2xl:w-[263px] 2xl:h-[48px] xl:w-[200px] xl:h-[35px] lg:w-[170px] lg:h-[28px] md:w-[200px] w-full h-[30px] 2xl:text-[14px] 2xl:leading-[17px] xl:text-[11px] xl:leading-[15px] lg:text-[9px] lg:leading-[12px] text-[10px] leading-[12px];
+}
+
+@media (max-width: 640px) and (min-width: 500px) {
+  .table_h {
+    width: 140% !important;
+  }
+  .table-para {
+    width: 280px;
+  }
+}
+@media (max-width: 500px) and (min-width: 400px) {
+  .table_h {
+    width: 150% !important;
+  }
+  .table-para {
+    width: 200px;
+  }
+}
+@media (max-width: 400px) and (min-width: 320px) {
+  .table_h {
+    width: 200% !important;
+  }
+  .table-para {
+    width: 200px;
+  }
+}
+@media (max-width: 450px) {
+  .para_h {
+    width: 200px;
+  }
+  .nav_text {
+    font-size: 8px;
+  }
+  .input_div {
+    width: 100%;
+  }
+}
+
+
