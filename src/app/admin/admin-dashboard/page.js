@@ -3,7 +3,7 @@ import React, { useState, Fragment } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import Students from "../../component/admin/students/page"
+import Students from "../../component/admin/students/page";
 import CollageManagement from "@/app/component/admin/collage-management/page";
 import ApplicationManagement from "@/app/component/admin/application-management";
 import ReportAnalytical from "@/app/component/admin/report-analytical";

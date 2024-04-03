@@ -40,19 +40,19 @@ const UserSubscription = () => {
           <div className="w-full">
             <UserNavbar />
             <div>
-              <div className="flex justify-center 2xl:mt-[45px] xl:mt-[30px] lg:mt-[30px]">
+              <div className="flex justify-center 2xl:mt-[45px] xl:mt-[30px] lg:mt-[30px] mt-[25px]">
                 <div>
                   <h1 className="inter font-[600] text-center 2xl:text-[25px] 2xl:leading-[45px] xl:text-[18px] xl:leading-[28px] text-[14px] leading-[20px]">
                     Tailored Pricing Plan Designed for you
                   </h1>
-                  <p className="inter font-[400] text-center mx-auto px-5 2xl:my-1 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] text-[8px] leading-[14px] 2xl:w-[361px] xl:w-[250px] lg:w-[200px]">
+                  <p className="inter font-[400] text-center mx-auto px-5 2xl:my-1 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] text-[8px] leading-[14px] 2xl:w-[361px] xl:w-[250px] lg:w-[200px] w-[200px]">
                     All plans include features to boost your search. Choose the
                     best plan to fit your needs.
                   </p>
                 </div>
               </div>
 
-              <div className="flex justify-center 2xl:gap-[30px] xl:gap-[20px] lg:gap-[15px]">
+              <div className="flex flex-wrap justify-center 2xl:gap-[30px] xl:gap-[20px] lg:gap-[15px] gap-5 lg:mt-[40px] mt-[30px] 2xl:mt-[80px] xl:mt-[60px]">
                 <div className="subsBox">
                   <div className="subsimgBox">
                     <Image src={starterplan} className="subsImg" />
@@ -64,7 +64,7 @@ const UserSubscription = () => {
                   </div>
                   <div className="subsplantermBox">
                     {data.map((item) => (
-                      <div key={item.id} className="flex gap-4 my-[5px]">
+                      <div key={item.id} className="flex gap-4 lg:my-[5px] my-[3px]">
                         <div className="flex justify-center items-center rounded-full w-[16px] h-[16px] bg-[#DCEDFA]">
                           <Image src={right} className="w-[8px] h-[6px]" />
                         </div>
@@ -85,7 +85,7 @@ const UserSubscription = () => {
                   </div>
                   <div className="subsplantermBox">
                     {data.map((item) => (
-                      <div key={item.id} className="flex gap-4 my-[5px]">
+                      <div key={item.id} className="flex gap-4 lg:my-[5px] my-[3px]">
                         <div className="flex justify-center items-center rounded-full w-[16px] h-[16px] bg-[#DCEDFA]">
                           <Image src={right} className="w-[8px] h-[6px]" />
                         </div>
@@ -106,7 +106,7 @@ const UserSubscription = () => {
                   </div>
                   <div className="subsplantermBox">
                     {data.map((item) => (
-                      <div key={item.id} className="flex gap-4 my-[5px]">
+                      <div key={item.id} className="flex gap-4 lg:my-[5px] my-[3px]">
                         <div className="flex justify-center items-center rounded-full w-[16px] h-[16px] bg-[#DCEDFA]">
                           <Image src={right} className="w-[8px] h-[6px]" />
                         </div>
@@ -127,7 +127,7 @@ const UserSubscription = () => {
                   </div>
                   <div className="subsplantermBox">
                     {data.map((item) => (
-                      <div key={item.id} className="flex gap-4 my-[5px]">
+                      <div key={item.id} className="flex gap-4 lg:my-[5px] my-[3px]">
                         <div className="flex justify-center items-center rounded-full w-[16px] h-[16px] bg-[#DCEDFA]">
                           <Image src={right} className="w-[8px] h-[6px]" />
                         </div>
