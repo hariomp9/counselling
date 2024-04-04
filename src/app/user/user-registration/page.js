@@ -202,18 +202,12 @@
 
 "use client";
 import Image from "next/image";
-import google from "../../../../public/images/google.svg";
-import fb from "../../../../public/images/fb.svg";
-import together from "../../../../public/images/together.svg";
 import logo from "../../../../public/images/logo.svg";
-import eye from "../../../../public/images/eye.svg";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import Loader from "@/app/component/loader";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
-import VerifyOTP from "../otp-verify/page";
 import poster from "../../../../public/images/poster.webp";
 
 const UserRegistration = () => {
@@ -290,7 +284,7 @@ const UserRegistration = () => {
       <section>
         <div className="lg:flex ">
           <div className="lg:hidden">
-            <Image src={poster} className=" mx-auto" />
+            <Image src={poster} alt="banner" className=" mx-auto" />
           </div>
           <div className="lg:w-1/2 h-screen flex items-center">
             <div className="w-full">
@@ -497,32 +491,6 @@ const UserRegistration = () => {
                         />
                       </div>
                     </div>
-                    {/* <div className="flex justify-between w-full items-center my-3 xl:my-4 2xl:my-6">
-                      <hr className="w-[45%] border-2" />
-                      <p className="poppins text-[#BCBCBC] font-[400] 2xl:text-[18px] xl:text-[16px] lg:text-[12px] ">
-                        or
-                      </p>
-                      <hr className="w-[45%] border-2" />
-                    </div> */}
-                    {/* <div className="flex gap-3 lg:mb-4 xl:mb-3 2xl:mb-10">
-                      <div className="w-full flex justify-center border-[1.49px] border-[#E1E1E1] rounded-[6.41px] p-1 xl:p-2 2xl:p-3">
-                        <a
-                          target="_blank"
-                          href="https://accounts.google.com/v3/signin/identifier?authuser=0&continue=https%3A%2F%2Fwww.google.co.in%2F%3Fpli%3D1&ec=GAlAmgQ&hl=en&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S1375757007%3A1709800522255495&theme=glif"
-                        >
-                          <div className="flex gap-2 items-center">
-                            <Image
-                              src={google}
-                              alt="google-icon "
-                              className="2xl:w-7 2xl:h-7 xl:w-5 xl:h-5 lg:w-5 lg:h-5"
-                            />
-                            <p className="quicksand font-[600] 2xl:text-[16px] xl:text-[14px] text-[10px]">
-                              Sign Up with Google
-                            </p>
-                          </div>
-                        </a>
-                      </div>
-                    </div> */}
                     <div className="my-2">
                       <label className="cursor-pointer label p-0 ">
                         <input
@@ -556,8 +524,4 @@ const UserRegistration = () => {
     </>
   );
 };
-
 export default UserRegistration;
-{
-  /* <button className="bg-[#0071BC] quicksand font-[700] text-white p-3 w-full rounded-[6.41px]  2xl:h-[56px] xl:h-[40px] lg:h-[35px] 2xl:text-[16px] xl:text-[14px] lg:text-[10px]"> */
-}
