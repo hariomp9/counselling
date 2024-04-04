@@ -16,6 +16,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const SuperSidebar = () => {
   const router = useRouter();
@@ -64,14 +65,14 @@ const SuperSidebar = () => {
         <div className="flex">
           <div className="hidden lg:block w-1/12 border h-screen">
             <div className="flex justify-center border border-x-0 pb-8  ">
-              <a href="/user/user-dashboard">
+              <Link href="/user/user-dashboard">
                 <Image src={sideLogo} className="mx-auto w-10 h-10 mt-5" />
-              </a>
+              </Link>
               <hr />
             </div>
             <div className="flex justify-center mt-6 2xl:mt-10 mx-4">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/super-admin">
+                <Link href="/super-admin">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -85,12 +86,12 @@ const SuperSidebar = () => {
                   <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center ">
                     Home
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/super-admin/create-user">
+                <Link href="/super-admin/create-user">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -109,12 +110,12 @@ const SuperSidebar = () => {
                     {" "}
                     Create User
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/super-admin">
+                <Link href="/super-admin">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -129,12 +130,12 @@ const SuperSidebar = () => {
                   <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center">
                     Admin
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/super-admin/approve">
+                <Link href="/super-admin/approve">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -152,12 +153,12 @@ const SuperSidebar = () => {
                   <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center">
                     Approve
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center 2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/super-admin/student-list">
+                <Link href="/super-admin/student-list">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -173,12 +174,12 @@ const SuperSidebar = () => {
                     {" "}
                     Student
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center 2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/super-admin/page2">
+                <Link href="/super-admin/page2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -193,12 +194,12 @@ const SuperSidebar = () => {
                     {" "}
                     Colleges
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6  hover:text-[#2083C4]">
-                <a href="/super-admin/page3">
+                <Link href="/super-admin/page3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -214,12 +215,12 @@ const SuperSidebar = () => {
                     {" "}
                     Application
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6 flex justify-center hover:text-[#2083C4]">
-                <a href="/counsellor/update-password">
+                <Link href="/counsellor/update-password">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -235,7 +236,7 @@ const SuperSidebar = () => {
                     {" "}
                     Setting
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
@@ -280,7 +281,7 @@ const SuperSidebar = () => {
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <Image src={one} className="super_box_img" />
+                      <Image src={one} alt="image" className="super_box_img" />
                     </div>
                   </div>
                   <div className="super_box">
@@ -293,7 +294,7 @@ const SuperSidebar = () => {
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <Image src={two} className="super_box_img" />
+                      <Image src={two} alt="image" className="super_box_img" />
                     </div>
                   </div>
                   <div className="super_box">
@@ -306,7 +307,11 @@ const SuperSidebar = () => {
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <Image src={three} className="super_box_img" />
+                      <Image
+                        src={three}
+                        alt="image"
+                        className="super_box_img"
+                      />
                     </div>
                   </div>
                 </div>
@@ -345,7 +350,7 @@ const SuperSidebar = () => {
                   <div className="flex gap-10 my-5">
                     <div className="superAD_sDiv">
                       <div>
-                        <Image src={s1} className="superAD_sImg" />
+                        <Image src={s1} alt="image" className="superAD_sImg" />
                       </div>
                       <div>
                         <h1 className="superAD_sName">Anurag Pandey</h1>
@@ -358,7 +363,7 @@ const SuperSidebar = () => {
                     </div>
                     <div className="superAD_sDiv">
                       <div>
-                        <Image src={s1} className="superAD_sImg" />
+                        <Image src={s1} alt="image" className="superAD_sImg" />
                       </div>
                       <div>
                         <h1 className="superAD_sName">Anurag Pandey</h1>
@@ -371,7 +376,7 @@ const SuperSidebar = () => {
                     </div>{" "}
                     <div className="superAD_sDiv">
                       <div>
-                        <Image src={s1} className="superAD_sImg" />
+                        <Image src={s1} alt="image" className="superAD_sImg" />
                       </div>
                       <div>
                         <h1 className="superAD_sName">Anurag Pandey</h1>
@@ -385,13 +390,11 @@ const SuperSidebar = () => {
                   </div>
                 </div>
               </div>
-
               <div className="2xl:w-[468px] xl:w-[320px] ml-[70px] bg-[#FEF8E1]">
                 <div className="flex justify-between p-5">
                   <h1 className="legend font-[500] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[22px] xl:leading-[30px] lg:text-[18px] lg:leading-[25px]">
                     Student’s News
                   </h1>
-
                   <button className="legend font-[700] 2xl:text-[16px] 2xl:leading-[24px] xl:text-[12px] xl:leading-[20px] lg:text-[10px] lg:leading-[16px] text-[#0071BC] underline">
                     View All
                   </button>
@@ -401,7 +404,11 @@ const SuperSidebar = () => {
                     <div className="superAD_sdiv  mx-auto">
                       <div className="flex justify-between items-center gap-2">
                         <div className="flex items-center gap-3">
-                          <Image src={s1} className="superAD_sImg" />
+                          <Image
+                            src={s1}
+                            alt="image"
+                            className="superAD_sImg"
+                          />
                           <div>
                             <h1 className="superAD_sName text-[#323232]">
                               Suresh Inamdar
@@ -428,7 +435,7 @@ const SuperSidebar = () => {
                   <div className="superAD_sdiv mt-5  mx-auto">
                     <div className="flex justify-between items-center gap-2">
                       <div className="flex items-center gap-3">
-                        <Image src={s2} className="superAD_sImg" />
+                        <Image src={s2} alt="image" className="superAD_sImg" />
                         <div>
                           <h1 className="superAD_sName text-[#323232]">
                             Narendra Mathur
@@ -454,7 +461,7 @@ const SuperSidebar = () => {
                   <div className="superAD_sdiv mt-5  mx-auto">
                     <div className="flex justify-between items-center gap-2">
                       <div className="flex items-center gap-3">
-                        <Image src={s3} className="superAD_sImg" />
+                        <Image src={s3} alt="image" className="superAD_sImg" />
                         <div>
                           <h1 className="superAD_sName text-[#323232]">
                             Dipali Sharma
@@ -480,7 +487,7 @@ const SuperSidebar = () => {
                   <div className="superAD_sdiv mt-5  mx-auto">
                     <div className="flex justify-between items-center gap-2">
                       <div className="flex items-center gap-3">
-                        <Image src={s4} className="superAD_sImg" />
+                        <Image src={s4} alt="image" className="superAD_sImg" />
                         <div>
                           <h1 className="superAD_sName text-[#323232]">
                             Chetan Rao
@@ -506,7 +513,7 @@ const SuperSidebar = () => {
                   <div className="superAD_sdiv mt-5  mx-auto">
                     <div className="flex justify-between items-center gap-2">
                       <div className="flex items-center gap-3">
-                        <Image src={s5} className="superAD_sImg" />
+                        <Image src={s5} alt="image" className="superAD_sImg" />
                         <div>
                           <h1 className="superAD_sName text-[#323232]">
                             Kavita Agrawal
