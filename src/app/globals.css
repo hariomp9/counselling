@@ -63,9 +63,8 @@ td {
 button {
   transition: 0.3s;
 }
-
 button:hover {
-  webkit-transition: all 350ms ease-in-out 0s;
+  -webkit-transition: all 350ms ease-in-out 0s;
   -moz-transition: all 350ms ease-in-out 0s;
   -ms-transition: all 350ms ease-in-out 0s;
   -o-transition: all 350ms ease-in-out 0s;
@@ -321,46 +320,37 @@ html {
   font-family: "inter";
   src: url("../../src/fonts/Inter_Tight//InterTight-VariableFont_wght.ttf");
 }
-
 .inter {
   font-family: "inter", sans-serif;
   font-style: normal;
 }
-
 @media (max-width: 530px) {
   .u_table {
     width: 150%;
   }
 }
-
 @media (max-width: 430px) {
   .u_table {
     width: 180%;
   }
 }
-
 @media (max-width: 360px) {
   .u_table {
     width: 240%;
   }
 }
-
 .userprofileU {
   @apply text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px];
 }
-
 .userupdateBtn {
   @apply bg-[#0071BC] text-white 2xl:text-[16px] xl:text-[12px] text-[10px] 2xl:w-[168px] 2xl:h-[52px] xl:h-[35px] h-[30px] rounded-full 2xl:p-3 px-2 2xl:my-10;
 }
-
 .userupdateInputs {
   @apply outline-[#0071BC] border rounded-full 2xl:text-[16px] xl:text-[12px] text-[10px] 2xl:h-[52px] xl:h-[35px] h-[30px] 2xl:w-[286px] xl:w-[200px] md:w-[170px];
 }
-
 .image-item {
   transition: fill 0.3s;
 }
-
 .svg-Image:hover .image-item {
   fill: blue;
 }
@@ -386,19 +376,15 @@ html {
 .super_box_img {
   @apply 2xl:w-[50px] 2xl:h-[50px] xl:w-[35px] xl:h-[35px] lg:w-[25px] lg:h-[25px] w-[30px] h-[30px];
 }
-
 .bg_rs {
   background-image: url("../../public/images/rs-bg.svg");
   background-size: cover;
   background-position: center;
 }
-
 /* / =========================SuperAdmin=================== / */
-
 .superAD_sDiv {
   @apply rounded-[10px] 2xl:w-[342px] 2xl:h-[178px] bg-white flex 2xl:gap-2 2xl:p-4 xl:p-3;
 }
-
 .superAD_sImg {
   @apply 2xl:w-[52px] 2xl:h-[52px] xl:w-[40px] xl:h-[40px] lg:w-[30px] lg:h-[30px] sm:w-[35px] sm:h-[35px] w-[30px] h-[30px];
 }
@@ -522,7 +508,7 @@ html {
 }
 
 .userdetailHead {
-  @apply inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[15px] xl:leading-[24px] lg:text-[12px] lg:leading-[18px]  sm:leading-[16px] text-[12px] leading-[11px];
+  @apply inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[15px] xl:leading-[24px] lg:text-[12px] lg:leading-[18px]  sm:leading-[16px] text-[12px] leading-[11px] my-2 lg:my-1;
 }
 
 .userdetailBtn {
@@ -561,7 +547,7 @@ html {
   @apply inter font-[300] 2xl:text-[14px] 2xl:leading-[17px] xl:text-[11px] xl:leading-[15px] lg:text-[9px] lg:leading-[12px] text-[10px] leading-[12px] mb-1 xl:mb-2;
 }
 .user-input {
-  @apply outline-none px-3 border rounded-[5px] 2xl:w-[263px] 2xl:h-[48px] xl:w-[200px] xl:h-[35px] lg:w-[170px] lg:h-[28px] md:w-[200px] w-full h-[30px] 2xl:text-[14px] 2xl:leading-[17px] xl:text-[11px] xl:leading-[15px] lg:text-[9px] lg:leading-[12px] text-[10px] leading-[12px];
+  @apply outline-none bg-white px-3 border rounded-[5px] 2xl:w-[263px] 2xl:h-[48px] xl:w-[200px] xl:h-[35px] lg:w-[170px] lg:h-[28px] md:w-[200px] w-full h-[30px] 2xl:text-[14px] 2xl:leading-[17px] xl:text-[11px] xl:leading-[15px] lg:text-[9px] lg:leading-[12px] text-[10px] leading-[12px];
 }
 
 @media (max-width: 640px) and (min-width: 500px) {
@@ -599,5 +585,3 @@ html {
     width: 100%;
   }
 }
-
-

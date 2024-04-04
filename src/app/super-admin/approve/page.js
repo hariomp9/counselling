@@ -12,6 +12,7 @@ import s6 from "../../../../public/images/s11.svg";
 import s7 from "../../../../public/images/s12.svg";
 import s8 from "../../../../public/images/s13.svg";
 import s9 from "../../../../public/images/s14.svg";
+import Link from "next/link";
 
 const CreateUser = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -29,15 +30,18 @@ const CreateUser = () => {
         <div className="flex">
           <div className="hidden lg:block w-1/12 border h-screen">
             <div className="flex justify-center border border-x-0 pb-4  ">
-              <a href="/user/user-dashboard">
-                <Image src={sideLogo} className="mx-auto w-10 h-10 mt-5" />
-              </a>
+              <Link href="/user/user-dashboard">
+                <Image
+                  src={sideLogo}
+                  alt="logo"
+                  className="mx-auto w-10 h-10 mt-5"
+                />
+              </Link>
               <hr />
             </div>
-
             <div className="flex justify-center mt-6 2xl:mt-10 mx-4">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/super-admin">
+              <Link href="/super-admin">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -51,12 +55,12 @@ const CreateUser = () => {
                   <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center ">
                     Home
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/super-admin/create-user">
+                <Link href="/super-admin/create-user">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -75,12 +79,12 @@ const CreateUser = () => {
                     {" "}
                     Create User
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/super-admin">
+                <Link href="/super-admin">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -95,12 +99,12 @@ const CreateUser = () => {
                   <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center">
                     Admin
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/super-admin/approve">
+                <Link href="/super-admin/approve">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -118,12 +122,12 @@ const CreateUser = () => {
                   <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center">
                     Approve
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center 2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/super-admin/student-list">
+                <Link href="/super-admin/student-list">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -139,12 +143,12 @@ const CreateUser = () => {
                     {" "}
                     Student
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center 2xl:mt-7 mt-5">
               <div className="w-4/6 hover:text-[#2083C4]">
-                <a href="/super-admin/page2">
+                <Link href="/super-admin/page2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -159,12 +163,12 @@ const CreateUser = () => {
                     {" "}
                     Colleges
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
               <div className="w-4/6  hover:text-[#2083C4]">
-                <a href="/super-admin/page3">
+                <Link href="/super-admin/page3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -180,7 +184,7 @@ const CreateUser = () => {
                     {" "}
                     Application
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center  2xl:mt-7 mt-5">
@@ -247,7 +251,11 @@ const CreateUser = () => {
                         <td className="py-3">
                           <div className="flex gap-3 items-center">
                             <div>
-                              <Image src={s1} className="superAD_sImg " />
+                              <Image
+                                src={s1}
+                                alt="s1"
+                                className="superAD_sImg "
+                              />
                             </div>
                             <div>
                               <p className="craete_tbl_row">Suresh Inamdar</p>
@@ -286,7 +294,11 @@ const CreateUser = () => {
                         <td className="py-3">
                           <div className="flex gap-3 items-center">
                             <div>
-                              <Image src={s6} className="superAD_sImg" />
+                              <Image
+                                src={s6}
+                                alt="s2"
+                                className="superAD_sImg"
+                              />
                             </div>
                             <div>
                               <p className="craete_tbl_row">Sapna Jaiswal</p>
@@ -327,7 +339,11 @@ const CreateUser = () => {
                         <td className="py-3">
                           <div className="flex gap-3 items-center">
                             <div>
-                              <Image src={s2} className="superAD_sImg" />
+                              <Image
+                                src={s2}
+                                alt="s3"
+                                className="superAD_sImg"
+                              />
                             </div>
                             <div>
                               <p className="craete_tbl_row">Anurag Pandey</p>
@@ -368,7 +384,11 @@ const CreateUser = () => {
                         <td className="py-3">
                           <div className="flex gap-3 items-center">
                             <div>
-                              <Image src={s7} className="superAD_sImg" />
+                              <Image
+                                src={s7}
+                                alt="s4"
+                                className="superAD_sImg"
+                              />
                             </div>
                             <div>
                               <p className="craete_tbl_row">Shubham</p>
@@ -407,7 +427,11 @@ const CreateUser = () => {
                         <td className="py-3">
                           <div className="flex gap-3 items-center">
                             <div>
-                              <Image src={s8} className="superAD_sImg" />
+                              <Image
+                                src={s8}
+                                alt="s5"
+                                className="superAD_sImg"
+                              />
                             </div>
                             <div>
                               <p className="craete_tbl_row">
@@ -448,7 +472,11 @@ const CreateUser = () => {
                         <td className="py-3">
                           <div className="flex gap-3 items-center">
                             <div>
-                              <Image src={s9} className="superAD_sImg" />
+                              <Image
+                                src={s9}
+                                alt="s6"
+                                className="superAD_sImg"
+                              />
                             </div>
                             <div>
                               <p className="craete_tbl_row">Sakshi Talreja</p>
