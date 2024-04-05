@@ -25,6 +25,7 @@ import course from "../../../../public/images/course.svg";
 import logout from "../../../../public/images/logout-.svg";
 import protectedRoute from "@/config/protectedRoute";
 import Counsellor from "@/app/component/admin/counsellor/page";
+import News from "@/app/component/admin/news/page";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -52,32 +53,32 @@ const AdminDashboard = () => {
       component: <Students />,
       icon: student,
     },
-    // {
-    //   id: 3,
-    //   label: "Course",
-    //   component: <Course />,
-    //   icon: course,
-    // },
     {
       id: 3,
+      label: "News",
+      component: <News />,
+      icon: course,
+    },
+    {
+      id: 4,
       label: "Counsellor",
       component: <Counsellor />,
       icon: course,
     },
     {
-      id: 4,
+      id: 5,
       label: "Collage ",
       component: <CollageManagement />,
       icon: college,
     },
     {
-      id: 5,
+      id: 6,
       label: "Application ",
       component: <ApplicationManagement />,
       icon: application,
     },
     {
-      id: 6,
+      id: 7,
       label: "Report & analytical",
       component: <ReportAnalytical />,
       icon: report,

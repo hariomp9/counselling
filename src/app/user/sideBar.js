@@ -10,7 +10,6 @@ import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
 import UserProtectedRoute from "@/config/userProtectedRoute";
 import Loader from "../component/loader.js";
 import { ToastContainer, toast } from "react-toastify";
-import Link from "next/link";
 
 const SideBar = () => {
   const router = useRouter();
@@ -57,9 +56,13 @@ const SideBar = () => {
     <>
       <div className="hidden lg:block w-1/12 border h-screen">
         <div className="flex justify-center border border-x-0 pb-2  ">
-          <Link href="/user/user-dashboard">
-            <Image src={sideLogo} alt="logo" className="mx-auto w-12 h-12 mt-5" />
-          </Link>
+          <a href="/user/user-dashboard">
+            <Image
+              src={sideLogo}
+              alt="logo"
+              className="mx-auto w-12 h-12 mt-5"
+            />
+          </a>
           <hr />
         </div>
         <div className="flex justify-center mt-5">
@@ -77,7 +80,7 @@ const SideBar = () => {
         </div>
         <div className="flex justify-center mt-10 2xl:mt-16">
           <div className="w-4/6 hover:text-[#2083C4]">
-            <Link href="/user/user-dashboard">
+            <a href="/user/user-dashboard">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -91,7 +94,7 @@ const SideBar = () => {
               <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center ">
                 Home
               </p>
-            </Link>
+            </a>
           </div>
         </div>
         <div className="flex justify-center  2xl:mt-7 mt-5">
@@ -153,7 +156,7 @@ const SideBar = () => {
         </div> */}
         <div className="flex justify-center 2xl:mt-7 mt-5">
           <div className="w-4/6 hover:text-[#2083C4]">
-            <Link href="/user/colleges">
+            <a href="/user/colleges">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -168,12 +171,12 @@ const SideBar = () => {
                 {" "}
                 Colleges
               </p>
-            </Link>
+            </a>
           </div>
         </div>
         <div className="flex justify-center  2xl:mt-7 mt-5">
           <div className="w-4/6  hover:text-[#2083C4]">
-            <Link>
+            <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -188,7 +191,7 @@ const SideBar = () => {
                 {" "}
                 Document Management
               </p>
-            </Link>
+            </a>
           </div>
         </div>
         <div className="flex justify-center  2xl:mt-7 mt-5">

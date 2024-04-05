@@ -21,13 +21,13 @@ const AcademicDetail = () => {
                 </ul>
               </div>
               <div className="flex 2xl:mt-[30px] xl:mt-[25px] lg:mt-[20px] mt-[15px]">
-                <div className=" bg-[#F5F6FF] 2xl:w-[339px] h-[400px] 2xl:h-[700px] xl:w-[260px]  md:w-[200px] w-[100px] hidden md:block">
-                  <ul className="steps steps-vertical md:w-[300px] w-[100px] xl:w-[700px] md:p-5 p-2 lg:text-[12px] 2xl:text-[18px] lg:leading-[18px] text-[12px] ">
+                <div className=" bg-[#F5F6FF] 2xl:w-[339px] h-[400px] 2xl:h-[700px] xl:w-[200px] lg:w-[180px]  md:w-[200px] w-[100px] hidden md:block">
+                <ul className="steps steps-vertical md:w-[300px] 2xl:h-[450px] xl:h-[350px] w-[100px] xl:w-[700px] md:p-5 p-2 lg:text-[12px] 2xl:text-[18px] lg:leading-[18px] text-[12px] ">
                     <li className="step step-info">
                       <p>Step 01</p>
                       {/* <h1>Personal Details</h1> */}
                     </li>
-                    <li className="step step-[#1172BA]">
+                    <li className="step step-info">
                       <p>Step 02</p>
                       {/* <h1>Academic Details</h1> */}
                     </li>
@@ -175,7 +175,7 @@ const AcademicDetail = () => {
                     inter font-[700] text-white 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[12px] lg:leading-[12px] text-[12px] leading-[12px]
                     "
                       >
-                        next
+                        Next
                       </button>
                     </a>
                   </div>

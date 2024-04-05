@@ -30,7 +30,7 @@ const SuperSidebar = () => {
     setLoader(true);
 
     try {
-      const res = await axios.get(`api/counselor/logoutCounselor`, {
+      const res = await axios.get(`api/auth/superAdminLogout`, {
         headers: {
           Authorization: token,
           "Content-Type": "application/json",
@@ -41,18 +41,18 @@ const SuperSidebar = () => {
         toast.success("Logout successfully !");
         dispatch(removeToken());
         dispatch(rem_AdDetails());
-        router.push("/counsellor/counsellor-login");
+        router.push("/super-admin/superadmin-login");
         setLoader(false);
       } else {
         dispatch(removeToken());
         dispatch(rem_AdDetails());
-        router.push("/counsellor/counsellor-login");
+        router.push("/super-admin/superadmin-login");
         toast.error("Logout failed try again !");
       }
     } catch (error) {
       dispatch(removeToken());
       dispatch(rem_AdDetails());
-      router.push("/counsellor/counsellor-login");
+      router.push("/super-admin/superadmin-login");
       console.error("Error occurred:", error);
       // toast.error(error?.response?.data?.error || "Invalid token !");
       toast.success("Logout successfully !");

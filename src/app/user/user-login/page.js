@@ -1,5 +1,4 @@
 "use client";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import logo from "../../../../public/images/logo.svg";
 import Link from "next/link";
@@ -47,7 +46,8 @@ const UserLogin = () => {
         dispatch(setToken(res?.data?.token));
         dispatch(adDetails(res?.data?.user));
 
-        router.push("/user/user-dashboard");
+        // router.push("/user/user-dashboard");
+        router.push("/user2nd/neetUG-home");
       } else {
         toast.error("Login failed, please try again later!");
         dispatch(removeToken());
@@ -71,7 +71,7 @@ const UserLogin = () => {
       <section>
         <div className="  lg:flex  lg:flex-row ">
           <div className="lg:hidden">
-            <Image src={poster} alt="poster" className=" mx-auto" />
+            <Image src={poster} alt="banner-img" className=" mx-auto" />
           </div>
           <div className="lg:w-1/2 lg:h-screen flex mb-16 lg:mb-0 ">
             <div className="w-full">
@@ -85,7 +85,6 @@ const UserLogin = () => {
                     />
                   </div>
                 </div>
-
                 <form
                   className="w-full 2xl:mt-36 xl:mt-20 lg:mt-16"
                   onSubmit={handleSubmit}
@@ -196,11 +195,11 @@ const UserLogin = () => {
                           </span>
                         </label>
                       </div>
-                      <Link href="/user/user-login">
+                      <a href="/user/user-login">
                         <p className="montserrat-lable  text-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[12px]">
                           Forget Password?
                         </p>
-                      </Link>
+                      </a>
                     </div>
                     <button
                       type="submit"
@@ -213,12 +212,12 @@ const UserLogin = () => {
                   <div>
                     <p className="inter text-[#3F3F3F] font-[400] 2xl:text-[20px] xl:text-[16px] text-[14px] text-center">
                       Don’t have an account?
-                      <Link href="/user/user-registration">
+                      <a href="/user/user-registration">
                         <span className="inter font-[700] text-[#0071BC]">
                           {" "}
                           Sign up
                         </span>
-                      </Link>
+                      </a>
                     </p>
                   </div>
                 </form>
@@ -233,5 +232,4 @@ const UserLogin = () => {
   );
 };
 
-// export default UserLogin;
-export default dynamic(() => Promise.resolve(UserLogin), { ssr: false });
+export default UserLogin;

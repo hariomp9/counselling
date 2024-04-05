@@ -153,7 +153,7 @@ const Preference = () => {
                     inter font-[700] text-white 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[12px] lg:leading-[12px] text-[12px] leading-[12px]
                     "
                       >
-                        next
+                        Next
                       </button>
                     </a>
                   </div>
