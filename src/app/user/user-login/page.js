@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import logo from "../../../../public/images/logo.svg";
-import together from "../../../../public/images/together.svg";
 import Link from "next/link";
 import React, { useState } from "react";
 import axios from "axios";
@@ -18,20 +17,16 @@ const UserLogin = () => {
   const [isLoader, setLoader] = useState(false);
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-
   const handleToggle = () => {
     setShowPassword(!showPassword);
   };
-
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
   });
-
   const InputHandler = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
@@ -45,13 +40,14 @@ const UserLogin = () => {
           },
         }
       );
-      console.log("Login Response:", res); // Log necessary information
+      console.log("Login Response:", res);
       if (res.data.success) {
         toast.success("Login successful!");
         dispatch(setToken(res?.data?.token));
         dispatch(adDetails(res?.data?.user));
 
-        router.push("/user/user-dashboard");
+        // router.push("/user/user-dashboard");
+        router.push("/user2nd/neetUG-home");
       } else {
         toast.error("Login failed, please try again later!");
         dispatch(removeToken());
@@ -75,7 +71,7 @@ const UserLogin = () => {
       <section>
         <div className="  lg:flex  lg:flex-row ">
           <div className="lg:hidden">
-            <Image src={poster} className=" mx-auto" />
+            <Image src={poster} alt="banner-img" className=" mx-auto" />
           </div>
           <div className="lg:w-1/2 lg:h-screen flex mb-16 lg:mb-0 ">
             <div className="w-full">
@@ -89,7 +85,6 @@ const UserLogin = () => {
                     />
                   </div>
                 </div>
-
                 <form
                   className="w-full 2xl:mt-36 xl:mt-20 lg:mt-16"
                   onSubmit={handleSubmit}
@@ -103,12 +98,6 @@ const UserLogin = () => {
                         Log in to your account
                       </p>
                     </div>
-
-                    {/* <Image
-                      src={together}
-                      alt="together-icon "
-                      className="2xl:w-[35px] 2xl:h-[35px] xl:w-[25px] xl:h-[25px] lg:w-[20px] lg:h-[20px] lg:mt-[10px] xl:mt-2 2xl:mt-1"
-                    /> */}
                   </div>
                   <div className="my-3">
                     <label
@@ -124,7 +113,7 @@ const UserLogin = () => {
                       type="email"
                       id="email"
                       name="email"
-                      className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                      className=" montserrat-otp text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                       placeholder="Enter Email"
                     />
                   </div>
@@ -206,11 +195,11 @@ const UserLogin = () => {
                           </span>
                         </label>
                       </div>
-                      <Link href="/user/user-login">
+                      <a href="/user/user-login">
                         <p className="montserrat-lable  text-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[12px]">
                           Forget Password?
                         </p>
-                      </Link>{" "}
+                      </a>
                     </div>
                     <button
                       type="submit"

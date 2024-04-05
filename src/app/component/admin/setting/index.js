@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import ChangePassword from "./update-password";
 import poster from "../../../../../public/images/profile-poster.svg";
-import profile from "../../../../../public/images/profile.svg";
+import profile from "../../../../../public/images/profile.webp";
 
 const Setting = () => {
   return (

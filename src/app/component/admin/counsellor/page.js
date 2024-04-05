@@ -14,10 +14,10 @@ export const headItems = ["S. No.", "Name", " Contact No", "Email", "Action"];
 const Counsellor = () => {
   const { token } = useSelector((state) => state?.auth);
   const [openDelete, setOpenDelete] = useState(false);
+  const [counsellorID, setCounsellorID] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isRefresh, setRefresh] = useState(false);
   const [getCounsellor, setGetCounsellor] = useState("");
-  const [counsellorID, setCounsellorID] = useState("");
   const [editData, setEditData] = useState([]);
   const [isLoader, setLoader] = useState(false);
 

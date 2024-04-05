@@ -57,13 +57,17 @@ const SideBar = () => {
       <div className="hidden lg:block w-1/12 border h-screen">
         <div className="flex justify-center border border-x-0 pb-2  ">
           <a href="/user/user-dashboard">
-            <Image src={sideLogo} className="mx-auto w-12 h-12 mt-5" />
+            <Image
+              src={sideLogo}
+              alt="logo"
+              className="mx-auto w-12 h-12 mt-5"
+            />
           </a>
           <hr />
         </div>
         <div className="flex justify-center mt-5">
           <div className="w-4/6">
-            <Image src={user} className="w-16  mx-auto " />
+            <Image src={user} alt="user" className="w-16  mx-auto " />
             <p className="2xl:text-[13px] text-[10px] montserrat-countinue text-center">
               {" "}
               Shruti Sannon

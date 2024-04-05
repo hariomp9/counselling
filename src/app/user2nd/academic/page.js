@@ -1,3 +1,4 @@
+
 import React from "react";
 import UserSidebar from "../userSidebar";
 import UserNavbar from "../userNav";
@@ -275,3 +276,4 @@ const Academic = () => {
 };
 
 export default Academic;
+
