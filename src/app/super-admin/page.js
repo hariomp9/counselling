@@ -1,10 +1,10 @@
 import React from "react";
-import SuperSidebar from "./super-sidebar";
+import SuperHome from "./super-home";
 
 const SuperAdmin = () => {
   return (
     <>
-   <SuperSidebar/>
+   <SuperHome/>
     </>
   );
 };
