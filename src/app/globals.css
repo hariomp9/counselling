@@ -354,28 +354,31 @@ html {
 .svg-Image:hover .image-item {
   fill: blue;
 }
-
 /* / ========================Super Admin Dashboard============== / */
 
 .super_box {
-  @apply w-full sm:w-[45%] h-[75px] lg:w-[200px] lg:h-[60px] xl:w-[280px] xl:h-[100px] 2xl:w-[353px] 2xl:h-[137px] rounded-md flex justify-between 2xl:p-7 xl:p-5 lg:p-3 p-3 shadow-md;
+  @apply bg-white w-full sm:w-[45%] h-[75px] lg:w-[160px] lg:h-[60px] xl:w-[180px] xl:h-[65px] 2xl:w-[246px] 2xl:h-[93px] rounded-[5px] flex 2xl:gap-3 xl:gap-2 2xl:p-5 xl:p-3 lg:p-3 p-3 shadow-md;
 }
 
 .super_box_s {
-  @apply xl:w-[280px] xl:h-[115px] 2xl:w-[353px] 2xl:h-[147px] rounded-md flex justify-between 2xl:p-7 xl:p-5;
+  @apply xl:w-[220px] xl:h-[140px] 2xl:w-[312px] 2xl:h-[198px] rounded-md 2xl:p-7 xl:p-[20px] lg:p-[10px] bg-[#F5F6FF];
 }
 
+.super_head{
+  @apply inter font-[700] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[16px] xl:leading-[20px] lg:text-[12px] lg:leading-[26px] text-[12px] leading-[26px]
+}
 .super_box_p {
-  @apply 2xl:text-[16px] 2xl:leading-[24px] xl:text-[12px] lg:text-[10px] text-[#0071BC];
+  @apply 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] lg:text-[10px] text-[6px] text-[#000000];
 }
 
 .super_box_no {
-  @apply text-[#323232] 2xl:text-[40px] 2xl:leading-[40px] xl:text-[22px] xl:leading-[35px] 2xl:my-2 lg:text-[18px] lg:leading-[30px] sm:text-[18px] sm:leading-[30px] my-1;
+  @apply text-[#323232] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[18px] xl:leading-[25px] 2xl:my-0 lg:text-[18px] lg:leading-[30px] sm:text-[18px] sm:leading-[30px];
 }
 
 .super_box_img {
-  @apply 2xl:w-[50px] 2xl:h-[50px] xl:w-[35px] xl:h-[35px] lg:w-[25px] lg:h-[25px] w-[30px] h-[30px];
+  @apply 2xl:w-[33px] 2xl:h-[33px] xl:w-[25px] xl:h-[25px] lg:w-[22px] lg:h-[22px] w-[30px] h-[30px];
 }
+
 .bg_rs {
   background-image: url("../../public/images/rs-bg.svg");
   background-size: cover;
@@ -473,6 +476,9 @@ html {
 /* / ===============neet table =================== / */
 .tablerow {
   @apply inter font-[400] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] sm:leading-[16px] text-[9px] leading-[14px];
+}
+.tablerow-link {
+  @apply inter font-[700] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] sm:leading-[16px] text-[9px] leading-[14px];
 }
 
 .neethead {
