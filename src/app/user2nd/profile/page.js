@@ -3,11 +3,13 @@ import Image from "next/image";
 import UserSidebar from "../userSidebar";
 import UserNavbar from "../userNav";
 import userImg from "../assets/userImg.png";
+import Stepper from "@/components/user-profile/Stepper";
 
 const UserProfile = () => {
   return (
     <>
-      <section>
+    <Stepper/>
+      {/* <section>
         <div className="flex">
           <div className="">
             <UserSidebar />
@@ -185,7 +187,7 @@ const UserProfile = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 };
