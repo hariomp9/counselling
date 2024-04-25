@@ -3,11 +3,12 @@ import Image from "next/image";
 import logo from "../../public/logo.svg";
 import news1 from "../../public/news/news1.svg";
 import news2 from "../../public/news/news2.svg";
+import AddmissionPreference from "@/components/user-profile/steps-pages/addmission-preference";
 
 const page = () => {
   return (
     <>
-      <div>
+      {/* <div>
         <nav>
           <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -46,10 +47,10 @@ const page = () => {
                     <a>About</a>
                   </li>
                 </ul>
-              </div>
+              </div> */}
 
               {/* ============Logo ================= */}
-              <div className=" ">
+              {/* <div className=" ">
                 <Image
                   src={logo}
                   alt="me"
@@ -61,10 +62,10 @@ const page = () => {
             </div>
             <div className="navbar-center">
               <a className="btn btn-ghost text-xl">Counselling</a>
-            </div>
+            </div> */}
 
             {/* =========================================== */}
-            <div className="navbar-end">
+            {/* <div className="navbar-end">
               <a href="/user/user-login">
                 <button className="btn p-1 border mr-4">Login</button>
               </a>
@@ -127,8 +128,9 @@ const page = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
+      <AddmissionPreference/>
     </>
   );
 };
