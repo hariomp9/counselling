@@ -4,6 +4,7 @@ import logo from "../../public/logo.svg";
 import news1 from "../../public/news/news1.svg";
 import news2 from "../../public/news/news2.svg";
 import AddmissionPreference from "@/components/user-profile/steps-pages/addmission-preference";
+import Thankyou from "@/components/user-profile/thankyou-page/page";
 
 const page = () => {
   return (
@@ -130,7 +131,7 @@ const page = () => {
           </div>
         </div> */}
       {/* </div> */}
-      <AddmissionPreference/>
+      <Thankyou/>
     </>
   );
 };
