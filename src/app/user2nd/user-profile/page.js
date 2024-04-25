@@ -1,22 +1,23 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import UserSidebar from "../userSidebar";
 import UserNavbar from "../userNav";
 import userImg from "../assets/userImg.png";
-import Stepper from "@/components/user-profile/Stepper";
+import Profile from "@/components/user-profile/Profile";
 
 const UserProfile = () => {
   return (
     <>
-     <Stepper/>
-      {/* <section>
+      <section>
         <div className="flex">
           <div className="">
             <UserSidebar />
           </div>
           <div className="lg:w-full">
             <UserNavbar />
-            <div className="w-full 2xl:p-10 xl:p-6 lg:p-4 p-4">
+     <Profile/>
+            {/* <div className="w-full 2xl:p-10 xl:p-6 lg:p-4 p-4">
               <div className="2xl:w-[928px] 2xl:h-[207px] border-[1px] xl:w-[55%] lg:w-[65%] md:w-[75%] xl:h-[140px] rounded-[10px] 2xl:p-4 xl:p-3 lg:p-2 p-2">
                 <div className="flex justify-between items-center 2xl:my-1 ">
                   <div className="flex justify-between">
@@ -153,10 +154,10 @@ const UserProfile = () => {
                   </table>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
-      </section> */}
+      </section>
     </>
   );
 };
