@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import NeetInformation from "./steps-pages/step-1/NeetInformation";
 import AddmissionPreference from "./steps-pages/addmission-preference";
 import EducationInfo from "./steps-pages/education-info";
+import PersonalDetails from "./steps-pages/personal-details";
 
 const Stepper = ({ steps, setSteps, initialStep = 0 }) => {
   const [currentStep, setCurrentStep] = useState(initialStep);
@@ -112,6 +113,13 @@ const Stepper = ({ steps, setSteps, initialStep = 0 }) => {
         )}
         {currentStep === 2 && (
           <EducationInfo
+            currentStep={currentStep}
+            next={handleNextStep}
+            prev={handlePreviousStep}
+          />
+        )}
+        {currentStep === 3 && (
+          <PersonalDetails
             currentStep={currentStep}
             next={handleNextStep}
             prev={handlePreviousStep}
