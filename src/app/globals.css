@@ -63,6 +63,7 @@ td {
 button {
   transition: 0.3s;
 }
+
 button:hover {
   -webkit-transition: all 350ms ease-in-out 0s;
   -moz-transition: all 350ms ease-in-out 0s;
@@ -105,11 +106,9 @@ html {
 }
 
 .login-btn {
-  background: linear-gradient(
-    109.6deg,
-    rgb(102, 203, 149) 11.2%,
-    rgb(39, 210, 175) 98.7%
-  );
+  background: linear-gradient(109.6deg,
+      rgb(102, 203, 149) 11.2%,
+      rgb(39, 210, 175) 98.7%);
   font-size: 16px;
   font-weight: 700;
   line-height: 26px;
@@ -119,11 +118,9 @@ html {
 
 .login-btn:hover {
   color: #f3f3f3;
-  background: linear-gradient(
-    109.6deg,
-    rgb(102, 203, 149) 11.2%,
-    rgb(39, 210, 175) 98.7%
-  );
+  background: linear-gradient(109.6deg,
+      rgb(102, 203, 149) 11.2%,
+      rgb(39, 210, 175) 98.7%);
 }
 
 .dash-menu svg {
@@ -158,15 +155,18 @@ html {
   transition: show;
   transform: translateX(0);
 }
+
 .drawer {
   transition: transform 0.3s ease-in-out;
 }
+
 #register-bg {
   background-image: url("../../public/images/poster.webp");
   background-size: cover;
   background-position: center;
   height: 100vh;
 }
+
 #registerad-bg {
   background-image: url("../../public/images/adminPoster.svg");
   background-size: cover;
@@ -320,40 +320,50 @@ html {
   font-family: "inter";
   src: url("../../src/fonts/Inter_Tight//InterTight-VariableFont_wght.ttf");
 }
+
 .inter {
   font-family: "inter", sans-serif;
   font-style: normal;
 }
+
 @media (max-width: 530px) {
   .u_table {
     width: 150%;
   }
 }
+
 @media (max-width: 430px) {
   .u_table {
     width: 180%;
   }
 }
+
 @media (max-width: 360px) {
   .u_table {
     width: 240%;
   }
 }
+
 .userprofileU {
   @apply text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px];
 }
+
 .userupdateBtn {
   @apply bg-[#0071BC] text-white 2xl:text-[16px] xl:text-[12px] text-[10px] 2xl:w-[168px] 2xl:h-[52px] xl:h-[35px] h-[30px] rounded-full 2xl:p-3 px-2 2xl:my-10;
 }
+
 .userupdateInputs {
   @apply outline-[#0071BC] border rounded-full 2xl:text-[16px] xl:text-[12px] text-[10px] 2xl:h-[52px] xl:h-[35px] h-[30px] 2xl:w-[286px] xl:w-[200px] md:w-[170px];
 }
+
 .image-item {
   transition: fill 0.3s;
 }
+
 .svg-Image:hover .image-item {
   fill: blue;
 }
+
 /* / ========================Super Admin Dashboard============== / */
 
 .super_box {
@@ -364,9 +374,10 @@ html {
   @apply xl:w-[220px] xl:h-[140px] 2xl:w-[312px] 2xl:h-[198px] rounded-md 2xl:p-7 xl:p-[20px] lg:p-[10px] bg-[#F5F6FF];
 }
 
-.super_head{
+.super_head {
   @apply inter font-[700] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[16px] xl:leading-[20px] lg:text-[12px] lg:leading-[26px] text-[12px] leading-[26px]
 }
+
 .super_box_p {
   @apply 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] lg:text-[10px] text-[6px] text-[#000000];
 }
@@ -384,10 +395,12 @@ html {
   background-size: cover;
   background-position: center;
 }
+
 /* / =========================SuperAdmin=================== / */
 .superAD_sDiv {
   @apply rounded-[10px] 2xl:w-[342px] 2xl:h-[178px] bg-white flex 2xl:gap-2 2xl:p-4 xl:p-3;
 }
+
 .superAD_sImg {
   @apply 2xl:w-[52px] 2xl:h-[52px] xl:w-[40px] xl:h-[40px] lg:w-[30px] lg:h-[30px] sm:w-[35px] sm:h-[35px] w-[30px] h-[30px];
 }
@@ -477,6 +490,7 @@ html {
 .tablerow {
   @apply inter font-[400] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] sm:leading-[16px] text-[9px] leading-[14px];
 }
+
 .tablerow-link {
   @apply inter font-[700] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] sm:leading-[16px] text-[9px] leading-[14px];
 }
@@ -514,7 +528,7 @@ html {
 }
 
 .userdetailHead {
-  @apply inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[15px] xl:leading-[24px] lg:text-[12px] lg:leading-[18px]  sm:leading-[16px] text-[12px] leading-[11px] my-2 lg:my-1;
+  @apply inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[15px] xl:leading-[24px] lg:text-[12px] lg:leading-[18px] sm:leading-[16px] text-[12px] leading-[11px] my-2 lg:my-1;
 }
 
 .userdetailBtn {
@@ -526,32 +540,41 @@ html {
 }
 
 .subsBox {
-  @apply 2xl:w-[383px] 2xl:h-[599px] xl:w-[260px] xl:h-[380px] lg:w-[180px] lg:h-[300px] w-[250px] h-[310px] border rounded-[10px] 2xl:p-[25px] xl:p-[15px]  lg:p-[15px] p-[15px];
+  @apply 2xl:w-[383px] 2xl:h-[599px] xl:w-[260px] xl:h-[380px] lg:w-[180px] lg:h-[300px] w-[250px] h-[310px] border rounded-[10px] 2xl:p-[25px] xl:p-[15px] lg:p-[15px] p-[15px];
 }
+
 .subsimgBox {
   @apply 2xl:mt-[65px] xl:mt-[20px] mt-[10px];
 }
+
 .subsImg {
   @apply 2xl:w-[64px] 2xl:h-[64px] xl:w-[45px] xl:h-[45px] lg:w-[35px] lg:h-[35px] w-[35px] h-[35px] mx-auto;
 }
+
 .subsPlan {
   @apply 2xl:mt-[35px] xl:mt-[25px] lg:mt-[15px] mt-[15px];
 }
+
 .subsplantext {
-  @apply inter font-[400] text-center  2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[16px] text-[10px] leading-[14px];
+  @apply inter font-[400] text-center 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[16px] text-[10px] leading-[14px];
 }
+
 .subsplanprice {
   @apply inter font-[700] text-[#1172BA] text-center 2xl:text-[25px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[20px] text-[10px] leading-[20px] 2xl:my-2;
 }
+
 .subsplantermBox {
   @apply 2xl:mt-[40px] xl:mt-[30px] lg:mt-[15px] mt-[15px];
 }
+
 .subsBtn {
   @apply w-full 2xl:h-[48px] xl:h-[30px] lg:h-[25px] h-[25px] rounded-[4px] bg-[#4F9ED9] text-white 2xl:text-[14px] xl:text-[10px] lg:text-[8px] text-[10px] 2xl:leading-[20px] 2xl:mt-[35px] xl:mt-[15px] lg:mt-[5px] mt-[15px];
 }
+
 .user-input-label {
   @apply inter font-[300] 2xl:text-[14px] 2xl:leading-[17px] xl:text-[11px] xl:leading-[15px] lg:text-[9px] lg:leading-[12px] text-[10px] leading-[12px] mb-1 xl:mb-2;
 }
+
 .user-input {
   @apply outline-none bg-white px-3 border rounded-[5px] 2xl:w-[263px] 2xl:h-[48px] xl:w-[200px] xl:h-[35px] lg:w-[170px] lg:h-[28px] md:w-[200px] w-full h-[30px] 2xl:text-[14px] 2xl:leading-[17px] xl:text-[11px] xl:leading-[15px] lg:text-[9px] lg:leading-[12px] text-[10px] leading-[12px];
 }
@@ -560,34 +583,66 @@ html {
   .table_h {
     width: 140% !important;
   }
+
   .table-para {
     width: 280px;
   }
 }
+
 @media (max-width: 500px) and (min-width: 400px) {
   .table_h {
     width: 150% !important;
   }
+
   .table-para {
     width: 200px;
   }
 }
+
 @media (max-width: 400px) and (min-width: 320px) {
   .table_h {
     width: 200% !important;
   }
+
   .table-para {
     width: 200px;
   }
 }
+
 @media (max-width: 450px) {
   .para_h {
     width: 200px;
   }
+
   .nav_text {
     font-size: 8px;
   }
+
   .input_div {
     width: 100%;
   }
+}
+
+/* 2xl:w-[] 2xl:h-[] xl:w-[] lg:w-[] sm:w-[] w-[] 
+  2xl:px-[] xl:px-[] lg:px-[] sm:px-[] px-[]
+  2xl:py-[] xl:py-[] lg:py-[] sm:py-[] py-[]
+  2xl:my-[] xl:my-[] lg:my-[] sm:my-[] my-[]
+  2xl:text-[] xl:text-[] lg:text-[] sm:text-[] text-[]
+   2xl:leading-[] xl:leading-[] lg:leading-[] sm:leading-[] leading-[]*/
+
+/* ========== User Profile====== */
+.main_div {
+  @apply bg-[#F5F6FF] 2xl:w-[1345px] 2xl:h-[1257px] xl:w-[900px] lg:w-[800px] sm:w-[] w-[] 2xl:px-[50px] xl:px-[40px] lg:px-[30px] sm:px-[] px-[] 2xl:py-[45px] xl:py-[35px] lg:py-[25px] sm:py-[] py-[]
+}
+
+.pre_input_lable {
+  @apply inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] xl:leading-[15px] text-[10px]
+}
+
+.pre_input {
+  @apply border rounded-[5px] outline-none 2xl:w-[390px] xl:w-[250px] lg:w-[220px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[] 2xl:my-[10px] xl:my-[7px] lg:my-[4px] sm:my-[] my-[] 2xl:text-[16px] xl:text-[12px] text-[10px]
+}
+
+.pre_input_lable2 {
+  @apply inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] xl:leading-[15px] text-[10px]
 }
