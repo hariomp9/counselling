@@ -646,3 +646,19 @@ html {
 .pre_input_lable2 {
   @apply inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] xl:leading-[15px] text-[10px]
 }
+
+.pre_input2nd {
+  @apply border rounded-[5px] outline-none 2xl:w-[209px] xl:w-[180px] lg:w-[140px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[] 2xl:my-[10px] xl:my-[7px] lg:my-[4px] sm:my-[] my-[] 2xl:text-[16px] xl:text-[12px] text-[10px]
+}
+
+.pre_input3rd {
+  @apply border rounded-[5px] outline-none 2xl:w-[174px] xl:w-[110px] lg:w-[90px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[] 2xl:my-[10px] xl:my-[7px] lg:my-[4px] sm:my-[] my-[] 2xl:text-[16px] xl:text-[12px] text-[10px]
+}
+
+.pre_input4th {
+  @apply border rounded-[5px] outline-none 2xl:w-[126px] xl:w-[80px] lg:w-[70px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[] 2xl:my-[10px] xl:my-[7px] lg:my-[4px] sm:my-[] my-[] 2xl:text-[16px] xl:text-[12px] text-[10px]
+}
+/* Add this to your CSS file */
+.table-cell-no-border {
+  border: none !important;
+}
