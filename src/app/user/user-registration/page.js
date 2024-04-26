@@ -1,205 +1,3 @@
-// "use client";
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-// import Loader from "@/app/component/loader";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
-// import { useRouter } from "next/navigation";
-// import VerifyOTP from "../otp-verify/page";
-
-// const UserRegistration = () => {
-//   const router = useRouter();
-//   const [userId, setUserId] = useState("");
-//   const userID = userId._id;
-//   const [isLoader, setLoader] = useState(false);
-//   const [studentDetails, setStudentDetails] = useState({
-//     firstname: "",
-//     lastname: "",
-//     email: "",
-//     mobile: "",
-//     password: "",
-//     role: "",
-//   });
-
-//   const inputHandler = (e) => {
-//     const { name, value } = e.target;
-//     setStudentDetails((prevDetails) => ({
-//       ...prevDetails,
-//       [name]: value,
-//     }));
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       setLoader(true);
-//       const response = await axios.post(
-//         "https://counselling-backend.vercel.app/api/auth/register",
-//         studentDetails
-//       );
-//       if (response.status === 201) {
-//         toast.success("Registration Successful!");
-//         router.push("/user/otp-verify");
-//         setUserId(response?.data?.user);
-//         handleSendOTP(response?.data?.user);
-//       } else {
-//         toast.error("Failed to Register. Please try again later.");
-//       }
-//     } catch (error) {
-//       console.error(error);
-//       toast.error("An error occurred while registering.");
-//     } finally {
-//       setLoader(false);
-//     }
-//   };
-
-//   const handleSendOTP = async (userID) => {
-//     try {
-//       const response = await axios.post(
-//         "https://counselling-backend.vercel.app/api/auth/generate-otp",
-//         { userId: userID }
-//       );
-//       console.log(response?.data);
-//     } catch (error) {
-//       console.error(error);
-//       console.log("Error occurred while sending OTP");
-//     }
-//   };
-
-//   return (
-//     <>
-//       <ToastContainer autoClose={1500} />
-//       {isLoader && <Loader />}
-
-//       <div className="hidden">
-//         <VerifyOTP id={userID} />
-//       </div>
-
-//       <section className="py-10 px-5">
-//         <div className="mx-auto w-1/2">
-//           <div className="flex justify-center items-center border border-gray-300 rounded-lg bg-white px-5 h-10 my-5">
-//             <h2 className="font-semibold">Student Registration</h2>
-//           </div>
-
-//           <form
-//             onSubmit={handleSubmit}
-//             className="bg-white border rounded-lg px-2 py-2"
-//           >
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-//               <div>
-//                 <label htmlFor="firstname" className="block">
-//                   Student First Name
-//                 </label>
-//                 <input
-//                   value={studentDetails.firstname}
-//                   onChange={inputHandler}
-//                   maxLength={100}
-//                   required
-//                   type="text"
-//                   id="firstname"
-//                   name="firstname"
-//                   className="border rounded-lg px-3 py-2 w-full"
-//                 />
-//               </div>
-
-//               <div>
-//                 <label htmlFor="lastname" className="block">
-//                   Student Last Name
-//                 </label>
-//                 <input
-//                   value={studentDetails.lastname}
-//                   onChange={inputHandler}
-//                   type="text"
-//                   id="lastname"
-//                   name="lastname"
-//                   className="border rounded-lg px-3 py-2 w-full"
-//                   required
-//                   maxLength={200}
-//                 />
-//               </div>
-
-//               <div>
-//                 <label htmlFor="email" className="block">
-//                   Student Email
-//                 </label>
-//                 <input
-//                   value={studentDetails.email}
-//                   onChange={inputHandler}
-//                   type="email"
-//                   id="email"
-//                   name="email"
-//                   className="border rounded-lg px-3 py-2 w-full"
-//                   required
-//                   maxLength={64}
-//                 />
-//               </div>
-
-//               <div>
-//                 <label htmlFor="mobile" className="block">
-//                   Student Phone.no
-//                 </label>
-//                 <input
-//                   value={studentDetails.mobile}
-//                   onChange={inputHandler}
-//                   type="tel"
-//                   id="mobile"
-//                   name="mobile"
-//                   className="border rounded-lg px-3 py-2 w-full"
-//                   required
-//                   pattern="[0-9]*"
-//                   title="Please enter only numbers"
-//                 />
-//               </div>
-
-//               <div>
-//                 <label htmlFor="password" className="block">
-//                   Student Password
-//                 </label>
-//                 <input
-//                   value={studentDetails.password}
-//                   onChange={inputHandler}
-//                   type="password"
-//                   id="password"
-//                   name="password"
-//                   className="border rounded-lg px-3 py-2 w-full"
-//                   required
-//                 />
-//               </div>
-
-//               <div>
-//                 <label htmlFor="role" className="block">
-//                   Select your role:
-//                 </label>
-//                 <select
-//                   id="role"
-//                   name="role"
-//                   value={studentDetails.role}
-//                   className="border rounded-lg px-3 py-2 w-full"
-//                   onChange={inputHandler}
-//                 >
-//                   <option value={studentDetails.student}>Student</option>
-//                   <option value={studentDetails.parent}>Parent</option>
-//                 </select>
-//               </div>
-//             </div>
-
-//             <div className="mt-4">
-//               <button
-//                 type="submit"
-//                 className="bg-black text-white px-4 py-2 rounded-md"
-//               >
-//                 Submit
-//               </button>
-//             </div>
-//           </form>
-//         </div>
-//       </section>
-//     </>
-//   );
-// };
-
-// export default UserRegistration;
-
 "use client";
 import Image from "next/image";
 import logo from "../../../../public/images/logo.svg";
@@ -209,6 +7,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import poster from "../../../../public/images/poster.webp";
+import student from "../assets/right-poster.png";
+import first from "../assets/1st-right.svg";
+import second from "../assets/2st-right.svg";
+import third from "../assets/3st-right.svg";
 
 const UserRegistration = () => {
   const router = useRouter();
@@ -295,10 +97,10 @@ const UserRegistration = () => {
                       <Image
                         src={logo}
                         alt="logo"
-                        className=" 2xl:w-[188px] 2xl:h-[64px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]  mb-5 2xl:mb-0"
+                        className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]  mb-5 2xl:mb-0"
                       />
                     </div>
-                    <div className="flex justify-center lg:gap-1 xl:gap-2 2xl:gap-5 text-center 2xl:mt-16 gap-2">
+                    <div className="flex justify-center lg:gap-1 xl:gap-2 2xl:gap-5 text-center 2xl:mt-[50px] gap-2">
                       <div className="text-center">
                         <h1 className=" w-full inter font-[600] 2xl:text-[30px] xl:text-[25px] lg:text-[18px] text-[22px] 2xl:leading-[36.31px] xl:leading-[30.31px] text-center">
                           Begin your journey
@@ -310,7 +112,7 @@ const UserRegistration = () => {
                         className="2xl:w-[35px] 2xl:h-[35px] xl:w-[20px] xl:h-[20px] lg:w-[15px] lg:h-[15px] lg:mt-[2px] xl:mt-[6px] 2xl:mt-1 w-[15px]"
                       /> */}
                     </div>
-                    <div className="flex justify-center sm:gap-2 2xl:my-2  mb-1">
+                    {/* <div className="flex justify-center sm:gap-2 2xl:my-2  mb-1">
                       <p className="poppins font-[400] text-[#323232] xl:leading-[19.5px] 2xl:text-[16px] xl:text-[12px] text-[10px]">
                         Already have an account?
                       </p>
@@ -319,7 +121,7 @@ const UserRegistration = () => {
                           Log in
                         </p>
                       </a>
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className=""></div>
@@ -327,11 +129,11 @@ const UserRegistration = () => {
               </div>
 
               <form onSubmit={handleSubmit}>
-                <div className="mx-auto my-2 xl:my-3 2xl:my-5">
-                  <div className=" w-[80%] lg:w-[52%] mx-auto ">
-                    <label
+                <div className="mx-auto my-2 xl:my-3 2xl:my-[]">
+                  <div className=" w-[80%] lg:w-[60%] mx-auto ">
+                    {/* <label
                       htmlFor="course"
-                      className="montserrat-lable block text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px] "
+                      className="montserrat-lable block text-[#000000] 2xl:text-[18px] xl:text-[14px] text-[12px] "
                     >
                       Course
                     </label>
@@ -374,43 +176,53 @@ const UserRegistration = () => {
                           NEET PG
                         </span>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="2xl:my-5 xl:my-3 my-2">
-                      <label
-                        htmlFor="firstname"
-                        className="montserrat-lable block text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px] "
-                      >
-                        Name
-                      </label>
                       <div className="flex 2xl:gap-7 xl:gap-4 lg:gap-3 xl:my-1 2xl:my-2 sm:gap-4 gap-3">
-                        <input
-                          value={studentDetails.firstname}
-                          onChange={inputHandler}
-                          maxLength={100}
-                          required
-                          type="text"
-                          id="firstname"
-                          name="firstname"
-                          className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
-                          placeholder="First"
-                        />
-                        <input
-                          value={studentDetails.lastname}
-                          onChange={inputHandler}
-                          maxLength={100}
-                          required
-                          type="text"
-                          id="lastname"
-                          name="lastname"
-                          className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
-                          placeholder="Last"
-                        />
+                        <div>
+                          <label
+                            htmlFor="firstname"
+                            className="montserrat-lable block text-[#000000] 2xl:text-[18px] xl:text-[14px] text-[12px] "
+                          >
+                            First Name
+                          </label>
+                          <input
+                            value={studentDetails.firstname}
+                            onChange={inputHandler}
+                            maxLength={100}
+                            required
+                            type="text"
+                            id="firstname"
+                            name="firstname"
+                            className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                            placeholder="First"
+                          />
+                        </div>
+                        <div>
+                          <label
+                            htmlFor="firstname"
+                            className="montserrat-lable block text-[#000000] 2xl:text-[18px] xl:text-[14px] text-[12px] "
+                          >
+                            Last Name
+                          </label>
+                          <input
+                            value={studentDetails.lastname}
+                            onChange={inputHandler}
+                            maxLength={100}
+                            required
+                            type="text"
+                            id="lastname"
+                            name="lastname"
+                            className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                            placeholder="Last"
+                          />
+                        </div>
                       </div>
                     </div>
                     <div className="2xl:my-5 xl:my-3 my-2">
                       <label
                         htmlFor="email"
-                        className="montserrat-lable block text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px] "
+                        className="montserrat-lable block text-[#000000] 2xl:text-[18px] xl:text-[14px] text-[12px] "
                       >
                         Email
                       </label>
@@ -429,8 +241,28 @@ const UserRegistration = () => {
                     </div>
                     <div className="2xl:my-5 xl:my-3 my-2">
                       <label
+                        htmlFor="email"
+                        className="montserrat-lable block text-[#000000] 2xl:text-[18px] xl:text-[14px] text-[12px] "
+                      >
+                        Mobile Number
+                      </label>
+                      <input
+                        value={studentDetails.mobile}
+                        onChange={inputHandler}
+                        maxLength={10}
+                        pattern="0-9"
+                        required
+                        type=""
+                        id="mobile"
+                        name="mobile"
+                        className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                        placeholder="Enter"
+                      />
+                    </div>
+                    <div className="2xl:my-5 xl:my-3 my-2">
+                      <label
                         htmlFor="password"
-                        className="montserrat-lable block text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px] "
+                        className="montserrat-lable block text-[#000000] 2xl:text-[18px] xl:text-[14px] text-[12px] "
                       >
                         Create Password
                       </label>
@@ -492,33 +324,103 @@ const UserRegistration = () => {
                       </div>
                     </div>
                     <div className="my-2">
-                      <label className="cursor-pointer label p-0 ">
-                        <input
-                          type="checkbox"
-                          defaultChecked
-                          className="checkbox rounded-[2.57px] bg-transparent 2xl:w-[22px] 2xl:h-[22px] w-[16px] h-[16px]"
-                        />
-                        <p className="w-full inter text-[#3F3F3F] font-[400] 2xl:text-[16px] xl:text-[12px] text-[12px]  2xl:leading-[19.36px] xl:leading-[16.36px] text-center ">
-                          {" "}
-                          By signing up, I agree with the
-                          <span className="w-full inter text-[#0071BC] font-[400] 2xl:text-[16px] xl:text-[12px] text-[12px]  2xl:leading-[19.36px] xl:leading-[16.36px] text-center 2xl:mx-2 xl:mx-1">
+                      <label className="cursor-pointer flex  2xl:gap-2 gap-1 p-0 ">
+                        <div>
+                          <input
+                            type="checkbox"
+                            defaultChecked
+                            className="checkbox rounded-[2.57px] bg-transparent 2xl:w-[22px] 2xl:h-[22px] w-[16px] h-[16px]"
+                          />
+                        </div>
+                        <div className="">
+                          <p className="w-full text-start inter text-[#3F3F3F] font-[400] 2xl:text-[16px] xl:text-[12px] text-[12px]  2xl:leading-[19.36px] xl:leading-[16.36px] text-center ">
+                            {" "}
+                            By signing up, I agree with the Admission Network
+                            24’s
+                          </p>
+                          <p className="w-full text-start inter text-[#0071BC] font-[400] 2xl:text-[16px] xl:text-[12px] text-[12px]  2xl:leading-[19.36px] xl:leading-[16.36px] text-center 2xl:mx-2 xl:mx-1">
                             Terms of Use & Privacy Policy
-                          </span>
-                        </p>
+                          </p>
+                        </div>
                       </label>
                     </div>
                     <button
                       type="submit"
-                      className="bg-[#0071BC] montserrat-btn  text-white p-3 w-full rounded-[6.41px] 2xl:h-[56px] xl:h-[45px] lg:h-[35px]  lg:my-0  2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-5 2xl:mt-10 xl:mt-7"
+                      className="bg-[#0071BC] montserrat-btn  text-white p-3 w-full rounded-[6.41px] 2xl:h-[56px] xl:h-[45px] lg:h-[35px]  lg:my-0  2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-5 2xl:mt-[25px] xl:mt-7"
                     >
-                      Register
+                      Continue
                     </button>
                   </div>
                 </div>
               </form>
             </div>
           </div>
-          <div className="lg:w-1/2 hidden lg:block" id="register-bg"></div>
+          <div className="lg:w-1/2 hidden lg:block bg-[#0071BC] 2xl:pt-[120px] pt-[40px]">
+            <div className="2xl:w-[740px] xl:w-[500px] w-[400px] mx-auto ">
+              <div>
+                <h1
+                  className="inter font-[700] text-white 
+                 2xl:text-[40px] xl:text-[30px] lg:text-[20px] sm:text-[] text-[]
+   2xl:leading-[48.41px] xl:leading-[35px] lg:leading-[28px] sm:leading-[] leading-[]"
+                >
+                  Come join us
+                </h1>
+              </div>
+              <hr
+                className="2xl:mt-[20px] xl:mt-[10px] lg:mt-[8px] sm:mt-[] mt-[]
+              2xl:mb-[35px] xl:mb-[25px] lg:mb-[15px] sm:mb-[] mb-[]"
+              />
+              <div className="flex items-center gap-[10px] xl:gap-[15px] 2xl:gap-[25px] mx-auto">
+                <Image
+                  src={first}
+                  className="2xl:w-[41.54px] 2xl:h-[40px] h-auto xl:w-[30px] lg:w-[25px] sm:w-[] w-[] "
+                />
+                <h1
+                  className="inter font-[600] text-white 
+                 2xl:text-[20px] xl:text-[14px] lg:text-[11px] sm:text-[] text-[]
+   2xl:leading-[30px] xl:leading-[26px] lg:leading-[22px] sm:leading-[] leading-[]"
+                >
+                  Explore articles, tutorials, and guides on diverse subjects
+                </h1>
+              </div>
+              <div className="flex items-center gap-[10px] xl:gap-[15px] 2xl:gap-[25px] mx-auto xl:my-[15px] my-[10px]">
+                <Image
+                  src={second}
+                  className="2xl:w-[41.54px] 2xl:h-[40px] h-auto xl:w-[30px] lg:w-[25px] sm:w-[] w-[] "
+                />
+                <h1
+                  className="inter font-[600] text-white 
+                 2xl:text-[20px] xl:text-[14px] lg:text-[11px] sm:text-[] text-[]
+   2xl:leading-[30px] xl:leading-[26px] lg:leading-[22px] sm:leading-[] leading-[]"
+                >
+                  Learn at your own pace and access educational resources
+                  anytime
+                </h1>
+              </div>
+              <div className="flex items-center gap-[10px] xl:gap-[15px] 2xl:gap-[25px] mx-auto">
+                <Image
+                  src={third}
+                  className="2xl:w-[41.54px] 2xl:h-[40px] h-auto xl:w-[30px] lg:w-[25px] sm:w-[] w-[] "
+                />
+                <h1
+                  className="inter font-[600] text-white 
+                 2xl:text-[20px] xl:text-[14px] lg:text-[11px] sm:text-[] text-[]
+   2xl:leading-[30px] xl:leading-[26px] lg:leading-[22px] sm:leading-[] leading-[]"
+                >
+                  Engage with a community of learners and share insights
+                </h1>
+              </div>
+            </div>
+            <div
+              className="flex items-center gap-[10px] xl:gap-[15px] 2xl:gap-[25px] mx-auto 2xl:w-[432px] 
+              2xl:mt-[80px] xl:mt-[40px] lg:mt-[25px] sm:mt-[] mt-[]"
+            >
+              <Image
+                src={student}
+                className="2xl:w-[384px] 2xl:h-[473px] h-auto xl:w-[220px] lg:w-[180px] sm:w-[] w-[] mx-auto"
+              />
+            </div>
+          </div>
         </div>
       </section>
     </>

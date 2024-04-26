@@ -9,6 +9,7 @@ import s6 from "../../../../public/images/s6.svg";
 import s7 from "../../../../public/images/s7.svg";
 import s8 from "../../../../public/images/s8.svg";
 import s9 from "../../../../public/images/s9.svg";
+import Link from "next/link";
 
 const CreateUser = () => {
   return (
@@ -24,7 +25,7 @@ const CreateUser = () => {
             </div>
             <div className="flex justify-center mt-6 2xl:mt-10 mx-4">
               <div className="w-4/6 hover:text-[#2083C4]">
-               <a href="/super-admin">
+                <a href="/super-admin">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -204,10 +205,12 @@ const CreateUser = () => {
                   <Image src={add} className="add_img " />
                   Create Admin
                 </button>
-                <button className="bg-[#FE9E34] add_btn">
-                  <Image src={add} className="add_img " />
-                  Create Student{" "}
-                </button>
+                <Link href="/super-admin/createUser">
+                  <button className="bg-[#FE9E34] add_btn">
+                    <Image src={add} className="add_img " />
+                    Create Student{" "}
+                  </button>
+                </Link>
                 <button className="bg-[#FC4742] add_btn">
                   <Image src={add} className="add_img " />
                   Create Counsellor

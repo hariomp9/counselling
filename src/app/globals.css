@@ -512,7 +512,7 @@ html {
 }
 
 .campusimg {
-  @apply 2xl:w-[202px] 2xl:h-[116px] xl:w-[160px] h-auto lg:w-[100px] 2xl:my-5 xl:my-3 lg:my-2 rounded-[3px];
+  @apply 2xl:w-[254px] 2xl:h-[264px] xl:w-[160px] h-auto lg:w-[100px] 2xl:my-5 xl:my-3 lg:my-2 rounded-[3px];
 }
 
 .neethead2 {
@@ -524,7 +524,7 @@ html {
 }
 
 .neetdata {
-  @apply 2xl:w-[200px] 2xl:h-[233px] xl:w-[160px] lg:w-[120px] sm:w-[120px] w-[100px] h-auto rounded-[3px];
+  @apply 2xl:w-[181px] 2xl:h-[211px] xl:w-[160px] lg:w-[120px] sm:w-[120px] w-[100px] h-auto rounded-[3px];
 }
 
 .userdetailHead {
@@ -623,11 +623,11 @@ html {
   }
 }
 
-/* 2xl:w-[] 2xl:h-[] xl:w-[] lg:w-[] sm:w-[] w-[] 
+/* 2xl:w-[] 2xl:h-[] h-auto xl:w-[] lg:w-[] sm:w-[] w-[] 
   2xl:px-[] xl:px-[] lg:px-[] sm:px-[] px-[]
   2xl:py-[] xl:py-[] lg:py-[] sm:py-[] py-[]
   2xl:my-[] xl:my-[] lg:my-[] sm:my-[] my-[]
-  2xl:text-[] xl:text-[] lg:text-[] sm:text-[] text-[]
+  inter font-[] 2xl:text-[] xl:text-[] lg:text-[] sm:text-[] text-[]
    2xl:leading-[] xl:leading-[] lg:leading-[] sm:leading-[] leading-[]*/
 
 /* ========== User Profile====== */
@@ -661,4 +661,15 @@ html {
 /* Add this to your CSS file */
 .table-cell-no-border {
   border: none !important;
+}
+
+
+.createUser-label{
+  @apply inter text-[#000000] font-[400] 2xl:text-[18px] 2xl:leading-[40px] xl:text-[12px] xl:leading-[15px] text-[10px]
+}
+.createUser-input{
+  @apply border rounded-[5px] outline-none 2xl:w-[260px] xl:w-[190px] lg:w-[160px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[]  2xl:text-[16px] xl:text-[12px] text-[10px]
+}
+.createUser-input2{
+  @apply border rounded-[5px] outline-none 2xl:w-[549px] xl:w-[400px] lg:w-[160px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[]  2xl:text-[16px] xl:text-[12px] text-[10px]
 }
