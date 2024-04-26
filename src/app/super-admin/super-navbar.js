@@ -4,7 +4,7 @@ const SuperNavbar = () => {
   return (
     <>
       <section>
-        <nav className="flex justify-between px-5 py-4 lg:p-4 2xl:h-[80px] xl:h-[80px]">
+        <nav className="flex justify-between px-5 py-4 lg:p-4 2xl:h-[80px] xl:h-[80px] h-[80px]">
           <div>
             <h1 className="inter font-[600] 2xl:text-[25px] xl:text-[18px] text-[14px] leading-[45px]">
               Super Admin
