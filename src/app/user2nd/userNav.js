@@ -62,7 +62,7 @@ const UserNavbar = () => {
           </div>
           <div className="flex items-center gap-2 2xl:gap-7">
           <div>
-            <button className="bg-[#4F9ED9] text-white inter font-[700] 2xl:h-[25px] sm:text-[10px] sm:leading-[16px] text-[9px] leading-[11px]">
+            <button className="bg-[#4F9ED9] text-white inter font-[700] px-1 rounded-[5px] h-[25px] sm:text-[8px] sm:leading-[12px] text-[9px] leading-[11px]">
             Complete Your Profile
             </button>
           </div>

@@ -77,37 +77,38 @@ const page = () => {
               <div className="flex flex-col lg:flex-row gap-[30px]  2xl:mt-[30px] xl:mt-[25px] lg:mt-[20px]">
                 <div>
                   <div className="relative 2xl:w-[1090px] xl:w-[750px] lg:w-[600px] ">
-                    <div className="bg-[#F5F6FF] rounded-[10px] flex items-center 2xl:p-10 xl:p-5 lg:p-4 p-3 2xl:h-[127px] xl:h-[80px] lg:h-[70px] h-[70px] ">
+                    <div className="bg-[#F5F6FF] rounded-[10px] sm:flex items-center 2xl:p-10 xl:p-5 lg:p-4 p-3 2xl:h-[127px] xl:h-[80px] lg:h-[70px] sm:h-[70px] h-[161px] ">
                       <div>
-                        <h1 className="inter font-[400] 2xl:text-[30px] 2xl:leading-[36.31px] xl:text-[20px] xl:leading-[25px] lg:text-[16px] lg:leading-[25px] sm:text-[14px] sm:leading-[20px] text-[14px] leading-[20px]">
+                        <h1 className="inter text-[#000000] font-[400] 2xl:text-[30px] 2xl:leading-[36.31px] xl:text-[20px] xl:leading-[25px] lg:text-[16px] lg:leading-[25px] sm:text-[14px] sm:leading-[20px] text-[22px] leading-[27px]">
                           Welcome <span className="font-semibold">Mayank!</span>
                         </h1>
-                        <p className="inter font-[400] 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] xl:leading-[18px] lg:text-[8px] lg:leading-[14px] 2xl:my-1 sm:text-[10px] sm:leading-[14px] text-[10px] leading-[14px] para_h">
+                        <p className="inter text-[#000000] font-[400] 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] xl:leading-[18px] lg:text-[8px] lg:leading-[14px] 2xl:my-1 sm:text-[10px] sm:leading-[14px] text-[15px] leading-[24px] para_h">
                           Welcome back and explore the knowledge |{" "}
-                          <span className="text-[#FF0000]">
+                          <span className="text-[#FF0000] hidden sm:block">
                             {" "}
                             Profile Completed 30%{" "}
                           </span>{" "}
                         </p>
                       </div>
-                      <div className=" flex justify-center absolute right-3 rounded-[10px] bg-white 2xl:w-[154px] 2xl:h-[105px] h-auto xl:w-[100px] lg:w-[80px] sm:w-[] w-[]">
-                        <div className="text-center p-1">
-                          <p
-                            className="inter font-[400] 2xl:text-[15px] xl:text-[11px] lg:text-[9px] sm:text-[] text-[]
-   2xl:leading-[24px] xl:leading-[20px] lg:leading-[12px]"
-                          >
-                            Subscription
-                          </p>
-                          <h1
-                            className="inter font-[600] text-[#EB2027] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[]
-   2xl:leading-[24.2px] xl:leading-[16px] lg:leading-[12px] sm:leading-[] leading-[]"
-                          >
-                            Community
-                          </h1>
+                      <div className=" flex justify-center sm:absolute right-3 rounded-[10px] bg-white 2xl:w-[154px] 2xl:h-[105px] xl:w-[100px] lg:w-[80px] sm:w-[65px] w-[300px] my-[15px] sm:h-[55px] sm:my-0 h-[63px]">
+                        <div className="text-center p-1 flex items-center justify-between sm:flex-col w-full px-[15px]">
+                          <div>
+                            <p
+                              className="inter text-[#000000] font-[400] 2xl:text-[15px] xl:text-[11px] sm:text-[9px]  text-[14px]
+                              2xl:leading-[24px] xl:leading-[20px] sm:leading-[12px] leading-[24px]"
+                            >
+                              Subscription
+                            </p>
+                            <h1
+                              className="inter font-[600] text-[#EB2027] 2xl:text-[20px] xl:text-[14px] sm:text-[10px]  text-[22px]
+                              2xl:leading-[24.2px] xl:leading-[16px] sm:leading-[12px] leading-[24px]"
+                            >
+                              Community
+                            </h1>
+                          </div>
                           <button
-                            className="bg-[#EB2027] text-white 2xl:w-[110px] 2xl:h-[35px] h-auto xl:w-[75px] lg:w-[55px] sm:w-[] w-[] inter font-[700] 2xl:text-[14px]
-                         xl:text-[10px] lg:text-[9px] sm:text-[] text-[]
-   2xl:leading-[26px] xl:leading-[20px] lg:leading-[16px] sm:leading-[] leading-[] rounded-[5px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
+                            className="bg-[#EB2027] text-white 2xl:w-[110px] 2xl:h-[35px]  h-[35px] xl:w-[75px] sm:w-[55px] w-[110px] inter font-[700] 2xl:text-[14px] xl:text-[10px] sm:text-[9px] text-[9px] 
+                              2xl:leading-[26px] xl:leading-[20px] sm:leading-[16px] leading-[] rounded-[5px] 2xl:mt-[10px] xl:mt-[5px] mt-[3px]"
                           >
                             Upgrade
                           </button>
@@ -115,15 +116,17 @@ const page = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-[#F5F6FF] rounded-[10px] 2xl:h-[360px] xl:h-[250px] lg:h-[220px] h-[70px] my-[25px]">
+
+
+                  <div className="bg-[#F5F6FF] rounded-[10px] 2xl:h-[360px] xl:h-[250px] lg:h-[220px] sm:h-[240px] my-[25px]">
                     <h1
                       className="inter font-[700] 2xl:p-5 xl:p-3 lg:p-4 p-3   2xl:text-[20px] xl:text-[14px] lg:text-[10] sm:text-[] text-[]
-   2xl:leading-[24px] xl:leading-[20px] lg:leading-[16px] sm:leading-[] leading-[]"
+                     2xl:leading-[24px] xl:leading-[20px] lg:leading-[16px] sm:leading-[] leading-[]"
                     >
                       Quick Access
                     </h1>
                     <hr />
-                    <div className="flex justify-center items-center 2xl:p-5 xl:p-3 lg:p-4 p-3  gap-[20px] 2xl:gap-[30px] ">
+                    <div className="flex flex-wrap sm:justify-center items-center 2xl:p-5 xl:p-3 lg:p-4 p-3 gap-[20px] 2xl:gap-[30px] ">
                       <div>
                         <Image
                           src={cllgPre}
@@ -169,9 +172,8 @@ const page = () => {
                     </div>
                   </div>
 
-                  <div className="overflow-x-auto ">
+                  <div className="overflow-x-auto hidden sm:block ">
                     <table className="table table_h bg-[#F5F6FF] sm:w-[110%] lg:w-auto xl:w-full  ">
-                    
                       <thead>
                         <tr>
                           <th className=" tablerow">Sr. No.</th>
@@ -182,7 +184,7 @@ const page = () => {
                           <th className=" tablerow">Link</th>
                         </tr>
                       </thead>
-                      <tbody> 
+                      <tbody>
                         {data.map((item, index) => (
                           <tr key={item.id} className="h-[80px]">
                             <td className="tablerow">{index + 1}</td>
@@ -311,19 +313,21 @@ const page = () => {
                     </div>
                   </div> */}
 
-                  <div className="bg-[#F5F6FF]  2xl:mt-10 mt-5 2xl:p-8 p-4 ">
+                  <div className="bg-[#F5F6FF] text-[#000000] 2xl:mt-10 mt-5 2xl:p-8 p-4 ">
                     <h1 className="inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[14px] xl:leading-[20px] lg:text-[10px] lg:leading-[16px] sm:text-[13px] w-[85%] text-[12px] ">
-                    The point of using Lorem Ipsum is that it has a more-or-less normal
+                      The point of using Lorem Ipsum is that it has a
+                      more-or-less normal
                     </h1>
                     <hr className="2xl:my-3 my-2" />
 
-
                     <p className="tablerow  my-2">
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
-                        </p>
+                      It is a long established fact that a reader will be
+                      distracted by the readable content of a page when looking
+                      at its layout.
+                    </p>
                     <div className="flex flex-col sm:flex-row 2xl:gap-10 xl:gap-5 gap-3">
                       <div className="2xl:w-[245px] xl:w-[180px] lg:w-[120px] sm:w-1/2">
-                      <Image
+                        <Image
                           src={campus1}
                           alt="campus1"
                           className="campusimg"
@@ -333,10 +337,9 @@ const page = () => {
                           typesetting industry Lorem Ipsum has been the
                           industry,s standard
                         </p>
-                       
                       </div>
                       <div className="2xl:w-[245px] xl:w-[180px] lg:w-[120px] sm:w-1/2">
-                      <Image
+                        <Image
                           src={campus2}
                           alt="campus2"
                           className="campusimg"
@@ -346,10 +349,10 @@ const page = () => {
                           typesetting industry Lorem Ipsum has been the
                           industry,s standard
                         </p>
-                      
                       </div>
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>

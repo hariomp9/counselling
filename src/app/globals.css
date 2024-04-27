@@ -503,7 +503,7 @@ html {
 }
 
 .neethead {
-  @apply inter font-[600] text-[#000000] 2xl:text-[16px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[22px] lg:text-[10px] lg:leading-[12px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[11px] text-center my-1;
+  @apply inter font-[600] text-[#000000] 2xl:text-[16px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[22px] lg:text-[10px] lg:leading-[12px] sm:text-[10px] sm:leading-[12px] text-[15px] leading-[30px] text-center my-1;
 }
 
 .neethead3 {
@@ -531,7 +531,7 @@ html {
 }
 
 .neetdata {
-  @apply 2xl:w-[181px] 2xl:h-[211px] xl:w-[160px] lg:w-[120px] sm:w-[120px] w-[100px] h-auto rounded-[3px];
+  @apply 2xl:w-[181px] 2xl:h-[211px] xl:w-[160px] lg:w-[95px] md:w-[120px] sm:w-[90px] rounded-[3px];
 }
 
 .userdetailHead {
@@ -618,7 +618,7 @@ html {
 
 @media (max-width: 450px) {
   .para_h {
-    width: 200px;
+    /* width: 200px; */
   }
 
   .nav_text {
@@ -629,6 +629,11 @@ html {
     width: 100%;
   }
 }
+/* @media (max-width: 430px){
+  .neetdata{
+    width: 140px;
+  }
+} */
 
 /* 2xl:w-[] 2xl:h-[] h-auto xl:w-[] lg:w-[] sm:w-[] w-[] 
   2xl:px-[] xl:px-[] lg:px-[] sm:px-[] px-[]
