@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import NeetInformation from "./steps-pages/step-1/NeetInformation";
 import AddmissionPreference from "./steps-pages/addmission-preference";

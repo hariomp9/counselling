@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import logo from "../../public/logo.svg";
@@ -5,11 +6,12 @@ import news1 from "../../public/news/news1.svg";
 import news2 from "../../public/news/news2.svg";
 import AddmissionPreference from "@/components/user-profile/steps-pages/addmission-preference";
 import Thankyou from "@/components/user-profile/thankyou-page/page";
+import UserProfile from "./user2nd/profile/page";
 
 const page = () => {
   return (
     <>
-      {/* <div>
+      <div>
         <nav>
           <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -48,10 +50,10 @@ const page = () => {
                     <a>About</a>
                   </li>
                 </ul>
-              </div> */}
-
+              </div>{" "}
+              
               {/* ============Logo ================= */}
-              {/* <div className=" ">
+              <div className=" ">
                 <Image
                   src={logo}
                   alt="me"
@@ -63,10 +65,10 @@ const page = () => {
             </div>
             <div className="navbar-center">
               <a className="btn btn-ghost text-xl">Counselling</a>
-            </div> */}
+            </div>
 
             {/* =========================================== */}
-            {/* <div className="navbar-end">
+            <div className="navbar-end">
               <a href="/user/user-login">
                 <button className="btn p-1 border mr-4">Login</button>
               </a>
@@ -122,16 +124,16 @@ const page = () => {
             </div>
             <div className="my-5">
               <h1 className="font-semibold text-md m-2">
-              NEET MDS 2024: Exam Likely Postponed, Schedule Under Process, Check Details Here
+                NEET MDS 2024: Exam Likely Postponed, Schedule Under Process,
+                Check Details Here
               </h1>
               <div>
                 <Image src={news2} width={50} height={50} className="w-full" />
               </div>
             </div>
           </div>
-        </div> */}
-      {/* </div> */}
-      <Thankyou/>
+        </div>
+      </div>
     </>
   );
 };

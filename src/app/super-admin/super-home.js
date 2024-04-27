@@ -134,7 +134,7 @@ const SuperHome = () => {
             </div>
             <div className="flex justify-around mt-10 2xl:mt-16">
               <div className="2xl:w-[1151px] xl:w-[850px] w-[680px]">
-                <div className=" bg-[#F5F6FF]  2xl:h-[198px] xl:h-[150px] h-[130px] 2xl:p-[30px] xl:p-[20px] p-[15px]  ">
+                <div className=" bg-[#F5F6FF]  2xl:h-[198px] xl:h-[150px] h-[110px] 2xl:p-[30px] xl:p-[20px] p-[10px]  ">
                   <h1 className="super_head">NEET UG</h1>
                   <div className="flex 2xl:mt-[25px] 2xl:gap-[30px] xl:mt-[15px] xl:gap-[25px] gap-[15px] ">
                     <div className="super_box">
@@ -211,7 +211,7 @@ const SuperHome = () => {
                 </div>
 
                 {/* ========================Two ======================= */}
-                <div className=" bg-[#F5F6FF]  2xl:h-[198px] xl:h-[150px] h-[130px] 2xl:p-[30px] xl:p-[20px] p-[15px] 2xl:mt-[30px] xl:mt-8 mt-5  ">
+                <div className=" bg-[#F5F6FF]  2xl:h-[198px] xl:h-[150px] h-[110px] 2xl:p-[30px] xl:p-[20px] p-[10px] 2xl:mt-[30px] xl:mt-8 mt-5  ">
                   <h1 className="super_head">Other Logins</h1>
                   <div className="flex 2xl:mt-[25px] 2xl:gap-[30px] xl:mt-[15px] xl:gap-[25px] gap-[15px] ">
                     <div className="super_box">
@@ -266,9 +266,9 @@ const SuperHome = () => {
               </div>
 
               <div className="2xl:w-[542px] xl:w-[340px] w-[220px] ">
-                <div className="flex justify-between items-center p-5 w-full 2xl:h-[79px] xl:h-[60px] border rounded-[10px]">
+                <div className="flex justify-between items-center p-5 w-full 2xl:h-[79px] xl:h-[60px] h-[45px] border rounded-[10px]">
                   <h1 className="super_head ">Total Revenue</h1>
-                  <Image src={dropdown} alt="dropdown-img" className="" />
+                  <Image src={dropdown} alt="dropdown-img" className="w-[20px] xl:w-[25px] 2xl:w-[30px]" />
                 </div>
 
                 <div className="my-[30px] w-full bg-[#F5F6FF] 2xl:p-[35px] xl:p-[20px] p-[10px]  2xl:h-[317px] xl:h-[280px]">
@@ -276,8 +276,8 @@ const SuperHome = () => {
                     <h1 className="super_head ">Subscription</h1>
                   </div>
                   <div className="flex flex-wrap justify-between ">
-                    <div className=" bg-white flex 2xl:gap-3 2xl:p-5 2xl:w-[223px] 2xl:h-[93px] xl:w-[140px] xl:h-[55px] w-[100px] xl:p-2 xl:gap-2 mt-[25px] rounded-[5px] ">
-                      <div className="flex">
+                    <div className=" bg-white flex items-center  2xl:gap-3 2xl:p-5 2xl:w-[223px] 2xl:h-[93px] xl:w-[140px] xl:h-[55px] w-[95px] h-[40px] xl:p-2 xl:gap-2 gap-2 mt-[25px] rounded-[5px] px-1 ">
+                      <div className="flex ">
                         <Image
                           src={starterplan}
                           alt="image"
@@ -289,11 +289,11 @@ const SuperHome = () => {
                           <p className="legend font-[500] super_box_p">
                             Starter Plan
                           </p>
-                          <p className="legend font-[500] super_box_no">9846</p>
+                          <p className="legend font-[500] super_box_noo">9846</p>
                         </div>
                       </div>
                     </div>
-                    <div className=" bg-white flex 2xl:gap-3 2xl:p-5 2xl:w-[223px] 2xl:h-[93px] xl:w-[140px] xl:h-[55px] w-[100px] xl:p-2 xl:gap-2 mt-[25px] rounded-[5px] ">
+                    <div className=" bg-white flex items-center 2xl:gap-3 2xl:p-5 2xl:w-[223px] 2xl:h-[93px] xl:w-[140px] xl:h-[55px] w-[95px] xl:p-2 xl:gap-2 h-[40px] gap-2 mt-[25px] rounded-[5px] px-1 ">
                       <div className="flex">
                         <Image
                           src={basicplan}
@@ -306,11 +306,11 @@ const SuperHome = () => {
                           <p className="legend font-[500] super_box_p">
                             Basic Plan
                           </p>
-                          <p className="legend font-[500] super_box_no">3261</p>
+                          <p className="legend font-[500] super_box_noo">3261</p>
                         </div>
                       </div>
                     </div>
-                    <div className=" bg-white flex 2xl:gap-3 2xl:p-5 2xl:w-[223px] 2xl:h-[93px] xl:w-[140px] xl:h-[55px] w-[100px] xl:p-2 xl:gap-2 mt-[25px] rounded-[5px] ">
+                    <div className=" bg-white flex items-center  2xl:gap-3 2xl:p-5 2xl:w-[223px] 2xl:h-[93px] xl:w-[140px] xl:h-[55px] w-[95px] xl:p-2 xl:gap-2 h-[40px] gap-2 mt-[25px] rounded-[5px] px-1 ">
                       <div className="flex">
                         <Image
                           src={proplan}
@@ -323,11 +323,11 @@ const SuperHome = () => {
                           <p className="legend font-[500] super_box_p">
                             Pro Plan
                           </p>
-                          <p className="legend font-[500] super_box_no">6581</p>
+                          <p className="legend font-[500] super_box_noo">6581</p>
                         </div>
                       </div>
                     </div>
-                    <div className=" bg-white flex 2xl:gap-3 2xl:p-5 2xl:w-[223px] 2xl:h-[93px] xl:w-[140px] xl:h-[55px] w-[100px] xl:p-2 xl:gap-2 mt-[25px] rounded-[5px] ">
+                    <div className=" bg-white flex items-center  2xl:gap-3 2xl:p-5 2xl:w-[223px] 2xl:h-[93px] xl:w-[140px] xl:h-[55px] w-[95px] xl:p-2 h-[40px] xl:gap-2 gap-2 mt-[25px] rounded-[5px] px-[2px]">
                       <div className="flex">
                         <Image
                           src={advanceplan}
@@ -340,7 +340,7 @@ const SuperHome = () => {
                           <p className="legend font-[500] super_box_p">
                             Advance Plan
                           </p>
-                          <p className="legend font-[500] super_box_no">2548</p>
+                          <p className="legend font-[500] super_box_noo">2548</p>
                         </div>
                       </div>
                     </div>
@@ -352,7 +352,7 @@ const SuperHome = () => {
             {/* ===============table============= */}
             <div className=" 2xl:p-[30px] xl:p-[20px] p-[15px] bg-white ">
               <div className="border rounded-[10px] bg-[#F5F6FF] ">
-                <h1 className="super_head 2xl:p-5 xl:p-3">News Updates</h1>
+                <h1 className="super_head 2xl:p-5 xl:p-3 p-2">News Updates</h1>
 
                 <div className="overflow-x-auto">
                   <table className="table table-zebra table_h bg-white sm:w-[110%] lg:w-full rounded-none ">
@@ -368,7 +368,7 @@ const SuperHome = () => {
                     </thead>
                     <tbody>
                       {data.map((item, index) => (
-                        <tr key={item.id} className="h-[80px]">
+                        <tr key={item.id} className="2xl:h-[80px] xl:h-[60px] h-[45px] ">
                           <td className="tablerow">{index + 1}</td>
                           <td className="tablerow">{item.CounsellingType}</td>
                           <td className="tablerow table-para">
@@ -396,7 +396,7 @@ const SuperHome = () => {
 
             <div className=" 2xl:p-[30px] xl:p-[20px] p-[15px] bg-white ">
               <div className="border rounded-[10px] bg-[#F5F6FF] ">
-                <h1 className="super_head 2xl:p-5 xl:p-3">1 on 1 Counselling</h1>
+                <h1 className="super_head 2xl:p-5 xl:p-3 p-2">1 on 1 Counselling</h1>
                 <div className="overflow-x-auto">
                   <table className="table table-xs my-5 md:w-[125%] sm:w-[130%] w-[150%] lg:w-full table_w">
                     <thead>
@@ -422,7 +422,7 @@ const SuperHome = () => {
                       </tr>
                     </thead>
                     <tbody className="border-none">
-                      <tr className="h-[102px]">
+                      <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
                         <td className="py-3">
                           <p className="craete_tbl_row">01</p>
                         </td>
@@ -441,14 +441,14 @@ const SuperHome = () => {
 
                         <td className="  ">
                           <button className="">
-                            <Image src={edit} className="mr-2" />
+                            <Image src={edit} className="mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                           </button>
                           <button className="">
-                            <Image src={deletes} className="ml-2" />
+                            <Image src={deletes} className="ml-2  w-[15px] xl:w-[20px] 2xl:w-[25px" />
                           </button>
                         </td>
                       </tr>
-                      <tr className="h-[102px]">
+                      <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
                         <td className="py-3">
                           <p className="craete_tbl_row">01</p>
                         </td>
@@ -467,14 +467,14 @@ const SuperHome = () => {
 
                         <td className="  ">
                           <button className="">
-                            <Image src={edit} className="mr-2" />
+                            <Image src={edit} className="mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                           </button>
                           <button className="">
-                            <Image src={deletes} className="ml-2" />
+                            <Image src={deletes} className="ml-2  w-[15px] xl:w-[20px] 2xl:w-[25px" />
                           </button>
                         </td>
                       </tr>
-                      <tr className="h-[102px]">
+                      <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
                         <td className="py-3">
                           <p className="craete_tbl_row">01</p>
                         </td>
@@ -493,14 +493,14 @@ const SuperHome = () => {
 
                         <td className="  ">
                           <button className="">
-                            <Image src={edit} className="mr-2" />
+                            <Image src={edit} className="mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                           </button>
                           <button className="">
-                            <Image src={deletes} className="ml-2" />
+                            <Image src={deletes} className="ml-2  w-[15px] xl:w-[20px] 2xl:w-[25px" />
                           </button>
                         </td>
                       </tr>
-                      <tr className="h-[102px]">
+                      <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
                         <td className="py-3">
                           <p className="craete_tbl_row">01</p>
                         </td>
@@ -519,14 +519,14 @@ const SuperHome = () => {
 
                         <td className="  ">
                           <button className="">
-                            <Image src={edit} className="mr-2" />
+                            <Image src={edit} className="mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                           </button>
                           <button className="">
-                            <Image src={deletes} className="ml-2" />
+                            <Image src={deletes} className="ml-2  w-[15px] xl:w-[20px] 2xl:w-[25px" />
                           </button>
                         </td>
                       </tr>
-                      <tr className="h-[102px]">
+                      <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
                         <td className="py-3">
                           <p className="craete_tbl_row">01</p>
                         </td>
@@ -545,10 +545,10 @@ const SuperHome = () => {
 
                         <td className="  ">
                           <button className="">
-                            <Image src={edit} className="mr-2" />
+                            <Image src={edit} className="mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                           </button>
                           <button className="">
-                            <Image src={deletes} className="ml-2" />
+                            <Image src={deletes} className="ml-2  w-[15px] xl:w-[20px] 2xl:w-[25px" />
                           </button>
                         </td>
                       </tr>

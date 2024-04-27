@@ -17,7 +17,7 @@ const UserNavbar = () => {
             <div className="flex items-center gap-5 2xl:gap-7">
             <div>
             <button className="bg-[#4F9ED9] text-white inter font-[700] rounded-[5px] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[16px] lg:text-[9px] 
-            2xl:w-[216px] 2xl:h-[48px] h-auto xl:w-[160px] lg:w-[120px] sm:w-[] w-[]  lg:leading-[14px]">
+            2xl:w-[216px] 2xl:h-[48px] xl:h-[30px] h-[25px] xl:w-[160px] lg:w-[120px] sm:w-[] w-[]  lg:leading-[14px]">
             Complete Your Profile
             </button>
           </div>
@@ -62,7 +62,7 @@ const UserNavbar = () => {
           </div>
           <div className="flex items-center gap-2 2xl:gap-7">
           <div>
-            <button className="bg-[#4F9ED9] text-white inter font-[700] h-[25px] sm:text-[10px] sm:leading-[16px] text-[9px] leading-[11px]">
+            <button className="bg-[#4F9ED9] text-white inter font-[700] 2xl:h-[25px] sm:text-[10px] sm:leading-[16px] text-[9px] leading-[11px]">
             Complete Your Profile
             </button>
           </div>

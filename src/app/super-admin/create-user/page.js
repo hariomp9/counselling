@@ -228,8 +228,8 @@ const CreateUser = () => {
               {/* ======== TABLE ============= */}
               <div className=" 2xl:p-[30px] xl:p-[20px] p-[15px] bg-white ">
                 <div className="border rounded-[10px] bg-[#F5F6FF] ">
-                  <div className="flex justify-between bg-[#F5F6FF] items-center 2xl:h-[80px] rounded-[10px] xl:h-[50px] h-[25px] 2xl:px-[20px] xl:px-[15px] px-[10px]">
-                    <h1 className="legend text-[#1172BA] font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[14px] xl:leading-[30px] lg:text-[18px] lg:leading-[28px] lg:ml-0 md:ml-6 ml-5">
+                  <div className="flex justify-between bg-[#F5F6FF] items-center 2xl:h-[80px] rounded-[10px] xl:h-[60px] h-[50px] 2xl:px-[20px] xl:px-[15px] px-[10px]">
+                    <h1 className="legend text-[#1172BA] font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[16px] xl:leading-[30px] lg:text-[14px] lg:leading-[28px] lg:ml-0 md:ml-6 ml-5">
                       Manage User
                     </h1>
                     <button className="flex 2xl:gap-2 xl:gap-2 gap-1 justify-center items-center bg-[#5793CE] text-white 2xl:w-[152px] 2xl:h-[48px] xl:w-[110px] xl:h-[35px] h-[25px] w-[110px] rounded-[4px] 2xl:text-[14px] xl:text-[10px] text-[10px]">
@@ -288,8 +288,8 @@ const CreateUser = () => {
                           <td className="craete_tbl_row">955 445 5588</td>
 
                           <td>
-                            <button className="craete_tbl_Pbtn flex justify-center items-center gap-2  ">
-                            <Image src={previews} className="" />
+                            <button className="craete_tbl_Pbtn flex justify-center items-center 2xl:gap-1  ">
+                            <Image src={previews} className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]" />
                             Preview</button>
                           </td>
                           <td className="craete_tbl_row text-[#FE9E34]">
@@ -298,10 +298,10 @@ const CreateUser = () => {
 
                           <td className="  ">
                             <button className="">
-                              <Image src={edit} className="mr-2" />
+                              <Image src={edit} className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                             </button>
                             <button className="">
-                              <Image src={deletes} className="ml-2" />
+                              <Image src={deletes} className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                             </button>
                           </td>
                         </tr>
@@ -324,8 +324,8 @@ const CreateUser = () => {
                           <td className="craete_tbl_row">955 445 5588</td>
 
                           <td>
-                            <button className="craete_tbl_Pbtn flex justify-center items-center gap-2">
-                            <Image src={previews} className="" />
+                            <button className="craete_tbl_Pbtn flex justify-center items-center 2xlgap-1">
+                            <Image src={previews} className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]" />
                             Preview</button>
                           </td>
                           <td className="craete_tbl_row text-[#25B948]">
@@ -334,10 +334,10 @@ const CreateUser = () => {
 
                           <td className="  ">
                             <button className="">
-                              <Image src={edit} className="mr-2" />
+                              <Image src={edit} className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                             </button>
                             <button className="">
-                              <Image src={deletes} className="ml-2" />
+                              <Image src={deletes} className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                             </button>
                           </td>
                         </tr>
@@ -360,8 +360,8 @@ const CreateUser = () => {
                           <td className="craete_tbl_row">955 445 5588</td>
 
                           <td>
-                            <button className="craete_tbl_Pbtn flex justify-center items-center gap-2">
-                            <Image src={previews} className="" />
+                            <button className="craete_tbl_Pbtn flex justify-center items-center 2xlgap-1">
+                            <Image src={previews} className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]" />
                             Preview</button>
                           </td>
                           <td className="craete_tbl_row text-[#25B948]">
@@ -370,10 +370,10 @@ const CreateUser = () => {
 
                           <td className="  ">
                             <button className="">
-                              <Image src={edit} className="mr-2" />
+                              <Image src={edit} className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                             </button>
                             <button className="">
-                              <Image src={deletes} className="ml-2" />
+                              <Image src={deletes} className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                             </button>
                           </td>
                         </tr>
@@ -396,8 +396,8 @@ const CreateUser = () => {
                           <td className="craete_tbl_row">955 445 5588</td>
 
                           <td>
-                            <button className="craete_tbl_Pbtn flex justify-center items-center gap-2">
-                            <Image src={previews} className="" />
+                            <button className="craete_tbl_Pbtn flex justify-center items-center 2xlgap-1">
+                            <Image src={previews} className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]" />
                             Preview</button>
                           </td>
                           <td className="craete_tbl_row text-[#FE9E34]">
@@ -406,10 +406,10 @@ const CreateUser = () => {
 
                           <td className="  ">
                             <button className="">
-                              <Image src={edit} className="mr-2" />
+                              <Image src={edit} className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                             </button>
                             <button className="">
-                              <Image src={deletes} className="ml-2" />
+                              <Image src={deletes} className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                             </button>
                           </td>
                         </tr>
@@ -434,8 +434,8 @@ const CreateUser = () => {
                           <td className="craete_tbl_row">955 445 5588</td>
 
                           <td>
-                            <button className="craete_tbl_Pbtn flex justify-center items-center gap-2">
-                            <Image src={previews} className="" />
+                            <button className="craete_tbl_Pbtn flex justify-center items-center 2xlgap-1">
+                            <Image src={previews} className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]" />
                             Preview</button>
                           </td>
                           <td className="craete_tbl_row text-[#25B948]">
@@ -444,10 +444,10 @@ const CreateUser = () => {
 
                           <td className="  ">
                             <button className="">
-                              <Image src={edit} className="mr-2" />
+                              <Image src={edit} className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                             </button>
                             <button className="">
-                              <Image src={deletes} className="ml-2" />
+                              <Image src={deletes} className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                             </button>
                           </td>
                         </tr>
@@ -470,8 +470,8 @@ const CreateUser = () => {
                           <td className="craete_tbl_row">955 445 5588</td>
 
                           <td>
-                            <button className="craete_tbl_Pbtn flex justify-center items-center gap-2">
-                            <Image src={previews} className="" />
+                            <button className="craete_tbl_Pbtn flex justify-center items-center 2xlgap-1">
+                            <Image src={previews} className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]" />
                             Preview</button>
                           </td>
                           <td className="craete_tbl_row text-[#25B948]">
@@ -480,10 +480,10 @@ const CreateUser = () => {
 
                           <td className="  ">
                             <button className="">
-                              <Image src={edit} className="mr-2" />
+                              <Image src={edit} className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                             </button>
                             <button className="">
-                              <Image src={deletes} className="ml-2" />
+                              <Image src={deletes} className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
                             </button>
                           </td>
                         </tr>
