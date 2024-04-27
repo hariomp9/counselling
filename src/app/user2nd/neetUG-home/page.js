@@ -169,7 +169,7 @@ const page = () => {
                     </div>
                   </div>
 
-                  <div className="overflow-x-auto">
+                  <div className="overflow-x-auto ">
                     <table className="table table_h bg-[#F5F6FF] sm:w-[110%] lg:w-auto xl:w-full  ">
                     
                       <thead>

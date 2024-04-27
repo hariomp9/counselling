@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  background-color: white;
+  font-style: black;
+}
+
 @layer components {
   .login-input-label {
     @apply text-[#262628] font-[400] text-[14px] capitalize;
@@ -371,11 +376,11 @@ html {
 }
 
 .super_box_s {
-  @apply xl:w-[220px] xl:h-[140px] 2xl:w-[312px] 2xl:h-[198px] rounded-md 2xl:p-7 xl:p-[20px] lg:p-[10px] bg-[#F5F6FF];
+  @apply xl:w-[220px] xl:h-[140px] 2xl:w-[312px] 2xl:h-[198px] rounded-md ;
 }
 
 .super_head {
-  @apply inter font-[700] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[16px] xl:leading-[20px] lg:text-[12px] lg:leading-[26px] text-[12px] leading-[26px]
+  @apply inter font-[700] text-[#000000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[16px] xl:leading-[20px] lg:text-[12px] lg:leading-[26px] text-[12px] leading-[26px]
 }
 
 .super_box_p {
@@ -402,7 +407,7 @@ html {
 }
 
 .superAD_sImg {
-  @apply 2xl:w-[52px] 2xl:h-[52px] xl:w-[40px] xl:h-[40px] lg:w-[30px] lg:h-[30px] sm:w-[35px] sm:h-[35px] w-[30px] h-[30px];
+  @apply bg-[#1172BA] rounded-full flex justify-center items-center text-white inter font-[500] 2xl:w-[52px] 2xl:h-[52px] xl:w-[40px] xl:h-[40px] lg:w-[30px] lg:h-[30px] sm:w-[35px] sm:h-[35px] w-[30px] h-[30px] 2xl:text-[25px] 2xl:leading-[20px] xl:text-[16px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px];
 }
 
 .superAD_sName {
@@ -447,7 +452,7 @@ html {
 }
 
 .craete_tbl_Pbtn {
-  @apply legend font-[500] 2xl:text-[14px] 2xl:leading-[20px] 2xl:w-[80px] 2xl:h-[30px] lg:h-[20px] xl:h-[25px] bg-[#0071BC] text-white rounded-[3px] xl:text-[10px] lg:text-[9px] 2xl:py-[3px] 2xl:px-[6px] xl:py-[1px] xl:px-[6px] lg:py-[1px] lg:px-[2px] xl:w-[60px] lg:w-[50px] sm:w-[50px] sm:h-[22px] sm:text-[10px] w-[50px] h-[20px] text-[9px];
+  @apply legend font-[500] 2xl:text-[14px] 2xl:leading-[20px] 2xl:w-[120px] 2xl:h-[35px] lg:h-[25px] xl:h-[25px] bg-[#5793CE] text-white rounded-[3px] xl:text-[10px] lg:text-[9px] 2xl:py-[3px] 2xl:px-[6px] xl:py-[1px] xl:px-[6px] lg:py-[1px] lg:px-[2px] xl:w-[80px] lg:w-[65px] sm:w-[50px] sm:h-[22px] sm:text-[10px] w-[50px] h-[20px] text-[9px];
 }
 
 .modal {

@@ -20,44 +20,48 @@ import starterplan from "./assets/starterplan.svg";
 import basicplan from "./assets/basicplan.svg";
 import proplan from "./assets/proplan.svg";
 import advanceplan from "./assets/advanceplan.svg";
+import dropdown from "./assets/dropdown.svg";
+import edit from "./assets/edit.svg";
+import deletes from "./assets/delete.svg";
+
 const data = [
   {
     id: 1,
-    CounsellingType: "New Title-1",
+    CounsellingType: "Madhya Pradesh Counselling Update",
     Details:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting.",
     image: first,
     Links: "Lorem Ipsum is simply dumm text of the printing and industry.",
   },
   {
     id: 2,
-    CounsellingType: "New Title-2",
+    CounsellingType: "Maharashtra College News",
     Details:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.",
-    image: second,
-    Links: "Lorem Ipsum is simply dumm text of the printing and industry.",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting.",
+    startDate: "02-05-2024",
+    endDate: "10-05-2024",
   },
   {
     id: 3,
-    CounsellingType: "New Title-3",
+    CounsellingType: "Madhya Pradesh Counselling Update",
     Details:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting.",
     image: third,
     Links: "Lorem Ipsum is simply dumm text of the printing and industry.",
   },
   {
     id: 4,
-    CounsellingType: "Counselling Type-4",
+    CounsellingType: "Maharashtra College News",
     Details:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting.",
     image: forth,
     Links: "Lorem Ipsum is simply dumm text of the printing and industry.",
   },
   {
     id: 5,
-    CounsellingType: "Counselling Type-5",
+    CounsellingType: "Madhya Pradesh Counselling Update",
     Details:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting.",
     image: five,
     Links: "Lorem Ipsum is simply dumm text of the printing and industry.",
   },
@@ -65,7 +69,7 @@ const data = [
 const SuperHome = () => {
   return (
     <>
-      <section>
+      <section className="bg-white">
         <div className="flex ">
           <SuperSidebar />
           <div className="w-full">
@@ -128,7 +132,7 @@ const SuperHome = () => {
                 </button>
               </div>
             </div>
-            <div className="flex justify-around h-screen my-10 2xl:my-16">
+            <div className="flex justify-around mt-10 2xl:mt-16">
               <div className="2xl:w-[1151px] xl:w-[850px] w-[680px]">
                 <div className=" bg-[#F5F6FF]  2xl:h-[198px] xl:h-[150px] h-[130px] 2xl:p-[30px] xl:p-[20px] p-[15px]  ">
                   <h1 className="super_head">NEET UG</h1>
@@ -207,12 +211,9 @@ const SuperHome = () => {
                 </div>
 
                 {/* ========================Two ======================= */}
-
-                <div className="flex 2xl:my-[35px] xl:my-8 my-5 xl:gap-5 gap-3  2xl:gap-[35px]">
-                  <div className="super_box_s bg-white">
-                    <h1 className="super_head 2xl:mb-[25px] xl:mb-[10px]">
-                      Counsellors
-                    </h1>
+                <div className=" bg-[#F5F6FF]  2xl:h-[198px] xl:h-[150px] h-[130px] 2xl:p-[30px] xl:p-[20px] p-[15px] 2xl:mt-[30px] xl:mt-8 mt-5  ">
+                  <h1 className="super_head">Other Logins</h1>
+                  <div className="flex 2xl:mt-[25px] 2xl:gap-[30px] xl:mt-[15px] xl:gap-[25px] gap-[15px] ">
                     <div className="super_box">
                       <div className="flex">
                         <Image
@@ -228,11 +229,6 @@ const SuperHome = () => {
                         <p className="legend font-[500] super_box_no">312</p>
                       </div>
                     </div>
-                  </div>
-                  <div className="super_box_s bg-white">
-                    <h1 className="super_head 2xl:mb-[25px] xl:mb-[10px]">
-                      Admin
-                    </h1>
 
                     <div className="super_box">
                       <div className="flex">
@@ -249,11 +245,7 @@ const SuperHome = () => {
                         <p className="legend font-[500] super_box_no">12</p>
                       </div>
                     </div>
-                  </div>
-                  <div className="super_box_s bg-white">
-                    <h1 className="super_head 2xl:mb-[25px] xl:mb-[10px]">
-                      Viewers
-                    </h1>
+
                     <div className="super_box">
                       <div className="flex">
                         <Image
@@ -271,54 +263,17 @@ const SuperHome = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* ===============table============= */}
-                <div className=" 2xl:w-[1151px]  p-5 rounded-[10px]">
-                  <div className="bg-[#F5F6FF]">
-                    <h1 className="super_head 2xl:p-5 xl:p-3">News Updates</h1>
-                  </div>
-                  <div className="overflow-x-auto">
-                    <table className="table table_h bg-[#F5F6FF] sm:w-[110%] lg:w-full ">
-                      <thead className="bg-white">
-                        <tr>
-                          <th className=" tablerow">Title</th>
-                          <th className=" tablerow">Details</th>
-                          <th className=" tablerow">Link</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {data.map((item) => (
-                          <tr key={item.id}>
-                            <td className="tablerow">{item.CounsellingType}</td>
-                            <td className="tablerow 2xl:w-[533px] xl:w-[370px] lg:w-[240px] sm:w-[280px] table-para">
-                              {item.Details}
-                            </td>
-                            <td className=" tablerow flex items-center 2xl:gap-5 gap-3">
-                              <Image
-                                src={item.image}
-                                alt={item.name}
-                                className="2xl:w-[94px] 2xl:h-[75px] xl:w-[60px] lg:w-[60px] w-[60px] h-auto rounded-[3px]"
-                              />
-                              <p className="tablerow-link text-[#1172BA] 2xl:w-[200px] xl:w-[120px] w-[120px]">
-                                Click Here
-                              </p>
-                            </td>
-                          </tr>
-                        ))}
-                        {/* row 2 */}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
               </div>
 
               <div className="2xl:w-[542px] xl:w-[340px] w-[220px] ">
-                <div className="flex justify-between items-center p-5 w-full 2xl:h-[79px] xl:h-[60px] bg-[#F5F6FF]">
+                <div className="flex justify-between items-center p-5 w-full 2xl:h-[79px] xl:h-[60px] border rounded-[10px]">
                   <h1 className="super_head ">Total Revenue</h1>
+                  <Image src={dropdown} alt="dropdown-img" className="" />
                 </div>
-                <div className="my-[30px] w-full bg-[#F5F6FF] 2xl:p-[35px] xl:p-[20px] p-[10px]">
+
+                <div className="my-[30px] w-full bg-[#F5F6FF] 2xl:p-[35px] xl:p-[20px] p-[10px]  2xl:h-[317px] xl:h-[280px]">
                   <div>
-                    <h1 className="super_head 2xl:mb-[25px] ">Subscription</h1>
+                    <h1 className="super_head ">Subscription</h1>
                   </div>
                   <div className="flex flex-wrap justify-between ">
                     <div className=" bg-white flex 2xl:gap-3 2xl:p-5 2xl:w-[223px] 2xl:h-[93px] xl:w-[140px] xl:h-[55px] w-[100px] xl:p-2 xl:gap-2 mt-[25px] rounded-[5px] ">
@@ -390,6 +345,216 @@ const SuperHome = () => {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ===============table============= */}
+            <div className=" 2xl:p-[30px] xl:p-[20px] p-[15px] bg-white ">
+              <div className="border rounded-[10px] bg-[#F5F6FF] ">
+                <h1 className="super_head 2xl:p-5 xl:p-3">News Updates</h1>
+
+                <div className="overflow-x-auto">
+                  <table className="table table-zebra table_h bg-white sm:w-[110%] lg:w-full rounded-none ">
+                    <thead className="bg-[#F5F6FF]">
+                      <tr>
+                        <th className=" tablerow">Sr. No.</th>
+                        <th className=" tablerow">Title</th>
+                        <th className=" tablerow">Details</th>
+                        <th className=" tablerow">Start Date</th>
+                        <th className=" tablerow">End Date</th>
+                        <th className=" tablerow">Link</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.map((item, index) => (
+                        <tr key={item.id} className="h-[80px]">
+                          <td className="tablerow">{index + 1}</td>
+                          <td className="tablerow">{item.CounsellingType}</td>
+                          <td className="tablerow table-para">
+                            {item.Details}
+                          </td>
+                          <td className=" tablerow ">
+                            <p className="tablerow ">02-05-2024</p>
+                          </td>
+                          <td className=" tablerow ">
+                            <p className="tablerow ">10-05-2024</p>
+                          </td>
+                          <td className=" tablerow ">
+                            <p className="tablerow ">Click Here</p>
+                          </td>
+                        </tr>
+                      ))}
+                      {/* row 2 */}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* ===============table============= */}
+
+            <div className=" 2xl:p-[30px] xl:p-[20px] p-[15px] bg-white ">
+              <div className="border rounded-[10px] bg-[#F5F6FF] ">
+                <h1 className="super_head 2xl:p-5 xl:p-3">1 on 1 Counselling</h1>
+                <div className="overflow-x-auto">
+                  <table className="table table-xs my-5 md:w-[125%] sm:w-[130%] w-[150%] lg:w-full table_w">
+                    <thead>
+                      <tr>
+                        <th className="craete_tbl_row text-[#A8A8A8]">S.No</th>
+                        <th className="craete_tbl_row text-[#A8A8A8]">
+                          Student Name
+                        </th>
+                        <th className="craete_tbl_row text-[#A8A8A8]">
+                          Course
+                        </th>
+                        <th className="craete_tbl_row text-[#A8A8A8]">
+                          ID Number
+                        </th>
+
+                        <th className="craete_tbl_row text-[#A8A8A8]">View</th>
+                        <th className="craete_tbl_row text-[#A8A8A8]">
+                          Status
+                        </th>
+                        <th className="craete_tbl_row text-[#A8A8A8]">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="border-none">
+                      <tr className="h-[102px]">
+                        <td className="py-3">
+                          <p className="craete_tbl_row">01</p>
+                        </td>
+                        <td className="py-3">
+                          <p className="craete_tbl_row">Suresh Inamdar</p>
+                        </td>
+                        <td className="craete_tbl_row">UG</td>
+                        <td className="craete_tbl_row">UG243001</td>
+
+                        <td>
+                          <button className="craete_tbl_Pbtn">Preview</button>
+                        </td>
+                        <td className="craete_tbl_row text-[#FE9E34]">
+                          Pending
+                        </td>
+
+                        <td className="  ">
+                          <button className="">
+                            <Image src={edit} className="mr-2" />
+                          </button>
+                          <button className="">
+                            <Image src={deletes} className="ml-2" />
+                          </button>
+                        </td>
+                      </tr>
+                      <tr className="h-[102px]">
+                        <td className="py-3">
+                          <p className="craete_tbl_row">01</p>
+                        </td>
+                        <td className="py-3">
+                          <p className="craete_tbl_row">Suresh Inamdar</p>
+                        </td>
+                        <td className="craete_tbl_row">UG</td>
+                        <td className="craete_tbl_row">UG243001</td>
+
+                        <td>
+                          <button className="craete_tbl_Pbtn">Preview</button>
+                        </td>
+                        <td className="craete_tbl_row text-[#25B948]">
+                        Approved
+                        </td>
+
+                        <td className="  ">
+                          <button className="">
+                            <Image src={edit} className="mr-2" />
+                          </button>
+                          <button className="">
+                            <Image src={deletes} className="ml-2" />
+                          </button>
+                        </td>
+                      </tr>
+                      <tr className="h-[102px]">
+                        <td className="py-3">
+                          <p className="craete_tbl_row">01</p>
+                        </td>
+                        <td className="py-3">
+                          <p className="craete_tbl_row">Suresh Inamdar</p>
+                        </td>
+                        <td className="craete_tbl_row">UG</td>
+                        <td className="craete_tbl_row">UG243001</td>
+
+                        <td>
+                          <button className="craete_tbl_Pbtn">Preview</button>
+                        </td>
+                        <td className="craete_tbl_row text-[#FE9E34]">
+                          Pending
+                        </td>
+
+                        <td className="  ">
+                          <button className="">
+                            <Image src={edit} className="mr-2" />
+                          </button>
+                          <button className="">
+                            <Image src={deletes} className="ml-2" />
+                          </button>
+                        </td>
+                      </tr>
+                      <tr className="h-[102px]">
+                        <td className="py-3">
+                          <p className="craete_tbl_row">01</p>
+                        </td>
+                        <td className="py-3">
+                          <p className="craete_tbl_row">Suresh Inamdar</p>
+                        </td>
+                        <td className="craete_tbl_row">UG</td>
+                        <td className="craete_tbl_row">UG243001</td>
+
+                        <td>
+                          <button className="craete_tbl_Pbtn">Preview</button>
+                        </td>
+                        <td className="craete_tbl_row text-[#25B948]">
+                        Approved
+                        </td>
+
+                        <td className="  ">
+                          <button className="">
+                            <Image src={edit} className="mr-2" />
+                          </button>
+                          <button className="">
+                            <Image src={deletes} className="ml-2" />
+                          </button>
+                        </td>
+                      </tr>
+                      <tr className="h-[102px]">
+                        <td className="py-3">
+                          <p className="craete_tbl_row">01</p>
+                        </td>
+                        <td className="py-3">
+                          <p className="craete_tbl_row">Suresh Inamdar</p>
+                        </td>
+                        <td className="craete_tbl_row">UG</td>
+                        <td className="craete_tbl_row">UG243001</td>
+
+                        <td>
+                          <button className="craete_tbl_Pbtn">Preview</button>
+                        </td>
+                        <td className="craete_tbl_row text-[#25B948]">
+                        Approved
+                        </td>
+
+                        <td className="  ">
+                          <button className="">
+                            <Image src={edit} className="mr-2" />
+                          </button>
+                          <button className="">
+                            <Image src={deletes} className="ml-2" />
+                          </button>
+                        </td>
+                      </tr>
+                   
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
