@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Course_Preference = require("../Model/Course_Preferece");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -41,15 +42,15 @@ const UserSchema = new mongoose.Schema(
     city: {
       type: String
     },
-    documents: [{ 
-      type: String 
+    documents: [{
+      type: String
     }],
     isVerified: {
       type: Boolean,
       default: false,
     },
-    careerGoals: { 
-      type: String 
+    careerGoals: {
+      type: String
     },
     tenthPercentage: {
       type: String
@@ -60,8 +61,8 @@ const UserSchema = new mongoose.Schema(
     neetScore: {
       type: String
     },
-    fathersName: { 
-      type: String 
+    fathersName: {
+      type: String
     },
     fathersOccupation: {
       type: String
@@ -72,10 +73,323 @@ const UserSchema = new mongoose.Schema(
     mothersOccupation: {
       type: String
     },
-    wishlist: [{ 
-      type: mongoose.Schema.Types.ObjectId, 
+    wishlist: [{
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'College'
     }],
+
+
+    // Add NEET Details
+    NEET_Details: [{
+
+      FullName: {
+        type: String,
+        // required: true
+      },
+
+      MobileNumber: {
+        type: String,
+        // required: true
+      },
+
+      WhatsappNumber: {
+        type: String,
+        // required: true
+      },
+
+      NEET_RegisterNumber: {
+        type: String,
+        // required: true
+      },
+
+      RollNo: {
+        type: String,
+        // required: true
+      },
+
+      Marks: {
+        type: String,
+        // required: true
+      },
+
+      AllIndiaRank: {
+        type: String,
+        // required: true
+      },
+      StateRank: {
+        type: String,
+        // required: true
+      }
+
+    }],
+
+    //All India Category
+
+    All_India_Category_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category"
+    },
+
+    //  Add domicileStateCategory
+
+    domicileStateCategory: [{
+
+      state_id: {
+
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "State"
+
+      },
+      category_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category"
+      }
+
+    }],
+
+    // Parellel Reservations
+
+    ParellelReservations: [{
+      select_options: {
+        type: String,
+        enum: ["Yes", "No"]
+      },
+      Reservation_Fields: {
+        type: String,
+        enum: ["HA", "MKB", "DEF", "PWD", "ORPHAN"]
+      }
+
+    }],
+
+    // Minority Reservations
+
+    MinorityReservations: [{
+      type: String,
+      enum: ["Jain Minority", "Muslim Minority", "Christian Minority", "Gujarati / Sindhi Minority", "Hindi Linguistic Minority"]
+    }],
+
+    // Course Preference and User can select multiple courses
+
+    Course_Preference: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course_Preference"
+    }],
+
+    // Addmissions Preferences
+
+    Admissions_Preferences: {
+      type: String,
+      enum: ["Government College", "Private/Management", "Deemed University"]
+    },
+
+    // NRI Quota Preferences
+    // NRI Quota Preference array
+    NRI_Quta_Prefernce: [{
+      // NRI Quota Preferences
+      nriQuotaPreference: {
+        type: String,
+        enum: ['Yes', 'No'],
+        // required: true
+      },
+      // Relationship with Sponsor
+      relationshipWithSponsor: {
+        type: String,
+        required: function () {
+          return this.nriQuotaPreference === 'Yes'; // Required only if NRI Quota Preference is 'Yes'
+        }
+      },
+      // Sponsor's Country
+      sponsorsCountry: {
+        type: String,
+        required: function () {
+          return this.nriQuotaPreference === 'Yes'; // Required only if NRI Quota Preference is 'Yes'
+        }
+      },
+      // Sponsor's Country State
+      sponsorsCountryState: {
+        type: String,
+        required: function () {
+          return this.nriQuotaPreference === 'Yes'; // Required only if NRI Quota Preference is 'Yes'
+        }
+      }
+    }],
+
+
+    // Intersted_in_other_state_Preferences
+    OtherStatePreferences: [{
+      select_options: {
+        type: String,
+        enum: ["Yes", "No"]
+      },
+      Preference_Fields: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "State"
+      }]
+    }],
+
+    // Anual  Medical Course Buget  type can be number and string
+
+    AnnualMedicalCourseBudget: {
+      type: String,
+      // required: true
+    },
+
+    // Standard 12th Exam Marks
+    standard_12thMarks: [{
+      subject: {
+        type: String,
+        // required: true,
+      },
+      obtained: {
+        type: Number,
+        // required: true,
+      },
+      outOf: {
+        type: Number,
+        // required: true,
+      },
+    }],
+    
+    // Exam Details
+    exams: [{
+      type: {
+        type: String,
+        enum: ['10th', '12th'], // Enum for exam type
+        // required: true,
+      },
+      passingDistrict: {
+        type: String,
+        // required: true,
+      },
+      passingState: {
+        type: String,
+        // required: true,
+      }
+    }],
+
+
+    // Academic Details
+
+     // Exam Details
+     Academic_Details: [{
+      type: {
+        type: String,
+        // required: true,
+      },
+      Board_University: {
+        type: String,
+        // required: true,
+      },
+      School_College: {
+        type: String,
+        // required: true,
+      },
+      PassingYear: {
+        type: Number,
+        // required: true,
+      },
+      ObtainedMarks: {
+        type: Number,
+        // required: true,
+      },
+      Result:{
+        type: String,
+        // required: true,
+      },
+      CGPA:{
+        type:String,
+        required:true
+      }
+
+    }],
+
+    // Student'S Address
+
+    StudentAddress:[{
+
+      HouseNo:{
+        type:String,
+        required:true
+      },
+      Area:{
+        type:String,
+        required:true
+      },
+      City:{
+        type:String,
+        required:true
+      },
+      Distict:{
+        type:String,
+        required:true
+      },
+      State:{
+        type:String,
+        required:true
+      },
+      PinCode:{
+        type:String,
+        required:true
+      }
+
+    }],
+
+
+    // Student Details 
+
+    studentDetails: [{
+
+      Gender:{
+        type: String,
+        enum:['Male' , 'Female' , 'Other'],
+      },
+      Email:{
+        type: String,
+        // required: true,
+      },
+
+      Mobile:{
+        type: String,
+        // required: true,
+      }
+      
+
+    }],
+
+
+    // Parent Details
+
+    parentDetails: [{
+      parentName: {
+        type: String,
+        // required: true,
+      },
+      parentEmail: {
+        type: String,
+        // required: true,
+      },
+      parentMobile: {
+        type: String,
+        // required: true,
+      },
+
+      parentOccupation: {
+        type:String,
+        enum:['Govt of Maharashtra Employee?' , 'Govt of India Employee?']
+      },
+      FamilyAnualIncome:{
+        type:String,
+        required:false
+      }
+    }],
+
+
+    // step_status: {
+    //   type: String,
+    //   enum: ["pending", "in_progress", "completed"],
+    //   default: "pending",
+    // },
+
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,

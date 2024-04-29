@@ -23,7 +23,9 @@ const {
   deleteAllWishlistItems,
   removeFromWishlist,
   generateOtp,
-  verifyOtp
+  verifyOtp,
+  updatedUser_Steps,
+  getstepsbyuserId
 } = require("../Controller/auth");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const storage = multer.memoryStorage();
@@ -78,5 +80,13 @@ router.route("/deleteAllWishlistItems").delete(isAuthenticatedUser , deleteAllWi
 router.route("/removeFromWishlist/:collegeId").delete(isAuthenticatedUser , removeFromWishlist);
 
 router.route("/uploadImage").post(isAuthenticatedUser, authorizeRoles("admin"), upload.single('file'),uploadImage)
+
+
+router.put("/updatedUser_Steps/:id", updatedUser_Steps);
+
+router.get("/getstepsbyuserId/:id", getstepsbyuserId);
+
+
+
 
 module.exports = router;

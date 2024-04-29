@@ -1,9 +1,11 @@
 const User = require("../Model/User");
 const Admin = require("../Model/AdminModel");
+const Steps = require("../Model/stepsModel");
+const Course_Preference = require("../Model/Course_Preferece");
 const OTP = require("../Model/OtpModel")
 const sendEmail = require("../Utils/SendEmail");
 const validateMongoDbId = require("../Utils/validateMongodbId");
-const { generateToken , verifyToken} = require("../config/jwtToken");
+const { generateToken, verifyToken } = require("../config/jwtToken");
 const sendToken = require("../Utils/jwtToken");
 const jwt = require("jsonwebtoken");
 const uploadOnS3 = require("../Utils/uploadImage");
@@ -103,7 +105,7 @@ exports.login = async (req, res, next) => {
     if (findUser && (await findUser.matchPasswords(password))) {
       // const token = generateToken({ id: findUser._id });
       const token = generateToken(findUser._id, findUser.role);
-      
+
       await User.findByIdAndUpdate(
         { _id: findUser._id?.toString() },
         { activeToken: token },
@@ -165,10 +167,10 @@ exports.adminRegister = async (req, res, next) => {
 
 exports.adminLogin = async (req, res, next) => {
   const { email, password } = req.body;
-  
+
   try {
     const findAdmin = await Admin.findOne({ email }).select("+password");
-    
+
     if (!findAdmin) {
       throw new Error("Admin not found");
     }
@@ -216,7 +218,7 @@ exports.logout = async (req, res) => {
     if (authHeader) {
       token = authHeader;
     }
-    
+
     if (!token) {
       return res
         .status(401)
@@ -225,7 +227,7 @@ exports.logout = async (req, res) => {
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
-    const userData = await User.findOne({_id:decodedData?.id});
+    const userData = await User.findOne({ _id: decodedData?.id });
 
     if (userData.activeToken && userData.activeToken === token) {
       const user = await User.findOneAndUpdate(
@@ -267,7 +269,7 @@ exports.adminLogout = async (req, res) => {
     if (authHeader) {
       token = authHeader;
     }
-    
+
     if (!token) {
       return res
         .status(401)
@@ -276,7 +278,7 @@ exports.adminLogout = async (req, res) => {
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
-    const userData = await Admin.findOne({_id:decodedData?.id});
+    const userData = await Admin.findOne({ _id: decodedData?.id });
 
     if (userData.activeToken && userData.activeToken === token) {
       const user = await Admin.findOneAndUpdate(
@@ -313,6 +315,27 @@ exports.adminLogout = async (req, res) => {
 
 exports.generateOtp = async (req, res) => {
   try {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     const { userId } = req.body;
     const user = await User.findById(userId);
     if (!user) {
@@ -468,10 +491,10 @@ exports.resetPassword = async (req, res, next) => {
       passwordResetToken: req.params.resetToken,
       passwordResetExpires: { $gt: Date.now() },
     });
-    
+
     if (!user) {
       res.status(400).json("Invalid Reset Token");
-      
+
     }
     user.password = req.body.password;
     user.passwordResetToken = undefined;
@@ -488,7 +511,7 @@ exports.resetPassword = async (req, res, next) => {
 };
 
 exports.verifyUser = async (req, res) => {
-  const {token } = req.params;
+  const { token } = req.params;
 
   try {
     const decodedData = verifyToken(token);
@@ -513,7 +536,7 @@ exports.verifyUser = async (req, res) => {
 };
 
 exports.verifyAdmin = async (req, res) => {
-  const {token } = req.params;
+  const { token } = req.params;
 
   try {
     const decodedData = verifyToken(token);
@@ -548,9 +571,9 @@ exports.updatedUser = async (req, res) => {
 
 exports.getallUser = async (req, res) => {
   try {
-    const { page = 1, limit = 10} = req.query;
+    const { page = 1, limit = 10 } = req.query;
     const searchQuery = req.query.search;
-    
+
     const currentPage = parseInt(page, 10);
     const itemsPerPage = parseInt(limit, 10);
 
@@ -600,9 +623,27 @@ exports.getaUser = async (req, res) => {
   }
 };
 
+ // working controller
+
 exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).populate("wishlist");
+    const user = await User.findById(req.params.id)
+    .populate("wishlist")
+    .populate('All_India_Category_id')
+    .populate('Course_Preference')
+    .populate({
+      path: 'domicileStateCategory',
+      populate: [
+        { path: 'state_id', model: 'State' },
+        { path: 'category_id', model: 'Category' }
+      ]
+  
+
+    })
+    .populate('OtherStatePreferences.Preference_Fields')
+    
+
+    
     res.status(200).json({
       user,
     });
@@ -610,6 +651,24 @@ exports.getUserById = async (req, res) => {
     throw new Error(error);
   }
 };
+
+// const User = require('../models/User');
+
+// exports.getUserById = async (req, res) => {
+//   try {
+//     const userId = req.params.id; // Assuming the ID is passed as a URL parameter
+//     const user = await User.findById(userId)
+//     if (!user) {
+//       return res.status(404).json({ success: false, message: 'User not found' });
+//     }
+
+//     res.status(200).json({ success: true, data: user });
+//   } catch (error) {
+//     console.error('Error getting user by ID:', error);
+//     res.status(500).json({ success: false, message: 'Server Error' });
+//   }
+// };
+
 
 exports.deleteaUser = async (req, res) => {
   const { id } = req.params;
@@ -722,3 +781,161 @@ exports.removeFromWishlist = async (req, res) => {
     res.status(500).json({ error: "An error occurred while removing college from wishlist" });
   }
 };
+
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    // Find the profile associated with the user
+    const profile = await Profile.findOne({ user: userId });
+
+    if (!profile) {
+      return res.status(404).json({ success: false, message: 'Profile not found' });
+    }
+
+    profile.NEET_Details = req.body.NEET_Details || profile.NEET_Details;
+    profile.Category_id = req.body.Category_id || profile.Category_id;
+    profile.domicileStateCategory = req.body.domicileStateCategory || profile.domicileStateCategory;
+    profile.ParellelReservations = req.body.ParellelReservations || profile.ParellelReservations;
+    profile.MinorityReservations = req.body.MinorityReservations || profile.MinorityReservations;
+    profile.Course_Preference = req.body.Course_Preference || profile.Course_Preference;
+    profile.Admissions_Preferences = req.body.Admissions_Preferences || profile.Admissions_Preferences;
+    profile.NRI_Quta_Prefernce = req.body.NRI_Quta_Prefernce || profile.NRI_Quta_Prefernce;
+    profile.OtherStatePreferences = req.body.OtherStatePreferences || profile.OtherStatePreferences;
+    profile.AnnualMedicalCourseBudget = req.body.AnnualMedicalCourseBudget || profile.AnnualMedicalCourseBudget;
+    profile.standard12thMarks = req.body.standard12thMarks || profile.standard12thMarks;
+    profile.exams = req.body.exams || profile.exams;
+    profile.studentDetails = req.body.studentDetails || profile.studentDetails;
+    profile.parentDetails = req.body.parentDetails || profile.parentDetails;
+
+    // Save the updated profile
+    await profile.save();
+
+    res.status(200).json({ success: true, message: 'Profile updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+
+
+
+
+
+exports.updatedUser_Steps = async (req, res) => {
+  try {
+    // const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    // res.json(updatedUser);
+    const step_status = req.body.step_status;
+    const id = req.params.id;
+    const user = await User.findById(id);
+    if(!user){
+         return res.status(404).json({ success: false, message: 'user not found' });
+       }
+     if(!step_status){
+      return res.status(404).json({ success: false, message: 'plz provide step_status' });
+      }
+
+
+    if (step_status == 'neet_info') {
+      const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      // Steps
+    const user = await Steps.findOne({User_Id:id});
+    if (!user) {
+      const newUser = new Steps({
+          User_Id: id,
+          neet_info: 'completed'
+      });
+      const updatedUser = await newUser.save();
+  } else {
+  
+      const updatedUser = await Steps.findByIdAndUpdate(
+          { _id: user.id }, // Query to find the document
+          { neet_info: 'completed' }, // Update the neet_info field
+          { new: true } // Return the updated document
+      );
+  }
+      // res.json(updatedUser);
+      return res.status(200).json({ success: true, message: 'User neet infomation updated successfully',data:updatedUser });
+
+    } else if (step_status == 'admision_pre') {
+      const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const user = await Steps.findOne({User_Id:id});
+      if (!user) {
+        const newUser = new Steps({
+            User_Id: id,
+            admision_pre: 'completed'
+        });
+        const updatedUser = await newUser.save();
+    } else {
+        const updatedUser = await Steps.findByIdAndUpdate(
+            { _id: user.id }, // Query to find the document
+            { admision_pre: 'completed' }, // Update the neet_info field
+            { new: true } // Return the updated document
+        );
+    }
+      // res.json(updatedUser);
+      return res.status(200).json({ success: true, message: 'User admision preference updated successfully',data:updatedUser });
+
+    } else if (step_status == 'education_info') {
+      const user = await Steps.findOne({User_Id:id});
+      if (!user) {
+        const newUser = new Steps({
+            User_Id: id,
+            education_info: 'completed'
+        });
+        const updatedUser = await newUser.save();
+    } else {
+        const updatedUser = await Steps.findByIdAndUpdate(
+          { _id: user.id },  // Query to find the document
+            { education_info: 'completed' }, // Update the neet_info field
+            { new: true } // Return the updated document
+        );
+    }
+      const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      // res.json(updatedUser);
+      return res.status(200).json({ success: true, message: 'User education infomation updated successfully',data:updatedUser });
+
+    }
+    else if(step_status == 'personal_details') {
+      const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+         const user = await Steps.findOne({User_Id:id});
+    if (!user) {
+      const newUser = new Steps({
+          User_Id: id,
+          personal_details: 'completed'
+      });
+      const updatedUser = await newUser.save();
+  } else {
+      const updatedUser = await Steps.findByIdAndUpdate(
+        { _id: user.id },  // Query to find the document
+          { personal_details: 'completed' }, // Update the neet_info field
+          { new: true } // Return the updated document
+      );
+  }
+      // res.json(updatedUser);
+      return res.status(200).json({ success: true, message: 'User personal details updated successfully',data:updatedUser });
+    } else{
+      return res.status(404).json({ success: false, message: 'plz provide right status value' });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+
+// make a table a steps get by id
+
+exports.getstepsbyuserId = async (req, res) => {
+  try {
+    const user = await Steps.findOne({User_Id:req.params.id});
+    res.status(200).json({
+      messsage:'User steps',
+      user
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+}

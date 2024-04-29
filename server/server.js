@@ -31,6 +31,11 @@ app.use("/api/auth", require("./Route/AuthRouter"));
 app.use("/api/collage", require("./Route/CollageRouter"));
 app.use("/api/course", require("./Route/CourseRouter"));
 app.use("/api/choice", require("./Route/ChoiceFillingRouter"));
+app.use("/api/category",require("./Route/categoryRouter"))
+app.use("/api/country" , require("./Route/CountryRouter"))
+app.use("/api/state" , require("./Route/StateRouter"))
+app.use("/api/state_category" , require("./Route/state_categoryRouter"))
+app.use("/api/course_preference" , require("./Route/Course_preferenceRoutes"))
 
 const PORT = process.env.PORT || 4000;
 
