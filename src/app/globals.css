@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  background-color: white;
+  font-style: black;
+}
+
 @layer components {
   .login-input-label {
     @apply text-[#262628] font-[400] text-[14px] capitalize;
@@ -63,6 +68,7 @@ td {
 button {
   transition: 0.3s;
 }
+
 button:hover {
   -webkit-transition: all 350ms ease-in-out 0s;
   -moz-transition: all 350ms ease-in-out 0s;
@@ -105,11 +111,9 @@ html {
 }
 
 .login-btn {
-  background: linear-gradient(
-    109.6deg,
-    rgb(102, 203, 149) 11.2%,
-    rgb(39, 210, 175) 98.7%
-  );
+  background: linear-gradient(109.6deg,
+      rgb(102, 203, 149) 11.2%,
+      rgb(39, 210, 175) 98.7%);
   font-size: 16px;
   font-weight: 700;
   line-height: 26px;
@@ -119,11 +123,9 @@ html {
 
 .login-btn:hover {
   color: #f3f3f3;
-  background: linear-gradient(
-    109.6deg,
-    rgb(102, 203, 149) 11.2%,
-    rgb(39, 210, 175) 98.7%
-  );
+  background: linear-gradient(109.6deg,
+      rgb(102, 203, 149) 11.2%,
+      rgb(39, 210, 175) 98.7%);
 }
 
 .dash-menu svg {
@@ -158,15 +160,18 @@ html {
   transition: show;
   transform: translateX(0);
 }
+
 .drawer {
   transition: transform 0.3s ease-in-out;
 }
+
 #register-bg {
   background-image: url("../../public/images/poster.webp");
   background-size: cover;
   background-position: center;
   height: 100vh;
 }
+
 #registerad-bg {
   background-image: url("../../public/images/adminPoster.svg");
   background-size: cover;
@@ -320,63 +325,76 @@ html {
   font-family: "inter";
   src: url("../../src/fonts/Inter_Tight//InterTight-VariableFont_wght.ttf");
 }
+
 .inter {
   font-family: "inter", sans-serif;
   font-style: normal;
 }
+
 @media (max-width: 530px) {
   .u_table {
     width: 150%;
   }
 }
+
 @media (max-width: 430px) {
   .u_table {
     width: 180%;
   }
 }
+
 @media (max-width: 360px) {
   .u_table {
     width: 240%;
   }
 }
+
 .userprofileU {
   @apply text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px];
 }
+
 .userupdateBtn {
   @apply bg-[#0071BC] text-white 2xl:text-[16px] xl:text-[12px] text-[10px] 2xl:w-[168px] 2xl:h-[52px] xl:h-[35px] h-[30px] rounded-full 2xl:p-3 px-2 2xl:my-10;
 }
+
 .userupdateInputs {
   @apply outline-[#0071BC] border rounded-full 2xl:text-[16px] xl:text-[12px] text-[10px] 2xl:h-[52px] xl:h-[35px] h-[30px] 2xl:w-[286px] xl:w-[200px] md:w-[170px];
 }
+
 .image-item {
   transition: fill 0.3s;
 }
+
 .svg-Image:hover .image-item {
   fill: blue;
 }
+
 /* / ========================Super Admin Dashboard============== / */
 
 .super_box {
-  @apply bg-white w-full sm:w-[45%] h-[75px] lg:w-[160px] lg:h-[60px] xl:w-[180px] xl:h-[65px] 2xl:w-[246px] 2xl:h-[93px] rounded-[5px] flex 2xl:gap-3 xl:gap-2 2xl:p-5 xl:p-3 lg:p-3 p-3 shadow-md;
+  @apply bg-white w-full sm:w-[45%] h-[75px] lg:w-[160px] lg:h-[60px] xl:w-[180px] xl:h-[65px] 2xl:w-[246px] 2xl:h-[93px] rounded-[5px] flex 2xl:gap-3 xl:gap-2 gap-2 2xl:p-5 xl:p-3 lg:p-3 p-3 shadow-md;
 }
 
 .super_box_s {
-  @apply xl:w-[220px] xl:h-[140px] 2xl:w-[312px] 2xl:h-[198px] rounded-md 2xl:p-7 xl:p-[20px] lg:p-[10px] bg-[#F5F6FF];
+  @apply xl:w-[220px] xl:h-[140px] 2xl:w-[312px] 2xl:h-[198px] rounded-md ;
 }
 
-.super_head{
-  @apply inter font-[700] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[16px] xl:leading-[20px] lg:text-[12px] lg:leading-[26px] text-[12px] leading-[26px]
+.super_head {
+  @apply inter font-[700] text-[#000000] 2xl:text-[20px] 2xl:leading-[24px] xl:text-[16px] xl:leading-[20px] lg:text-[12px] lg:leading-[26px] text-[12px] leading-[26px]
 }
+
 .super_box_p {
-  @apply 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] lg:text-[10px] text-[6px] text-[#000000];
+  @apply 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] lg:text-[9px] text-[6px] text-[#000000];
 }
 
 .super_box_no {
-  @apply text-[#323232] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[18px] xl:leading-[25px] 2xl:my-0 lg:text-[18px] lg:leading-[30px] sm:text-[18px] sm:leading-[30px];
+  @apply text-[#323232] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[18px] xl:leading-[25px] 2xl:my-0 lg:text-[16px] lg:leading-[22px] sm:text-[18px] sm:leading-[30px];
 }
-
+.super_box_noo {
+  @apply text-[#323232] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[18px] xl:leading-[25px] 2xl:my-0 lg:text-[14px] lg:leading-[18px] sm:text-[18px] sm:leading-[30px];
+}
 .super_box_img {
-  @apply 2xl:w-[33px] 2xl:h-[33px] xl:w-[25px] xl:h-[25px] lg:w-[22px] lg:h-[22px] w-[30px] h-[30px];
+  @apply 2xl:w-[33px] 2xl:h-[33px] xl:w-[25px] xl:h-[25px] lg:w-[20px] lg:h-[20px] w-[30px] h-[30px];
 }
 
 .bg_rs {
@@ -384,12 +402,14 @@ html {
   background-size: cover;
   background-position: center;
 }
+
 /* / =========================SuperAdmin=================== / */
 .superAD_sDiv {
   @apply rounded-[10px] 2xl:w-[342px] 2xl:h-[178px] bg-white flex 2xl:gap-2 2xl:p-4 xl:p-3;
 }
+
 .superAD_sImg {
-  @apply 2xl:w-[52px] 2xl:h-[52px] xl:w-[40px] xl:h-[40px] lg:w-[30px] lg:h-[30px] sm:w-[35px] sm:h-[35px] w-[30px] h-[30px];
+  @apply bg-[#1172BA] rounded-full flex justify-center items-center text-white inter font-[500] 2xl:w-[52px] 2xl:h-[52px] xl:w-[40px] xl:h-[40px] lg:w-[30px] lg:h-[30px] sm:w-[35px] sm:h-[35px] w-[30px] h-[30px] 2xl:text-[25px] 2xl:leading-[20px] xl:text-[16px] xl:leading-[18px] lg:text-[12px] lg:leading-[16px];
 }
 
 .superAD_sName {
@@ -434,7 +454,7 @@ html {
 }
 
 .craete_tbl_Pbtn {
-  @apply legend font-[500] 2xl:text-[14px] 2xl:leading-[20px] 2xl:w-[80px] 2xl:h-[30px] lg:h-[20px] xl:h-[25px] bg-[#0071BC] text-white rounded-[3px] xl:text-[10px] lg:text-[9px] 2xl:py-[3px] 2xl:px-[6px] xl:py-[1px] xl:px-[6px] lg:py-[1px] lg:px-[2px] xl:w-[60px] lg:w-[50px] sm:w-[50px] sm:h-[22px] sm:text-[10px] w-[50px] h-[20px] text-[9px];
+  @apply legend font-[500] 2xl:text-[14px] 2xl:leading-[20px] 2xl:w-[120px] 2xl:h-[35px] lg:h-[25px] xl:h-[25px] bg-[#5793CE] text-white rounded-[3px] xl:text-[10px] lg:text-[9px] 2xl:py-[3px] 2xl:px-[6px] xl:py-[1px] xl:px-[6px] lg:py-[1px] lg:px-[2px] xl:w-[80px] lg:w-[65px] sm:w-[50px] sm:h-[22px] sm:text-[10px] w-[50px] h-[20px] text-[9px];
 }
 
 .modal {
@@ -477,12 +497,13 @@ html {
 .tablerow {
   @apply inter font-[400] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] sm:leading-[16px] text-[9px] leading-[14px];
 }
+
 .tablerow-link {
   @apply inter font-[700] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] sm:text-[10px] sm:leading-[16px] text-[9px] leading-[14px];
 }
 
 .neethead {
-  @apply inter font-[600] text-[#000000] 2xl:text-[16px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[22px] lg:text-[10px] lg:leading-[12px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[11px] text-center my-1;
+  @apply inter font-[600] text-[#000000] 2xl:text-[16px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[22px] lg:text-[10px] lg:leading-[12px] sm:text-[10px] sm:leading-[12px] text-[15px] leading-[30px] text-center my-1;
 }
 
 .neethead3 {
@@ -498,7 +519,7 @@ html {
 }
 
 .campusimg {
-  @apply 2xl:w-[202px] 2xl:h-[116px] xl:w-[160px] h-auto lg:w-[100px] 2xl:my-5 xl:my-3 lg:my-2 rounded-[3px];
+  @apply 2xl:w-[254px] 2xl:h-[264px] xl:w-[160px] h-auto lg:w-[100px] 2xl:my-5 xl:my-3 lg:my-2 rounded-[3px];
 }
 
 .neethead2 {
@@ -510,11 +531,11 @@ html {
 }
 
 .neetdata {
-  @apply 2xl:w-[200px] 2xl:h-[233px] xl:w-[160px] lg:w-[120px] sm:w-[120px] w-[100px] h-auto rounded-[3px];
+  @apply 2xl:w-[181px] 2xl:h-[211px] xl:w-[160px] lg:w-[95px] md:w-[120px] sm:w-[90px] rounded-[3px];
 }
 
 .userdetailHead {
-  @apply inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[15px] xl:leading-[24px] lg:text-[12px] lg:leading-[18px]  sm:leading-[16px] text-[12px] leading-[11px] my-2 lg:my-1;
+  @apply inter font-[700] text-[#000000] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[15px] xl:leading-[24px] lg:text-[12px] lg:leading-[18px] sm:leading-[16px] text-[12px] leading-[11px] my-2 lg:my-1;
 }
 
 .userdetailBtn {
@@ -526,32 +547,41 @@ html {
 }
 
 .subsBox {
-  @apply 2xl:w-[383px] 2xl:h-[599px] xl:w-[260px] xl:h-[380px] lg:w-[180px] lg:h-[300px] w-[250px] h-[310px] border rounded-[10px] 2xl:p-[25px] xl:p-[15px]  lg:p-[15px] p-[15px];
+  @apply 2xl:w-[383px] 2xl:h-[599px] xl:w-[260px] xl:h-[380px] lg:w-[180px] lg:h-[300px] w-[250px] h-[310px] border rounded-[10px] 2xl:p-[25px] xl:p-[15px] lg:p-[15px] p-[15px];
 }
+
 .subsimgBox {
   @apply 2xl:mt-[65px] xl:mt-[20px] mt-[10px];
 }
+
 .subsImg {
   @apply 2xl:w-[64px] 2xl:h-[64px] xl:w-[45px] xl:h-[45px] lg:w-[35px] lg:h-[35px] w-[35px] h-[35px] mx-auto;
 }
+
 .subsPlan {
   @apply 2xl:mt-[35px] xl:mt-[25px] lg:mt-[15px] mt-[15px];
 }
+
 .subsplantext {
-  @apply inter font-[400] text-center  2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[16px] text-[10px] leading-[14px];
+  @apply inter font-[400] text-center 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[16px] text-[10px] leading-[14px];
 }
+
 .subsplanprice {
   @apply inter font-[700] text-[#1172BA] text-center 2xl:text-[25px] 2xl:leading-[20px] xl:text-[14px] xl:leading-[20px] text-[10px] leading-[20px] 2xl:my-2;
 }
+
 .subsplantermBox {
   @apply 2xl:mt-[40px] xl:mt-[30px] lg:mt-[15px] mt-[15px];
 }
+
 .subsBtn {
   @apply w-full 2xl:h-[48px] xl:h-[30px] lg:h-[25px] h-[25px] rounded-[4px] bg-[#4F9ED9] text-white 2xl:text-[14px] xl:text-[10px] lg:text-[8px] text-[10px] 2xl:leading-[20px] 2xl:mt-[35px] xl:mt-[15px] lg:mt-[5px] mt-[15px];
 }
+
 .user-input-label {
   @apply inter font-[300] 2xl:text-[14px] 2xl:leading-[17px] xl:text-[11px] xl:leading-[15px] lg:text-[9px] lg:leading-[12px] text-[10px] leading-[12px] mb-1 xl:mb-2;
 }
+
 .user-input {
   @apply outline-none bg-white px-3 border rounded-[5px] 2xl:w-[263px] 2xl:h-[48px] xl:w-[200px] xl:h-[35px] lg:w-[170px] lg:h-[28px] md:w-[200px] w-full h-[30px] 2xl:text-[14px] 2xl:leading-[17px] xl:text-[11px] xl:leading-[15px] lg:text-[9px] lg:leading-[12px] text-[10px] leading-[12px];
 }
@@ -560,34 +590,98 @@ html {
   .table_h {
     width: 140% !important;
   }
+
   .table-para {
     width: 280px;
   }
 }
+
 @media (max-width: 500px) and (min-width: 400px) {
   .table_h {
     width: 150% !important;
   }
+
   .table-para {
     width: 200px;
   }
 }
+
 @media (max-width: 400px) and (min-width: 320px) {
   .table_h {
     width: 200% !important;
   }
+
   .table-para {
     width: 200px;
   }
 }
+
 @media (max-width: 450px) {
   .para_h {
-    width: 200px;
+    /* width: 200px; */
   }
+
   .nav_text {
     font-size: 8px;
   }
+
   .input_div {
     width: 100%;
   }
+}
+/* @media (max-width: 430px){
+  .neetdata{
+    width: 140px;
+  }
+} */
+
+/* 2xl:w-[] 2xl:h-[] h-auto xl:w-[] lg:w-[] sm:w-[] w-[] 
+  2xl:px-[] xl:px-[] lg:px-[] sm:px-[] px-[]
+  2xl:py-[] xl:py-[] lg:py-[] sm:py-[] py-[]
+  2xl:my-[] xl:my-[] lg:my-[] sm:my-[] my-[]
+  inter font-[] 2xl:text-[] xl:text-[] lg:text-[] sm:text-[] text-[]
+   2xl:leading-[] xl:leading-[] lg:leading-[] sm:leading-[] leading-[]*/
+
+/* ========== User Profile====== */
+.main_div {
+  @apply bg-[#F5F6FF] 2xl:w-[1345px] 2xl:h-[1257px] xl:w-[900px] lg:w-[800px] sm:w-[] w-[] 2xl:px-[50px] xl:px-[40px] lg:px-[30px] sm:px-[] px-[] 2xl:py-[45px] xl:py-[35px] lg:py-[25px] sm:py-[] py-[]
+}
+
+.pre_input_lable {
+  @apply inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] xl:leading-[15px] text-[10px]
+}
+
+.pre_input {
+  @apply border rounded-[5px] outline-none 2xl:w-[390px] xl:w-[250px] lg:w-[220px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[] 2xl:my-[10px] xl:my-[7px] lg:my-[4px] sm:my-[] my-[] 2xl:text-[16px] xl:text-[12px] text-[10px]
+}
+
+.pre_input_lable2 {
+  @apply inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] xl:leading-[15px] text-[10px]
+}
+
+.pre_input2nd {
+  @apply border rounded-[5px] outline-none 2xl:w-[209px] xl:w-[180px] lg:w-[140px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[] 2xl:my-[10px] xl:my-[7px] lg:my-[4px] sm:my-[] my-[] 2xl:text-[16px] xl:text-[12px] text-[10px]
+}
+
+.pre_input3rd {
+  @apply border rounded-[5px] outline-none 2xl:w-[174px] xl:w-[110px] lg:w-[90px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[] 2xl:my-[10px] xl:my-[7px] lg:my-[4px] sm:my-[] my-[] 2xl:text-[16px] xl:text-[12px] text-[10px]
+}
+
+.pre_input4th {
+  @apply border rounded-[5px] outline-none 2xl:w-[126px] xl:w-[80px] lg:w-[70px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[] 2xl:my-[10px] xl:my-[7px] lg:my-[4px] sm:my-[] my-[] 2xl:text-[16px] xl:text-[12px] text-[10px]
+}
+/* Add this to your CSS file */
+.table-cell-no-border {
+  border: none !important;
+}
+
+
+.createUser-label{
+  @apply inter text-[#000000] font-[400] 2xl:text-[18px] 2xl:leading-[40px] xl:text-[12px] xl:leading-[15px] text-[10px]
+}
+.createUser-input{
+  @apply border rounded-[5px] outline-none 2xl:w-[260px] xl:w-[190px] lg:w-[160px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[]  2xl:text-[16px] xl:text-[12px] text-[10px]
+}
+.createUser-input2{
+  @apply border rounded-[5px] outline-none 2xl:w-[549px] xl:w-[400px] lg:w-[160px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[]  2xl:text-[16px] xl:text-[12px] text-[10px]
 }

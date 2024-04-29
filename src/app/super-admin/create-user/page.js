@@ -9,6 +9,11 @@ import s6 from "../../../../public/images/s6.svg";
 import s7 from "../../../../public/images/s7.svg";
 import s8 from "../../../../public/images/s8.svg";
 import s9 from "../../../../public/images/s9.svg";
+import Link from "next/link";
+import edit from "../assets/edit.svg";
+import deletes from "../assets/delete.svg";
+import previews from "../assets/preview.svg";
+
 
 const CreateUser = () => {
   return (
@@ -24,7 +29,7 @@ const CreateUser = () => {
             </div>
             <div className="flex justify-center mt-6 2xl:mt-10 mx-4">
               <div className="w-4/6 hover:text-[#2083C4]">
-               <a href="/super-admin">
+                <a href="/super-admin">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -204,10 +209,12 @@ const CreateUser = () => {
                   <Image src={add} className="add_img " />
                   Create Admin
                 </button>
-                <button className="bg-[#FE9E34] add_btn">
-                  <Image src={add} className="add_img " />
-                  Create Student{" "}
-                </button>
+                <Link href="/super-admin/createUser">
+                  <button className="bg-[#FE9E34] add_btn">
+                    <Image src={add} className="add_img " />
+                    Create Student{" "}
+                  </button>
+                </Link>
                 <button className="bg-[#FC4742] add_btn">
                   <Image src={add} className="add_img " />
                   Create Counsellor
@@ -217,239 +224,272 @@ const CreateUser = () => {
                   Create Viewer
                 </button>
               </div>
-              <div className=" 2xl:ml-8 lg:ml-6">
-                <h1 className="legend font-[500] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[22px] xl:leading-[30px] lg:text-[18px] lg:leading-[28px] lg:ml-0 md:ml-6 ml-5">
-                  Manage User
-                </h1>
 
-                <div className="overflow-x-auto mx-5 md:mx-6 lg:mx-0">
-                  <table className="table table-xs my-5 md:w-[125%] sm:w-[130%] w-[150%] lg:w-full table_w">
-                    <thead>
-                      <tr>
-                        <th className="craete_tbl_row text-[#A8A8A8]">
-                          User Name
-                        </th>
-                        <th className="craete_tbl_row text-[#A8A8A8]">
-                          Login As
-                        </th>
-                        <th className="craete_tbl_row text-[#A8A8A8]">
-                          Email Id
-                        </th>
-                        <th className="craete_tbl_row text-[#A8A8A8]">
-                          Phone Number
-                        </th>
-                        <th className="craete_tbl_row text-[#A8A8A8]">
-                          Preview Profile
-                        </th>
-                        <th className="craete_tbl_row text-[#A8A8A8]">
-                          Status
-                        </th>
-                        <th className="craete_tbl_row text-[#A8A8A8]">
-                          Action
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="py-3">
-                          <div className="flex gap-3 items-center">
-                            <div>
-                              <Image src={s1} className="superAD_sImg" />
+              {/* ======== TABLE ============= */}
+              <div className=" 2xl:p-[30px] xl:p-[20px] p-[15px] bg-white ">
+                <div className="border rounded-[10px] bg-[#F5F6FF] ">
+                  <div className="flex justify-between bg-[#F5F6FF] items-center 2xl:h-[80px] rounded-[10px] xl:h-[60px] h-[50px] 2xl:px-[20px] xl:px-[15px] px-[10px]">
+                    <h1 className="legend text-[#1172BA] font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[16px] xl:leading-[30px] lg:text-[14px] lg:leading-[28px] lg:ml-0 md:ml-6 ml-5">
+                      Manage User
+                    </h1>
+                    <button className="flex 2xl:gap-2 xl:gap-2 gap-1 justify-center items-center bg-[#5793CE] text-white 2xl:w-[152px] 2xl:h-[48px] xl:w-[110px] xl:h-[35px] h-[25px] w-[110px] rounded-[4px] 2xl:text-[14px] xl:text-[10px] text-[10px]">
+                      <Image
+                        src={add}
+                        className="rounded-full 2xl:w-[15px] xl:w-[10px] w-3"
+                      />
+                      Create Profile
+                    </button>
+                  </div>
+                  <hr/>
+                  <div className="overflow-x-auto">
+                    <table className="table table-zebra table-xs my-5 md:w-[125%] sm:w-[130%] w-[150%] lg:w-full table_w ]">
+                      <thead className="2xl:px-[20px] xl:px-[15px] px-[10px">
+                        <tr>
+                          <th className="craete_tbl_row text-[#A8A8A8]">
+                            User Name
+                          </th>
+                          <th className="craete_tbl_row text-[#A8A8A8]">
+                            Subscription
+                          </th>
+                          <th className="craete_tbl_row text-[#A8A8A8]">
+                            Email Id
+                          </th>
+                          <th className="craete_tbl_row text-[#A8A8A8]">
+                            Phone Number
+                          </th>
+                          <th className="craete_tbl_row text-[#A8A8A8]">
+                            Preview Profile
+                          </th>
+                          <th className="craete_tbl_row text-[#A8A8A8]">
+                            Status
+                          </th>
+                          <th className="craete_tbl_row text-[#A8A8A8]">
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="2xl:px-[20px] xl:px-[15px] px-[10px] bg-white">
+                        <tr>
+                          <td className="py-3">
+                            <div className="flex gap-3 items-center">
+                              <div className="superAD_sImg">
+                              SI
+                              </div>
+                              <div>
+                                <p className="craete_tbl_row">Suresh Inamdar</p>
+                                <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]">
+                                  UG
+                                </p>
+                              </div>
                             </div>
-                            <div>
-                              <p className="craete_tbl_row">Suresh Inamdar</p>
-                              <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]">
-                                Under Graduate
-                              </p>
+                          </td>
+                          <td className="craete_tbl_row">Pro Plan</td>
+                          <td className="craete_tbl_row">suresh12@gmail.com</td>
+                          <td className="craete_tbl_row">955 445 5588</td>
+
+                          <td>
+                            <button className="craete_tbl_Pbtn flex justify-center items-center 2xl:gap-1  ">
+                            <Image src={previews} className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]" />
+                            Preview</button>
+                          </td>
+                          <td className="craete_tbl_row text-[#FE9E34]">
+                            Pending
+                          </td>
+
+                          <td className="  ">
+                            <button className="">
+                              <Image src={edit} className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
+                            </button>
+                            <button className="">
+                              <Image src={deletes} className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="py-3">
+                            <div className="flex gap-3 items-center">
+                              <div className="superAD_sImg">
+                              MA
+                              </div>
+                              <div>
+                                <p className="craete_tbl_row">Mayank Acharya</p>
+                                <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]">
+                                  UG
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="craete_tbl_row">Student</td>
-                        <td className="craete_tbl_row">suresh12@gmail.com</td>
-                        <td className="craete_tbl_row">955 445 5588</td>
+                          </td>
+                          <td className="craete_tbl_row">Starter Plan</td>
+                          <td className="craete_tbl_row">mayank12@gmail.com</td>
+                          <td className="craete_tbl_row">955 445 5588</td>
 
-                        <td>
-                          <button className="craete_tbl_Pbtn">Preview</button>
-                        </td>
-                        <td className="craete_tbl_row text-[#FE9E34]">
-                          Pending
-                        </td>
+                          <td>
+                            <button className="craete_tbl_Pbtn flex justify-center items-center 2xlgap-1">
+                            <Image src={previews} className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]" />
+                            Preview</button>
+                          </td>
+                          <td className="craete_tbl_row text-[#25B948]">
+                            Approved
+                          </td>
 
-                        <th className=" ">
-                          <button className="craete_tbl_row 2xl:w-[69px] 2xl:h-[30px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[20px] sm:w-[40px] sm:h-[20px] w-[40px] h-[20px] border rounded-[3px] mx-1 text-[#0071BC]">
-                            Edit
-                          </button>
-                          <button className="craete_tbl_row 2xl:w-[69px] 2xl:h-[30px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[20px] sm:w-[40px] sm:h-[20px] w-[40px] h-[20px] border rounded-[3px] mx-1 text-[#EB2027]">
-                            Delete
-                          </button>
-                        </th>
-                      </tr>
-                      <tr>
-                        <td className="py-3">
-                          <div className="flex gap-3 items-center">
-                            <div>
-                              <Image src={s2} className="superAD_sImg" />
+                          <td className="  ">
+                            <button className="">
+                              <Image src={edit} className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
+                            </button>
+                            <button className="">
+                              <Image src={deletes} className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="py-3">
+                            <div className="flex gap-3 items-center">
+                              <div className="superAD_sImg">
+                              YT
+                              </div>
+                              <div>
+                                <p className="craete_tbl_row">Yasha Thakur</p>
+                                <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]">
+                                  UG
+                                </p>
+                              </div>
                             </div>
-                            <div>
-                              <p className="craete_tbl_row">Mayank Acharya</p>
-                              <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]"></p>
+                          </td>
+                          <td className="craete_tbl_row">Starter Plan</td>
+                          <td className="craete_tbl_row">yasha12@gmail.com</td>
+                          <td className="craete_tbl_row">955 445 5588</td>
+
+                          <td>
+                            <button className="craete_tbl_Pbtn flex justify-center items-center 2xlgap-1">
+                            <Image src={previews} className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]" />
+                            Preview</button>
+                          </td>
+                          <td className="craete_tbl_row text-[#25B948]">
+                            Approved
+                          </td>
+
+                          <td className="  ">
+                            <button className="">
+                              <Image src={edit} className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
+                            </button>
+                            <button className="">
+                              <Image src={deletes} className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="py-3">
+                            <div className="flex gap-3 items-center">
+                              <div className="superAD_sImg">
+                              RJ
+                              </div>
+                              <div>
+                                <p className="craete_tbl_row">Rohit Jain</p>
+                                <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]">
+                                  UG
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="craete_tbl_row">Counsellor</td>
-                        <td className="craete_tbl_row">mayank12@gmail.com</td>
-                        <td className="craete_tbl_row">955 445 5588</td>
+                          </td>
+                          <td className="craete_tbl_row">Starter Plan</td>
+                          <td className="craete_tbl_row">rohit12@gmail.com</td>
+                          <td className="craete_tbl_row">955 445 5588</td>
 
-                        <td>
-                          <button className="craete_tbl_Pbtn">Preview</button>
-                        </td>
-                        <td className="craete_tbl_row text-[#25B948]">
-                          Approved
-                        </td>
+                          <td>
+                            <button className="craete_tbl_Pbtn flex justify-center items-center 2xlgap-1">
+                            <Image src={previews} className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]" />
+                            Preview</button>
+                          </td>
+                          <td className="craete_tbl_row text-[#FE9E34]">
+                            Pending
+                          </td>
 
-                        <th className=" ">
-                          <button className="craete_tbl_row 2xl:w-[69px] 2xl:h-[30px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[20px] sm:w-[40px] sm:h-[20px] w-[40px] h-[20px] border rounded-[3px] mx-1 text-[#0071BC]">
-                            Edit
-                          </button>
-                          <button className="craete_tbl_row 2xl:w-[69px] 2xl:h-[30px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[20px] sm:w-[40px] sm:h-[20px] w-[40px] h-[20px] border rounded-[3px] mx-1 text-[#EB2027]">
-                            Delete
-                          </button>
-                        </th>
-                      </tr>
-                      <tr>
-                        <td className="py-3">
-                          <div className="flex gap-3 items-center">
-                            <div>
-                              <Image src={s6} className="superAD_sImg" />
+                          <td className="  ">
+                            <button className="">
+                              <Image src={edit} className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
+                            </button>
+                            <button className="">
+                              <Image src={deletes} className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="py-3">
+                            <div className="flex gap-3 items-center">
+                              <div className="superAD_sImg">
+                              MP
+                              </div>
+                              <div>
+                                <p className="craete_tbl_row">
+                                  Minal Phadnavis
+                                </p>
+                                <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]">
+                                  UG
+                                </p>
+                              </div>
                             </div>
-                            <div>
-                              <p className="craete_tbl_row">Yasha Thakur</p>
-                              <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]"></p>
+                          </td>
+                          <td className="craete_tbl_row">Pro Plan</td>
+                          <td className="craete_tbl_row">minal12@gmail.com</td>
+                          <td className="craete_tbl_row">955 445 5588</td>
+
+                          <td>
+                            <button className="craete_tbl_Pbtn flex justify-center items-center 2xlgap-1">
+                            <Image src={previews} className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]" />
+                            Preview</button>
+                          </td>
+                          <td className="craete_tbl_row text-[#25B948]">
+                            Approved
+                          </td>
+
+                          <td className="  ">
+                            <button className="">
+                              <Image src={edit} className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
+                            </button>
+                            <button className="">
+                              <Image src={deletes} className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="py-3">
+                            <div className="flex gap-3 items-center">
+                              <div className="superAD_sImg">
+                              KC
+                              </div>
+                              <div>
+                                <p className="craete_tbl_row">Kanha Chouhan</p>
+                                <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]">
+                                  UG
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="craete_tbl_row">Admin</td>
-                        <td className="craete_tbl_row">yasha12@gmail.com</td>
-                        <td className="craete_tbl_row">955 445 5588</td>
+                          </td>
+                          <td className="craete_tbl_row">1 on 1 Coaching</td>
+                          <td className="craete_tbl_row">kanha@gmail.com</td>
+                          <td className="craete_tbl_row">955 445 5588</td>
 
-                        <td>
-                          <button className="craete_tbl_Pbtn">Preview</button>
-                        </td>
-                        <td className="craete_tbl_row text-[#25B948]">
-                          Approved
-                        </td>
+                          <td>
+                            <button className="craete_tbl_Pbtn flex justify-center items-center 2xlgap-1">
+                            <Image src={previews} className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]" />
+                            Preview</button>
+                          </td>
+                          <td className="craete_tbl_row text-[#25B948]">
+                            Approved
+                          </td>
 
-                        <th className=" ">
-                          <button className="craete_tbl_row 2xl:w-[69px] 2xl:h-[30px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[20px] sm:w-[40px] sm:h-[20px] w-[40px] h-[20px] border rounded-[3px] mx-1 text-[#0071BC]">
-                            Edit
-                          </button>
-                          <button className="craete_tbl_row 2xl:w-[69px] 2xl:h-[30px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[20px] sm:w-[40px] sm:h-[20px] w-[40px] h-[20px] border rounded-[3px] mx-1 text-[#EB2027]">
-                            Delete
-                          </button>
-                        </th>
-                      </tr>
-                      <tr>
-                        <td className="py-3">
-                          <div className="flex gap-3 items-center">
-                            <div>
-                              <Image src={s7} className="superAD_sImg" />
-                            </div>
-                            <div>
-                              <p className="craete_tbl_row">Rohit Jain</p>
-                              <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]"></p>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="craete_tbl_row">Viewer</td>
-                        <td className="craete_tbl_row">rohit12@gmail.com</td>
-                        <td className="craete_tbl_row">955 445 5588</td>
-
-                        <td>
-                          <button className="craete_tbl_Pbtn">Preview</button>
-                        </td>
-                        <td className="craete_tbl_row text-[#FE9E34]">
-                          Pending
-                        </td>
-
-                        <th className=" ">
-                          <button className="craete_tbl_row 2xl:w-[69px] 2xl:h-[30px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[20px] sm:w-[40px] sm:h-[20px] w-[40px] h-[20px] border rounded-[3px] mx-1 text-[#0071BC]">
-                            Edit
-                          </button>
-                          <button className="craete_tbl_row 2xl:w-[69px] 2xl:h-[30px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[20px] sm:w-[40px] sm:h-[20px] w-[40px] h-[20px] border rounded-[3px] mx-1 text-[#EB2027]">
-                            Delete
-                          </button>
-                        </th>
-                      </tr>
-                      <tr>
-                        <td className="py-3">
-                          <div className="flex gap-3 items-center">
-                            <div>
-                              <Image src={s8} className="superAD_sImg" />
-                            </div>
-                            <div>
-                              <p className="craete_tbl_row">Minal Phadnavis</p>
-                              <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]">
-                                Post Graduate
-                              </p>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="craete_tbl_row">Student</td>
-                        <td className="craete_tbl_row">minal12@gmail.com</td>
-                        <td className="craete_tbl_row">955 445 5588</td>
-
-                        <td>
-                          <button className="craete_tbl_Pbtn">Preview</button>
-                        </td>
-                        <td className="craete_tbl_row text-[#25B948]">
-                          Approved
-                        </td>
-
-                        <th className=" ">
-                          <button className="craete_tbl_row 2xl:w-[69px] 2xl:h-[30px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[20px] sm:w-[40px] sm:h-[20px] w-[40px] h-[20px] border rounded-[3px] mx-1 text-[#0071BC]">
-                            Edit
-                          </button>
-                          <button className="craete_tbl_row 2xl:w-[69px] 2xl:h-[30px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[20px] sm:w-[40px] sm:h-[20px] w-[40px] h-[20px] border rounded-[3px] mx-1 text-[#EB2027]">
-                            Delete
-                          </button>
-                        </th>
-                      </tr>
-                      <tr>
-                        <td className="py-3">
-                          <div className="flex gap-3 items-center">
-                            <div>
-                              <Image src={s9} className="superAD_sImg" />
-                            </div>
-                            <div>
-                              <p className="craete_tbl_row">Kanha Chouhan</p>
-                              <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]">
-                                Under Graduate
-                              </p>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="craete_tbl_row">Student</td>
-                        <td className="craete_tbl_row">kanha@gmail.com</td>
-                        <td className="craete_tbl_row">955 445 5588</td>
-
-                        <td>
-                          <button className="craete_tbl_Pbtn">Preview</button>
-                        </td>
-                        <td className="craete_tbl_row text-[#25B948]">
-                          Approved
-                        </td>
-
-                        <th className=" ">
-                          <button className="craete_tbl_row 2xl:w-[69px] 2xl:h-[30px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[20px] sm:w-[40px] sm:h-[20px] w-[40px] h-[20px] border rounded-[3px] mx-1 text-[#0071BC]">
-                            Edit
-                          </button>
-                          <button className="craete_tbl_row 2xl:w-[69px] 2xl:h-[30px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[20px] sm:w-[40px] sm:h-[20px] w-[40px] h-[20px] border rounded-[3px] mx-1 text-[#EB2027]">
-                            Delete
-                          </button>
-                        </th>
-                      </tr>
-                    </tbody>
-                  </table>
+                          <td className="  ">
+                            <button className="">
+                              <Image src={edit} className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
+                            </button>
+                            <button className="">
+                              <Image src={deletes} className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>

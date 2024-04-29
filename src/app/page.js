@@ -1,8 +1,12 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import logo from "../../public/logo.svg";
 import news1 from "../../public/news/news1.svg";
 import news2 from "../../public/news/news2.svg";
+import AddmissionPreference from "@/components/user-profile/steps-pages/addmission-preference";
+import Thankyou from "@/components/user-profile/thankyou-page/page";
+import UserProfile from "./user2nd/profile/page";
 
 const page = () => {
   return (
@@ -46,8 +50,8 @@ const page = () => {
                     <a>About</a>
                   </li>
                 </ul>
-              </div>
-
+              </div>{" "}
+              
               {/* ============Logo ================= */}
               <div className=" ">
                 <Image
@@ -120,7 +124,8 @@ const page = () => {
             </div>
             <div className="my-5">
               <h1 className="font-semibold text-md m-2">
-              NEET MDS 2024: Exam Likely Postponed, Schedule Under Process, Check Details Here
+                NEET MDS 2024: Exam Likely Postponed, Schedule Under Process,
+                Check Details Here
               </h1>
               <div>
                 <Image src={news2} width={50} height={50} className="w-full" />

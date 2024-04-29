@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { setToken, removeToken, adDetails } from "@/redux/adminSlice/authSlice";
 import poster from "../../../../public/images/poster.webp";
+import student from "../assets/login-student.png"
 
 const UserLogin = () => {
   const dispatch = useDispatch();
@@ -81,7 +82,7 @@ const UserLogin = () => {
                     <Image
                       src={logo}
                       alt="logo"
-                      className=" 2xl:w-[188px] 2xl:h-[64px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]"
+                      className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]"
                     />
                   </div>
                 </div>
@@ -213,9 +214,9 @@ const UserLogin = () => {
                     <p className="inter text-[#3F3F3F] font-[400] 2xl:text-[20px] xl:text-[16px] text-[14px] text-center">
                       Don’t have an account?
                       <a href="/user/user-registration">
-                        <span className="inter font-[700] text-[#0071BC]">
+                        <span className="inter font-[700] text-[#0071BC] ">
                           {" "}
-                          Sign up
+                          Register Now
                         </span>
                       </a>
                     </p>
@@ -225,7 +226,30 @@ const UserLogin = () => {
             </div>
           </div>
 
-          <div className="lg:w-1/2 hidden lg:block" id="register-bg"></div>
+          <div className="lg:w-1/2 hidden lg:block bg-[#0071BC] 2xl:pt-[120px] pt-[82px]">
+            <div className=" ">
+              <div className="2xl:w-[600px] xl:w-[400px] w-[300px] mx-auto">
+                <h1
+                  className="inter font-[300] text-white 
+                 2xl:text-[40px] xl:text-[30px] lg:text-[20px] sm:text-[] text-[]
+   2xl:leading-[52px] xl:leading-[35px] lg:leading-[28px] sm:leading-[] leading-[]"
+                >
+                  Log in to your <spam className="font-[700]">Admission Network 24</spam>  Account
+                </h1>
+              </div>
+           
+             
+            </div>
+            <div
+              className="flex items-center gap-[10px] xl:gap-[15px] 2xl:gap-[25px] mx-auto  
+              2xl:mt-[75px] xl:mt-[40px] lg:mt-[58px] sm:mt-[] mt-[]"
+            >
+              <Image
+                src={student}
+                className="2xl:w-[664.78px] 2xl:h-[697.4px] h-auto xl:w-[450px] lg:w-[300px] sm:w-[] w-[] mx-auto"
+              />
+            </div>
+          </div>
         </div>
       </section>
     </>

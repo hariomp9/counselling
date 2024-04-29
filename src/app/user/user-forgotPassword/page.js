@@ -7,7 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import forgotPoassword from "../../../../public/images/forgotPassword.svg";
+import forgotPoassword from "../assets/forgot-password-img.svg";
 
 const VerifyOTP = () => {
   return (
@@ -19,13 +19,13 @@ const VerifyOTP = () => {
           </div>
           <div className="lg:w-1/2 lg:h-screen flex mb-16 lg:mb-0 ">
             <div className="w-full">
-              <div className="w-[70%] md:w-[52%] mx-auto ">
+              <div className="2xl:w-[549px] xl:w-[400px] w-[300px] mx-auto ">
                 <div className="my-10 lg:mt-0">
                   <div className="flex justify-center 2xl:mt-20 xl:mt-5 lg:mt-3">
                     <Image
                       src={logo}
                       alt="logo"
-                      className=" 2xl:w-[188px] 2xl:h-[64px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]"
+                      className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]"
                     />
                   </div>
                   <div className=" items-center justify-center lg:mt-16 xl:mt-20 2xl:mt-40 my-7 lg:my-0">
@@ -92,7 +92,7 @@ const VerifyOTP = () => {
                     <p className="inter font-[400] 2xl:text-[20px] xl:text-[14px] leading-[24.2px] lg:text-[10px] sm:text-[12px] text-[12px]">
                       Don’t have an account?{" "}
                       <a href="/user/user-registration">
-                        <span className="text-[#0071BC]">Register Now</span>
+                        <span className="text-[#0071BC] font-[600]">Register Now</span>
                       </a>
                     </p>
                   </div>
@@ -101,13 +101,16 @@ const VerifyOTP = () => {
             </div>
           </div>
 
-          <div className="lg:w-1/2 hidden lg:block  h-screen">
-            <div className="flex items-center h-screen">
+          <div className="lg:w-1/2 hidden lg:block  h-screen  bg-[#0071BC] 2xl:pt-[120px] pt-[82px]">
+          <div
+              className="flex items-center gap-[10px] xl:gap-[15px] 2xl:gap-[25px] mx-auto  
+              2xl:mt-[65px] xl:mt-[30px] lg:mt-[48px] sm:mt-[] mt-[]"
+            >
               <Image
                 src={forgotPoassword}
-                className="flex my-auto 2xl:w-[612px] 2xl:h-[461.15px] xl:w-[412px] xl:h-[361.15px] lg:w-[312px] lg:h-[261.15px]"
+                className="2xl:w-[664.78px] 2xl:h-[697.4px] h-auto xl:w-[450px] lg:w-[300px] sm:w-[] w-[] mx-auto"
               />
-            </div>{" "}
+            </div>
           </div>
         </div>
       </section>
