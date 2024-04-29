@@ -315,27 +315,6 @@ exports.adminLogout = async (req, res) => {
 
 exports.generateOtp = async (req, res) => {
   try {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     const { userId } = req.body;
     const user = await User.findById(userId);
     if (!user) {

@@ -83,6 +83,7 @@ exports.getAllStates = async (req, res) => {
         const states = await State.find(query)
             .limit(limit * 1) // Convert limit to a number
             .skip((page - 1) * limit) // Calculate number of documents to skip
+            .sort({name:1})
             .exec();
 
         const count = await State.countDocuments(query);
