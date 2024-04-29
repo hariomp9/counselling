@@ -1,5 +1,5 @@
 const express=require('express')
-const {createCategory,getAllCategories,getCategoryById} = require("../Controller/AllCategoryController")
+const {createCategory,getAllCategories,getCategoryById,getCategory} = require("../Controller/AllCategoryController")
 
 const router =  express.Router()
 
@@ -8,6 +8,7 @@ const router =  express.Router()
 router.post("/Category",createCategory)
 router.get("/getAllCategories",getAllCategories)
 router.get("/getCategoryById/:id" , getCategoryById)
+router.get("/getCategory",getCategory)
 
 
 module.exports = router;

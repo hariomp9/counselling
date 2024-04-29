@@ -47,6 +47,26 @@ exports.getAllCategories = async (req, res) => {
     }
 };
 
+exports.getCategory = async (req, res) => {
+    try {
+        const categories = await Category.find({ 
+            Select_category: { $in: ['OBC', 'GEN', 'EWS', 'SC', 'ST','Gen-pwD','OBC PWD','SC PWD','EWS PWD','ST PWD'] } 
+        });
+        
+        if (categories.length === 0) {
+            return res.status(404).json({ error: "Categories not found" });
+        }
+        
+        res.status(200).json(categories);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+
+
+
 
 exports.getCategoryById = async (req, res) => {
     const categoryId = req.params.id;
