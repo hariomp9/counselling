@@ -178,7 +178,7 @@ const UserSchema = new mongoose.Schema(
     // Addmissions Preferences
 
     Admissions_Preferences: {
-      type: String,
+      type: mongoose.Schema.Types.Mixed,
       enum: ["Government College", "Private/Management", "Deemed University"]
     },
 

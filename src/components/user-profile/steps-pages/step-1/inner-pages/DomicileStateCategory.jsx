@@ -1,17 +1,20 @@
 import Image from "next/image";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import HeadTitle from "../HeadTitle";
 
-const DomicileStateCategory = ({ states, onSelectState,getStateCat }) => {
+const DomicileStateCategory = ({
+  states,
+  onSelectState,
+  getStateCat,
+  onSelectCategory,
+}) => {
   const [selectedCategory, setSelectedCategory] = useState();
 
-  
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-    // onSelectState(category);
+    setSelectedCategory(category?.Select_category);
+    onSelectCategory(category?._id);
     // console.log("set cat", category);
   };
-
 
   const handleState = (selectedState) => {
     onSelectState(selectedState);
@@ -28,8 +31,9 @@ const DomicileStateCategory = ({ states, onSelectState,getStateCat }) => {
       <div className="mb-[16px]">
         <select
           className="select select-bordered w-full max-w-xs"
-          onChange={(event) =>{ onSelectState(event.target.value),
-        console.log(event.target.value)}}
+          onChange={(event) => {
+            onSelectState(event.target.value), console.log(event.target.value);
+          }}
         >
           <option disabled value="" selected>
             Select a state
@@ -42,45 +46,50 @@ const DomicileStateCategory = ({ states, onSelectState,getStateCat }) => {
         </select>
       </div>
 
-
-
-      
-
       <div className="flex flex-wrap gap-[19px] lg:w-[80%]">
-      {getStateCat.map(state => (
-        <div key={state?.state_id} className="flex flex-wrap gap-[19px] lg:w-[80%]">
-          {state.categories?.map(category => (
-            <div key={category._id}
-              className={`flex gap-[3px] items-center rounded-[5px] px-[16px] h-[48px] w-[103px] justify-center cursor-pointer
-                ${selectedCategory === category._id ? 'border-1px border-[#D9D9D9] bg-theme_primary' : 'border-1px border-[#D9D9D9] bg-[#FFFFFF] '}
-              `}
-              onClick={() => handleCategoryClick(category._id)}
-            >
-              <input
-                type="checkbox"
-                id={category._id}
-                className="hidden"
-              />
-              {selectedCategory === category._id && (
-                <Image
-                  src="/svg/profile/tick_white.svg"
-                  height={16}
-                  width={16}
-                  alt="select"/>
-              )}
-              <label
-                htmlFor={category.Select_category}
-                className={`text-[15px] font-[400] font-inter leading-[18.15px] whitespace-nowrap
-                  ${selectedCategory === category._id ? 'text-[#ffffff]' : 'text-[#747474]'}
-                `}
+        {getStateCat.map((state) => (
+          <div
+            key={state?.state_id}
+            className="flex flex-wrap gap-[19px] lg:w-[80%]"
+          >
+            {state.categories?.map((category) => (
+              <div
+                key={category._id}
+                className={`flex gap-[3px] items-center rounded-[5px] px-[16px] h-[48px] w-[103px] justify-center cursor-pointer
+          ${
+            selectedCategory === category._id
+              ? "border-1px border-[#D9D9D9] bg-theme_primary"
+              : "border-1px border-[#D9D9D9] bg-[#FFFFFF] "
+          }
+        `}
+                onClick={() => handleCategoryClick(category._id)}
               >
-                {category.Select_category} 
-              </label>
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
+                <input type="checkbox" id={category._id} className="hidden" />
+                {selectedCategory === category._id && (
+                  <Image
+                    src="/svg/profile/tick_white.svg"
+                    height={16}
+                    width={16}
+                    alt="select"
+                  />
+                )}
+                <label
+                  htmlFor={category.Select_category}
+                  className={`text-[15px] font-[400] font-inter leading-[18.15px] whitespace-nowrap
+            ${
+              selectedCategory === category._id
+                ? "text-[#ffffff]"
+                : "text-[#747474]"
+            }
+          `}
+                >
+                  {category.Select_category}
+                </label>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
 
       {/* <div className="flex flex-wrap gap-[19px] lg:w-[80%]">
                 {domicileCategory.map((category, index) => (
