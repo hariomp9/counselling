@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import Image from "next/image";
 import arrow from "../../assets/arrow.svg";
 import axios from "axios";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const PersonalDetails = () => {
-  const userid = useSelector((state)=>state?.auth?.ad_details?._id);
-  const [statusinfo, setData] = useState({ step_status: 'personal_details'});
+  const userid = useSelector((state) => state?.auth?.ad_details?._id);
+  const [statusinfo, setData] = useState({ step_status: "personal_details" });
   const [address, setAddress] = useState({
-    
     StudentAddress: [
       {
         HouseNo: "",
@@ -45,29 +44,25 @@ const PersonalDetails = () => {
 
   const [parentDetail, setParentDetails] = useState({
     parentDetails: [
-    {
-      parentName: "",
-      parentEmail: "",
-      parentMobile: "",
-      Parents_Profession: "",
-      parentOccupation: "",
-      FamilyAnualIncome: "",
-      
-    },
-  ]
-});
+      {
+        parentName: "",
+        parentEmail: "",
+        parentMobile: "",
+        Parents_Profession: "",
+        parentOccupation: "",
+        FamilyAnualIncome: "",
+      },
+    ],
+  });
 
+  const handleInputChanges = (index, e) => {
+    const { name, value } = e.target;
+    const updatedDetails = [...parentDetail.parentDetails];
+    updatedDetails[index][name] = value;
+    setParentDetails({ parentDetails: updatedDetails });
+  };
 
-
-const handleInputChanges = (index, e) => {
-  const { name, value } = e.target;
-  const updatedDetails = [...parentDetail.parentDetails];
-  updatedDetails[index][name] = value;
-  setParentDetails({ parentDetails: updatedDetails });
-};
-
-
-console.log(parentDetail)
+  console.log(parentDetail);
 
   // const handleInputChanges = (index, event) => {
   //   const { name, value } = event.target;
@@ -85,7 +80,7 @@ console.log(parentDetail)
     updatedParentDetails[index] = {
       ...updatedParentDetails[index],
       [name]: checked,
-    };  
+    };
     setParentDetails(updatedParentDetails);
   };
 
@@ -103,43 +98,36 @@ console.log(parentDetail)
   const mergedStates = {
     address: address,
     getStudentsde: getStudentsde,
-    parentDetail: parentDetail
+    parentDetail: parentDetail,
   };
-  
+
   console.log(mergedStates);
-    // console.log(address, getStudentsde, parentDetail);
+  // console.log(address, getStudentsde, parentDetail);
 
-
-    const sendData = async () => {
-      try {
-        const mergedData = { 
-          ...statusinfo,
-          ...address,
-          ...getStudentsde,
-          ...parentDetail,
+  const sendData = async () => {
+    try {
+      const mergedData = {
+        ...statusinfo,
+        ...address,
+        ...getStudentsde,
+        ...parentDetail,
       };
-    
-        const response = await axios.put(`http://localhost:4000/api/auth/updatedUser_Steps/${userid}`, mergedData);
-        console.log('PUT request successful', response.data);
-        // Handle response or state update as needed
-      } catch (error) {
-        console.error('Error making PUT request:', error);
-        // Handle error
-      }
-    };
-    const handleNextClick = () => {
-      // Call function to send PUT request
-      sendData();
-    };
 
-
-
-
-
-
-
-
-
+      const response = await axios.put(
+        `http://localhost:4000/api/auth/updatedUser_Steps/${userid}`,
+        mergedData
+      );
+      console.log("PUT request successful", response.data);
+      // Handle response or state update as needed
+    } catch (error) {
+      console.error("Error making PUT request:", error);
+      // Handle error
+    }
+  };
+  const handleNextClick = () => {
+    // Call function to send PUT request
+    sendData();
+  };
 
   return (
     <>
@@ -287,8 +275,8 @@ console.log(parentDetail)
             {parentDetail.parentDetails.map((addr, index) => (
               <div key={index}>
                 <h1 className="inter font-[700] 2xl:text-[20px] xl:text-[16px] lg:text-[12px] 2xl:leading-[20px] xl:leading-[20px]">
-                Parents Details
-            </h1>
+                  Parents Details
+                </h1>
                 <div className="flex flex-wrap xl:gap-[35px] gap-[20px] xl:my-[30px] my-[20px]">
                   <div className="flex flex-col">
                     <label className="pre_input_lable">Parents Full Name</label>
@@ -312,6 +300,7 @@ console.log(parentDetail)
                       onChange={(e) => handleInputChanges(index, e)}
                     />
                   </div>
+                  
                   <div className="flex flex-col">
                     <label className="pre_input_lable">
                       Parents Phone Number
@@ -397,7 +386,10 @@ console.log(parentDetail)
               </button>
             </div>
             <div className="2xl:my-[30px] xl:my-[20px]">
-              <button onClick={handleNextClick} className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]">
+              <button
+                onClick={handleNextClick}
+                className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
+              >
                 Next
                 <Image
                   src={arrow}

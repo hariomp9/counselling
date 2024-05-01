@@ -71,7 +71,6 @@ exports.getStatesByCategory = async (req, res) => {
                 if (category) {
                     // Update the category name in the categories array
                     const categoryObj = stateCategories[stateId].categories.find(cat => cat._id.equals(category._id));
-                    console.log(categoryObj);
                     if (categoryObj) {
                         categoryObj.Select_category = category.Select_category;
                     }
