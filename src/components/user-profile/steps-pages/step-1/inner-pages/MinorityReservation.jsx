@@ -11,6 +11,7 @@ const MinorityReservation = ({ options }) => {
     };
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
+        console.log(category)
     };
 
     return (

@@ -37,7 +37,7 @@ const Stepper = ({ steps, setSteps, initialStep = 0 }) => {
     }
 
     setSteps(updatedSteps);
-  }, [currentStep, steps]);
+  }, []);
 
   return (
     <div className="flex flex-col py-[25px] items-center justify-center">
