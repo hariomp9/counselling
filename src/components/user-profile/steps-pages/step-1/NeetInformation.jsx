@@ -64,12 +64,12 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
   const [data, setData] = useState({ step_status: "neet_info" });
   const [minReservation, SetMinReservation] = useState(null);
   const [parallelReservation, SetParallelReservation] = useState({
-    "select_options": "",
-    "Reservation_Fields": ""
+    select_options: "",
+    Reservation_Fields: "",
   });
   const [domicileStateCategory, SetDomicileStateCategory] = useState({
-    "state_id": "",
-    "category_id": ""
+    state_id: "",
+    category_id: "",
   });
 
   const handleSelectState = (state) => {
@@ -86,12 +86,16 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
         console.error("Error fetching data:", error);
       });
   };
-  const InputHandler = (name, value) => { SetParallelReservation({ ...parallelReservation, [name]: value }) }
-  const handleDomicileSt = (name, value) => { SetDomicileStateCategory({ ...domicileStateCategory, [name]: value }) }
+  const InputHandler = (name, value) => {
+    SetParallelReservation({ ...parallelReservation, [name]: value });
+  };
+  const handleDomicileSt = (name, value) => {
+    SetDomicileStateCategory({ ...domicileStateCategory, [name]: value });
+  };
 
   const sendData = async () => {
     // console.log("sapna", selectedCategory);
-    console.log('===>', parallelReservation)
+    console.log("===>", parallelReservation);
     const payload = {
       ...data,
       ...getNeet,
@@ -100,9 +104,7 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
       ParellelReservations: [parallelReservation],
       MinorityReservations: minReservation,
     };
-    console.log("sapna",payload)
-    
-    return
+    console.log("sapna", payload);
     try {
       // const mergedData = {
       //   ...data,
@@ -116,7 +118,7 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
       );
       console.log("PUT request successful", response?.data);
       // Handle response or state update as needed
-      next()
+      next();
     } catch (error) {
       console.error("Error making PUT request:", error);
       // Handle error
@@ -176,7 +178,7 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
         <AllIndiaCategory
           categoryValues={categories}
-          onSelectCategory={setSelectedCategory}  
+          onSelectCategory={setSelectedCategory}
         />
 
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
@@ -185,7 +187,7 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
           getStateCat={getStateCat}
           states={states}
           onSelectState={handleSelectState}
-          onSelectCategory={setSelectedCategory}  
+          onSelectCategory={setSelectedCategory}
           categoryValues={categories}
           handleDomicileSt={handleDomicileSt}
         />
@@ -197,7 +199,10 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
           InputHandler={InputHandler}
         />
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
-        <MinorityReservation options={minorityReservation} SetMinReservation={SetMinReservation} />
+        <MinorityReservation
+          options={minorityReservation}
+          SetMinReservation={SetMinReservation}
+        />
         <div className="flex justify-start items-center gap-[32px]">
           <div
             onClick={() => prev()}
@@ -213,7 +218,7 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
           </div>
           <div
             onClick={() => {
-              // next();
+              sendData();
               handleNextClick();
             }}
             className="flex gap-[5px]  justify-center items-center rounded-[4px] h-[48px] bg-[#4F9ED9] text-[#ffffff] px-[20px] whitespace-nowrap text-[15px] font-[700] leading-[20px] font-inter cursor-pointer"
