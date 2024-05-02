@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
@@ -25,7 +25,6 @@ const Students = () => {
   const { token } = useSelector((state) => state?.auth);
   const [userID, setUserID] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const closeModal = () => setOpenDelete(false);
   const [isOpenDelete, setOpenDelete] = useState(false);
   const [allStudent, setGetAllStudent] = useState();
   const [isRefresh, setRefresh] = useState(false);
@@ -34,6 +33,7 @@ const Students = () => {
   const [editStudent, setStudentEdit] = useState("");
   const [isLoader, setLoader] = useState(false);
 
+  const closeModal = () => setOpenDelete(false);
   const closeDrawerO = () => {
     setIsDrawerOpenO(false);
   };
@@ -190,9 +190,7 @@ const Students = () => {
                       </td>
                       <td className="text-[14px] font-[400] py-3 px-5">
                         <div className="flex flex-col md:flex-row items-center gap-x-5">
-                          <Link
-                            href={`/pages/student-update/${item?._id}`}
-                          >
+                          <Link href={`/pages/student-update/${item?._id}`}>
                             <button
                               className="px-4 text-[13px] border rounded h-[25px] text-sky-600 hover:bg-[#efb3b38a]"
                               // onClick={() => openModall(item?._id)}

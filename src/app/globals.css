@@ -644,7 +644,7 @@ html {
 
 /* ========== User Profile====== */
 .main_div {
-  @apply bg-[#F5F6FF] 2xl:w-[1345px] 2xl:h-[1257px] xl:w-[900px] lg:w-[800px] sm:w-[] w-[] 2xl:px-[50px] xl:px-[40px] lg:px-[30px] sm:px-[] px-[] 2xl:py-[45px] xl:py-[35px] lg:py-[25px] sm:py-[] py-[]
+  @apply bg-[#F5F6FF] 2xl:w-[1345px] 2xl:h-[1330px] xl:w-[900px] lg:w-[800px] sm:w-[] w-[] 2xl:px-[50px] xl:px-[40px] lg:px-[30px] sm:px-[] px-[] 2xl:py-[45px] xl:py-[35px] lg:py-[25px] sm:py-[] py-[]
 }
 
 .pre_input_lable {
@@ -684,4 +684,18 @@ html {
 }
 .createUser-input2{
   @apply border rounded-[5px] outline-none 2xl:w-[549px] xl:w-[400px] lg:w-[160px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[]  2xl:text-[16px] xl:text-[12px] text-[10px]
+}
+
+.hidden-input {
+  position: absolute;
+  clip: rect(0,0,0,0);
+  pointer-events: none;
+}
+
+.gender-label {
+  cursor: pointer;
+}
+
+.hidden-input:checked + .gender-label {
+  border: 5px solid blue;
 }

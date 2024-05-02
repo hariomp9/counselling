@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import SuperNavbar from "../super-navbar";
 import sideLogo from "../../../../public/images/Group 179.svg";
 import Image from "next/image";
@@ -6,10 +7,71 @@ import men from "../assets/men.svg";
 import women from "../assets/women.svg";
 import arrow from "../assets/arrow.svg";
 import cut from "../assets/cut.svg";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreateUserForm = () => {
+  const router = useRouter();
+  const [userId, setUserId] = useState("");
+  const userID = userId._id;
+  const [isLoader, setLoader] = useState(false);
+
+  const [studentDetails, setStudentDetails] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    mobile: "",
+    whatsappMobile: "",
+    state: "",
+    District: "",
+    Subscription: "",
+    Comments: "",
+    password: "",
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleRadioChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const handleToggle = () => {
+    setShowPassword(!showPassword);
+  };
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    setStudentDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoader(true);
+      const response = await axios.post(
+        "http://localhost:4000/api/auth/register",
+        studentDetails
+      );
+      if (response.status === 201) {
+        toast.success("User created Successful!");
+        router.push("/super-admin/create-user");
+        setUserId(response?.data?.user);
+      } else {
+        toast.error("Failed to User create. Please try again later.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred while User create.");
+    } finally {
+      setLoader(false);
+    }
+  };
   return (
     <>
+      <ToastContainer autoClose={1000} />
       <section>
         <div className="flex">
           <div className="hidden lg:block w-1/12 border h-screen">
@@ -203,15 +265,23 @@ const CreateUserForm = () => {
                 >
                   Create User
                 </h1>
-                <div className="flex 2xl:gap-[130px] xl:gap-[80px]">
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex 2xl:gap-[130px] xl:gap-[80px]"
+                >
                   <div className="2xl:w-[549px] xl:w-[400px] lg:w-[320px] ">
                     <div className="flex justify-between 2xl:mt-[15px] xl:mt-[10px]">
                       <div className="2xl:w-[260px] xl:w-[190px] lg:w-[120px]">
                         <label className="createUser-label">First Name</label>
                         <input
+                          value={studentDetails.firstname}
+                          onChange={inputHandler}
+                          maxLength={20}
+                          required
                           type="text"
                           className="createUser-input"
                           placeholder="Enter First Name"
+                          name="firstname"
                         />
                       </div>
                       <div className="2xl:w-[260px] xl:w-[190px] lg:w-[120px]">
@@ -220,6 +290,11 @@ const CreateUserForm = () => {
                           type="text"
                           className="createUser-input"
                           placeholder="Enter Last Name"
+                          name="lastname"
+                          value={studentDetails.lastname}
+                          onChange={inputHandler}
+                          maxLength={20}
+                          required
                         />
                       </div>
                     </div>
@@ -230,6 +305,10 @@ const CreateUserForm = () => {
                           type="text"
                           className="createUser-input2"
                           placeholder="Enter email id"
+                          name="email"
+                          value={studentDetails.email}
+                          onChange={inputHandler}
+                          maxLength={100}
                         />
                       </div>
                     </div>
@@ -237,9 +316,15 @@ const CreateUserForm = () => {
                       <div>
                         <label className="createUser-label">Phone Number</label>
                         <input
-                          type="text"
+                          type="number"
                           className="createUser-input2"
                           placeholder="000 000 0000"
+                          name="mobile"
+                          value={studentDetails.mobile}
+                          onChange={inputHandler}
+                          maxLength={10}
+                          pattern="0-9"
+                          required
                         />
                       </div>
                     </div>
@@ -249,9 +334,15 @@ const CreateUserForm = () => {
                           Whatsapp Number
                         </label>
                         <input
-                          type="text"
+                          type="number"
                           className="createUser-input2"
                           placeholder="000 000 0000"
+                          name="whatsappMobile"
+                          value={studentDetails.whatsappMobile}
+                          onChange={inputHandler}
+                          maxLength={10}
+                          pattern="0-9"
+                          required
                         />
                       </div>
                     </div>
@@ -262,18 +353,18 @@ const CreateUserForm = () => {
                           <div className="flex items-center xl:gap-2 gap-1 w-1/2">
                             <Image
                               src={men}
-                              className="2xl:w-[48px] 2xl:h-[48px] h-auto xl:w-[40px] lg:w-[30px] sm:w-[] w-[]"
+                              className="2xl:w-[48px] 2xl:h-[48px] h-auto xl:w-[40px] lg:w-[30px] sm:w-[] w-[] cursor-pointer"
                             />
-                            <p className="inter font-[400] text-[#747474] 2xl:text-[15px] xl:text-[11px] lg:text-[9px]">
+                            <p className="inter font-[400] text-[#747474] 2xl:text-[15px] xl:text-[11px] lg:text-[9px] cursor-pointer">
                               Male
                             </p>
                           </div>
                           <div className="flex items-center xl:gap-2 gap-1 w-1/2">
                             <Image
                               src={women}
-                              className="2xl:w-[48px] 2xl:h-[48px] h-auto xl:w-[40px] lg:w-[30px] sm:w-[] w-[]"
+                              className="2xl:w-[48px] 2xl:h-[48px] h-auto xl:w-[40px] lg:w-[30px] sm:w-[] w-[] cursor-pointer"
                             />
-                            <p className="inter font-[400] text-[#747474] 2xl:text-[15px] xl:text-[11px] lg:text-[9px]">
+                            <p className="inter font-[400] text-[#747474] 2xl:text-[15px] xl:text-[11px] lg:text-[9px] cursor-pointer">
                               Female
                             </p>
                           </div>
@@ -304,11 +395,17 @@ const CreateUserForm = () => {
                   <div className="2xl:w-[549px] xl:w-[400px] lg:w-[320px] ">
                     <div className="flex justify-between 2xl:mt-[15px] xl:mt-[10px]">
                       <div className="2xl:w-[260px] xl:w-[190px] lg:w-[120px]">
-                        <label className="createUser-label">Current City</label>
+                        <label className="createUser-label">
+                          Current State
+                        </label>
                         <input
                           type="text"
                           className="createUser-input"
-                          placeholder="Enter City Name"
+                          placeholder="Enter state Name"
+                          name="state"
+                          value={studentDetails.state}
+                          onChange={inputHandler}
+                          required
                         />
                       </div>
                       <div className="2xl:w-[260px] xl:w-[190px] lg:w-[120px]">
@@ -317,6 +414,10 @@ const CreateUserForm = () => {
                           type="text"
                           className="createUser-input"
                           placeholder="Enter District Name"
+                          name="District"
+                          value={studentDetails.District}
+                          onChange={inputHandler}
+                          required
                         />
                       </div>
                     </div>
@@ -330,6 +431,10 @@ const CreateUserForm = () => {
                           type="text"
                           className="createUser-input2"
                           placeholder="Select Subscription"
+                          name="Subscription"
+                          value={studentDetails.Subscription}
+                          onChange={inputHandler}
+                          required
                         />
                       </div>
                     </div>
@@ -340,21 +445,76 @@ const CreateUserForm = () => {
                           type="text"
                           className="createUser-input2 2xl:h-[147px] xl:h-[100px] lg:h-[80px]"
                           placeholder="Enter Comments"
+                          name="Comments"
+                          value={studentDetails.Comments}
+                          onChange={inputHandler}
+                          required
                         />
                       </div>
                     </div>
-                    <div className="2xl:mt-[15px] xl:mt-[10px]">
-                      <div>
-                        <label className="createUser-label">Password</label>
-                        <input
-                          type="text"
-                          className="createUser-input2"
-                          placeholder="Password"
-                        />
+                    <div className="relative">
+                      <button
+                        type="button"
+                        className=" absolute  transform -translate-y-1/2 cursor-pointer 
+                        2xl:right-7 2xl:top-[37px] xl:right-5 xl:top-[28px] lg:right-5 lg:top-[20px]"
+                        onClick={handleToggle}
+                      >
+                        {showPassword ? (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] lg:w-[15px] lg:h-[15px] 2xl:mt-12 xl:mt-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="2xl:w-[25px] 2xl:h-[25px] xl:w-[18px] xl:h-[18px] lg:w-[15px] lg:h-[15px] 2xl:mt-12 xl:mt-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                            />
+                          </svg>
+                        )}
+                      </button>
+                      <div className="2xl:mt-[15px] xl:mt-[10px]">
+                        <div>
+                          <label className="createUser-label">Password</label>
+                          <input
+                            className="createUser-input2"
+                            placeholder="Password"
+                            value={studentDetails.password}
+                            type={showPassword ? "text" : "password"}
+                            onChange={inputHandler}
+                            maxLength={100}
+                            required
+                            id="password"
+                            name="password"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>

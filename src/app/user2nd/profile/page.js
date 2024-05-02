@@ -1,14 +1,12 @@
 import React from "react";
-import Image from "next/image";
 import UserSidebar from "../userSidebar";
 import UserNavbar from "../userNav";
-import userImg from "../assets/userImg.png";
-import Stepper from "@/components/user-profile/Stepper";
+import Link from "next/link";
 
 const UserProfile = () => {
   return (
     <>
-    {/* <Stepper/> */}
+      {/* <Stepper/> */}
       <section>
         <div className="flex">
           <div className="">
@@ -24,25 +22,28 @@ const UserProfile = () => {
                     <h1 className="userdetailHead">Your Profile</h1>
                   </div>
                   <div>
-                    <button
-                      className="bg-[#4F9ED9] rounded-[4px] 2xl:w-[90px] 2xl:h-[35px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[22px] w-[40px] h-[20px]
+                    <Link href="/user2nd/user-profile">
+                      <button
+                        className="bg-[#4F9ED9] rounded-[4px] 2xl:w-[90px] 2xl:h-[35px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[22px] w-[40px] h-[20px]
                     inter font-[700] text-white 2xl:text-[14px] 2xl:leading-[20px] xl:text-[9px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px]
                     "
-                    >
-                      Edit
-                    </button>
+                      >
+                        Edit
+                      </button>
+                    </Link>
                   </div>
                 </div>
                 <div className="flex gap-5 lg:gap-0 flex-col lg:flex-row md:justify-between 2xl:p-4 xl:p-3 lg:p-2 p-2">
-                 <div>
-                 <div className="bg-[#1172BA] rounded-full flex justify-center items-center 2xl:w-[68px] 2xl:h-[68px] xl:w-[45px] xl:h-[45px] w-[45px] h-[45px]">
-                   
-                   <h1 className="inter text-white font-[600] 2xl:text-[20px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[16px] text-[10px] my-1 2xl:my-2">
-                     MP
-                   </h1>
-                 </div>
-                   <h1 className="inter text-[#000000] font-[600] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] text-[9px] my-1 2xl:my-2">Mayank Patidar</h1>
-                 </div>
+                  <div>
+                    <div className="bg-[#1172BA] rounded-full flex justify-center items-center 2xl:w-[68px] 2xl:h-[68px] xl:w-[45px] xl:h-[45px] w-[45px] h-[45px]">
+                      <h1 className="inter text-white font-[600] 2xl:text-[20px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[16px] text-[10px] my-1 2xl:my-2">
+                        MP
+                      </h1>
+                    </div>
+                    <h1 className="inter text-[#000000] font-[600] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] text-[9px] my-1 2xl:my-2">
+                      Mayank Patidar
+                    </h1>
+                  </div>
 
                   <div>
                     <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] mb-4">
@@ -68,10 +69,7 @@ const UserProfile = () => {
                   <div className="">
                     <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] lg:mb-4">
                       <p>Current City</p>
-                      <p className="text-[#000]">
-                    
-                        Indore
-                      </p>
+                      <p className="text-[#000]">Indore</p>
                     </div>
                     <div className="flex justify-between">
                       <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] mt-4">
@@ -80,21 +78,17 @@ const UserProfile = () => {
                       </div>{" "}
                     </div>
                   </div>
-                      <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] lg:w-[160px] xl:w-[200px] 2xl:w-[271px] ">
-                        <p>Subscription</p>
-                        <p className="text-[#000]">Indore</p>
-                      </div>
-
-                 
+                  <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] lg:w-[160px] xl:w-[200px] 2xl:w-[271px] ">
+                    <p>Subscription</p>
+                    <p className="text-[#000]">Indore</p>
+                  </div>
                 </div>
               </div>
 
               <div className="2xl:w-[1172px] xl:w-[70%] lg:w-[70%] 2xl:h-[451px] border-[1px] rounded-[10px] 2xl:my-10 xl:my-7 lg:my-5 my-5 ">
                 <div className="bg-[#F5F6FF] flex justify-between items-center 2xl:px-4 2xl:h-[66px] xl:h-[40px] h-[40px] xl:px-3 lg:px-2 px-2">
                   <div className="flex justify-between">
-                    <h1 className="userdetailHead">
-                      Subscription Details
-                    </h1>
+                    <h1 className="userdetailHead">Subscription Details</h1>
                   </div>
                   <div>
                     <button
@@ -131,9 +125,7 @@ const UserProfile = () => {
 
                 <div className="bg-[#F5F6FF] flex justify-between items-center 2xl:px-4 xl:px-3 lg:px-2 px-2 2xl:h-[66px] xl:h-[40px] h-[40px] 2xl:mt-10">
                   <div className="flex justify-between">
-                    <h1 className="userdetailHead">
-                      Subscription Details
-                    </h1>
+                    <h1 className="userdetailHead">Subscription Details</h1>
                   </div>
                 </div>
                 <div className="overflow-x-auto 2xl:p-4 ">

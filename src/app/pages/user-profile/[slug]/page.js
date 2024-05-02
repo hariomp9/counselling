@@ -1,60 +1,40 @@
 "use client";
-import React, { Fragment, useEffect, useState } from "react";
-import Image from "next/image";
-import SuperNavbar from "../super-navbar";
-import sideLogo from "../../../../public/images/Group 179.svg";
-import add from "../../../../public/images/add.svg";
+import SuperNavbar from "@/app/super-admin/super-navbar";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import edit from "../assets/edit.svg";
-import deletes from "../assets/delete.svg";
-import previews from "../assets/preview.svg";
+import Image from "next/image";
+import { toast } from "react-toastify";
+import sideLogo from "/public/images/Group 179.svg";
 import axios from "axios";
-import { Dialog, Transition } from "@headlessui/react";
-import DeleteModuleC from "@/app/component/admin/students/delete-module";
+import { useSelector } from "react-redux";
 
-const CreateUser = () => {
-  const [getAllUser, setGetAllUser] = useState("");
-  const [isOpenDelete, setOpenDelete] = useState(false);
-  const [isRefresh, setRefresh] = useState(false);
-  const [userID, setUserID] = useState("");
-
-  function openModal(id) {
-    setUserID(id);
-    setOpenDelete(true);
-  }
-
-  const closeModal = () => setOpenDelete(false);
-
-  const refreshData = () => {
-    setRefresh(!isRefresh);
-  };
+const UserDetails = ({ params }) => {
+  const [studentDetail, setStudentDetail] = useState({});
+  const { token } = useSelector((state) => state?.auth);
+  console.log(studentDetail, "users");
 
   useEffect(() => {
-    defaultUser();
-  }, [isRefresh]);
-  const defaultUser = () => {
-    const option = {
+    openModal();
+  }, []);
+
+  const openModal = async () => {
+    const options = {
       method: "GET",
-      url: "http://localhost:4000/api/auth/all-users-data",
+      url: `http://localhost:4000/api/auth/getUserById/${params.slug}`,
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
     };
     axios
-      .request(option)
+      .request(options)
       .then((response) => {
-        setGetAllUser(response?.data?.user);
+        setStudentDetail(response?.data?.user);
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
-
-  const handleDelete = async () => {
-    try {
-      const response = await axios.delete(``);
-    } catch (error) {
-      console.log(error, "Error");
-    }
-  };
-
   return (
     <>
       <section>
@@ -62,7 +42,11 @@ const CreateUser = () => {
           <div className="hidden lg:block w-1/12 border h-screen">
             <div className="flex justify-center border border-x-0 pb-4  ">
               <a href="/user/user-dashboard">
-                <Image src={sideLogo} className="mx-auto w-10 h-10 mt-5" />
+                <Image
+                  src={sideLogo}
+                  alt="side-logo"
+                  className="mx-auto w-10 h-10 mt-5"
+                />
               </a>
               <hr />
             </div>
@@ -242,191 +226,167 @@ const CreateUser = () => {
             <div>
               <SuperNavbar />
             </div>
-            <div>
-              <div className="2xl:my-14 flex flex-wrap 2xl:gap-[70px] 2xl:ml-8  xl:gap-[40px] xl:my-8 lg:gap-[40px] lg:my-8 md:gap-[30px] md:my-8  md:ml-6 sm:gap-[30px] gap-[20px] sm:my-8  sm:ml-6  sm:mr-6 justify-center my-5 sm:justify-start">
-                <button className="bg-[#323232] add_btn">
-                  <Image src={add} className="add_img " />
-                  Create Admin
-                </button>
-                <Link href="/super-admin/createUser">
-                  <button className="bg-[#FE9E34] add_btn">
-                    <Image src={add} className="add_img " />
-                    Create Student{" "}
-                  </button>
-                </Link>
-                <button className="bg-[#FC4742] add_btn">
-                  <Image src={add} className="add_img " />
-                  Create Counsellor
-                </button>
-                <button className="bg-[#25B948] add_btn">
-                  <Image src={add} className="add_img " />
-                  Create Viewer
-                </button>
-              </div>
-
-              {/* ======== TABLE ============= */}
-              <div className=" 2xl:p-[30px] xl:p-[20px] p-[15px] bg-white ">
-                <div className="border rounded-[10px] bg-[#F5F6FF] ">
-                  <div className="flex justify-between bg-[#F5F6FF] items-center 2xl:h-[80px] rounded-[10px] xl:h-[60px] h-[50px] 2xl:px-[20px] xl:px-[15px] px-[10px]">
-                    <h1 className="legend text-[#1172BA] font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[16px] xl:leading-[30px] lg:text-[14px] lg:leading-[28px] lg:ml-0 md:ml-6 ml-5">
-                      Manage User
-                    </h1>
-                    <button className="flex 2xl:gap-2 xl:gap-2 gap-1 justify-center items-center bg-[#5793CE] text-white 2xl:w-[152px] 2xl:h-[48px] xl:w-[110px] xl:h-[35px] h-[25px] w-[110px] rounded-[4px] 2xl:text-[14px] xl:text-[10px] text-[10px]">
-                      <Image
-                        src={add}
-                        className="rounded-full 2xl:w-[15px] xl:w-[10px] w-3"
-                      />
-                      Create Profile
-                    </button>
+            <div className="w-full 2xl:p-10 xl:p-6 lg:p-4 p-4">
+              <div className="2xl:w-[1172px] 2xl:h-[253px] xl:h-[180px] border-[1px] xl:w-[70%] lg:w-[70%] lg:h-[150px]   rounded-[10px] ">
+                <div className="flex justify-between items-center rounded-t-box bg-[#F5F6FF] 2xl:h-[80px] xl:p-3 lg:p-2 p-2 ">
+                  <div className="flex justify-between">
+                    <h1 className="userdetailHead">User Profile</h1>
                   </div>
-                  <hr />
-                  <div className="overflow-x-auto">
-                    <table className="table table-zebra table-xs my-5 md:w-[125%] sm:w-[130%] w-[150%] lg:w-full table_w ]">
-                      <thead className="2xl:px-[20px] xl:px-[15px] px-[10px">
-                        <tr>
-                          <th className="craete_tbl_row text-[#A8A8A8]">
-                            User Name
-                          </th>
-                          <th className="craete_tbl_row text-[#A8A8A8]">
-                            Subscription
-                          </th>
-                          <th className="craete_tbl_row text-[#A8A8A8]">
-                            Email Id
-                          </th>
-                          <th className="craete_tbl_row text-[#A8A8A8]">
-                            Phone Number
-                          </th>
-                          {/* <th className="craete_tbl_row text-[#A8A8A8]">
-                            Preview Profile
-                          </th> */}
-                          {/* <th className="craete_tbl_row text-[#A8A8A8]">
-                            Status
-                          </th> */}
-                          <th className="craete_tbl_row text-[#A8A8A8]">
-                            Action
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody className="2xl:px-[20px] xl:px-[15px] px-[10px] bg-white">
-                        {Array.isArray(getAllUser) &&
-                          getAllUser.map((item, index) => (
-                            <tr key={index}>
-                              <td className="py-3">
-                                <div className="flex gap-3 items-center">
-                                  <div className="superAD_sImg">
-                                    {item?.firstname[0]}
-                                    {item?.lastname[0]}
-                                  </div>
-                                  <div>
-                                    <p className="craete_tbl_row gap-1">
-                                      {item?.firstname}
-                                      {item?.lastname}
-                                    </p>
-                                    <p className="text-[#A8A8A8] legend font-[400] 2xl:text-[13px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[18px] lg:text-[10px] lg:leading-[16px] sm:text-[10px] sm:leading-[12px] text-[9px] leading-[12px]">
-                                      UG
-                                    </p>
-                                  </div>
-                                </div>
-                              </td>
+                  <div>
+                    <Link href="/user2nd/user-profile">
+                      <button
+                        className="bg-[#4F9ED9] rounded-[4px] 2xl:w-[90px] 2xl:h-[35px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[22px] w-[40px] h-[20px]
+                    inter font-[700] text-white 2xl:text-[14px] 2xl:leading-[20px] xl:text-[9px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px]
+                    "
+                      >
+                        Edit
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+                <div className="flex gap-5 lg:gap-0 flex-col lg:flex-row md:justify-between 2xl:p-4 xl:p-3 lg:p-2 p-2">
+                  <div>
+                    <div className="bg-[#1172BA] rounded-full flex justify-center items-center 2xl:w-[68px] 2xl:h-[68px] xl:w-[45px] xl:h-[45px] w-[45px] h-[45px]">
+                      <h1 className="inter text-white font-[600] 2xl:text-[20px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[16px] text-[10px] my-1 2xl:my-2">
+                        {studentDetail?.firstname}
+                      </h1>
+                    </div>
 
-                              <td className="craete_tbl_row">
-                                {" "}
-                                {item?.Subscription}
-                              </td>
-                              <td className="craete_tbl_row">{item?.email}</td>
-                              <td className="craete_tbl_row">
-                                {" "}
-                                {item?.mobile}
-                              </td>
+                    <h1 className="inter text-[#000000] font-[600] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] text-[9px] my-1 2xl:my-2">
+                      {studentDetail?.firstname} {studentDetail?.lastname}
+                    </h1>
+                  </div>
 
-                              {/* <td>
-                                <button className="craete_tbl_Pbtn flex justify-center items-center 2xl:gap-1  ">
-                                  <Image
-                                    src={previews}
-                                    className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]"
-                                  />
-                                  Preview
-                                </button>
-                              </td> */}
-                              {/* <td className="craete_tbl_row text-[#FE9E34]">
-                            Pending
-                          </td> */}
+                  <div>
+                    <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] mb-4">
+                      <p>+91 {studentDetail?.mobile}</p>
+                      <p>{studentDetail?.email}</p>
+                    </div>
+                    <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] mt-4">
+                      <p>Whatsapp Number</p>
+                      <p>+91 {studentDetail?.mobile}</p>
+                    </div>
+                  </div>
 
-                              <td className="  ">
-                                <Link href={`/pages/user-profile/${item?._id}`}>
-                                  <button className="">
-                                    <Image
-                                      src={edit}
-                                      className="mr-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]"
-                                    />
-                                  </button>
-                                </Link>
-                                <button
-                                  onClick={() => openModal(item._id)}
-                                  className=""
-                                >
-                                  <Image
-                                    src={deletes}
-                                    className="ml-2 mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]"
-                                  />
-                                </button>
-                              </td>
-                            </tr>
-                          ))}
-                      </tbody>
-                    </table>
+                  <div className="flex justify-around flex-row lg:flex-col lg:w-auto w-1/2">
+                    <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] mb-4">
+                      <p>Gender</p>
+                      <p className="text-[#000]">Male</p>
+                    </div>
+                    <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] lg:mt-4">
+                      <p>Quota</p>
+                      <p className="text-[#000]">
+                        {studentDetail?.All_India_Category_id?.Select_category}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="">
+                    <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] lg:mb-4">
+                      <p>Current City</p>
+                      <p className="text-[#000]">Indore</p>
+                    </div>
+                    <div className="flex justify-between">
+                      <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] mt-4">
+                        <p>District</p>
+                        <p className="text-[#000]">Indore</p>
+                      </div>{" "}
+                    </div>
+                  </div>
+                  <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] lg:w-[160px] xl:w-[200px] 2xl:w-[271px] ">
+                    <p>Subscription</p>
+                    <p className="text-[#000]">Indore</p>
                   </div>
                 </div>
               </div>
+
+              <div className="2xl:w-[1172px] xl:w-[70%] lg:w-[70%] 2xl:h-[451px] border-[1px] rounded-[10px] 2xl:my-10 xl:my-7 lg:my-5 my-5 ">
+                <div className="bg-[#F5F6FF] flex justify-between items-center 2xl:px-4 2xl:h-[66px] xl:h-[40px] h-[40px] xl:px-3 lg:px-2 px-2">
+                  <div className="flex justify-between">
+                    <h1 className="userdetailHead">Subscription Details</h1>
+                  </div>
+                  <div>
+                    <button
+                      className="bg-[#4F9ED9] rounded-[4px] 2xl:w-[120px] 2xl:h-[48px] xl:w-[70px] xl:h-[25px] lg:w-[70px] lg:h-[22px] h-[22px] w-[80px]
+                    inter font-[700] text-white 2xl:text-[14px] 2xl:leading-[20px] xl:text-[9px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px]
+                    "
+                    >
+                      Upgrade Plan
+                    </button>
+                  </div>
+                </div>
+                <div className="overflow-x-auto mg:w-2/3 lg:w-1/2 2xl:p-4">
+                  <table className="table">
+                    <thead>
+                      <tr className="inter font-[500] text-[#6F6F6F] 2xl:text-[13px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[18px] lg:text-[9px] lg:leading-[18px]">
+                        <th>Current Plan</th>
+                        <th>Start date</th>
+                        <th>End date</th>
+                      </tr>
+                    </thead>
+                    <tbody className="border-none">
+                      <tr>
+                        <td className="inter font-[700] text-[#0071BC] 2xl:text-[18px] 2xl:leading-[40px] xl:text-[11px] xl:leading-[25px] lg:text-[8px] lg:leading-[14px] text-[12px] leading-[16px]">
+                          Starter Plan{" "}
+                          <span className="text-[#000000] ">Free</span>
+                        </td>
+                        <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[11px] xl:leading-[24px] lg:text-[10px] lg:leading-[18px] text-[12px]">
+                          March 20th 2024
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="bg-[#F5F6FF] flex justify-between items-center 2xl:px-4 xl:px-3 lg:px-2 px-2 2xl:h-[66px] xl:h-[40px] h-[40px] 2xl:mt-10">
+                  <div className="flex justify-between">
+                    <h1 className="userdetailHead">Subscription Details</h1>
+                  </div>
+                </div>
+                <div className="overflow-x-auto 2xl:p-4 ">
+                  <table className="table">
+                    <thead>
+                      <tr className="inter font-[500] text-[#6F6F6F] 2xl:text-[13px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[24px] lg:text-[9px] lg:leading-[18px]">
+                        <th>Date</th>
+                        <th>Plan</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody className="border-none">
+                      <tr className="border-none">
+                        <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[24px] lg:text-[10px] lg:leading-[18px] text-[12px] ">
+                          20th March 2024
+                        </td>
+                        <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[24px] lg:text-[9px] text-[12px] lg:leading-[16px] 2xl:w-[317px] xl:w-[250px]">
+                          Starter Plan Lorem Ipsum is simply dummy text of the
+                          printing and typesetting industry.
+                        </td>
+                        <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[24px] lg:text-[9px] text-[12px] lg:leading-[16px]">
+                          Trial
+                        </td>
+                        <td>
+                          <button className="text-[#1172BA] bg-[#DDF0FE] rounded-[3px] 2xl:w-[96px] 2xl:h-[35px] xl:w-[60px] xl:h-[25px] w-[50px] h-[22px] inter font-[600] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[24px] lg:text-[9px] text-[10px] lg:leading-[16px]">
+                            Ongoing
+                          </button>
+                        </td>
+                        <td className=" flex justify-end">
+                          <button className="text-white bg-[#4F9ED9]  rounded-[3px] 2xl:w-[107px] 2xl:h-[48px] xl:w-[70px] xl:h-[25px] w-[60px] h-[22px] inter font-[400] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[24px] lg:text-[9px] text-[10px] lg:leading-[16px]">
+                            Download
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
+            ;
           </div>
         </div>
       </section>
-      <Transition appear show={isOpenDelete} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => {}}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-[90%] sm:w-full sm:max-w-[500px] transform overflow-hidden rounded-2xl bg-white p-4  sm:px-8 lg:px-8 2xl:p-10 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-5"
-                  >
-                    Are You Sure! Want to Delete?
-                  </Dialog.Title>
-                  <DeleteModuleC
-                    userID={userID}
-                    closeModal={closeModal}
-                    refreshData={refreshData}
-                  />
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
     </>
   );
 };
 
-export default CreateUser;
+export default UserDetails;
