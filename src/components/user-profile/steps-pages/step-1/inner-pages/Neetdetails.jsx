@@ -1,47 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import HeadTitle from "../HeadTitle";
 
-const Neetdetails = () => {
-    return (
-        <>
-            <HeadTitle title="NEET Details" />
+const Neetdetails = ({ onFormDataChange }) => {
+  // State to hold the form data
+  const [formData, setFormData] = useState({
+    NEET_Details: {
+      FullName: "",
+      MobileNumber: "",
+      WhatsappNumber: "",
+      NEET_RegisterNumber: "",
+      RollNo: "",
+      Marks: "",
+      AllIndiaRank: "",
+      StateRank: "",
+    },
+  });
 
-            <div className="grid grid-cols-3 gap-[24px] py-[16px] ">
-                <div className="col-span-1 profile_input_box">
-                    <label htmlFor="name">Full Name* (As per NEET Admit/Score Card)</label>
-                    <input type="text" placeholder="Enter your name" name="name" />
-                </div>
-                <div className="col-span-1 profile_input_box">
-                    <label htmlFor="name">Mobile Number*</label>
-                    <input type="text" placeholder="Enter mobile number" name="name" />
-                </div>
-                <div className="col-span-1 profile_input_box">
-                    <label htmlFor="name">WhatsApp Number for Updates*</label>
-                    <input type="text" placeholder="Enter mobile number" name="name" />
-                </div>
-                <div className="col-span-1 profile_input_box">
-                    <label htmlFor="name">NEET Registration No</label>
-                    <input type="text" placeholder="Enter detail" name="name" />
-                </div>
-                <div className="col-span-1 profile_input_box">
-                    <label htmlFor="name">Roll No.</label>
-                    <input type="text" placeholder="Enter detail" name="name" />
-                </div>
-                <div className="col-span-1 profile_input_box">
-                    <label htmlFor="name">Marks</label>
-                    <input type="text" placeholder="Enter detail" name="name" />
-                </div>
-                <div className="col-span-1 profile_input_box">
-                    <label htmlFor="name">All India Rank</label>
-                    <input type="text" placeholder="Enter detail" name="name" />
-                </div>
-                <div className="col-span-1 profile_input_box">
-                    <label htmlFor="name">State Rank</label>
-                    <input type="text" placeholder="Enter detail" name="name" />
-                </div>
-            </div>
-        </>
-    )
+  const handleChange = (e, key) => {
+    const { value } = e.target;
+    setFormData({
+      ...formData,
+      NEET_Details: {
+        ...formData.NEET_Details,
+        [key]: value,
+      },
+    });
+    // Pass the updated form data to the parent component
+    onFormDataChange({
+      ...formData,
+      NEET_Details: {
+        ...formData.NEET_Details,
+        [key]: value,
+      },
+    });
+  };
+
+  return (
+    <>
+      <HeadTitle title="NEET Details" />
+      <div className="grid grid-cols-3 gap-[24px] py-[16px] ">
+        {/* Iterate over the inputFields array and create input elements */}
+        {Object.entries(formData.NEET_Details).map(([key, value]) => (
+          <div key={key} className="col-span-1 profile_input_box">
+            <label htmlFor={key}>{key}</label>
+            <input
+              type="text"
+              placeholder={`Enter ${key}`}
+              name={key}
+              value={value}
+              onChange={(e) => handleChange(e, key)}
+            />
+          </div>
+        ))}
+      </div>
+    </>
+  );
 };
 
 export default Neetdetails;

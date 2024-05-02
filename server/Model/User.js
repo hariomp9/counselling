@@ -393,6 +393,11 @@ const UserSchema = new mongoose.Schema(
         // required: true,
       },
 
+      Parents_Profession:{
+        type:String,
+        required:false
+      },
+
       parentOccupation: {
         type: String,
         enum: ['Govt of Maharashtra Employee?', 'Govt of India Employee?']
