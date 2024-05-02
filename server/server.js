@@ -26,6 +26,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "5mb", extended: true }));
 
+
+
 // Routers
 app.use("/api/auth", require("./Route/AuthRouter"));
 app.use("/api/collage", require("./Route/CollageRouter"));
@@ -38,6 +40,7 @@ app.use("/api/state_category" , require("./Route/state_categoryRouter"))
 app.use("/api/course_preference" , require("./Route/Course_preferenceRoutes"))
 app.use("/api/counselor", require("./Route/CounselorRouter"));
 app.use("/api/news", require("./Route/NewsRouter"));
+
 
 const PORT = process.env.PORT || 4000;
 

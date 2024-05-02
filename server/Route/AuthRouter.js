@@ -88,9 +88,9 @@ router.get("/all-users-data", getallUsers);
 router.route("/getaUser").get(isAuthenticatedUser, getaUser);
 
 // Get user by ID via a authticated
-// router.route("/getUserById/:id").get(isAuthenticatedUser, getUserById);
+router.route("/getUserById/:id").get(isAuthenticatedUser, getUserById);
 
-router.route("/getUserById/:id").get(getUserById);
+// router.route("/getUserById/:id").get(getUserById);
 
 // Delete a user
 router.delete("/deleteaUser/:id",isAuthenticatedUser, authorizeRoles("admin" ), deleteaUser);
