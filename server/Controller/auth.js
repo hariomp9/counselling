@@ -686,6 +686,34 @@ exports.getaUser = async (req, res) => {
   }
 };
 
+
+// Get All Users data -- working controller
+
+exports.getallUsers = async (req, res) => {
+  try {
+    const user = await User.find()
+    .populate("wishlist")
+    .populate('All_India_Category_id')
+    .populate('Course_Preference')
+    .populate({
+      path: 'domicileStateCategory',
+      populate: [
+        { path: 'state_id', model: 'State' },
+        { path: 'category_id', model: 'Category' }
+      ]
+    })
+    .populate('OtherStatePreferences.Preference_Fields')
+    res.status(200).json({
+      user,
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+
+}
+
+
+
  // working controller
 
 exports.getUserById = async (req, res) => {

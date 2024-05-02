@@ -25,7 +25,8 @@ const {
   generateOtp,
   verifyOtp,
   updatedUser_Steps,
-  getstepsbyuserId
+  getstepsbyuserId,
+  getallUsers
 } = require("../Controller/auth");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const storage = multer.memoryStorage();
@@ -60,6 +61,10 @@ router.put("/edit-user/:id",isAuthenticatedUser, updatedUser);
 
 // Get all Users
 router.get("/all-users", isAuthenticatedUser, authorizeRoles("admin"), getallUser);
+
+// Get all Users data
+
+router.get("/all-users-data", getallUsers);
 
 // Get a User
 router.route("/getaUser").get(isAuthenticatedUser, getaUser);
