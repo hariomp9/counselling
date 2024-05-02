@@ -9,6 +9,8 @@ const { generateToken, verifyToken } = require("../config/jwtToken");
 const sendToken = require("../Utils/jwtToken");
 const jwt = require("jsonwebtoken");
 const uploadOnS3 = require("../Utils/uploadImage");
+const nodemailer = require('nodemailer');
+
 
 exports.uploadImage = async (req, res, next) => {
   try {
@@ -27,23 +29,62 @@ exports.uploadImage = async (req, res, next) => {
   }
 };
 
+// exports.register = async (req, res, next) => {
+//   const { email, password } = req.body;
+
+//   const existingUser = await User.findOne({ email });
+
+//   if (existingUser) {
+//     return res.status(203).json({ error: "User with this email already exists." });
+//   }
+
+//   const userData = {
+//     email,
+//     // provider_ID: req.body.provider_ID,
+//     firstname: req.body.firstname,
+//     lastname: req.body.lastname,
+//     mobile: req.body.mobile,
+//     // provider: req.body.provider,
+//     // role: req.body.role
+//     cast: req.body.cast,
+//     address: req.body.address,
+//     documents: req.body.documents,
+//     careerGoals: req.body.careerGoals,
+//     tenthPercentage: req.body.tenthPercentage,
+//     twelfthPercentage: req.body.twelfthPercentage,
+//     neetScore: req.body.neetScore
+//   };
+
+//   if (password) {
+//     userData.password = password;
+//   }
+
+//   try {
+//     const newUser = await User.create(userData);
+//     sendToken(newUser, 201, res);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+
+//  I have to register a user with send a Email to users' email address vvia a Nodemailer
+
+// const nodemailer = require('nodemailer');
+
 exports.register = async (req, res, next) => {
   const { email, password } = req.body;
-
   const existingUser = await User.findOne({ email });
-
+  
   if (existingUser) {
     return res.status(203).json({ error: "User with this email already exists." });
   }
 
   const userData = {
     email,
-    // provider_ID: req.body.provider_ID,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     mobile: req.body.mobile,
-    // provider: req.body.provider,
-    // role: req.body.role
     cast: req.body.cast,
     address: req.body.address,
     documents: req.body.documents,
@@ -53,17 +94,51 @@ exports.register = async (req, res, next) => {
     neetScore: req.body.neetScore
   };
 
-  if (password) {
-    userData.password = password;
-  }
-
   try {
     const newUser = await User.create(userData);
+    await sendWelcomeEmail(email, password, userData.firstname); // Sending welcome email with username
     sendToken(newUser, 201, res);
   } catch (error) {
     next(error);
   }
 };
+
+// Function to send welcome email
+async function sendWelcomeEmail(email, password, username) {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'harshal.brilliance@gmail.com', // Your Gmail email address
+      pass: 'gkva krfj gwkh etpy',
+    },
+    tls: {
+      rejectUnauthorized: false, // Disable SSL verification
+    },
+  });
+
+  const mailOptions = {
+    from: 'harshal.brilliance@gmail.com',
+    to: email,
+    subject: 'Welcome to Our Platform!',
+    html: `<p>Congratulations! Your Account successfully is Created for our Platform . Welcome</p>
+          <p>Hello Dear ${username},</p>
+           <p>Welcome to our platform! You have successfully registered.</p>
+           <p>Your Account Email is: <strong>${email}</strong></p>
+           <p>Your Account password is: <strong>${password}</strong></p>
+           <p>Thank you!</p>`
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
+}
+
+
+  
 
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -620,7 +695,6 @@ exports.getUserById = async (req, res) => {
 
     })
     .populate('OtherStatePreferences.Preference_Fields')
-    
 
     
     res.status(200).json({
