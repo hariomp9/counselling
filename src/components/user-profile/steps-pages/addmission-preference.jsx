@@ -239,7 +239,11 @@ const AddmissionPreference = () => {
           </div>
           <hr />
           {/* =============02============ */}
-
+          <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
+              <h1 className="inter font-[700] 2xl:text-[20px] xl:text-[16px] lg:text-[12px] 2xl:leading-[20px] xl:leading-[20px]">
+              Admission Preference
+              </h1>
+            </div>
           <div className="flex 2xl:gap-[25px] xl:gap-[25px] gap-[30px] 2xl:my-[25px] xl:my-[20px] my-[10px]">
             {addmissionpreference.map((item, index) => (
               <div key={index} className="flex items-center 2xl:gap-2 gap-1">
