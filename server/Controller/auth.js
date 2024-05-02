@@ -10,7 +10,7 @@ const sendToken = require("../Utils/jwtToken");
 const jwt = require("jsonwebtoken");
 const uploadOnS3 = require("../Utils/uploadImage");
 const nodemailer = require('nodemailer');
-
+require("dotenv").config({ path: "./.env" });
 
 exports.uploadImage = async (req, res, next) => {
   try {
@@ -82,6 +82,7 @@ exports.register = async (req, res, next) => {
 
   const userData = {
     email,
+    password,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     mobile: req.body.mobile,
@@ -91,7 +92,14 @@ exports.register = async (req, res, next) => {
     careerGoals: req.body.careerGoals,
     tenthPercentage: req.body.tenthPercentage,
     twelfthPercentage: req.body.twelfthPercentage,
-    neetScore: req.body.neetScore
+    neetScore: req.body.neetScore,
+    whatsappMobile: req.body.whatsappMobile, 
+    Gender: req.body.Gender,
+    District:req.body.District,
+    Subscription:req.body.Subscription,
+    Comments:req.body.Comments,
+
+
   };
 
   try {
@@ -108,13 +116,14 @@ async function sendWelcomeEmail(email, password, username) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'harshal.brilliance@gmail.com', // Your Gmail email address
-      pass: 'gkva krfj gwkh etpy',
+      user: process.env.CLIENT_EMAIL,
+      pass: process.env.CLIENT_EMAIL_PASSWORD
     },
     tls: {
-      rejectUnauthorized: false, // Disable SSL verification
+      rejectUnauthorized: false // Disable SSL verification
     },
   });
+
 
   const mailOptions = {
     from: 'harshal.brilliance@gmail.com',
