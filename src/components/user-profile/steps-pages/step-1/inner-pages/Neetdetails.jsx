@@ -15,7 +15,6 @@ const Neetdetails = ({ onFormDataChange }) => {
       StateRank: "",
     },
   });
-
   const handleChange = (e, key) => {
     const { value } = e.target;
     setFormData({
@@ -34,7 +33,6 @@ const Neetdetails = ({ onFormDataChange }) => {
       },
     });
   };
-
   return (
     <>
       <HeadTitle title="NEET Details" />

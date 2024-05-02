@@ -4,7 +4,7 @@ import HeadTitle from "../HeadTitle";
 
 const AllIndiaCategory = ({ categoryValues,onSelectCategory }) => {
     const [selectedCategory, setSelectedCategory] = useState('GEN');
-
+// console.log("sapna",categoryValues)
     const handleCategoryClick = (category) => {
         setSelectedCategory(category?.Select_category); // Update selected category to the Select_category property
         onSelectCategory(category?._id);

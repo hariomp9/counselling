@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import HeadTitle from "../HeadTitle";
 
-const MinorityReservation = ({ options }) => {
+const MinorityReservation = ({ options,SetMinReservation }) => {
   const [selectedValue, setSelectedValue] = useState("yes");
   const [selectedCategory, setSelectedCategory] = useState("DEF");
 
@@ -11,7 +11,8 @@ const MinorityReservation = ({ options }) => {
   };
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
-    console.log(category);
+    SetMinReservation(category)
+    // console.log(category);
   };
 
   return (
