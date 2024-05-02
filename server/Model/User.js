@@ -19,6 +19,28 @@ const UserSchema = new mongoose.Schema(
     mobile: {
       type: String,
     },
+    whatsappMobile: {
+      type: String,
+    },
+    Gender: {
+      type: String,
+      enum: ['Male', 'Femaile']
+    },
+
+
+    District: {
+      type: String
+    },
+
+
+    Subscription: {
+      type: String,
+    },
+
+    Comments:{
+      type: String
+    },
+
     password: {
       type: String,
       minlength: 6,
@@ -234,7 +256,7 @@ const UserSchema = new mongoose.Schema(
       // required: true
     },
 
-    // Standard 12th Exam Marks
+    // Standard 12th Exam Marks 
     standard_12thMarks: [{
       subject: {
         type: String,
@@ -249,7 +271,7 @@ const UserSchema = new mongoose.Schema(
         // required: true,
       },
     }],
-    
+
     // Exam Details
     exams: [{
       type: {
@@ -266,12 +288,10 @@ const UserSchema = new mongoose.Schema(
         // required: true,
       }
     }],
-
-
     // Academic Details
 
-     // Exam Details
-     Academic_Details: [{
+    // Exam Details
+    Academic_Details: [{
       type: {
         type: String,
         // required: true,
@@ -292,44 +312,44 @@ const UserSchema = new mongoose.Schema(
         type: Number,
         // required: true,
       },
-      Result:{
+      Result: {
         type: String,
         // required: true,
       },
-      CGPA:{
-        type:String,
-        required:true
+      CGPA: {
+        type: String,
+        required: true
       }
 
     }],
 
     // Student'S Address
 
-    StudentAddress:[{
+    StudentAddress: [{
 
-      HouseNo:{
-        type:String,
-        required:true
+      HouseNo: {
+        type: String,
+        required: true
       },
-      Area:{
-        type:String,
-        required:true
+      Area: {
+        type: String,
+        required: true
       },
-      City:{
-        type:String,
-        required:true
+      City: {
+        type: String,
+        required: true
       },
-      Distict:{
-        type:String,
-        required:true
+      Distict: {
+        type: String,
+        required: true
       },
-      State:{
-        type:String,
-        required:true
+      State: {
+        type: String,
+        required: true
       },
-      PinCode:{
-        type:String,
-        required:true
+      PinCode: {
+        type: String,
+        required: true
       }
 
     }],
@@ -339,20 +359,20 @@ const UserSchema = new mongoose.Schema(
 
     studentDetails: [{
 
-      Gender:{
+      Gender: {
         type: String,
-        enum:['Male' , 'Female' , 'Other'],
+        enum: ['Male', 'Female', 'Other'],
       },
-      Email:{
+      Email: {
         type: String,
         // required: true,
       },
 
-      Mobile:{
+      Mobile: {
         type: String,
         // required: true,
       }
-      
+
 
     }],
 
@@ -379,12 +399,13 @@ const UserSchema = new mongoose.Schema(
       },
 
       parentOccupation: {
-        type:String,
-        enum:['Govt of Maharashtra Employee?' , 'Govt of India Employee?']
+        type: String,
+        enum: ['Govt of Maharashtra Employee?', 'Govt of India Employee?']
       },
-      FamilyAnualIncome:{
-        type:String,
-        required:false
+
+      FamilyAnualIncome: {
+        type: String,
+        required: false
       }
     }],
 

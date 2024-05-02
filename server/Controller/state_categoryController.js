@@ -94,6 +94,8 @@ exports.getStatesByCategory = async (req, res) => {
 
 
 
+
+
 // Find all states
 exports.getAllStates = async (req, res) => {
     try {
@@ -117,7 +119,7 @@ exports.getAllStates = async (req, res) => {
             states,
             totalPages: Math.ceil(count / limit),
             currentPage: page
-        });
+        }); 
     } catch (error) {
         console.error("Error getting all states:", error);
         res.status(500).json({ error: "Internal server error" });
