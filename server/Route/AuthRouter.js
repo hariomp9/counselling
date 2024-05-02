@@ -7,6 +7,7 @@ const {
   login,
   adminLogin,
   logout,
+  superAdminLogout,
   adminLogout,
   forgotPassword,
   resetPassword,
@@ -26,7 +27,12 @@ const {
   verifyOtp,
   updatedUser_Steps,
   getstepsbyuserId,
-  getallUsers
+  getallUsers,
+  superAdminLogin,
+  superAdminRegister,
+  superAdminUpdate,
+  getSuperAdminById,
+  deleteaSuperAdmin
 } = require("../Controller/auth");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const storage = multer.memoryStorage();
@@ -35,6 +41,18 @@ const upload = multer({ storage: storage });
 router.route("/login").post(login);
 
 router.route("/adminLogin").post(adminLogin);
+
+router.route("/superAdminLogin").post(superAdminLogin);
+
+router.route("/superAdminLogout").get(isAuthenticatedUser, superAdminLogout);
+
+router.route("/superAdminRegister").post(superAdminRegister);
+
+router.put("/superAdminUpdate/:id",isAuthenticatedUser, superAdminUpdate);
+
+router.route("/getSuperAdminById/:id").get(isAuthenticatedUser, getSuperAdminById);
+
+router.delete("/deleteaSuperAdmin/:id",isAuthenticatedUser, deleteaSuperAdmin);
 
 router.route("/logout").get(isAuthenticatedUser, logout);
 
@@ -69,11 +87,13 @@ router.get("/all-users-data", getallUsers);
 // Get a User
 router.route("/getaUser").get(isAuthenticatedUser, getaUser);
 
-// Get user by ID 
-router.route("/getUserById/:id").get(isAuthenticatedUser, getUserById);
+// Get user by ID via a authticated
+// router.route("/getUserById/:id").get(isAuthenticatedUser, getUserById);
+
+router.route("/getUserById/:id").get(getUserById);
 
 // Delete a user
-router.delete("/deleteaUser/:id",isAuthenticatedUser, authorizeRoles("admin"), deleteaUser);
+router.delete("/deleteaUser/:id",isAuthenticatedUser, authorizeRoles("admin" ), deleteaUser);
 
 router.route("/forgotpassword").post(forgotPassword);
 router.route("/resetpassword/:resetToken").put(resetPassword);

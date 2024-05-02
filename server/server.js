@@ -36,6 +36,8 @@ app.use("/api/country" , require("./Route/CountryRouter"))
 app.use("/api/state" , require("./Route/StateRouter"))
 app.use("/api/state_category" , require("./Route/state_categoryRouter"))
 app.use("/api/course_preference" , require("./Route/Course_preferenceRoutes"))
+app.use("/api/counselor", require("./Route/CounselorRouter"));
+app.use("/api/news", require("./Route/NewsRouter"));
 
 const PORT = process.env.PORT || 4000;
 
