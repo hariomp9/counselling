@@ -6,12 +6,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const AddmissionPreference = () => {
-  const addmissionpreference = [
-    { id: "1", collegeName: "Government College" },
-    { id: "2", collegeName: "Private/Management" },
-    { id: "3", collegeName: "Deemed University" },
-  ];
-
   const [getPreferences, setPreferences] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [checkedColleges, setCheckedColleges] = useState("");
@@ -161,7 +155,6 @@ const AddmissionPreference = () => {
       });
   };
 
-  
   return (
     <section>
       <div className="main_div mx-auto">
@@ -219,21 +212,45 @@ const AddmissionPreference = () => {
           </div>
           <hr />
           {/* =============02============ */}
-
+          <div className="flex gap-2">
+            <h1 className="inter font-[700] 2xl:text-[20px] xl:text-[16px] lg:text-[12px] 2xl:leading-[24px] xl:leading-[20px] lg:leading-[16px] ">
+              Admission Preference
+            </h1>
+          </div>
           <div className="flex 2xl:gap-[25px] xl:gap-[25px] gap-[30px] 2xl:my-[25px] xl:my-[20px] my-[10px]">
-            {addmissionpreference.map((item, index) => (
-              <div key={index} className="flex items-center 2xl:gap-2 gap-1">
-                <input
-                  type="checkbox"
-                  className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
-                  checked={selectedColleges.includes(item.collegeName)}
-                  onChange={() => handleCheckboxChange(item.collegeName)}
-                />
-                <h1 className="inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[13px] text-[12px]">
-                  {item.collegeName}
-                </h1>
-              </div>
-            ))}
+            <div className="flex items-center 2xl:gap-2 gap-1">
+              <input
+                type="checkbox"
+                className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
+                // checked={selectedColleges.includes(item.collegeName)}
+                // onChange={() => handleCheckboxChange(item.collegeName)}
+              />
+              <h1 className="inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[13px] text-[12px]">
+                Government College
+              </h1>
+            </div>
+            <div className="flex items-center 2xl:gap-2 gap-1">
+              <input
+                type="checkbox"
+                className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
+                // checked={selectedColleges.includes(item.collegeName)}
+                // onChange={() => handleCheckboxChange(item.collegeName)}
+              />
+              <h1 className="inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[13px] text-[12px]">
+                Private/Management
+              </h1>
+            </div>
+            <div className="flex items-center 2xl:gap-2 gap-1">
+              <input
+                type="checkbox"
+                className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
+                // checked={selectedColleges.includes(item.collegeName)}
+                // onChange={() => handleCheckboxChange(item.collegeName)}
+              />
+              <h1 className="inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[13px] text-[12px]">
+                Deemed University
+              </h1>
+            </div>
           </div>
           <hr />
           {/* =============03============ */}
@@ -327,7 +344,7 @@ const AddmissionPreference = () => {
                   type="radio"
                   name="radio-7"
                   value="Yes"
-                  onChange={handleChange}
+                  // onChange={handleChange}
                   className="radio radio-[#1172BA] 2xl:w-[22px] 2xl:h-[22px] xl:w-[16px] xl:h-[16px] w-[14px] h-[14px]"
                 />{" "}
                 Yes
@@ -337,7 +354,7 @@ const AddmissionPreference = () => {
                   type="radio"
                   name="radio-7"
                   value="No"
-                  onChange={handleChange}
+                  // onChange={handleChange}
                   className="radio radio-[#1172BA] 2xl:w-[22px] 2xl:h-[22px] xl:w-[16px] xl:h-[16px] w-[14px] h-[14px]"
                 />
                 No
@@ -348,13 +365,7 @@ const AddmissionPreference = () => {
                 <div className="flex items-center gap-[45px]">
                   <label className="pre_input_lable2">Preference No. 1</label>
                   <div className="">
-                    <select
-                      id="states"
-                      className="pre_input"
-                      onChange={handleChange}
-                      value={selectedStates}
-                      multiple
-                    >
+                    <select id="states" className="pre_input">
                       <option value="">Select States</option>
                       {Array.isArray(getAllStates) &&
                         getAllStates.map((item) => (
