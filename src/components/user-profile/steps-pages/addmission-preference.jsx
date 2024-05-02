@@ -21,8 +21,6 @@ const AddmissionPreference = () => {
   const [Admissions_Preferences, setAdmissions_Preferences] = useState("");
   const [selectedColleges, setSelectedColleges] = useState([]);
   const [selectedStates, setSelectedStates] = useState([]);
-  const [selectedStates1, setSelectedStates1] = useState([]);
-  const [selectedStates2, setSelectedStates2] = useState([]);
 
   useEffect(() => {
     const fetchStates = async () => {
@@ -102,36 +100,17 @@ const AddmissionPreference = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if (name.startsWith("preference")) {
-      // Handle preference change
-      const preferenceNumber = parseInt(name.substr(-1));
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        NRI_Quta_Prefernce: [
-          ...prevFormData.NRI_Quta_Prefernce.slice(0, preferenceNumber - 1),
-          {
-            ...prevFormData.NRI_Quta_Prefernce[preferenceNumber - 1],
-            [name]: value,
-          },
-          ...prevFormData.NRI_Quta_Prefernce.slice(preferenceNumber),
-        ],
-      }));
-    } else {
-      // Handle selected states change based on preference number
-      const preferenceNumber = parseInt(name.substr(-1));
-      const setSelectedStates =
-        preferenceNumber === 1 ? setSelectedStates1 : setSelectedStates2;
-      setSelectedStates((prevSelectedStates) => {
-        if (!prevSelectedStates.includes(value)) {
-          return [...prevSelectedStates, value];
-        } else {
-          return prevSelectedStates.filter((stateId) => stateId !== value);
-        }
-      });
-    }
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      NRI_Quta_Prefernce: [
+        {
+          ...prevFormData.NRI_Quta_Prefernce[0],
+          [name]: value,
+        },
+      ],
+      AnnualMedicalCourseBudget: value,
+    }));
   };
-
   console.log(formData);
 
   const sendData = async () => {
@@ -182,6 +161,7 @@ const AddmissionPreference = () => {
       });
   };
 
+  
   return (
     <section>
       <div className="main_div mx-auto">
@@ -239,11 +219,7 @@ const AddmissionPreference = () => {
           </div>
           <hr />
           {/* =============02============ */}
-          <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
-              <h1 className="inter font-[700] 2xl:text-[20px] xl:text-[16px] lg:text-[12px] 2xl:leading-[20px] xl:leading-[20px]">
-              Admission Preference
-              </h1>
-            </div>
+
           <div className="flex 2xl:gap-[25px] xl:gap-[25px] gap-[30px] 2xl:my-[25px] xl:my-[20px] my-[10px]">
             {addmissionpreference.map((item, index) => (
               <div key={index} className="flex items-center 2xl:gap-2 gap-1">
@@ -368,21 +344,25 @@ const AddmissionPreference = () => {
               </div>
             </div>
             <div className="flex gap-[35px] mb-[30px]">
-              <div className="">
+              <div className=" ">
                 <div className="flex items-center gap-[45px]">
                   <label className="pre_input_lable2">Preference No. 1</label>
                   <div className="">
                     <select
-                      id="states1" // Add unique identifier
+                      id="states"
                       className="pre_input"
                       onChange={handleChange}
-                      value={selectedStates1} // Use different state variable
-                      name="preference1" // Add name attribute
+                      value={selectedStates}
+                      multiple
                     >
                       <option value="">Select States</option>
                       {Array.isArray(getAllStates) &&
                         getAllStates.map((item) => (
-                          <option key={item._id} value={item._id} className="">
+                          <option
+                            key={item._id}
+                            value={item._id}
+                            className="pre_input"
+                          >
                             {item.name}
                           </option>
                         ))}
@@ -392,13 +372,7 @@ const AddmissionPreference = () => {
                 <div className="flex items-center gap-[45px]">
                   <label className="pre_input_lable2">Preference No. 2</label>
                   <div className="">
-                    <select
-                      id="states2" // Add unique identifier
-                      className="pre_input"
-                      onChange={handleChange}
-                      value={selectedStates2} // Use different state variable
-                      name="preference2" // Add name attribute
-                    >
+                    <select id="states" className="pre_input">
                       <option value=""> Select States</option>
                       {Array.isArray(getAllStates) &&
                         getAllStates.map((item) => (
@@ -414,7 +388,6 @@ const AddmissionPreference = () => {
                   </div>
                 </div>
               </div>
-
               <div className=" relative ">
                 <button className="flex justify-center items-center gap-2 absolute inter font-[700] bottom-0 2xl:my-[10px] xl:my-[8px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px] lg:my-[4px]">
                   <Image
