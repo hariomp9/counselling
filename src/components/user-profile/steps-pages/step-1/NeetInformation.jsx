@@ -50,7 +50,6 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
   const handleFormDataChange = (formData) => {
     // Do something with the updated form data
     setNeet(formData);
-    console.log("data", getNeet);
   };
 
   console.log(onFormDataChange, "dataa");
@@ -63,43 +62,15 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
   const [getNeet, setNeet] = useState([]);
   const [data, setData] = useState({ step_status: "neet_info" });
-
-  console.log("1111", userid);
-  console.log("Domicile", selectedState);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:4000/api/category/getCategory"
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch categories");
-        }
-        const data = await response.json();
-        setCategories(data.categories);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchStates = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:4000/api/state/getAllStates"
-        );
-        setStates(response.data.states);
-      } catch (error) {
-        console.error("Error fetching states:", error);
-      }
-    };
-
-    fetchStates();
-  }, []);
+  const [minReservation, SetMinReservation] = useState(null);
+  const [parallelReservation, SetParallelReservation] = useState({
+    "select_options": "",
+    "Reservation_Fields": ""
+  });
+  const [domicileStateCategory, SetDomicileStateCategory] = useState({
+    "state_id": "",
+    "category_id": ""
+  });
 
   const handleSelectState = (state) => {
     setSelectedState(state);
@@ -109,27 +80,43 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
         `http://localhost:4000/api/state_category/getStatesByCategory/${state}`
       )
       .then((response) => {
-        setStateCat(response.data);
+        setStateCat(response?.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   };
+  const InputHandler = (name, value) => { SetParallelReservation({ ...parallelReservation, [name]: value }) }
+  const handleDomicileSt = (name, value) => { SetDomicileStateCategory({ ...domicileStateCategory, [name]: value }) }
 
   const sendData = async () => {
+    // console.log("sapna", selectedCategory);
+    console.log('===>', parallelReservation)
+    const payload = {
+      ...data,
+      ...getNeet,
+      All_India_Category_id: selectedCategory,
+      domicileStateCategory: [domicileStateCategory],
+      ParellelReservations: [parallelReservation],
+      MinorityReservations: minReservation,
+    };
+    console.log("sapna",payload)
+    
+    return
     try {
-      const mergedData = {
-        ...data,
-        ...getNeet,
-        All_India_Category_id: selectedCategory,
-        domicileStateCategory: [getStateCat, selectedCategory],
-      };
+      // const mergedData = {
+      //   ...data,
+      //   ...getNeet,
+      //   All_India_Category_id: selectedCategory,
+      //   domicileStateCategory: [getStateCat    , selectedCategory],
+      // };
       const response = await axios.put(
         `http://localhost:4000/api/auth/updatedUser_Steps/${userid}`,
-        mergedData
+        payload
       );
-      console.log("PUT request successful", response.data);
+      console.log("PUT request successful", response?.data);
       // Handle response or state update as needed
+      next()
     } catch (error) {
       console.error("Error making PUT request:", error);
       // Handle error
@@ -139,10 +126,9 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
     // Call function to send PUT request
     sendData();
   };
+  // console.log("states", selectedState);
 
-  console.log("states", selectedState);
-
-  console.log("select", categories);
+  // console.log("select", categories);
 
   // const handleCategorySelect = (category) => {
   //     setSelectedCategory(category);
@@ -153,9 +139,36 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
   // };
 
   const handleSelect = (category) => {
-    console.log("Selected category:", category);
+    // console.log("Selected category:", category);
   };
-
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:4000/api/category/getCategory"
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+      const data = await response.json();
+      setCategories(data.categories);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+  const fetchStates = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/api/state/getAllStates"
+      );
+      setStates(response.data.states);
+    } catch (error) {
+      console.error("Error fetching states:", error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+    fetchStates();
+  }, []);
   return (
     <>
       <div className="bg-theme_background py-[40px] px-[55px]">
@@ -163,7 +176,7 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
         <AllIndiaCategory
           categoryValues={categories}
-          onSelectCategory={setSelectedCategory}
+          onSelectCategory={setSelectedCategory}  
         />
 
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
@@ -172,18 +185,19 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
           getStateCat={getStateCat}
           states={states}
           onSelectState={handleSelectState}
-          onSelectCategory={setSelectedCategory}
+          onSelectCategory={setSelectedCategory}  
           categoryValues={categories}
+          handleDomicileSt={handleDomicileSt}
         />
 
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
 
         <ParallelReservation
           reservation={Reservation}
-          onSelect={handleSelect}
+          InputHandler={InputHandler}
         />
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
-        <MinorityReservation options={minorityReservation} />
+        <MinorityReservation options={minorityReservation} SetMinReservation={SetMinReservation} />
         <div className="flex justify-start items-center gap-[32px]">
           <div
             onClick={() => prev()}
@@ -199,7 +213,7 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
           </div>
           <div
             onClick={() => {
-              next();
+              // next();
               handleNextClick();
             }}
             className="flex gap-[5px]  justify-center items-center rounded-[4px] h-[48px] bg-[#4F9ED9] text-[#ffffff] px-[20px] whitespace-nowrap text-[15px] font-[700] leading-[20px] font-inter cursor-pointer"

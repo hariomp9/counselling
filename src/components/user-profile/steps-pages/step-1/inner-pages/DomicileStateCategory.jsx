@@ -7,20 +7,18 @@ const DomicileStateCategory = ({
   onSelectState,
   getStateCat,
   onSelectCategory,
+  handleDomicileSt
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState();
-
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const handleState = (e) => {
+    onSelectState(e.target.value)
+    handleDomicileSt("state_id", e.target.value)
+  };
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category?.Select_category);
-    onSelectCategory(category?._id);
-    // console.log("set cat", category);
+    setSelectedCategory(category);
+    onSelectCategory(category);
+    handleDomicileSt("category_id", category)
   };
-
-  const handleState = (selectedState) => {
-    onSelectState(selectedState);
-    // console.log("Selected state:", selectedState);
-  };
-
   return (
     <>
       <HeadTitle title="Domicile State Category" />
@@ -31,9 +29,7 @@ const DomicileStateCategory = ({
       <div className="mb-[16px]">
         <select
           className="select select-bordered w-full max-w-xs"
-          onChange={(event) => {
-            onSelectState(event.target.value), console.log(event.target.value);
-          }}
+          onChange={handleState}
         >
           <option disabled value="" selected>
             Select a state
@@ -47,25 +43,23 @@ const DomicileStateCategory = ({
       </div>
 
       <div className="flex flex-wrap gap-[19px] lg:w-[80%]">
-        {getStateCat.map((state) => (
-          <div
-            key={state?.state_id}
-            className="flex flex-wrap gap-[19px] lg:w-[80%]"
-          >
-            {state.categories?.map((category) => (
+        {/* {getStateCat.map((state) => ( */}
+        <div className="flex flex-wrap gap-[19px] lg:w-[80%]">
+          {Array.isArray(getStateCat) && getStateCat?.length > 0 &&
+            getStateCat[0].categories?.map((category) => (
               <div
-                key={category._id}
+                key={category?._id}
                 className={`flex gap-[3px] items-center rounded-[5px] px-[16px] h-[48px] w-[103px] justify-center cursor-pointer
-          ${
-            selectedCategory === category._id
-              ? "border-1px border-[#D9D9D9] bg-theme_primary"
-              : "border-1px border-[#D9D9D9] bg-[#FFFFFF] "
-          }
+          ${selectedCategory === category?._id
+                    ? "border-1px border-[#D9D9D9] bg-theme_primary"
+                    : "border-1px border-[#D9D9D9] bg-[#FFFFFF] "
+                  }
         `}
-                onClick={() => handleCategoryClick(category._id)}
+                onClick={() => handleCategoryClick(category?._id)}
               >
-                <input type="checkbox" id={category._id} className="hidden" />
-                {selectedCategory === category._id && (
+                {console.log(category)}
+                <input type="checkbox" id={category?._id} className="hidden" />
+                {selectedCategory === category?._id && (
                   <Image
                     src="/svg/profile/tick_white.svg"
                     height={16}
@@ -76,19 +70,18 @@ const DomicileStateCategory = ({
                 <label
                   htmlFor={category.Select_category}
                   className={`text-[15px] font-[400] font-inter leading-[18.15px] whitespace-nowrap
-            ${
-              selectedCategory === category._id
-                ? "text-[#ffffff]"
-                : "text-[#747474]"
-            }
+            ${selectedCategory === category._id
+                      ? "text-[#ffffff]"
+                      : "text-[#747474]"
+                    }
           `}
                 >
-                  {category.Select_category}
+                  {category?.Select_category}
                 </label>
               </div>
             ))}
-          </div>
-        ))}
+        </div>
+        {/* ))} */}
       </div>
 
       {/* <div className="flex flex-wrap gap-[19px] lg:w-[80%]">
