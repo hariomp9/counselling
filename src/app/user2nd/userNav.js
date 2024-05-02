@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import userImg from "./assets/userImg.png";
+import Link from "next/link";
+import userImg from "./assets/student.png";
 import sideLogo from "./assets/AN24Logo.svg";
 
 const UserNavbar = () => {
@@ -15,24 +16,30 @@ const UserNavbar = () => {
               </h1>
             </div>
             <div className="flex items-center gap-5 2xl:gap-7">
-            <div>
-            <button className="bg-[#4F9ED9] text-white inter font-[700] rounded-[5px] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[16px] lg:text-[9px] 
-            2xl:w-[216px] 2xl:h-[48px] xl:h-[30px] h-[25px] xl:w-[160px] lg:w-[120px] sm:w-[] w-[]  lg:leading-[14px]">
-            Complete Your Profile
-            </button>
-          </div>
+              <div>
+              <Link href="/user2nd/user-profile">
+                <button
+                  className="bg-[#4F9ED9] text-white inter font-[700] rounded-[5px] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[16px] lg:text-[9px] 
+            2xl:w-[216px] 2xl:h-[48px] xl:h-[30px] h-[25px] xl:w-[160px] lg:w-[120px] sm:w-[] w-[]  lg:leading-[14px]"
+                >
+                  Complete Your Profile
+                </button>
+                </Link>
+              </div>
               <div className="flex items-center gap-2">
                 <Image
                   src={userImg}
-                  className="2xl:w-[50px] 2xl:h-[50px] xl:w-[35px] xl:h-[35px] w-[35px] h-[35px]"
+                  className="2xl:w-[50px] 2xl:h-[50px] xl:w-[35px] xl:h-[35px] w-[35px] h-[35px] rounded-full"
                 />
                 <div>
+                  <Link href="/user2nd/profile">
                   <h1 className="inter font-[600] 2xl:text-[20px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[16px] lg:text-[10px] lg:leading-[16px]">
-                    Mayank
+                    Hariom
                   </h1>
                   <h2 className="inter font-[400] text-[#6A6A6A] 2xl:text-[16px] 2xl:leading-[26px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[14px]">
                     Starter Plan
                   </h2>
+                  </Link>
                 </div>
               </div>
               <svg
@@ -61,11 +68,11 @@ const UserNavbar = () => {
             </h1>
           </div>
           <div className="flex items-center gap-2 2xl:gap-7">
-          <div>
-            <button className="bg-[#4F9ED9] text-white inter font-[700] px-1 rounded-[5px] h-[25px] sm:text-[8px] sm:leading-[12px] text-[9px] leading-[11px]">
-            Complete Your Profile
-            </button>
-          </div>
+            <div>
+              <button className="bg-[#4F9ED9] text-white inter font-[700] px-1 rounded-[5px] h-[25px] sm:text-[8px] sm:leading-[12px] text-[9px] leading-[11px]">
+                Complete Your Profile
+              </button>
+            </div>
             <div className="flex items-center gap-1">
               <Image src={userImg} className="w-[25px] h-[25px]" />
               <div>

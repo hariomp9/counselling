@@ -105,6 +105,9 @@ const EducationInfo = () => {
       }
     }
   };
+  const handleNextClick = () => {
+    handleSubmit();
+  };
 
   return (
     <>
@@ -174,19 +177,23 @@ const EducationInfo = () => {
                 {/* head */}
                 <thead className="">
                   <tr className="bg-[#F5F6FF] 2xl:h-[51px] inter font-[700] text-[#000000] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[20px] xl:leading-[20px] table-cell-no-border">
-                    <th className="table-cell-no-border">Exam</th>
-                    <th className="table-cell-no-border">Passing District </th>
-                    <th className="table-cell-no-border">Passing State</th>
+                    <th className="table-cell-no-border  w-1/3 ">Exam</th>
+                    <th className="table-cell-no-border  w-1/3 ">
+                      Passing District{" "}
+                    </th>
+                    <th className="table-cell-no-border  w-1/3">
+                      Passing State
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {exam.map((item, index) => (
                     <div key={index}>
                       <tr className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px]  2xl:px-[30px]">
-                        <td className=" table-cell-no-borderw-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px] border-none table-cell-no-border">
+                        <td className=" table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px] border-none table-cell-no-border">
                           {item?.type}
                         </td>
-                        <td className=" table-cell-no-borderw-1/3 table-cell-no-border">
+                        <td className=" table-cell-no-border w-1/3 table-cell-no-border">
                           <div>
                             <input
                               type="text"
@@ -203,7 +210,7 @@ const EducationInfo = () => {
                             />
                           </div>
                         </td>
-                        <td className=" table-cell-no-borderw-1/3 table-cell-no-border">
+                        <td className=" table-cell-no-border w-1/3 table-cell-no-border">
                           <div>
                             <input
                               type="text"
@@ -379,6 +386,9 @@ const EducationInfo = () => {
             <div className="2xl:my-[30px] xl:my-[20px]">
               <button
                 type="submit"
+                onClick={() => {
+                  handleNextClick();
+                }}
                 className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
               >
                 Next
