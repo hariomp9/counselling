@@ -5,16 +5,20 @@ import arrow from "../../assets/arrow.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const AddmissionPreference = ({ next, prev, onFormDataChange , userids}) => {
+const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
   const [getPreferences, setPreferences] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [checkedColleges, setCheckedColleges] = useState("");
   const [getAdmission, setAdmission] = useState("");
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
   const [statusinfo, setData] = useState({ step_status: "admision_pre" });
-  const [Admissions_Preferences, setAdmissions_Preferences] = useState("");
+  const [Admissions_Preferences, setAdmissions_Preferences] = useState([]);
+  const data=[
+  { id: 1, name: "Government College" },
+  { id: 2, name: "Private/Management" }]
+  
   const [selectedColleges, setSelectedColleges] = useState([]);
-  const [selectedStates, setSelectedStates] = useState([]);
+
 
   useEffect(() => {
     const fetchStates = async () => {
@@ -32,12 +36,15 @@ const AddmissionPreference = ({ next, prev, onFormDataChange , userids}) => {
   }, []);
 
   useEffect(() => {
-    if (checkedColleges.length > 0) {
-      setAdmissions_Preferences(checkedColleges[0]);
+    if (selectedColleges.length > 0) {
+      setAdmissions_Preferences(selectedColleges[0]);
     } else {
       setAdmissions_Preferences("");
     }
-  }, [checkedColleges]);
+  }, [selectedColleges]);
+  
+
+
 
   console.log('"Admissions_Preferences":', `"${Admissions_Preferences}"`);
 
@@ -46,6 +53,8 @@ const AddmissionPreference = ({ next, prev, onFormDataChange , userids}) => {
       setSelectedColleges(
         selectedColleges.filter((college) => college !== collegeName)
       );
+
+      console.log("selectedColleges---------------->>>>>>>>> ", selectedColleges);
     } else {
       setSelectedColleges([...selectedColleges, collegeName]);
     }
@@ -69,14 +78,19 @@ const AddmissionPreference = ({ next, prev, onFormDataChange , userids}) => {
       Course_Preference: isSelected
         ? formData.Course_Preference.filter((pref) => pref._id !== category._id) // Remove the category from formData
         : [...formData.Course_Preference, category._id], // Add the category to formData
+        // Include the selected college in the formData
+        Admissions_Preferences: selectedColleges
     });
   };
+
+
+  console.log("Admissions_Preferences ------------->  :", Admissions_Preferences);
+
 
   console.log("states 12", Admissions_Preferences);
 
   const [formData, setFormData] = useState({
     Course_Preference: [],
-    Admissions_Preferences: [],
 
     NRI_Quta_Prefernce: [
       {
@@ -88,9 +102,11 @@ const AddmissionPreference = ({ next, prev, onFormDataChange , userids}) => {
     ],
     OtherStatePreferences: [{ select_options: "" }],
     AnnualMedicalCourseBudget: "",
+    Admissions_Preferences: []  
   });
 
-  // console.log("FORMADATA-----", formData);
+
+  console.log("FORMADATA-----", formData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -114,7 +130,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange , userids}) => {
     };
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
+        `http://localhost:4000/api/auth/updatedUser_Steps/${userid}`,
         mergedData
       );
       console.log(
@@ -218,40 +234,28 @@ const AddmissionPreference = ({ next, prev, onFormDataChange , userids}) => {
             </h1>
           </div>
           <div className="flex 2xl:gap-[25px] xl:gap-[25px] gap-[30px] 2xl:my-[25px] xl:my-[20px] my-[10px]">
-            <div className="flex items-center 2xl:gap-2 gap-1">
-              <input
-                type="checkbox"
-                className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
-                // checked={selectedColleges.includes(item.collegeName)}
-                // onChange={() => handleCheckboxChange(item.collegeName)}
-              />
-              <h1 className="inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[13px] text-[12px]">
-                Government College
-              </h1>
-            </div>
-            <div className="flex items-center 2xl:gap-2 gap-1">
-              <input
-                type="checkbox"
-                className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
-                // checked={selectedColleges.includes(item.collegeName)}
-                // onChange={() => handleCheckboxChange(item.collegeName)}
-              />
-              <h1 className="inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[13px] text-[12px]">
-                Private/Management
-              </h1>
-            </div>
-            <div className="flex items-center 2xl:gap-2 gap-1">
-              <input
-                type="checkbox"
-                className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
-                // checked={selectedColleges.includes(item.collegeName)}
-                // onChange={() => handleCheckboxChange(item.collegeName)}
-              />
-              <h1 className="inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[13px] text-[12px]">
-                Deemed University
-              </h1>
-            </div>
-          </div>
+  {Array.isArray(data) && data.map((college, index) => {
+    console.log("College:", college); // Moved the console.log here
+    return (
+      <div key={index} className="flex items-center 2xl:gap-2 gap-1">
+        <input
+          type="checkbox"
+          className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
+          checked={selectedColleges.includes(college.name)}
+          onChange={() => handleCheckboxChange(college.name)}
+        />
+        <h1 className="inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[13px] text-[12px]">
+          {college.name}
+        </h1>
+      </div>
+    );
+  })}
+</div>
+
+
+{console.log("Selected Colleges:", selectedColleges)}
+
+
           <hr />
           {/* =============03============ */}
 
