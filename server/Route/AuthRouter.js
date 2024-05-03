@@ -93,7 +93,7 @@ router.route("/getUserById/:id").get(isAuthenticatedUser, getUserById);
 // router.route("/getUserById/:id").get(getUserById);
 
 // Delete a user
-router.delete("/deleteaUser/:id",isAuthenticatedUser, authorizeRoles("admin" ), deleteaUser);
+router.delete("/deleteaUser/:id",isAuthenticatedUser, deleteaUser);
 
 router.route("/forgotpassword").post(forgotPassword);
 router.route("/resetpassword/:resetToken").put(resetPassword);

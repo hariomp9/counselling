@@ -33,16 +33,16 @@ const UserSidebar = () => {
         toast.success("Logout successfully !");
         dispatch(removeToken());
         dispatch(rem_AdDetails());
-        router.push("/user/user-login");
+        router.push("/super-admin/superadmin-login");
         // setLoader(false);
       } else {
-        router.push("/user/user-login");
+        router.push("/super-admin/superadmin-login");
         toast.error("Logout failed try again !");
         dispatch(removeToken());
         dispatch(rem_AdDetails());
       }
     } catch (error) {
-      router.push("/user/user-login");
+      router.push("/super-admin/superadmin-login");
       console.error("Error occurred:", error);
       // toast.error(error?.response?.data?.error || "Invalid token !");
       toast.success("Logout successfully !");
