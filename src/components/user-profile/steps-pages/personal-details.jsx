@@ -3,8 +3,9 @@ import Image from "next/image";
 import arrow from "../../assets/arrow.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 
-const PersonalDetails = () => {
+const PersonalDetails = ({ next, prev, onFormDataChange }) => {
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
   const [statusinfo, setData] = useState({ step_status: "personal_details" });
   const [address, setAddress] = useState({
@@ -300,7 +301,7 @@ const PersonalDetails = () => {
                       onChange={(e) => handleInputChanges(index, e)}
                     />
                   </div>
-                  
+
                   <div className="flex flex-col">
                     <label className="pre_input_lable">
                       Parents Phone Number
@@ -386,17 +387,19 @@ const PersonalDetails = () => {
               </button>
             </div>
             <div className="2xl:my-[30px] xl:my-[20px]">
-              <button
-                onClick={handleNextClick}
-                className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
-              >
-                Next
-                <Image
-                  src={arrow}
-                  className="2xl:w-[14px] 2xl:h-[10px] rounded-full"
-                  alt="img"
-                />
-              </button>
+              <Link href="/user2nd/profile">
+                <button
+                  onClick={handleNextClick}
+                  className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
+                >
+                  Next
+                  <Image
+                    src={arrow}
+                    className="2xl:w-[14px] 2xl:h-[10px] rounded-full"
+                    alt="img"
+                  />
+                </button>
+              </Link>
             </div>
           </div>
         </div>

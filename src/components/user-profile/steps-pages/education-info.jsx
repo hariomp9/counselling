@@ -4,7 +4,7 @@ import arrow from "../../assets/arrow.svg";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-const EducationInfo = () => {
+const EducationInfo = ({ next, prev, onFormDataChange }) => {
   const Academic_Details = [
     { id: "1", type: "12th" },
     { id: "2", type: "11th" },
@@ -74,45 +74,36 @@ const EducationInfo = () => {
     setExams(newData);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const sendData = async (e) => {
+    // e.preventDefault();
+    const mergedData = {
+      ...statusinfo,
+      standard_12thMarks: standard,
+      Academic_Details: academi,
+      exams: exam,
+    };
     try {
-      const mergedData = {
-        ...statusinfo,
-        standard_12thMarks: standard,
-        Academic_Details: academi,
-        exams: exam,
-      };
       const response = await axios.put(
         `http://localhost:4000/api/auth/updatedUser_Steps/${userid}`,
         mergedData
       );
-
-      if (response.status === 200) {
-        console.log(response.standard, "res");
-        alert("Success");
-      } else {
-        alert("Request failed with status: " + response.status);
-      }
+      console.log(
+        "PUT request successful ------------------------  ",
+        response.data
+      );
+      next();
     } catch (error) {
-      if (error.response) {
-        alert("Server Error: " + error.response.standard.message);
-      } else if (error.request) {
-        alert("Network Error: Please check your internet connection");
-      } else {
-        alert("Error: " + error.message);
-      }
+      console.error("Error making PUT request:", error);
     }
   };
   const handleNextClick = () => {
-    handleSubmit();
+    sendData();
   };
 
   return (
     <>
       <section>
-        <form className="main_div mx-auto" onSubmit={handleSubmit}>
+        <form className="main_div mx-auto" onSubmit={sendData}>
           <div className="bg-white 2xl:w-[952px] xl:w-[680px] lg:w-[570px] 2xl:h-[] xl:h-[] h-[] 2xl:p-[25px] xl:p-[15px] p-[10px]">
             <h1 className="inter font-[700] 2xl:text-[20px] xl:text-[16px] lg:text-[12px] 2xl:leading-[20px] xl:leading-[20px]">
               Standard 12th Exam Marks
@@ -375,7 +366,10 @@ const EducationInfo = () => {
           </div>
           <div className="flex xl:gap-[30px] gap-[20px] 2xl:mb-[60px] xl:mb-[40px]">
             <div className="  2xl:my-[30px] xl:my-[20px]">
-              <button className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]">
+              <button
+                onClick={() => prev()}
+                className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
+              >
                 <Image
                   src={arrow}
                   className="rotate-180 2xl:w-[14px] 2xl:h-[10px] rounded-full"
@@ -387,6 +381,7 @@ const EducationInfo = () => {
               <button
                 type="submit"
                 onClick={() => {
+                  handleSubmit();
                   handleNextClick();
                 }}
                 className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
