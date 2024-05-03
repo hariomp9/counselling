@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import NeetInformation from "./steps-pages/step-1/NeetInformation";
 import AddmissionPreference from "./steps-pages/addmission-preference";
 import EducationInfo from "./steps-pages/education-info";
 import PersonalDetails from "./steps-pages/personal-details";
 
-const Stepper = ({ steps, setSteps, initialStep = 0 }) => {
+const Stepper = ({ steps, setSteps, initialStep = 0, userids }) => {
   const [currentStep, setCurrentStep] = useState(initialStep);
 
   const handleNextStep = () => {
@@ -103,6 +103,7 @@ const Stepper = ({ steps, setSteps, initialStep = 0 }) => {
             currentStep={currentStep}
             next={handleNextStep}
             prev={handlePreviousStep}
+            userids={userids}
           />
         )}
         {currentStep === 1 && (
@@ -110,6 +111,7 @@ const Stepper = ({ steps, setSteps, initialStep = 0 }) => {
             currentStep={currentStep}
             next={handleNextStep}
             prev={handlePreviousStep}
+            userids={userids}
           />
         )}
         {currentStep === 2 && (
@@ -117,6 +119,7 @@ const Stepper = ({ steps, setSteps, initialStep = 0 }) => {
             currentStep={currentStep}
             next={handleNextStep}
             prev={handlePreviousStep}
+            userids={userids}
           />
         )}
         {currentStep === 3 && (
@@ -124,6 +127,7 @@ const Stepper = ({ steps, setSteps, initialStep = 0 }) => {
             currentStep={currentStep}
             next={handleNextStep}
             prev={handlePreviousStep}
+            userids={userids}
           />
         )}
       </div>

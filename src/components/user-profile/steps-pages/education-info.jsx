@@ -4,7 +4,7 @@ import arrow from "../../assets/arrow.svg";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-const EducationInfo = ({ next, prev, onFormDataChange }) => {
+const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
   const Academic_Details = [
     { id: "1", type: "12th" },
     { id: "2", type: "11th" },
@@ -84,7 +84,7 @@ const EducationInfo = ({ next, prev, onFormDataChange }) => {
     };
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/updatedUser_Steps/${userid}`,
+        `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
       );
       console.log(

@@ -9,35 +9,6 @@ import Image from "next/image";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-// const Category = [
-//   'GEN',
-//   'OBC',
-//   'EWS',
-//   'SC',
-//   'ST',
-//   'Gen-PWD',
-//   'OBC-PWD',
-//   'EWS-PWD',
-//   'SC-PWD',
-//   'ST-PWD'
-// ];
-// const domicileCategory = [
-//   'OPEN',
-//   'OBC',
-//   'SC',
-//   'ST',
-//   'EWS',
-//   'OPEN PWD',
-//   'OBC PWD',
-//   'SC PWD',
-//   'ST PWD',
-//   'EWS PWD',
-//   'SEBC',
-//   'VJ',
-//   'NT1',
-//   'NT2',
-//   'NT3',
-// ];
 const Reservation = ["HA", "MKB", "DEF", "PWD", "ORPHAN"];
 const minorityReservation = [
   "Jain Minority",
@@ -46,7 +17,7 @@ const minorityReservation = [
   "Gujarati / Sindhi Minority",
   "Hindi Linguistic Minority",
 ];
-const NeetInformation = ({ next, prev, onFormDataChange }) => {
+const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
   const handleFormDataChange = (formData) => {
     // Do something with the updated form data
     setNeet(formData);
@@ -60,6 +31,7 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
   const [selectedState, setSelectedState] = useState();
   const [getStateCat, setStateCat] = useState([]);
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
+  // console.log(userid, "userdataa");
   const [getNeet, setNeet] = useState([]);
   const [data, setData] = useState({ step_status: "neet_info" });
   const [minReservation, SetMinReservation] = useState(null);
@@ -111,7 +83,7 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
       //   domicileStateCategory: [getStateCat    , selectedCategory],
       // };
       const response = await axios.put(
-        `http://localhost:4000/api/auth/updatedUser_Steps/${userid}`,
+        `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
         payload
       );
       console.log("PUT request successful", response?.data);
@@ -125,7 +97,6 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
   const handleNextClick = () => {
     sendData();
   };
-
 
   const handleSelect = (category) => {
     // console.log("Selected category:", category);
