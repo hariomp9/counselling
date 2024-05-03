@@ -5,7 +5,7 @@ import arrow from "../../assets/arrow.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const AddmissionPreference = () => {
+const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
   const [getPreferences, setPreferences] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [checkedColleges, setCheckedColleges] = useState("");
@@ -108,12 +108,11 @@ const AddmissionPreference = () => {
   console.log(formData);
 
   const sendData = async () => {
+    const mergedData = {
+      ...statusinfo,
+      ...formData,
+    };
     try {
-      const mergedData = {
-        ...statusinfo,
-        ...formData,
-      };
-
       const response = await axios.put(
         `http://localhost:4000/api/auth/updatedUser_Steps/${userid}`,
         mergedData
@@ -122,6 +121,7 @@ const AddmissionPreference = () => {
         "PUT request successful ------------------------  ",
         response.data
       );
+      next();
     } catch (error) {
       console.error("Error making PUT request:", error);
     }
@@ -434,7 +434,9 @@ const AddmissionPreference = () => {
           </div>
           <div className="flex xl:gap-[30px] gap-[20px] 2xl:mb-[60px] xl:mb-[40px]">
             <div className="  2xl:my-[30px] xl:my-[20px]">
-              <button className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]">
+              <button  onClick={() => {
+                prev();
+                }} className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]">
                 <Image
                   alt="img"
                   src={arrow}
@@ -446,7 +448,7 @@ const AddmissionPreference = () => {
             <div className="2xl:my-[30px] xl:my-[20px]">
               <button
                 onClick={() => {
-                  handleSubmit();
+                  sendData();
                   handleNextClick();
                 }}
                 className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"

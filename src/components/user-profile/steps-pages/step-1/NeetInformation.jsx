@@ -94,7 +94,6 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
   };
 
   const sendData = async () => {
-    // console.log("sapna", selectedCategory);
     console.log("===>", parallelReservation);
     const payload = {
       ...data,
@@ -104,7 +103,6 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
       ParellelReservations: [parallelReservation],
       MinorityReservations: minReservation,
     };
-    console.log("sapna", payload);
     try {
       // const mergedData = {
       //   ...data,
@@ -125,20 +123,9 @@ const NeetInformation = ({ next, prev, onFormDataChange }) => {
     }
   };
   const handleNextClick = () => {
-    // Call function to send PUT request
     sendData();
   };
-  // console.log("states", selectedState);
 
-  // console.log("select", categories);
-
-  // const handleCategorySelect = (category) => {
-  //     setSelectedCategory(category);
-  // };
-  // const handleStateSelect = (category) => {
-  //   console.log('select st',selectedState)
-  //   setSelectedState(category);
-  // };
 
   const handleSelect = (category) => {
     // console.log("Selected category:", category);
