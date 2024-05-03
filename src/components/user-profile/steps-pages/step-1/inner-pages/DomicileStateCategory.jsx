@@ -7,18 +7,21 @@ const DomicileStateCategory = ({
   onSelectState,
   getStateCat,
   onSelectCategory,
-  handleDomicileSt
+  handleDomicileSt,
+  domicileStateCategoryy,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const handleState = (e) => {
-    onSelectState(e.target.value)
-    handleDomicileSt("state_id", e.target.value)
+    onSelectState(e.target.value);
+    handleDomicileSt("state_id", e.target.value);
   };
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     onSelectCategory(category);
-    handleDomicileSt("category_id", category)
+    handleDomicileSt("category_id", category);
   };
+  console.log(domicileStateCategoryy?.state_id?._id, "ll");
+  const statess = domicileStateCategoryy?.state_id?.name;
   return (
     <>
       <HeadTitle title="Domicile State Category" />
@@ -30,9 +33,10 @@ const DomicileStateCategory = ({
         <select
           className="select select-bordered w-full max-w-xs"
           onChange={handleState}
+          defaultValue={statess}
         >
           <option disabled value="" selected>
-            Select a state
+            {statess}
           </option>
           {states.map((state) => (
             <option key={state?._id} value={state?._id}>
@@ -45,15 +49,17 @@ const DomicileStateCategory = ({
       <div className="flex flex-wrap gap-[19px] lg:w-[80%]">
         {/* {getStateCat.map((state) => ( */}
         <div className="flex flex-wrap gap-[19px] lg:w-[80%]">
-          {Array.isArray(getStateCat) && getStateCat?.length > 0 &&
+          {Array.isArray(getStateCat) &&
+            getStateCat?.length > 0 &&
             getStateCat[0].categories?.map((category) => (
               <div
                 key={category?._id}
                 className={`flex gap-[3px] items-center rounded-[5px] px-[16px] h-[48px] w-[103px] justify-center cursor-pointer
-          ${selectedCategory === category?._id
-                    ? "border-1px border-[#D9D9D9] bg-theme_primary"
-                    : "border-1px border-[#D9D9D9] bg-[#FFFFFF] "
-                  }
+          ${
+            selectedCategory === category?._id
+              ? "border-1px border-[#D9D9D9] bg-theme_primary"
+              : "border-1px border-[#D9D9D9] bg-[#FFFFFF] "
+          }
         `}
                 onClick={() => handleCategoryClick(category?._id)}
               >
@@ -70,10 +76,11 @@ const DomicileStateCategory = ({
                 <label
                   htmlFor={category.Select_category}
                   className={`text-[15px] font-[400] font-inter leading-[18.15px] whitespace-nowrap
-            ${selectedCategory === category._id
-                      ? "text-[#ffffff]"
-                      : "text-[#747474]"
-                    }
+            ${
+              selectedCategory === category._id
+                ? "text-[#ffffff]"
+                : "text-[#747474]"
+            }
           `}
                 >
                   {category?.Select_category}

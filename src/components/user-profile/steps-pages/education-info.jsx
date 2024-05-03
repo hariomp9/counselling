@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import arrow from "../../assets/arrow.svg";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
+const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
   const Academic_Details = [
     { id: "1", type: "12th" },
     { id: "2", type: "11th" },
@@ -100,6 +100,36 @@ const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
     sendData();
   };
 
+  const [studentDetail, setStudentDetail] = useState({});
+  const [examData, setExamData] = useState({});
+  const [academicData, setAcademicData] = useState({});
+  console.log(academicData);
+  const [nriQouta, setNriQouta] = useState({});
+  const { token } = useSelector((state) => state?.auth);
+  useEffect(() => {
+    defaultAUser();
+  }, []);
+
+  const defaultAUser = async () => {
+    const options = {
+      method: "GET",
+      url: `http://localhost:4000/api/auth/getUserById/${userids}`,
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setStudentDetail(response?.data?.user?.standard_12thMarks[0]);
+        setExamData(response?.data?.user?.exams[0]);
+        setAcademicData(response?.data?.user?.Academic_Details[0]);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
   return (
     <>
       <section>
@@ -125,14 +155,18 @@ const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
                         key={index}
                         className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px] border-none 2xl:px-[30px] table-cell-no-border"
                       >
-                        <td className="table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px]">
+                        <td
+                          key={index}
+                          className="table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px]"
+                        >
                           <label>{item.subject}</label>
                         </td>
                         <td className="table-cell-no-border  w-1/3">
                           <div>
                             <input
                               type="text"
-                              value={item.obtained}
+                              // value={item.obtained}
+                              defaultValue={studentDetail?.obtained}
                               onChange={(e) =>
                                 inputHandler(index, "obtained", e.target.value)
                               }
@@ -145,7 +179,8 @@ const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
                           <div>
                             <input
                               type="text"
-                              value={item.outOf}
+                              // value={item.outOf}
+                              defaultValue={studentDetail?.outOf}
                               onChange={(e) =>
                                 inputHandler(index, "outOf", e.target.value)
                               }
@@ -190,7 +225,8 @@ const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
                               type="text"
                               className="pre_input"
                               placeholder="Enter detail"
-                              value={item.passingDistrict}
+                              // value={item.passingDistrict}
+                              defaultValue={examData?.passingDistrict}
                               onChange={(e) =>
                                 inputHandle(
                                   index,
@@ -205,7 +241,8 @@ const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
                           <div>
                             <input
                               type="text"
-                              value={item.passingState}
+                              // value={item.passingState}
+                              defaultValue={examData?.passingState}
                               onChange={(e) =>
                                 inputHandle(
                                   index,
@@ -269,7 +306,8 @@ const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
                               type="text"
                               className="pre_input3rd"
                               placeholder="Enter detail"
-                              value={item.Board_University}
+                              defaultValue={academicData?.Board_University}
+                              // value={item.Board_University}
                               onChange={(e) =>
                                 inputHandlers(
                                   index,
@@ -286,7 +324,8 @@ const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
                               type="text"
                               className="pre_input4th"
                               placeholder="Enter detail"
-                              value={item.School_College}
+                              // value={item.School_College}
+                              defaultValue={academicData?.School_College}
                               onChange={(e) =>
                                 inputHandlers(
                                   index,
@@ -303,7 +342,8 @@ const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
                               type="text"
                               className="pre_input4th"
                               placeholder="Enter detail"
-                              value={item.PassingYear}
+                              // value={item.PassingYear}
+                              defaultValue={academicData?.PassingYear}
                               onChange={(e) =>
                                 inputHandlers(
                                   index,
@@ -320,7 +360,8 @@ const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
                               type="text"
                               className="pre_input4th"
                               placeholder="Enter detail"
-                              value={item.ObtainedMarks}
+                              // value={item.ObtainedMarks}
+                              defaultValue={academicData?.ObtainedMarks}
                               onChange={(e) =>
                                 inputHandlers(
                                   index,
@@ -337,7 +378,8 @@ const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
                               type="text"
                               className="pre_input3rd"
                               placeholder="Enter detail"
-                              value={item.Result}
+                              // value={item.Result}
+                              defaultValue={academicData?.Result}
                               onChange={(e) =>
                                 inputHandlers(index, "Result", e.target.value)
                               }
@@ -350,7 +392,8 @@ const EducationInfo = ({ next, prev, onFormDataChange ,userids }) => {
                               type="text"
                               className="pre_input4th"
                               placeholder="Enter detail"
-                              value={item.CGPA}
+                              // value={item.CGPA}
+                              defaultValue={academicData?.CGPA}
                               onChange={(e) =>
                                 inputHandlers(index, "CGPA", e.target.value)
                               }

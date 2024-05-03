@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import arrow from "../../assets/arrow.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 
-const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
+const PersonalDetails = ({ next, prev, onFormDataChange, userids }) => {
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
   const [statusinfo, setData] = useState({ step_status: "personal_details" });
   const [address, setAddress] = useState({
@@ -129,7 +129,36 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
     // Call function to send PUT request
     sendData();
   };
+  const [studentAddress, setStudentAddress] = useState({});
+  const [studentDetails, setStudentDetails] = useState({});
+  const [parentDetailss, setParentDetail] = useState({});
+  console.log(parentDetailss);
+  const [nriQouta, setNriQouta] = useState({});
+  const { token } = useSelector((state) => state?.auth);
+  useEffect(() => {
+    defaultAUser();
+  }, []);
 
+  const defaultAUser = async () => {
+    const options = {
+      method: "GET",
+      url: `http://localhost:4000/api/auth/getUserById/${userids}`,
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setStudentAddress(response?.data?.user?.StudentAddress[0]);
+        setStudentDetails(response?.data?.user?.studentDetails[0]);
+        setParentDetail(response?.data?.user?.parentDetails[0]);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
   return (
     <>
       {" "}
@@ -153,7 +182,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="HouseNo"
-                      value={addr.HouseNo}
+                      // value={addr.HouseNo}
+                      defaultValue={studentAddress?.HouseNo}
                       onChange={(e) => handleInputChange(e, index)}
                     />
                   </div>
@@ -165,7 +195,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="Area"
-                      value={addr.Area}
+                      // value={addr.Area}
+                      defaultValue={studentAddress?.Area}
                       onChange={(e) => handleInputChange(e, index)}
                     />
                   </div>
@@ -177,7 +208,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="City"
-                      value={addr.City}
+                      // value={addr.City}
+                      defaultValue={studentAddress?.City}
                       onChange={(e) => handleInputChange(e, index)}
                     />
                   </div>
@@ -187,8 +219,9 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       type="text"
                       className="pre_input"
                       placeholder="Enter detail"
-                      name="District"
-                      value={addr.District}
+                      name="Distict"
+                      // value={addr.Distict}
+                      defaultValue={studentAddress?.Distict}
                       onChange={(e) => handleInputChange(e, index)}
                     />
                   </div>
@@ -199,7 +232,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="State"
-                      value={addr.State}
+                      // value={addr.State}
+                      defaultValue={studentAddress?.State}
                       onChange={(e) => handleInputChange(e, index)}
                     />
                   </div>
@@ -211,7 +245,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="PinCode"
-                      value={addr.PinCode}
+                      // value={addr.PinCode}
+                      defaultValue={studentAddress?.PinCode}
                       onChange={(e) => handleInputChange(e, index)}
                     />
                   </div>
@@ -237,7 +272,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                     className="pre_input"
                     placeholder="Enter detail"
                     name="Gender"
-                    value={addr.Gender}
+                    // value={addr.Gender}
+                    defaultValue={studentDetails?.Gender}
                     onChange={(e) => handleDetailsChange(e, index)}
                   />
                 </div>
@@ -249,7 +285,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                     className="pre_input"
                     placeholder="Enter detail"
                     name="Email"
-                    value={addr.Email}
+                    // value={addr.Email}
+                    defaultValue={studentDetails?.Email}
                     onChange={(e) => handleDetailsChange(e, index)}
                   />
                 </div>
@@ -262,7 +299,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                     className="pre_input"
                     placeholder="Enter detail"
                     name="Mobile"
-                    value={addr.Mobile}
+                    // value={addr.Mobile}
+                    defaultValue={studentDetails?.Mobile}
                     onChange={(e) => handleDetailsChange(e, index)}
                   />
                 </div>
@@ -286,7 +324,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="parentName"
-                      value={addr.parentName}
+                      // value={addr.parentName}
+                      defaultValue={parentDetailss?.parentName}
                       onChange={(e) => handleInputChanges(index, e)}
                     />
                   </div>
@@ -297,7 +336,9 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="parentEmail"
-                      value={addr.parentEmail}
+                      // value={addr.parentEmail}
+                      defaultValue={parentDetailss?.parentEmail}
+
                       onChange={(e) => handleInputChanges(index, e)}
                     />
                   </div>
@@ -311,7 +352,9 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="parentMobile"
-                      value={addr.parentMobile}
+                      // value={addr.parentMobile}
+                      defaultValue={parentDetailss?.parentMobile}
+
                       onChange={(e) => handleInputChanges(index, e)}
                     />
                   </div>
@@ -324,7 +367,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="Parents_Profession"
-                      value={addr.Parents_Profession}
+                      // value={addr.Parents_Profession}
+                      defaultValue={parentDetailss?.Parents_Profession}
                       onChange={(e) => handleInputChanges(index, e)}
                     />
                   </div>
@@ -367,7 +411,9 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                     className="pre_input"
                     placeholder="Enter detail"
                     name="FamilyAnualIncome"
-                    value={addr.FamilyAnualIncome}
+                    // value={addr.FamilyAnualIncome}
+                    defaultValue={parentDetailss?.FamilyAnualIncome}
+
                     onChange={(e) => handleInputChanges(index, e)}
                   />
                 </div>
