@@ -13,11 +13,17 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
   const [statusinfo, setData] = useState({ step_status: "admision_pre" });
   const [Admissions_Preferences, setAdmissions_Preferences] = useState([]);
-  const data=[
-  { id: 1, name: "Government College" },
-  { id: 2, name: "Private/Management" }]
-  
-  const [selectedColleges, setSelectedColleges] = useState([]);
+  const data = [
+    { id: 1, name: "Government College" },
+    { id: 2, name: "Private/Management" }]
+
+  const [selectedColleges, setSelectedColleges] = useState(null);
+  const [interestInOtherState, setInterestInOtherState] = useState("yes");
+  const [OtherStatePreferences, setOtherStatePreferences] = useState({
+    "select_options": "Yes",
+    "Preference_Fields": []
+  });
+  console.log("sapna ------------->  :", OtherStatePreferences);
 
 
   useEffect(() => {
@@ -35,29 +41,27 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
     fetchStates();
   }, []);
 
-  useEffect(() => {
-    if (selectedColleges.length > 0) {
-      setAdmissions_Preferences(selectedColleges[0]);
-    } else {
-      setAdmissions_Preferences("");
-    }
-  }, [selectedColleges]);
-  
-
-
-
-  console.log('"Admissions_Preferences":', `"${Admissions_Preferences}"`);
+  // useEffect(() => {
+  //   if (selectedColleges.length > 0) {
+  //     setAdmissions_Preferences(selectedColleges[0]);
+  //   } else {
+  //     setAdmissions_Preferences("");
+  //   }
+  // }, [selectedColleges]);
+  // console.log('"Admissions_Preferences":', `"${Admissions_Preferences}"`);
 
   const handleCheckboxChange = (collegeName) => {
-    if (selectedColleges.includes(collegeName)) {
-      setSelectedColleges(
-        selectedColleges.filter((college) => college !== collegeName)
-      );
+    // console.log("selectedColleges---------------->>>>>>>>> ", e.target.value);
+    // const collegeName = null
+    // if (selectedColleges.includes(collegeName)) {
+    //   setSelectedColleges(
+    //     selectedColleges.filter((college) => college !== collegeName)
+    //   );
 
-      console.log("selectedColleges---------------->>>>>>>>> ", selectedColleges);
-    } else {
-      setSelectedColleges([...selectedColleges, collegeName]);
-    }
+    // } else {
+    //   setSelectedColleges([...selectedColleges, collegeName]);
+    // }
+    setSelectedColleges(collegeName);
   };
 
   const handleCategoryClick = (category) => {
@@ -78,15 +82,10 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
       Course_Preference: isSelected
         ? formData.Course_Preference.filter((pref) => pref._id !== category._id) // Remove the category from formData
         : [...formData.Course_Preference, category._id], // Add the category to formData
-        // Include the selected college in the formData
-        Admissions_Preferences: selectedColleges
+      // Include the selected college in the formData
+      Admissions_Preferences: selectedColleges
     });
   };
-
-
-  console.log("Admissions_Preferences ------------->  :", Admissions_Preferences);
-
-
   console.log("states 12", Admissions_Preferences);
 
   const [formData, setFormData] = useState({
@@ -100,12 +99,10 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
         sponsorsCountryState: "",
       },
     ],
-    OtherStatePreferences: [{ select_options: "" }],
+    // OtherStatePreferences: [{ select_options: "" }],
     AnnualMedicalCourseBudget: "",
-    Admissions_Preferences: []  
+    Admissions_Preferences: []
   });
-
-
   console.log("FORMADATA-----", formData);
 
   const handleChange = (e) => {
@@ -127,6 +124,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
     const mergedData = {
       ...statusinfo,
       ...formData,
+      OtherStatePreferences : [OtherStatePreferences]
     };
     try {
       const response = await axios.put(
@@ -137,7 +135,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
         "PUT request successful ------------------------  ",
         response.data
       );
-      next();
+      // next();x
     } catch (error) {
       console.error("Error making PUT request:", error);
     }
@@ -148,7 +146,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
 
   const handleSubmit = () => {
     console.log("Admissions_Preferences:", selectedColleges);
-    setSelectedColleges([]);
+    setSelectedColleges(null);
   };
 
   const [getAllStates, setGetAllStates] = useState("");
@@ -192,11 +190,10 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                 <div
                   key={index}
                   className={`flex gap-[3px] items-center rounded-[5px] px-[16px] h-[48px] w-[103px] justify-center cursor-pointer
-            ${
-              selectedCategories.includes(category._id)
-                ? "border-1px border-[#D9D9D9] bg-theme_primary"
-                : "border-1px border-[#D9D9D9] bg-[#FFFFFF]"
-            }
+            ${selectedCategories.includes(category._id)
+                      ? "border-1px border-[#D9D9D9] bg-theme_primary"
+                      : "border-1px border-[#D9D9D9] bg-[#FFFFFF]"
+                    }
             `}
                   onClick={() => handleCategoryClick(category)}
                 >
@@ -213,11 +210,10 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                   <label
                     htmlFor={category._id}
                     className={`text-[15px] font-[400] font-inter leading-[18.15px] whitespace-nowrap
-              ${
-                selectedCategories.includes(category._id)
-                  ? "text-[#ffffff]"
-                  : "text-[#747474]"
-              }
+              ${selectedCategories.includes(category._id)
+                        ? "text-[#ffffff]"
+                        : "text-[#747474]"
+                      }
               `}
                   >
                     {category.course_Preference}
@@ -234,26 +230,28 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
             </h1>
           </div>
           <div className="flex 2xl:gap-[25px] xl:gap-[25px] gap-[30px] 2xl:my-[25px] xl:my-[20px] my-[10px]">
-  {Array.isArray(data) && data.map((college, index) => {
-    console.log("College:", college); // Moved the console.log here
-    return (
-      <div key={index} className="flex items-center 2xl:gap-2 gap-1">
-        <input
-          type="checkbox"
-          className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
-          checked={selectedColleges.includes(college.name)}
-          onChange={() => handleCheckboxChange(college.name)}
-        />
-        <h1 className="inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[13px] text-[12px]">
-          {college.name}
-        </h1>
-      </div>
-    );
-  })}
-</div>
+            {Array.isArray(data) && data?.map((college, index) => {
+              console.log("College:", college); // Moved the console.log here
+              return (
+                <div key={index} className="flex items-center 2xl:gap-2 gap-1">
+                  <input
+                    type="radio"
+                    className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
+                    // checked={selectedColleges.includes(college.name)}
+                    // onChange={() => handleCheckboxChange(college.name)}
+                    checked={selectedColleges === college.name}
+                    onChange={() => handleCheckboxChange(college.name)}
+                  />
+                  <h1 className="inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[13px] text-[12px]">
+                    {college.name}
+                  </h1>
+                </div>
+              );
+            })}
+          </div>
 
 
-{console.log("Selected Colleges:", selectedColleges)}
+          {console.log("Selected Colleges:", selectedColleges)}
 
 
           <hr />
@@ -347,8 +345,14 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                 <input
                   type="radio"
                   name="radio-7"
-                  value="Yes"
-                  // onChange={handleChange}
+                  value="yes"
+                  checked={interestInOtherState === "yes"}
+
+                  onChange={() => {
+                    setInterestInOtherState("yes"),
+                      setOtherStatePreferences({ ...OtherStatePreferences, ['select_options']: "yes" })
+                  }
+                  }
                   className="radio radio-[#1172BA] 2xl:w-[22px] 2xl:h-[22px] xl:w-[16px] xl:h-[16px] w-[14px] h-[14px]"
                 />{" "}
                 Yes
@@ -357,62 +361,82 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                 <input
                   type="radio"
                   name="radio-7"
-                  value="No"
-                  // onChange={handleChange}
+                  value="no"
+                  hecked={interestInOtherState === "no"}
+
+                  onChange={() => {
+                    setInterestInOtherState("no"),
+                      setOtherStatePreferences({ ...OtherStatePreferences, ['select_options']: "no" })
+                  }
+                  }
                   className="radio radio-[#1172BA] 2xl:w-[22px] 2xl:h-[22px] xl:w-[16px] xl:h-[16px] w-[14px] h-[14px]"
                 />
                 No
               </div>
             </div>
             <div className="flex gap-[35px] mb-[30px]">
-              <div className=" ">
-                <div className="flex items-center gap-[45px]">
-                  <label className="pre_input_lable2">Preference No. 1</label>
-                  <div className="">
-                    <select id="states" className="pre_input">
-                      <option value="">Select States</option>
-                      {Array.isArray(getAllStates) &&
-                        getAllStates.map((item) => (
-                          <option
-                            key={item._id}
-                            value={item._id}
-                            className="pre_input"
-                          >
-                            {item.name}
-                          </option>
-                        ))}
-                    </select>
+              {
+                interestInOtherState === "yes" &&
+                <>
+                  <div className=" ">
+                    <div className="flex items-center gap-[45px]">
+                      <label className="pre_input_lable2">Preference No. 1</label>
+                      <div className="">
+                        <select id="states" className="pre_input"
+                          onChange={(e) => setOtherStatePreferences({
+                             ...OtherStatePreferences, ['Preference_Fields']: e.target.value
+                             })
+                            }
+                        >
+                          <option value="">Select States</option>
+                          {Array.isArray(getAllStates) &&
+                            getAllStates.map((item) => (
+                              <option
+                                key={item._id}
+                                value={item._id}
+                                className="pre_input"
+                              >
+                                {item.name}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-[45px]">
+                      <label className="pre_input_lable2">Preference No. 2</label>
+                      <div className="">
+                        <select id="states" className="pre_input" 
+                        onChange={(e) => setOtherStatePreferences({
+                             ...OtherStatePreferences, ['Preference_Fields']: e.target.value
+                             })
+                            }>
+                          <option value=""> Select States</option>
+                          {Array.isArray(getAllStates) &&
+                            getAllStates.map((item) => (
+                              <option
+                                key={item._id}
+                                value={item._id}
+                                className="pre_input"
+                              >
+                                {item.name}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-[45px]">
-                  <label className="pre_input_lable2">Preference No. 2</label>
-                  <div className="">
-                    <select id="states" className="pre_input">
-                      <option value=""> Select States</option>
-                      {Array.isArray(getAllStates) &&
-                        getAllStates.map((item) => (
-                          <option
-                            key={item._id}
-                            value={item._id}
-                            className="pre_input"
-                          >
-                            {item.name}
-                          </option>
-                        ))}
-                    </select>
+                  <div className=" relative ">
+                    <button className="flex justify-center items-center gap-2 absolute inter font-[700] bottom-0 2xl:my-[10px] xl:my-[8px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px] lg:my-[4px]">
+                      <Image
+                        alt="img"
+                        src={add}
+                        className="2xl:w-[15px] 2xl:h-[15px] xl:w-[12px] xl:h-[12px] w-[11px] h-[11px] rounded-full"
+                      />
+                      Add State
+                    </button>
                   </div>
-                </div>
-              </div>
-              <div className=" relative ">
-                <button className="flex justify-center items-center gap-2 absolute inter font-[700] bottom-0 2xl:my-[10px] xl:my-[8px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px] lg:my-[4px]">
-                  <Image
-                    alt="img"
-                    src={add}
-                    className="2xl:w-[15px] 2xl:h-[15px] xl:w-[12px] xl:h-[12px] w-[11px] h-[11px] rounded-full"
-                  />
-                  Add State
-                </button>
-              </div>
+                </>
+              }
             </div>
           </div>
 
@@ -438,9 +462,9 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
           </div>
           <div className="flex xl:gap-[30px] gap-[20px] 2xl:mb-[60px] xl:mb-[40px]">
             <div className="  2xl:my-[30px] xl:my-[20px]">
-              <button  onClick={() => {
+              <button onClick={() => {
                 prev();
-                }} className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]">
+              }} className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]">
                 <Image
                   alt="img"
                   src={arrow}
