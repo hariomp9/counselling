@@ -129,10 +129,40 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
     fetchData();
     fetchStates();
   }, []);
+
+  const [studentDetail, setStudentDetail] = useState({});
+  const [domicileStateCategoryy, setDomicileStateCategory] = useState({});
+  const { token } = useSelector((state) => state?.auth);
+  useEffect(() => {
+    defaultAUser();
+  }, []);
+
+  const defaultAUser = async () => {
+    const options = {
+      method: "GET",
+      url: `http://localhost:4000/api/auth/getUserById/${userids}`,
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setStudentDetail(response?.data?.user?.NEET_Details[0]);
+        setDomicileStateCategory(response?.data?.user?.domicileStateCategory[0])
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
   return (
     <>
       <div className="bg-theme_background py-[40px] px-[55px]">
-        <Neetdetails onFormDataChange={handleFormDataChange} />
+        <Neetdetails
+          onFormDataChange={handleFormDataChange}
+          studentDetail={studentDetail}
+        />
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
         <AllIndiaCategory
           categoryValues={categories}
@@ -148,6 +178,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
           onSelectCategory={setSelectedCategory}
           categoryValues={categories}
           handleDomicileSt={handleDomicileSt}
+          domicileStateCategoryy={domicileStateCategoryy}
         />
 
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
