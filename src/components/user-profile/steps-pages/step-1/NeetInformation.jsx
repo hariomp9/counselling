@@ -150,7 +150,9 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
       .request(options)
       .then((response) => {
         setStudentDetail(response?.data?.user?.NEET_Details[0]);
-        setDomicileStateCategory(response?.data?.user?.domicileStateCategory[0])
+        setDomicileStateCategory(
+          response?.data?.user?.domicileStateCategory[0]
+        );
       })
       .catch((error) => {
         console.log(error, "Error");
