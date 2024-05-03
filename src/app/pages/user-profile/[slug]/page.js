@@ -233,7 +233,7 @@ const UserDetails = ({ params }) => {
                     <h1 className="userdetailHead">User Profile</h1>
                   </div>
                   <div>
-                    <Link href="/user2nd/user-profile">
+                    <Link href={`/pages/user-stepsForm/${params.slug}`}>
                       <button
                         className="bg-[#4F9ED9] rounded-[4px] 2xl:w-[90px] 2xl:h-[35px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[22px] w-[40px] h-[20px]
                     inter font-[700] text-white 2xl:text-[14px] 2xl:leading-[20px] xl:text-[9px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px]

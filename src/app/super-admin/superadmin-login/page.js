@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { setToken, removeToken, adDetails } from "@/redux/adminSlice/authSlice";
+import { setToken, removeToken, superAdminDetails } from "@/redux/adminSlice/authSlice";
 import Link from "next/link";
 import Loader from "@/app/component/loader";
 import RightSection from "@/app/auth/right-section/page";
@@ -46,7 +46,7 @@ const SuperAdminLogin = () => {
       if (res?.data?.success) {
         toast.success("Login successfully!");
         dispatch(setToken(res?.data?.token));
-        dispatch(adDetails(res?.data?.user));
+        dispatch(superAdminDetails(res?.data?.superAdmin));
         setLoader(false);
         router.push("/super-admin");
       } else {

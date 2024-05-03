@@ -5,7 +5,7 @@ import arrow from "../../assets/arrow.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
+const AddmissionPreference = ({ next, prev, onFormDataChange , userids}) => {
   const [getPreferences, setPreferences] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [checkedColleges, setCheckedColleges] = useState("");
@@ -114,7 +114,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
     };
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/updatedUser_Steps/${userid}`,
+        `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
       );
       console.log(

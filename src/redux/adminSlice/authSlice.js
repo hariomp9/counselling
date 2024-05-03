@@ -22,10 +22,13 @@ export const authSlice = createSlice({
     rem_AdDetails: (state, action) => {
       state.ad_details = null;
     },
+    superAdminDetails: (state, action) => {
+      state.superAdminDetails = action.payload;
+    },
   },
 });
 
-export const { setToken, removeToken, adDetails, rem_AdDetails } =
+export const { setToken, removeToken, adDetails, superAdminDetails , rem_AdDetails } =
   authSlice.actions;
 
 export default authSlice.reducer;

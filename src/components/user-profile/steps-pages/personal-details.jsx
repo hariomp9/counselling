@@ -5,7 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 
-const PersonalDetails = ({ next, prev, onFormDataChange }) => {
+const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
   const [statusinfo, setData] = useState({ step_status: "personal_details" });
   const [address, setAddress] = useState({
@@ -115,7 +115,7 @@ const PersonalDetails = ({ next, prev, onFormDataChange }) => {
       };
 
       const response = await axios.put(
-        `http://localhost:4000/api/auth/updatedUser_Steps/${userid}`,
+        `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
       );
       console.log("PUT request successful", response.data);
