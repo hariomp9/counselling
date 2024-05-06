@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-
 import Profile from "@/components/user-profile/Profile";
 import UserSidebar from "@/app/user2nd/userSidebar";
 import UserNavbar from "@/app/user2nd/userNav";

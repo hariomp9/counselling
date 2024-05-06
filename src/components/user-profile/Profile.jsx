@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import Stepper from "./Stepper";
 import NeetInformation from "./steps-pages/step-1/NeetInformation";
 import UserProfile from "@/app/user2nd/user-profile/page";
+import PersonalDetails from "./steps-pages/personal-details";
+import EducationInfo from "./steps-pages/education-info";
+import AddmissionPreference from "./steps-pages/addmission-preference";
 
 const stepsArray = [
   {
@@ -13,24 +16,23 @@ const stepsArray = [
   {
     title: "Admission Preferences",
     status: "pending",
-    component: <p>This is the content of step 2.</p>,
+    component: <AddmissionPreference/>,
   },
   {
     title: "Educational Information",
     status: "pending",
-    component: <p>This is the content of step 3 (final).</p>,
+    component:<EducationInfo/>,
   },
   {
     title: "Personal Details",
     status: "pending",
-    component: <p>This is the content of step 3 (final).</p>,
+    component: <PersonalDetails />,
   },
 ];
 
 const Profile = ({ student_id }) => {
   const [steps, setSteps] = useState(stepsArray);
   const userids = student_id;
- 
 
   return (
     <div className="w-[100%] max-w-[1345px] mx-auto py-[40px]">
@@ -43,7 +45,7 @@ const Profile = ({ student_id }) => {
         </p>
       </div>
 
-      <Stepper steps={steps} setSteps={setSteps} userids={userids}/>
+      <Stepper steps={steps} setSteps={setSteps} userids={userids} />
     </div>
   );
 };
