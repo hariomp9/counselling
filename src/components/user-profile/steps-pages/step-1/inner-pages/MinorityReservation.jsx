@@ -1,20 +1,21 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeadTitle from "../HeadTitle";
 
-const MinorityReservation = ({ options,SetMinReservation }) => {
+const MinorityReservation = ({ options,SetMinReservation ,minorityReservtion }) => {
   const [selectedValue, setSelectedValue] = useState("yes");
-  const [selectedCategory, setSelectedCategory] = useState("DEF");
+  const [minority, setminority] = useState(minorityReservtion || "Hindi Linguistic Minority");
 
   const handleRadioChange = (e) => {
     setSelectedValue(e.target.value);
   };
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+    setminority(category);
     SetMinReservation(category)
-    // console.log(category);
   };
-
+  useEffect(() => {
+    setminority(minorityReservtion || "GEN");
+  }, [minorityReservtion]);
   return (
     <>
       <HeadTitle title="Minority Reservation" />
@@ -24,7 +25,7 @@ const MinorityReservation = ({ options,SetMinReservation }) => {
             key={index}
             className={`flex gap-[3px] items-center rounded-[5px] px-[16px] h-[48px] w-[210px] justify-center cursor-pointer
                     ${
-                      selectedCategory === category
+                      minority === category
                         ? "border-1px border-[#D9D9D9] bg-theme_primary"
                         : "border-1px border-[#D9D9D9] bg-[#FFFFFF] "
                     }
@@ -32,7 +33,7 @@ const MinorityReservation = ({ options,SetMinReservation }) => {
             onClick={() => handleCategoryClick(category)}
           >
             <input type="checkbox" id={category} className="hidden" />
-            {selectedCategory === category && (
+            {minority === category && (
               <Image
                 src="/svg/profile/tick_white.svg"
                 height={16}
@@ -40,12 +41,11 @@ const MinorityReservation = ({ options,SetMinReservation }) => {
                 alt="select"
               />
             )}{" "}
-            {/* Tick icon */}
             <label
               htmlFor={category}
               className={`text-[15px] font-[400] font-inter leading-[18.15px] whitespace-nowrap
                          ${
-                           selectedCategory === category
+                           minority === category
                              ? "text-[#ffffff]"
                              : "text-[#747474]"
                          }
