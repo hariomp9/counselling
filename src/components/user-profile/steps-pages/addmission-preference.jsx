@@ -213,7 +213,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   const [feesBudget, setfeesBudget] = useState("");
   const [coursePreferenc, setCoursePreferences] = useState({});
   const [admissionPreferenc, setAdmissionPreference] = useState({});
-  console.log(coursePreferenc, "//");
+  console.log(admissionPreferenc, "//");
   const { token } = useSelector((state) => state?.auth);
 
   useEffect(() => {
@@ -241,7 +241,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
         );
         setfeesBudget(response?.data?.user?.AnnualMedicalCourseBudget);
         setCoursePreferences(response?.data?.user?.Course_Preference);
-        setAdmissionPreference(response?.data?.user);
+        setAdmissionPreference(response?.data?.user?.Admissions_Preferences);
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -261,6 +261,11 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
     };
     setCoursePreferences();
   }, []);
+  const handleCheckboxClick = (collegeName) => {
+    setSelectedCollege(collegeName);
+    handleCheckboxChange(collegeName);
+  };
+
   useEffect(() => {
     if (typeof admissionPreferenc === "string") {
       setSelectedCollege(admissionPreferenc);
@@ -271,11 +276,6 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
       setSelectedCollege(admissionPreferenc[0]);
     }
   }, [admissionPreferenc]);
-
-  const handleCheckboxClick = (collegeName) => {
-    setSelectedCollege(collegeName);
-    handleCheckboxChange(collegeName);
-  };
   return (
     <section>
       <div className="main_div mx-auto">

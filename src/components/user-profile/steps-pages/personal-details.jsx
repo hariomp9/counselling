@@ -56,14 +56,12 @@ const PersonalDetails = ({ next, prev, onFormDataChange, userids }) => {
     ],
   });
 
-  const handleInputChanges = (index, e) => {
-    const { name, value } = e.target;
-    const updatedDetails = [...parentDetail.parentDetails];
-    updatedDetails[index][name] = value;
-    setParentDetails({ parentDetails: updatedDetails });
-  };
-
-  console.log(parentDetail);
+  // const handleInputChanges = (index, e) => {
+  //   const { name, value } = e.target;
+  //   const updatedDetails = [...parentDetail.parentDetails];
+  //   updatedDetails[index][name] = value;
+  //   setParentDetails({ parentDetails: updatedDetails });
+  // };
 
   // const handleInputChanges = (index, event) => {
   //   const { name, value } = event.target;
@@ -102,33 +100,29 @@ const PersonalDetails = ({ next, prev, onFormDataChange, userids }) => {
     parentDetail: parentDetail,
   };
 
-  console.log(mergedStates);
-  // console.log(address, getStudentsde, parentDetail);
-
   const sendData = async () => {
+    const mergedData = {
+      ...statusinfo,
+      ...address,
+      ...getStudentsde,
+      ...parentDetail,
+    };
     try {
-      const mergedData = {
-        ...statusinfo,
-        ...address,
-        ...getStudentsde,
-        ...parentDetail,
-      };
-
       const response = await axios.put(
         `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
       );
+
       console.log("PUT request successful", response.data);
-      // Handle response or state update as needed
+      next();
     } catch (error) {
       console.error("Error making PUT request:", error);
-      // Handle error
     }
   };
   const handleNextClick = () => {
-    // Call function to send PUT request
     sendData();
   };
+
   const [studentAddress, setStudentAddress] = useState({});
   const [studentDetails, setStudentDetails] = useState({});
   const [parentDetailss, setParentDetail] = useState({});
@@ -139,7 +133,7 @@ const PersonalDetails = ({ next, prev, onFormDataChange, userids }) => {
     defaultAUser();
   }, []);
 
-  const defaultAUser = async () => {
+  const defaultAUser = () => {
     const options = {
       method: "GET",
       url: `http://localhost:4000/api/auth/getUserById/${userids}`,
@@ -161,7 +155,7 @@ const PersonalDetails = ({ next, prev, onFormDataChange, userids }) => {
   };
   return (
     <>
-      {" "}
+      {""}
       <section>
         <div className="main_div mx-auto">
           <div>
@@ -338,7 +332,6 @@ const PersonalDetails = ({ next, prev, onFormDataChange, userids }) => {
                       name="parentEmail"
                       // value={addr.parentEmail}
                       defaultValue={parentDetailss?.parentEmail}
-
                       onChange={(e) => handleInputChanges(index, e)}
                     />
                   </div>
@@ -354,7 +347,6 @@ const PersonalDetails = ({ next, prev, onFormDataChange, userids }) => {
                       name="parentMobile"
                       // value={addr.parentMobile}
                       defaultValue={parentDetailss?.parentMobile}
-
                       onChange={(e) => handleInputChanges(index, e)}
                     />
                   </div>
@@ -413,7 +405,6 @@ const PersonalDetails = ({ next, prev, onFormDataChange, userids }) => {
                     name="FamilyAnualIncome"
                     // value={addr.FamilyAnualIncome}
                     defaultValue={parentDetailss?.FamilyAnualIncome}
-
                     onChange={(e) => handleInputChanges(index, e)}
                   />
                 </div>
@@ -435,7 +426,11 @@ const PersonalDetails = ({ next, prev, onFormDataChange, userids }) => {
             <div className="2xl:my-[30px] xl:my-[20px]">
               <Link href="/user2nd/profile">
                 <button
-                  onClick={handleNextClick}
+                  // onClick={handleNextClick}
+                  onClick={() => {
+                    sendData();
+                    handleNextClick();
+                  }}
                   className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
                 >
                   Next

@@ -31,7 +31,6 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
     { id: "8", subject: "BASLP" },
     { id: "9", subject: "PCBE %" },
   ];
-
   const exams = [
     { id: "1", type: "12th" },
     { id: "2", type: "11th" },
@@ -86,10 +85,6 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
         `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
       );
-      console.log(
-        "PUT request successful ------------------------  ",
-        response.data
-      );
       next();
     } catch (error) {
       console.error("Error making PUT request:", error);
@@ -102,14 +97,13 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
   const [studentDetail, setStudentDetail] = useState({});
   const [examData, setExamData] = useState({});
   const [academicData, setAcademicData] = useState({});
-  console.log(academicData, "data");
-  const [nriQouta, setNriQouta] = useState({});
+  // console.log(academicData, "data");
   const { token } = useSelector((state) => state?.auth);
   useEffect(() => {
     defaultAUser();
   }, []);
 
-  const defaultAUser = async () => {
+  const defaultAUser = () => {
     const options = {
       method: "GET",
       url: `http://localhost:4000/api/auth/getUserById/${userids}`,
@@ -268,7 +262,6 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
               </table>
             </div>
           </div>
-
           {/* ==============3================= */}
 
           <div className="bg-white 2xl:w-[1237px] xl:w-[840px] lg:w-[750px] 2xl:h-[] xl:h-[] h-[] 2xl:p-[25px] xl:p-[12px] p-[10px]">
@@ -417,7 +410,7 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
           <div className="flex xl:gap-[30px] gap-[20px] 2xl:mb-[60px] xl:mb-[40px]">
             <div className="  2xl:my-[30px] xl:my-[20px]">
               <button
-                onClick={() => prev()}
+                // onClick={() => prev()}
                 className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
               >
                 <Image
@@ -429,7 +422,6 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
             </div>
             <div className="2xl:my-[30px] xl:my-[20px]">
               <button
-                type="submit"
                 onClick={() => {
                   sendData();
                   handleNextClick();
