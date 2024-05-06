@@ -37,8 +37,7 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
     { id: "2", type: "11th" },
   ];
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
-  const [statusinfo] = useState({ step_status: "education_info" });
-
+  const [statusinfo, setData] = useState({ step_status: "education_info" });
   const [standard, setStandard_12thMarks] = useState(
     standard_12thMarks.map((subject) => ({
       subject: subject.subject,
@@ -103,7 +102,7 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
   const [studentDetail, setStudentDetail] = useState({});
   const [examData, setExamData] = useState({});
   const [academicData, setAcademicData] = useState({});
-  console.log(academicData);
+  console.log(academicData, "data");
   const [nriQouta, setNriQouta] = useState({});
   const { token } = useSelector((state) => state?.auth);
   useEffect(() => {
@@ -122,9 +121,9 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
     axios
       .request(options)
       .then((response) => {
-        setStudentDetail(response?.data?.user?.standard_12thMarks[0]);
-        setExamData(response?.data?.user?.exams[0]);
-        setAcademicData(response?.data?.user?.Academic_Details[0]);
+        setStudentDetail(response?.data?.user?.standard_12thMarks);
+        setExamData(response?.data?.user?.exams);
+        setAcademicData(response?.data?.user?.Academic_Details);
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -150,47 +149,52 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {standard.map((item, index) => (
-                      <tr
-                        key={index}
-                        className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px] border-none 2xl:px-[30px] table-cell-no-border"
-                      >
-                        <td
+                    {Array.isArray(studentDetail) &&
+                      studentDetail.map((item, index) => (
+                        <tr
                           key={index}
-                          className="table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px]"
+                          className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px] border-none 2xl:px-[30px] table-cell-no-border"
                         >
-                          <label>{item.subject}</label>
-                        </td>
-                        <td className="table-cell-no-border  w-1/3">
-                          <div>
-                            <input
-                              type="text"
-                              // value={item.obtained}
-                              defaultValue={studentDetail?.obtained}
-                              onChange={(e) =>
-                                inputHandler(index, "obtained", e.target.value)
-                              }
-                              className="pre_input2nd"
-                              placeholder="Enter Detail"
-                            />
-                          </div>
-                        </td>
-                        <td className="table-cell-no-border  w-1/3">
-                          <div>
-                            <input
-                              type="text"
-                              // value={item.outOf}
-                              defaultValue={studentDetail?.outOf}
-                              onChange={(e) =>
-                                inputHandler(index, "outOf", e.target.value)
-                              }
-                              className="pre_input2nd"
-                              placeholder="Enter Detail"
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                          <td
+                            key={index}
+                            className="table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px]"
+                          >
+                            <label>{item.subject}</label>
+                          </td>
+                          <td className="table-cell-no-border  w-1/3">
+                            <div>
+                              <input
+                                type="text"
+                                // value={item.obtained}
+                                defaultValue={item?.obtained}
+                                onChange={(e) =>
+                                  inputHandler(
+                                    index,
+                                    "obtained",
+                                    e.target.value
+                                  )
+                                }
+                                className="pre_input2nd"
+                                placeholder="Enter Detail"
+                              />
+                            </div>
+                          </td>
+                          <td className="table-cell-no-border  w-1/3">
+                            <div>
+                              <input
+                                type="text"
+                                // value={item.outOf}
+                                defaultValue={item?.outOf}
+                                onChange={(e) =>
+                                  inputHandler(index, "outOf", e.target.value)
+                                }
+                                className="pre_input2nd"
+                                placeholder="Enter Detail"
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
@@ -213,48 +217,53 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {exam.map((item, index) => (
-                    <tr
-                      key={index}
-                      className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px]  2xl:px-[30px]"
-                    >
-                      <td className=" table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px] border-none table-cell-no-border">
-                        {item?.type}
-                      </td>
-                      <td className=" table-cell-no-border w-1/3 table-cell-no-border">
-                        <div>
-                          <input
-                            type="text"
-                            className="pre_input"
-                            placeholder="Enter detail"
-                            // value={item.passingDistrict}
-                            defaultValue={examData?.passingDistrict}
-                            onChange={(e) =>
-                              inputHandle(
-                                index,
-                                "passingDistrict",
-                                e.target.value
-                              )
-                            }
-                          />
-                        </div>
-                      </td>
-                      <td className=" table-cell-no-border w-1/3 table-cell-no-border">
-                        <div>
-                          <input
-                            type="text"
-                            // value={item.passingState}
-                            defaultValue={examData?.passingState}
-                            onChange={(e) =>
-                              inputHandle(index, "passingState", e.target.value)
-                            }
-                            className="pre_input2nd"
-                            placeholder="Enter Detail"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                  {Array.isArray(examData) &&
+                    examData.map((item, index) => (
+                      <tr
+                        key={index}
+                        className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px]  2xl:px-[30px]"
+                      >
+                        <td className=" table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px] border-none table-cell-no-border">
+                          {item?.type}
+                        </td>
+                        <td className=" table-cell-no-border w-1/3 table-cell-no-border">
+                          <div>
+                            <input
+                              type="text"
+                              className="pre_input"
+                              placeholder="Enter detail"
+                              // value={item.passingDistrict}
+                              defaultValue={item?.passingDistrict}
+                              onChange={(e) =>
+                                inputHandle(
+                                  index,
+                                  "passingDistrict",
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </div>
+                        </td>
+                        <td className=" table-cell-no-border w-1/3 table-cell-no-border">
+                          <div>
+                            <input
+                              type="text"
+                              // value={item.passingState}
+                              defaultValue={item?.passingState}
+                              onChange={(e) =>
+                                inputHandle(
+                                  index,
+                                  "passingState",
+                                  e.target.value
+                                )
+                              }
+                              className="pre_input2nd"
+                              placeholder="Enter Detail"
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -288,117 +297,118 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                   </thead>
                   <tbody>
                     {/* row 1 */}
-                    {Academic_Details.map((item, index) => (
-                      <tr
-                        key={index}
-                        className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px] border-none 2xl:px-[30px] table-cell-no-border"
-                      >
-                        <td className=" table-cell-no-border inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px]">
-                          {item.type}
-                        </td>
+                    {Array.isArray(academicData) &&
+                      academicData.map((item, index) => (
+                        <tr
+                          key={index}
+                          className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px] border-none 2xl:px-[30px] table-cell-no-border"
+                        >
+                          <td className=" table-cell-no-border inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px]">
+                            {item.type}
+                          </td>
 
-                        <td className=" table-cell-no-border">
-                          <div>
-                            <input
-                              type="text"
-                              className="pre_input3rd"
-                              placeholder="Enter detail"
-                              defaultValue={academicData?.Board_University}
-                              // value={item.Board_University}
-                              onChange={(e) =>
-                                inputHandlers(
-                                  index,
-                                  "Board_University",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </div>
-                        </td>
-                        <td className=" table-cell-no-border">
-                          <div>
-                            <input
-                              type="text"
-                              className="pre_input4th"
-                              placeholder="Enter detail"
-                              // value={item.School_College}
-                              defaultValue={academicData?.School_College}
-                              onChange={(e) =>
-                                inputHandlers(
-                                  index,
-                                  "School_College",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </div>
-                        </td>
-                        <td className=" table-cell-no-border">
-                          <div>
-                            <input
-                              type="text"
-                              className="pre_input4th"
-                              placeholder="Enter detail"
-                              // value={item.PassingYear}
-                              defaultValue={academicData?.PassingYear}
-                              onChange={(e) =>
-                                inputHandlers(
-                                  index,
-                                  "PassingYear",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </div>
-                        </td>
-                        <td className=" table-cell-no-border">
-                          <div>
-                            <input
-                              type="text"
-                              className="pre_input4th"
-                              placeholder="Enter detail"
-                              // value={item.ObtainedMarks}
-                              defaultValue={academicData?.ObtainedMarks}
-                              onChange={(e) =>
-                                inputHandlers(
-                                  index,
-                                  "ObtainedMarks",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </div>
-                        </td>
-                        <td className=" table-cell-no-border">
-                          <div>
-                            <input
-                              type="text"
-                              className="pre_input3rd"
-                              placeholder="Enter detail"
-                              // value={item.Result}
-                              defaultValue={academicData?.Result}
-                              onChange={(e) =>
-                                inputHandlers(index, "Result", e.target.value)
-                              }
-                            />
-                          </div>
-                        </td>
-                        <td className=" table-cell-no-border">
-                          <div>
-                            <input
-                              type="text"
-                              className="pre_input4th"
-                              placeholder="Enter detail"
-                              // value={item.CGPA}
-                              defaultValue={academicData?.CGPA}
-                              onChange={(e) =>
-                                inputHandlers(index, "CGPA", e.target.value)
-                              }
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                          <td className=" table-cell-no-border">
+                            <div>
+                              <input
+                                type="text"
+                                className="pre_input3rd"
+                                placeholder="Enter detail"
+                                defaultValue={item?.Board_University}
+                                // value={item.Board_University}
+                                onChange={(e) =>
+                                  inputHandlers(
+                                    index,
+                                    "Board_University",
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            </div>
+                          </td>
+                          <td className=" table-cell-no-border">
+                            <div>
+                              <input
+                                type="text"
+                                className="pre_input4th"
+                                placeholder="Enter detail"
+                                // value={item.School_College}
+                                defaultValue={item?.School_College}
+                                onChange={(e) =>
+                                  inputHandlers(
+                                    index,
+                                    "School_College",
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            </div>
+                          </td>
+                          <td className=" table-cell-no-border">
+                            <div>
+                              <input
+                                type="text"
+                                className="pre_input4th"
+                                placeholder="Enter detail"
+                                // value={item.PassingYear}
+                                defaultValue={item?.PassingYear}
+                                onChange={(e) =>
+                                  inputHandlers(
+                                    index,
+                                    "PassingYear",
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            </div>
+                          </td>
+                          <td className=" table-cell-no-border">
+                            <div>
+                              <input
+                                type="text"
+                                className="pre_input4th"
+                                placeholder="Enter detail"
+                                // value={item.ObtainedMarks}
+                                defaultValue={item?.ObtainedMarks}
+                                onChange={(e) =>
+                                  inputHandlers(
+                                    index,
+                                    "ObtainedMarks",
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            </div>
+                          </td>
+                          <td className=" table-cell-no-border">
+                            <div>
+                              <input
+                                type="text"
+                                className="pre_input3rd"
+                                placeholder="Enter detail"
+                                // value={item.Result}
+                                defaultValue={item?.Result}
+                                onChange={(e) =>
+                                  inputHandlers(index, "Result", e.target.value)
+                                }
+                              />
+                            </div>
+                          </td>
+                          <td className=" table-cell-no-border">
+                            <div>
+                              <input
+                                type="text"
+                                className="pre_input4th"
+                                placeholder="Enter detail"
+                                // value={item.CGPA}
+                                defaultValue={item?.CGPA}
+                                onChange={(e) =>
+                                  inputHandlers(index, "CGPA", e.target.value)
+                                }
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
@@ -421,7 +431,7 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
               <button
                 type="submit"
                 onClick={() => {
-                  handleSubmit();
+                  sendData();
                   handleNextClick();
                 }}
                 className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
