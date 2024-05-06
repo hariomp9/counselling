@@ -203,7 +203,7 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                 {/* head */}
                 <thead className="">
                   <tr className="bg-[#F5F6FF] 2xl:h-[51px] inter font-[700] text-[#000000] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[20px] xl:leading-[20px] table-cell-no-border">
-                    <th className="table-cell-no-border  w-1/3 ">Exam</th>
+                    <th className="table-cell-no-border  ">Exam</th>
                     <th className="table-cell-no-border  w-1/3 ">
                       Passing District{" "}
                     </th>
@@ -214,49 +214,46 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                 </thead>
                 <tbody>
                   {exam.map((item, index) => (
-                    <div key={index}>
-                      <tr className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px]  2xl:px-[30px]">
-                        <td className=" table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px] border-none table-cell-no-border">
-                          {item?.type}
-                        </td>
-                        <td className=" table-cell-no-border w-1/3 table-cell-no-border">
-                          <div>
-                            <input
-                              type="text"
-                              className="pre_input"
-                              placeholder="Enter detail"
-                              // value={item.passingDistrict}
-                              defaultValue={examData?.passingDistrict}
-                              onChange={(e) =>
-                                inputHandle(
-                                  index,
-                                  "passingDistrict",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </div>
-                        </td>
-                        <td className=" table-cell-no-border w-1/3 table-cell-no-border">
-                          <div>
-                            <input
-                              type="text"
-                              // value={item.passingState}
-                              defaultValue={examData?.passingState}
-                              onChange={(e) =>
-                                inputHandle(
-                                  index,
-                                  "passingState",
-                                  e.target.value
-                                )
-                              }
-                              className="pre_input2nd"
-                              placeholder="Enter Detail"
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    </div>
+                    <tr
+                      key={index}
+                      className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px]  2xl:px-[30px]"
+                    >
+                      <td className=" table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px] border-none table-cell-no-border">
+                        {item?.type}
+                      </td>
+                      <td className=" table-cell-no-border w-1/3 table-cell-no-border">
+                        <div>
+                          <input
+                            type="text"
+                            className="pre_input"
+                            placeholder="Enter detail"
+                            // value={item.passingDistrict}
+                            defaultValue={examData?.passingDistrict}
+                            onChange={(e) =>
+                              inputHandle(
+                                index,
+                                "passingDistrict",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </div>
+                      </td>
+                      <td className=" table-cell-no-border w-1/3 table-cell-no-border">
+                        <div>
+                          <input
+                            type="text"
+                            // value={item.passingState}
+                            defaultValue={examData?.passingState}
+                            onChange={(e) =>
+                              inputHandle(index, "passingState", e.target.value)
+                            }
+                            className="pre_input2nd"
+                            placeholder="Enter Detail"
+                          />
+                        </div>
+                      </td>
+                    </tr>
                   ))}
                 </tbody>
               </table>
