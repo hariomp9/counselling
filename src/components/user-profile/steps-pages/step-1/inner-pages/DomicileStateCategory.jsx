@@ -20,7 +20,6 @@ const DomicileStateCategory = ({
     onSelectCategory(category);
     handleDomicileSt("category_id", category);
   };
-  console.log(domicileStateCategoryy?.state_id?._id, "ll");
   const statess = domicileStateCategoryy?.state_id?.name;
   return (
     <>
@@ -90,27 +89,6 @@ const DomicileStateCategory = ({
         </div>
         {/* ))} */}
       </div>
-
-      {/* <div className="flex flex-wrap gap-[19px] lg:w-[80%]">
-                {domicileCategory.map((category, index) => (
-                    <div key={index} className={`flex gap-[3px] items-center rounded-[5px] px-[16px] h-[48px] w-[103px] justify-center cursor-pointer
-                    ${selectedCategory === category ? 'border-1px border-[#D9D9D9] bg-theme_primary' : 'border-1px border-[#D9D9D9] bg-[#FFFFFF] '}
-                    `}
-                    onClick={() => handleCategoryClick(category)}>
-                        <input
-                            type="checkbox"
-                            id={category}
-                            className="hidden"
-                        />
-                        {selectedCategory === category &&  <Image src="/svg/profile/tick_white.svg"  height={16} width={16} alt="select"/>} 
-                        <label htmlFor={category} className={`text-[15px] font-[400] font-inter leading-[18.15px] whitespace-nowrap
-                         ${selectedCategory === category ? 'text-[#ffffff]' : 'text-[#747474]'}
-                    `}>
-                            {category}
-                        </label>
-                    </div>
-                ))}
-            </div> */}
     </>
   );
 };
