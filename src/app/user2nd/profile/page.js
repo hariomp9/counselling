@@ -91,13 +91,15 @@ const UserProfile = () => {
                     <h1 className="userdetailHead">Subscription Details</h1>
                   </div>
                   <div>
-                    <button
-                      className="bg-[#4F9ED9] rounded-[4px] 2xl:w-[120px] 2xl:h-[48px] xl:w-[70px] xl:h-[25px] lg:w-[70px] lg:h-[22px] h-[22px] w-[80px]
+                    <Link href="/user/subscription">
+                      <button
+                        className="bg-[#4F9ED9] rounded-[4px] 2xl:w-[120px] 2xl:h-[48px] xl:w-[70px] xl:h-[25px] lg:w-[70px] lg:h-[22px] h-[22px] w-[80px]
                     inter font-[700] text-white 2xl:text-[14px] 2xl:leading-[20px] xl:text-[9px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px]
                     "
-                    >
-                      Upgrade Plan
-                    </button>
+                      >
+                        Upgrade Plan
+                      </button>
+                    </Link>
                   </div>
                 </div>
                 <div className="overflow-x-auto mg:w-2/3 lg:w-1/2 2xl:p-4">
