@@ -51,11 +51,6 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
       setSelectedColleges(
         selectedColleges.filter((college) => college !== collegeName)
       );
-
-      console.log(
-        "selectedColleges---------------->>>>>>>>> ",
-        selectedColleges
-      );
     } else {
       setSelectedColleges([...selectedColleges, collegeName]);
     }
@@ -97,13 +92,6 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
 
     console.log("formData:", formData.OtherStatePreferences);
   };
-
-  console.log(
-    "Admissions_Preferences ------------->  :",
-    Admissions_Preferences
-  );
-
-  console.log("states 12", Admissions_Preferences);
 
   const [formData, setFormData] = useState({
     Course_Preference: [],
