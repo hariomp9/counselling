@@ -396,6 +396,33 @@ exports.adminLogout = async (req, res) => {
   }
 };
 
+// exports.generateOtp = async (req, res) => {
+//   try {
+//     const { userId } = req.body;
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     const otpCode = Math.floor(100000 + Math.random() * 900000).toString(); // Generate 6-digit OTP
+//     const otp = new OTP({ user: user._id, otp: otpCode });
+//     await otp.save();
+
+//     // send otp to users Email
+
+
+
+
+
+//     // await sendOTP(user.email, otpCode);
+
+//     res.status(200).json({ message: 'OTP sent successfully', otpCode });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// }
+
 exports.generateOtp = async (req, res) => {
   try {
     const { userId } = req.body;
@@ -408,14 +435,48 @@ exports.generateOtp = async (req, res) => {
     const otp = new OTP({ user: user._id, otp: otpCode });
     await otp.save();
 
-    // await sendOTP(user.email, otpCode);
+    // Nodemailer transporter configuration
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.CLIENT_EMAIL, // Your email username
+        pass: process.env.CLIENT_EMAIL_PASSWORD // Your email password
+      },
+      tls: {
+        rejectUnauthorized: false // Disable SSL verification
+      },
+    });
 
-    res.status(200).json({ message: 'OTP sent successfully', otpCode });
+    // Email options
+    const mailOptions = {
+      from: process.env.CLIENT_EMAIL, // Sender email
+      to: user.email, // Receiver email (user's email)
+      subject: 'Your OTP', // Email subject
+      html: `
+        <p>Dear ${user.firstname},</p>
+        <p>Thank you for choosing our counseling platform.</p>
+        <p>Your OTP for logging in is: <strong>${otpCode}</strong></p>
+        <p>We're here to support you on your journey. If you have any questions or need assistance, feel free to reach out to us.</p>
+        <p>Best regards,</p>
+        <p>Your Counseling Platform Team</p>
+      `
+    };
+    
+    // Send email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending email:', error);
+        return res.status(500).json({ message: 'Failed to send OTP' });
+      } else {
+        console.log('Email sent:', info.response);
+        res.status(200).json({ message: 'OTP sent successfully', otpCode });
+      }
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
-}
+};
 
 
 
