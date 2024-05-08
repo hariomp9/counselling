@@ -15,21 +15,27 @@ import { useRouter } from "next/navigation";
 
 const UserProfile = () => {
   const router = useRouter();
-  const [studentDetail, setStudentDetail] = useState({});
-  const [getStates, setGetStates] = useState("");
-  const [getDist, setGetDist] = useState("");
-  const [stateId, setStateId] = useState("");
-  const { token } = useSelector((state) => state?.auth);
-  const { _id } = useSelector((state) => state?.auth);
-  const [userDetail, setUserDetail] = useState({
+  const [studentDetail, setStudentDetail] = useState({
     firstname: "",
     mobile: "",
     email: "",
     Gender: "",
     whatsappMobile: "",
-    // state: [],
-    // city: [],
   });
+  const [getStates, setGetStates] = useState("");
+  const [getDist, setGetDist] = useState("");
+  const [stateId, setStateId] = useState("");
+  const { token } = useSelector((state) => state?.auth);
+  const { _id } = useSelector((state) => state?.auth);
+  // const [studentDetail, setStudentDetail] = useState({
+  //   firstname: "",
+  //   mobile: "",
+  //   email: "",
+  //   Gender: "",
+  //   whatsappMobile: "",
+  //   // state: [],
+  //   // city: [],
+  // });
 
   console.log(stateId, "stateid");
 
@@ -58,8 +64,8 @@ const UserProfile = () => {
   };
 
   const inputHandler = (e) => {
-    setUserDetail({
-      ...userDetail,
+    setStudentDetail({
+      ...studentDetail,
       [e.target.name]: e.target.value,
     });
   };
@@ -69,7 +75,7 @@ const UserProfile = () => {
     try {
       const response = await axios.put(
         `http://localhost:4000/api/auth/edit-user/${_id}`,
-        userDetail,
+        studentDetail,
         {
           headers: {
             "Content-Type": "application/json",
@@ -392,7 +398,7 @@ const UserProfile = () => {
                           defaultValue={
                             studentDetail?.firstname
                               ? studentDetail?.firstname
-                              : userDetail?.firstname
+                              : studentDetail?.firstname
                           }
                           type="text"
                           name="firstname"
@@ -409,7 +415,7 @@ const UserProfile = () => {
                           defaultValue={
                             studentDetail?.lastname
                               ? studentDetail?.lastname
-                              : userDetail?.lastname
+                              : studentDetail?.lastname
                           }
                           type="text"
                           name="lastname"
@@ -427,7 +433,7 @@ const UserProfile = () => {
                           defaultValue={
                             studentDetail?.mobile
                               ? studentDetail?.mobile
-                              : userDetail?.mobile
+                              : studentDetail?.mobile
                           }
                           type="text"
                           name="mobile"
@@ -451,7 +457,7 @@ const UserProfile = () => {
                           defaultValue={
                             studentDetail?.email
                               ? studentDetail?.email
-                              : userDetail?.email
+                              : studentDetail?.email
                           }
                           type="text"
                           name="email"
@@ -462,23 +468,23 @@ const UserProfile = () => {
                           onChange={inputHandler}
                         />
                       </div>
-                      {/* <div className="">
+                      <div className="">
                         <label className="userUlabel">Gender</label> <br />
                         <select
-                          value={
+                          defaultValue={
                             studentDetail?.Gender
                               ? studentDetail?.Gender
-                              : userDetail?.Gender
+                              : studentDetail?.Gender
                           }
-                          name="gender"
+                          name="Gender"
                           className="userUinput"
                           onChange={inputHandler}
                         >
-                          <option value="">Select Gender</option>
+                          <option value="">{studentDetail?.Gender}</option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
                         </select>
-                      </div> */}
+                      </div>
 
                       <div className="">
                         <label className="userUlabel">Whatsapp Number</label>{" "}
@@ -487,10 +493,10 @@ const UserProfile = () => {
                           defaultValue={
                             studentDetail?.whatsappMobile
                               ? studentDetail?.whatsappMobile
-                              : userDetail?.whatsappMobile
+                              : studentDetail?.whatsappMobile
                           }
                           type="text"
-                          name="whatsappnumber"
+                          name="whatsappMobile"
                           className="userUinput"
                           placeholder="Enter Whatsapp Number"
                           // required
