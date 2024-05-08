@@ -48,7 +48,7 @@ const Stepper = ({ steps, setSteps, initialStep = 0, userids }) => {
               <span
                 key={index}
                 onClick={() => handleStep(index)}
-                className={` h-[30px] w-[30px]  flex flex-col justify-center items-center 
+                className={`h-[30px] w-[30px]  flex flex-col justify-center items-center 
                         ${
                           currentStep === index || step?.status === "complete"
                             ? " border-[1px] border-theme_primary rounded-[50%]"

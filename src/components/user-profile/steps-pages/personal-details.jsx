@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import arrow from "../../assets/arrow.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 
-const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
+const PersonalDetails = ({  prev, onFormDataChange, userids }) => {
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
   const [statusinfo, setData] = useState({ step_status: "personal_details" });
   const [address, setAddress] = useState({
@@ -56,14 +56,12 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
     ],
   });
 
-  const handleInputChanges = (index, e) => {
-    const { name, value } = e.target;
-    const updatedDetails = [...parentDetail.parentDetails];
-    updatedDetails[index][name] = value;
-    setParentDetails({ parentDetails: updatedDetails });
-  };
-
-  console.log(parentDetail);
+  // const handleInputChanges = (index, e) => {
+  //   const { name, value } = e.target;
+  //   const updatedDetails = [...parentDetail.parentDetails];
+  //   updatedDetails[index][name] = value;
+  //   setParentDetails({ parentDetails: updatedDetails });
+  // };
 
   // const handleInputChanges = (index, event) => {
   //   const { name, value } = event.target;
@@ -102,37 +100,62 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
     parentDetail: parentDetail,
   };
 
-  console.log(mergedStates);
-  // console.log(address, getStudentsde, parentDetail);
-
   const sendData = async () => {
+    const mergedData = {
+      ...statusinfo,
+      ...address,
+      ...getStudentsde,
+      ...parentDetail,
+    };
     try {
-      const mergedData = {
-        ...statusinfo,
-        ...address,
-        ...getStudentsde,
-        ...parentDetail,
-      };
-
       const response = await axios.put(
         `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
       );
+
       console.log("PUT request successful", response.data);
-      // Handle response or state update as needed
+      next();
     } catch (error) {
       console.error("Error making PUT request:", error);
-      // Handle error
     }
   };
   const handleNextClick = () => {
-    // Call function to send PUT request
     sendData();
   };
 
+  const [studentAddress, setStudentAddress] = useState({});
+  const [studentDetails, setStudentDetails] = useState({});
+  const [parentDetailss, setParentDetail] = useState({});
+  console.log(parentDetailss);
+  const [nriQouta, setNriQouta] = useState({});
+  const { token } = useSelector((state) => state?.auth);
+  useEffect(() => {
+    defaultAUser();
+  }, []);
+
+  const defaultAUser = () => {
+    const options = {
+      method: "GET",
+      url: `http://localhost:4000/api/auth/getUserById/${userids}`,
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setStudentAddress(response?.data?.user?.StudentAddress[0]);
+        setStudentDetails(response?.data?.user?.studentDetails[0]);
+        setParentDetail(response?.data?.user?.parentDetails[0]);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
   return (
     <>
-      {" "}
+      {""}
       <section>
         <div className="main_div mx-auto">
           <div>
@@ -153,7 +176,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="HouseNo"
-                      value={addr.HouseNo}
+                      // value={addr.HouseNo}
+                      defaultValue={studentAddress?.HouseNo}
                       onChange={(e) => handleInputChange(e, index)}
                     />
                   </div>
@@ -165,7 +189,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="Area"
-                      value={addr.Area}
+                      // value={addr.Area}
+                      defaultValue={studentAddress?.Area}
                       onChange={(e) => handleInputChange(e, index)}
                     />
                   </div>
@@ -177,7 +202,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="City"
-                      value={addr.City}
+                      // value={addr.City}
+                      defaultValue={studentAddress?.City}
                       onChange={(e) => handleInputChange(e, index)}
                     />
                   </div>
@@ -187,8 +213,9 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       type="text"
                       className="pre_input"
                       placeholder="Enter detail"
-                      name="District"
-                      value={addr.District}
+                      name="Distict"
+                      // value={addr.Distict}
+                      defaultValue={studentAddress?.Distict}
                       onChange={(e) => handleInputChange(e, index)}
                     />
                   </div>
@@ -199,7 +226,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="State"
-                      value={addr.State}
+                      // value={addr.State}
+                      defaultValue={studentAddress?.State}
                       onChange={(e) => handleInputChange(e, index)}
                     />
                   </div>
@@ -211,7 +239,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="PinCode"
-                      value={addr.PinCode}
+                      // value={addr.PinCode}
+                      defaultValue={studentAddress?.PinCode}
                       onChange={(e) => handleInputChange(e, index)}
                     />
                   </div>
@@ -237,7 +266,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                     className="pre_input"
                     placeholder="Enter detail"
                     name="Gender"
-                    value={addr.Gender}
+                    // value={addr.Gender}
+                    defaultValue={studentDetails?.Gender}
                     onChange={(e) => handleDetailsChange(e, index)}
                   />
                 </div>
@@ -249,7 +279,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                     className="pre_input"
                     placeholder="Enter detail"
                     name="Email"
-                    value={addr.Email}
+                    // value={addr.Email}
+                    defaultValue={studentDetails?.Email}
                     onChange={(e) => handleDetailsChange(e, index)}
                   />
                 </div>
@@ -262,7 +293,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                     className="pre_input"
                     placeholder="Enter detail"
                     name="Mobile"
-                    value={addr.Mobile}
+                    // value={addr.Mobile}
+                    defaultValue={studentDetails?.Mobile}
                     onChange={(e) => handleDetailsChange(e, index)}
                   />
                 </div>
@@ -286,7 +318,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="parentName"
-                      value={addr.parentName}
+                      // value={addr.parentName}
+                      defaultValue={parentDetailss?.parentName}
                       onChange={(e) => handleInputChanges(index, e)}
                     />
                   </div>
@@ -297,7 +330,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="parentEmail"
-                      value={addr.parentEmail}
+                      // value={addr.parentEmail}
+                      defaultValue={parentDetailss?.parentEmail}
                       onChange={(e) => handleInputChanges(index, e)}
                     />
                   </div>
@@ -311,7 +345,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="parentMobile"
-                      value={addr.parentMobile}
+                      // value={addr.parentMobile}
+                      defaultValue={parentDetailss?.parentMobile}
                       onChange={(e) => handleInputChanges(index, e)}
                     />
                   </div>
@@ -324,7 +359,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                       className="pre_input"
                       placeholder="Enter detail"
                       name="Parents_Profession"
-                      value={addr.Parents_Profession}
+                      // value={addr.Parents_Profession}
+                      defaultValue={parentDetailss?.Parents_Profession}
                       onChange={(e) => handleInputChanges(index, e)}
                     />
                   </div>
@@ -367,7 +403,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
                     className="pre_input"
                     placeholder="Enter detail"
                     name="FamilyAnualIncome"
-                    value={addr.FamilyAnualIncome}
+                    // value={addr.FamilyAnualIncome}
+                    defaultValue={parentDetailss?.FamilyAnualIncome}
                     onChange={(e) => handleInputChanges(index, e)}
                   />
                 </div>
@@ -377,7 +414,8 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
 
           <div className="flex xl:gap-[30px] gap-[20px] 2xl:mb-[60px] xl:mb-[40px]">
             <div className="  2xl:my-[30px] xl:my-[20px]">
-              <button className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]">
+                
+              <button onClick={() => prev()}  className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]">
                 <Image
                   src={arrow}
                   className="rotate-180 2xl:w-[14px] 2xl:h-[10px] rounded-full"
@@ -389,7 +427,11 @@ const PersonalDetails = ({ next, prev, onFormDataChange , userids }) => {
             <div className="2xl:my-[30px] xl:my-[20px]">
               <Link href="/user2nd/profile">
                 <button
-                  onClick={handleNextClick}
+                  // onClick={handleNextClick}
+                  onClick={() => {
+                    sendData();
+                    handleNextClick();
+                  }}
                   className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
                 >
                   Next

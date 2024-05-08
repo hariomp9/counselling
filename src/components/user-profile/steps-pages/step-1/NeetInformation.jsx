@@ -76,30 +76,18 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
       MinorityReservations: minReservation,
     };
     try {
-      // const mergedData = {
-      //   ...data,
-      //   ...getNeet,
-      //   All_India_Category_id: selectedCategory,
-      //   domicileStateCategory: [getStateCat    , selectedCategory],
-      // };
       const response = await axios.put(
         `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
         payload
       );
       console.log("PUT request successful", response?.data);
-      // Handle response or state update as needed
       next();
     } catch (error) {
       console.error("Error making PUT request:", error);
-      // Handle error
     }
   };
   const handleNextClick = () => {
     sendData();
-  };
-
-  const handleSelect = (category) => {
-    // console.log("Selected category:", category);
   };
   const fetchData = async () => {
     try {
@@ -129,14 +117,58 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
     fetchData();
     fetchStates();
   }, []);
+
+  const [studentDetail, setStudentDetail] = useState({});
+  const [domicileStateCategoryy, setDomicileStateCategory] = useState({});
+  const [allIndiaCategory, setAllIndiaCategory] = useState("");
+  const [parallelReservtion, setParallelReservation] = useState({});
+  const [minorityReservtion, setMinorityReservation] = useState({});
+  console.log(minorityReservtion, "user");
+  const { token } = useSelector((state) => state?.auth);
+  useEffect(() => {
+    defaultAUser();
+  }, []);
+
+  const defaultAUser = async () => {
+    const options = {
+      method: "GET",
+      url: `http://localhost:4000/api/auth/getUserById/${userids}`,
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setStudentDetail(response?.data?.user?.NEET_Details[0]);
+        setDomicileStateCategory(
+          response?.data?.user?.domicileStateCategory[0]
+        );
+        setAllIndiaCategory(
+          response?.data?.user?.All_India_Category_id?.Select_category
+        );
+        setParallelReservation(
+          response?.data?.user?.ParellelReservations[0]?.Reservation_Fields
+        );
+        setMinorityReservation(response?.data?.user?.MinorityReservations[0]);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
   return (
     <>
       <div className="bg-theme_background py-[40px] px-[55px]">
-        <Neetdetails onFormDataChange={handleFormDataChange} />
+        <Neetdetails
+          onFormDataChange={handleFormDataChange}
+          studentDetail={studentDetail}
+        />
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
         <AllIndiaCategory
           categoryValues={categories}
           onSelectCategory={setSelectedCategory}
+          allIndiaCategory={allIndiaCategory}
         />
 
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
@@ -148,6 +180,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
           onSelectCategory={setSelectedCategory}
           categoryValues={categories}
           handleDomicileSt={handleDomicileSt}
+          domicileStateCategoryy={domicileStateCategoryy}
         />
 
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
@@ -155,11 +188,13 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
         <ParallelReservation
           reservation={Reservation}
           InputHandler={InputHandler}
+          parallelReservtion={parallelReservtion}
         />
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
         <MinorityReservation
           options={minorityReservation}
           SetMinReservation={SetMinReservation}
+          minorityReservtion={minorityReservtion}
         />
         <div className="flex justify-start items-center gap-[32px]">
           <div

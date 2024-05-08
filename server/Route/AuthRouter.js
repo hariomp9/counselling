@@ -111,26 +111,8 @@ router.route("/getUserById/:id").get(isAuthenticatedUser, getUserById);
 // router.route("/getUserById/:id").get(getUserById);
 
 // Delete a user
-router.delete("/deleteaUser/:id",isAuthenticatedUser,(req,res,next)=>{
 
-  // Authorize admin role first
-  authorizeRoles("admin")(req, res, err => {
-      // If admin role is authorized, call the next middleware (deleteaUser)
-      if (!err) {
-          return next();
-      }
-      // If admin role authorization fails, try authorizing super-admin role
-      authorizeRoles("super-admin")(req, res, err => {
-          // If super-admin role is authorized, call the next middleware (deleteaUser)
-          if (!err) {
-              return next();
-          }
-          // If both admin and super-admin role authorization fails, return an error response
-          return res.status(403).json({ success: false, message: "Unauthorized access" });
-      });
-  });
-
-} , deleteaUser);
+router.delete("/deleteaUser/:id",isAuthenticatedUser, deleteaUser);
 
 router.route("/forgotpassword").post(forgotPassword);
 router.route("/resetpassword/:resetToken").put(resetPassword);

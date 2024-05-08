@@ -18,7 +18,7 @@ const DeleteModuleC = ({ userID, closeModal, refreshData }) => {
 
     try {
       const response = await axios.delete(
-        `https://counselling-backend.vercel.app/api/auth/deleteaUser/${userID}`,
+        `http://localhost:4000/api/auth/deleteaUser/${userID}`,
         {
           headers: {
             Accept: "application/json",
