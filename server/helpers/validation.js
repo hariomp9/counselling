@@ -20,7 +20,6 @@ const domicileStateCategorySchema = joi.array().items(
 );
 
 // Define the validation for   State_Disrict
-
 const state_districtSchema = joi.array().items(
     joi.object({
         state_id: joi.string().custom((value, helpers) => {
@@ -29,13 +28,13 @@ const state_districtSchema = joi.array().items(
             }
             return value;
         }),
-        district_ids: joi.array().items(joi.string().custom((value, helpers) => {
+        district_id: joi.string().custom((value, helpers) => {
             if (!mongoose.Types.ObjectId.isValid(value)) {
                 return helpers.error('any.invalid');
             }
             return value;
-        })).required()
-    })
+        })
+    }).required()
 );
 
 

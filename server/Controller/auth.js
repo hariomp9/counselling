@@ -730,7 +730,13 @@ exports.getUserById = async (req, res) => {
         { path: 'state_id', model: 'State' },
         { path: 'category_id', model: 'Category' }
       ]
-  
+    .populate({
+      path:'State_Disrict',
+      populate:[
+        { path: 'state_id', model: 'State' },
+        { path: 'district_id', model: 'District' }
+      ]
+    })
 
     })
     .populate('OtherStatePreferences.Preference_Fields')
