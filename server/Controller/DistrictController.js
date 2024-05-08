@@ -24,8 +24,28 @@ const validateMongoDbId = require("../Utils/validateMongodbId");
 exports.createDistrict = async (req, res, next) => {
     const districtNamesToAdd =[
         
-        "Tapi"
-        , "Vadodara", "Valsad"
+        "Ambala",
+        "Bhiwani",
+        "Charkhi Dadri",
+        "Faridabad",
+        "Fatehabad",
+        "Gurugram",
+        "Hisar",
+        "Jhajjar",
+        "Jind",
+        "Kaithal",
+        "Karnal",
+        "Kurukshetra",
+        "Mahendragarh",
+        "Nuh",
+        "Palwal",
+        "Panchkula",
+        "Panipat",
+        "Rewari",
+        "Rohtak",
+        "Sirsa",
+        "Sonipat",
+        "Yamunanagar",
    
     ]
     

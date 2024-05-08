@@ -28,7 +28,7 @@ exports.isAuthenticatedUser = async (req, res, next) => {
     } else if (decodedData.role === 'super-admin') {
       user = await SuperAdmin.findById(decodedData.id);
     } 
-    else if (decodedData.role === 'user') {
+    else if (decodedData.role === 'student') {
       user = await User.findById(decodedData.id);
     }
     else {
