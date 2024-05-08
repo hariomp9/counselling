@@ -1,4 +1,4 @@
-const DistrictModel=require('../Model/DistrictModel')
+const DistrictModel = require('../Model/DistrictModel')
 const validateMongoDbId = require("../Utils/validateMongodbId");
 // Create a new district
 
@@ -22,53 +22,64 @@ const validateMongoDbId = require("../Utils/validateMongodbId");
 // }
 
 exports.createDistrict = async (req, res, next) => {
-    const districtNamesToAdd =[
+    const districtNamesToAdd =
+    [
         
-        "Ambala",
-        "Bhiwani",
-        "Charkhi Dadri",
-        "Faridabad",
-        "Fatehabad",
-        "Gurugram",
-        "Hisar",
-        "Jhajjar",
-        "Jind",
-        "Kaithal",
-        "Karnal",
-        "Kurukshetra",
-        "Mahendragarh",
-        "Nuh",
-        "Palwal",
-        "Panchkula",
-        "Panipat",
-        "Rewari",
-        "Rohtak",
-        "Sirsa",
-        "Sonipat",
-        "Yamunanagar",
-   
+            "Angul",
+            "Balangir",
+            "Balasore",
+            "Bargarh",
+            "Bhadrak",
+            "Boudh",
+            "Cuttack",
+            "Debagarh",
+            "Dhenkanal",
+            "Gajapati",
+            "Ganjam",
+            "Jagatsinghpur",
+            "Jajpur",
+            "Jharsuguda",
+            "Kalahandi",
+            "Kandhamal",
+            "Kendrapara",
+            "Kendujhar",
+            "Khordha",
+            "Koraput",
+            "Malkangiri",
+            "Mayurbhanj",
+            "Nabarangpur",
+            "Nayagarh",
+            "Nuapada",
+            "Puri",
+            "Rayagada",
+            "Sambalpur",
+            "Subarnapur",
+            "Sundergarh"
+
+        
     ]
     
-  
+
+
     try {
-      const districts = await DistrictModel.insertMany(districtNamesToAdd.map(name => ({ District: name })));
-      res.status(201).json(districts);
+        const districts = await DistrictModel.insertMany(districtNamesToAdd.map(name => ({ District: name })));
+        res.status(201).json(districts);
     } catch (error) {
-      next(error);
+        next(error);
     }
 };
 
 
 // Get all districts
 
-exports.getAllDistricts=async(req,res,next)=>{
-    try{
-        const districts=await DistrictModel.find()
-        if(!districts){
-            return res.status(404).json({message:"Districts not found"})
+exports.getAllDistricts = async (req, res, next) => {
+    try {
+        const districts = await DistrictModel.find()
+        if (!districts) {
+            return res.status(404).json({ message: "Districts not found" })
         }
         res.status(200).json(districts)
-    }catch(error){
+    } catch (error) {
         next(error)
 
     }
@@ -76,17 +87,17 @@ exports.getAllDistricts=async(req,res,next)=>{
 
 // Get district by ID
 
-exports.getDistrictById=async(req,res,next)=>{
-    try{
-        if(!validateMongoDbId(req.params.id)){
-            return res.status(400).json({message:"Invalid ID"})
+exports.getDistrictById = async (req, res, next) => {
+    try {
+        if (!validateMongoDbId(req.params.id)) {
+            return res.status(400).json({ message: "Invalid ID" })
         }
-        const district=await DistrictModel.findById(req.params.id)
-        if(!district){
-            return res.status(404).json({message:"District not found"})
+        const district = await DistrictModel.findById(req.params.id)
+        if (!district) {
+            return res.status(404).json({ message: "District not found" })
         }
         res.status(200).json(district)
-    }catch(error){
+    } catch (error) {
         next(error)
     }
 }
