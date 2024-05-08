@@ -11,14 +11,16 @@ import student from "../assets/right-poster.png";
 import first from "../assets/1st-right.svg";
 import second from "../assets/2st-right.svg";
 import third from "../assets/3st-right.svg";
+import UserRegistration from "../user-registration/page";
 
-const VerifyOTP = (props) => {
-  const { id } = props;
-  console.log(id, "jj");
-  const [verifyOTP, setVerifyOTP] = useState("");
-  const [userId, setUserId] = useState("");
-
+const VerifyOTP = ({ userID }) => {
+  const id = userID;
+  console.log(id, "userID");
+  // const [userId, setUserId] = useState("");
+  console.log(UserRegistration.userID, "userid");
   const router = useRouter();
+
+  const [verifyOTP, setVerifyOTP] = useState("");
 
   const inputHandler = (e) => {
     const { value } = e.target;
@@ -35,24 +37,11 @@ const VerifyOTP = (props) => {
         }
       );
       toast.success("Verification Successful!");
-      router.push("/user/user-login");
+      router.push("/user2nd/neetUG-home");
       console.log("Verification Response:", response.data);
     } catch (error) {
       console.error("Error occurred while sending OTP:", error);
       toast.error("Error occurred while sending OTP");
-    }
-  };
-
-  const handleSendOTP = async (userID) => {
-    try {
-      const response = await axios.post(
-        "https://counselling-backend.vercel.app/api/auth/generate-otp",
-        { userId: userID }
-      );
-      console.log(response?.data);
-    } catch (error) {
-      console.error(error);
-      console.log("Error occurred while sending OTP");
     }
   };
 
@@ -119,13 +108,24 @@ const VerifyOTP = (props) => {
                       </button>{" "}
                     </div>
                   </div> */}
-                    <div className="2xl:w-[406.5] xl:w-[] lg:w-[] sm:w-[] w-[] flex justify-between">
-                      {/* <label
+                    {/* <label
                       htmlFor="email"
                       className="montserrat-lable block text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px] "
                     >
                       Enter 6 digit number
                     </label> */}
+
+                    <input
+                      value={verifyOTP}
+                      onChange={inputHandler}
+                      maxLength={6}
+                      required
+                      type=""
+                      id="number"
+                      name="otp"
+                      className=" montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border w-full 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
+                    />
+                    {/* <div className="2xl:w-[406.5] xl:w-[] lg:w-[] sm:w-[] w-[] flex justify-between">
                       <input
                         value={verifyOTP}
                         onChange={inputHandler}
@@ -186,7 +186,7 @@ const VerifyOTP = (props) => {
                         name="number"
                         className=" montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border 2xl:w-[50px] xl:w-[35px] lg:w-[30px] 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
                       />
-                    </div>
+                    </div> */}
                     <button
                       onClick={handleVerify}
                       type="submit"

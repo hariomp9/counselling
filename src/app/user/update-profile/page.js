@@ -16,17 +16,22 @@ import { useRouter } from "next/navigation";
 const UserProfile = () => {
   const router = useRouter();
   const [studentDetail, setStudentDetail] = useState({});
+  const [getStates, setGetStates] = useState("");
+  const [getDist, setGetDist] = useState("");
+  const [stateId, setStateId] = useState("");
   const { token } = useSelector((state) => state?.auth);
   const { _id } = useSelector((state) => state?.auth);
   const [userDetail, setUserDetail] = useState({
     firstname: "",
     mobile: "",
     email: "",
-    // gender: "",
-    // whatsappnumber: "",
+    Gender: "",
+    whatsappMobile: "",
     // state: [],
     // city: [],
   });
+
+  console.log(stateId, "stateid");
 
   useEffect(() => {
     defaultAUser();
@@ -76,13 +81,61 @@ const UserProfile = () => {
       if (response.status === 200) {
         // refreshData();
         toast.success("Update successfully!");
-        router.push("/user2nd/profile");
+        // router.push("/user2nd/profile");
       } else {
         console.log("Server error");
+        toast.error(error?.response?.data?.message || "Server error");
       }
     } catch (error) {
       console.log(error?.response?.data?.message || "Server error");
     }
+  };
+
+  useEffect(() => {
+    defaultState();
+  }, []);
+
+  const defaultState = async () => {
+    const options = {
+      method: "GET",
+      url: "http://localhost:4000/api/state/getAllStates",
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setGetStates(response?.data?.states);
+        console.log(response?.data, "State");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+  useEffect(() => {
+    defaultDist();
+  }, []);
+
+  const defaultDist = async () => {
+    const options = {
+      method: "GET",
+      url: `http://localhost:4000/api/state_district/${stateId}`,
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setGetDist(response?.data);
+        console.log(response?.data, "city");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
   };
   return (
     // <>
@@ -334,7 +387,7 @@ const UserProfile = () => {
                   <form onSubmit={handleUpdateUser}>
                     <div className="flex flex-wrap 2xl:gap-[30px] xl:gap-[20px] gap-[10px]">
                       <div className="">
-                        <label className="userUlabel">Full Name</label> <br />
+                        <label className="userUlabel">First Name</label> <br />
                         <input
                           defaultValue={
                             studentDetail?.firstname
@@ -409,31 +462,32 @@ const UserProfile = () => {
                           onChange={inputHandler}
                         />
                       </div>
-                      <div className="">
+                      {/* <div className="">
                         <label className="userUlabel">Gender</label> <br />
-                        <input
-                          defaultValue={
-                            studentDetail?.gender
-                              ? studentDetail?.gender
-                              : userDetail?.gender
+                        <select
+                          value={
+                            studentDetail?.Gender
+                              ? studentDetail?.Gender
+                              : userDetail?.Gender
                           }
-                          type="text"
                           name="gender"
                           className="userUinput"
-                          placeholder="Enter Gender"
-                          // required
-                          maxLength={200}
                           onChange={inputHandler}
-                        />
-                      </div>
+                        >
+                          <option value="">Select Gender</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                      </div> */}
+
                       <div className="">
                         <label className="userUlabel">Whatsapp Number</label>{" "}
                         <br />
                         <input
                           defaultValue={
-                            studentDetail?.mobile
-                              ? studentDetail?.mobile
-                              : userDetail?.mobile
+                            studentDetail?.whatsappMobile
+                              ? studentDetail?.whatsappMobile
+                              : userDetail?.whatsappMobile
                           }
                           type="text"
                           name="whatsappnumber"
@@ -458,23 +512,22 @@ const UserProfile = () => {
                           <select
                             id="states2"
                             className="userUinput"
-                            // value={preference2}
-                            // onChange={handlePreference2Change}
+                            // value={setStateId}
+                            onChange={(e) => setStateId(e.target.value)}
                           >
                             <option value=""> Select State</option>
+                            {Array.isArray(getStates) &&
+                              getStates.map((item) => (
+                                <option
+                                  key={item._id}
+                                  value={item._id}
+                                  className="pre_input"
+                                >
+                                  {item.name}
+                                </option>
+                              ))}
 
                             <option className="">MP</option>
-
-                            {/* <option value=""> Select State</option>
-                          {getAllStates.map((item) => (
-                            <option
-                              key={item._id}
-                              value={item._id}
-                              className="pre_input"
-                            >
-                              {item.name}
-                            </option>
-                          ))} */}
                           </select>
                         </div>
                       </div>
@@ -489,6 +542,16 @@ const UserProfile = () => {
                             // onChange={handlePreference2Change}
                           >
                             <option value=""> Select District</option>
+                            {Array.isArray(getDist) &&
+                              getDist.map((item) => (
+                                <option
+                                  key={item._id}
+                                  value={item._id}
+                                  className="pre_input"
+                                >
+                                  {item.name}
+                                </option>
+                              ))}
 
                             <option className="">MP</option>
                           </select>
