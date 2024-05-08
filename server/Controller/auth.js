@@ -76,7 +76,7 @@ exports.uploadImage = async (req, res, next) => {
 exports.register = async (req, res, next) => {
   const { email, password } = req.body;
   const existingUser = await User.findOne({ email });
-  
+
   if (existingUser) {
     return res.status(203).json({ error: "User with this email already exists." });
   }
@@ -94,11 +94,11 @@ exports.register = async (req, res, next) => {
     tenthPercentage: req.body.tenthPercentage,
     twelfthPercentage: req.body.twelfthPercentage,
     neetScore: req.body.neetScore,
-    whatsappMobile: req.body.whatsappMobile, 
+    whatsappMobile: req.body.whatsappMobile,
     Gender: req.body.Gender,
-    District:req.body.District,
-    Comments:req.body.Comments,
-    SubscriptionsPlan:req.body.SubscriptionsPlan || 'free',
+    District: req.body.District,
+    Comments: req.body.Comments,
+    SubscriptionsPlan: req.body.SubscriptionsPlan || 'free',
   };
 
   try {
@@ -146,7 +146,7 @@ async function sendWelcomeEmail(email, password, username) {
 }
 
 
-  
+
 
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -694,17 +694,17 @@ exports.getaUser = async (req, res) => {
 exports.getallUsers = async (req, res) => {
   try {
     const user = await User.find()
-    .populate("wishlist")
-    .populate('All_India_Category_id')
-    .populate('Course_Preference')
-    .populate({
-      path: 'domicileStateCategory',
-      populate: [
-        { path: 'state_id', model: 'State' },
-        { path: 'category_id', model: 'Category' }
-      ]
-    })
-    .populate('OtherStatePreferences.Preference_Fields')
+      .populate("wishlist")
+      .populate('All_India_Category_id')
+      .populate('Course_Preference')
+      .populate({
+        path: 'domicileStateCategory',
+        populate: [
+          { path: 'state_id', model: 'State' },
+          { path: 'category_id', model: 'Category' }
+        ]
+      })
+      .populate('OtherStatePreferences.Preference_Fields')
     res.status(200).json({
       user,
     });
@@ -716,32 +716,33 @@ exports.getallUsers = async (req, res) => {
 
 
 
- // working controller
+// working controller
 
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
-    .populate("wishlist")
-    .populate('All_India_Category_id')
-    .populate('Course_Preference')
-    .populate({
-      path: 'domicileStateCategory',
-      populate: [
-        { path: 'state_id', model: 'State' },
-        { path: 'category_id', model: 'Category' }
-      ]
-    .populate({
-      path:'State_Disrict',
-      populate:[
-        { path: 'state_id', model: 'State' },
-        { path: 'district_id', model: 'District' }
-      ]
-    })
+      .populate("wishlist")
+      .populate('All_India_Category_id')
+      .populate('Course_Preference')
+      .populate({
+        path: 'domicileStateCategory',
+        populate: [
+          { path: 'state_id', model: 'State' },
+          { path: 'category_id', model: 'Category' }
+        ]
+      
+      })
+      .populate('OtherStatePreferences.Preference_Fields')
+      .populate({
+        path: 'State_District',
+        populate: [
+          { path: 'state_id', model: 'State' },
+          { path: 'district_id', model: 'District' }
+        ]
+      })
 
-    })
-    .populate('OtherStatePreferences.Preference_Fields')
 
-    
+
     res.status(200).json({
       user,
     });
@@ -929,93 +930,93 @@ exports.updatedUser_Steps = async (req, res) => {
     const step_status = req.body.step_status;
     const id = req.params.id;
     const user = await User.findById(id);
-    if(!user){
-         return res.status(404).json({ success: false, message: 'user not found' });
-       }
-     if(!step_status){
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'user not found' });
+    }
+    if (!step_status) {
       return res.status(404).json({ success: false, message: 'plz provide step_status' });
-      }
+    }
 
 
     if (step_status == 'neet_info') {
       const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
       // Steps
-    const user = await Steps.findOne({User_Id:id});
-    if (!user) {
-      const newUser = new Steps({
+      const user = await Steps.findOne({ User_Id: id });
+      if (!user) {
+        const newUser = new Steps({
           User_Id: id,
           neet_info: 'completed'
-      });
-      const updatedUser = await newUser.save();
-  } else {
-  
-      const updatedUser = await Steps.findByIdAndUpdate(
+        });
+        const updatedUser = await newUser.save();
+      } else {
+
+        const updatedUser = await Steps.findByIdAndUpdate(
           { _id: user.id }, // Query to find the document
           { neet_info: 'completed' }, // Update the neet_info field
           { new: true } // Return the updated document
-      );
-  }
+        );
+      }
       // res.json(updatedUser);
-      return res.status(200).json({ success: true, message: 'User neet infomation updated successfully',data:updatedUser });
+      return res.status(200).json({ success: true, message: 'User neet infomation updated successfully', data: updatedUser });
 
     } else if (step_status == 'admision_pre') {
       const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-      const user = await Steps.findOne({User_Id:id});
+      const user = await Steps.findOne({ User_Id: id });
       if (!user) {
         const newUser = new Steps({
-            User_Id: id,
-            admision_pre: 'completed'
+          User_Id: id,
+          admision_pre: 'completed'
         });
         const updatedUser = await newUser.save();
-    } else {
+      } else {
         const updatedUser = await Steps.findByIdAndUpdate(
-            { _id: user.id }, // Query to find the document
-            { admision_pre: 'completed' }, // Update the neet_info field
-            { new: true } // Return the updated document
+          { _id: user.id }, // Query to find the document
+          { admision_pre: 'completed' }, // Update the neet_info field
+          { new: true } // Return the updated document
         );
-    }
+      }
       // res.json(updatedUser);
-      return res.status(200).json({ success: true, message: 'User admision preference updated successfully',data:updatedUser });
+      return res.status(200).json({ success: true, message: 'User admision preference updated successfully', data: updatedUser });
 
     } else if (step_status == 'education_info') {
-      const user = await Steps.findOne({User_Id:id});
+      const user = await Steps.findOne({ User_Id: id });
       if (!user) {
         const newUser = new Steps({
-            User_Id: id,
-            education_info: 'completed'
+          User_Id: id,
+          education_info: 'completed'
         });
         const updatedUser = await newUser.save();
-    } else {
+      } else {
         const updatedUser = await Steps.findByIdAndUpdate(
           { _id: user.id },  // Query to find the document
-            { education_info: 'completed' }, // Update the neet_info field
-            { new: true } // Return the updated document
+          { education_info: 'completed' }, // Update the neet_info field
+          { new: true } // Return the updated document
         );
-    }
+      }
       const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
       // res.json(updatedUser);
-      return res.status(200).json({ success: true, message: 'User education infomation updated successfully',data:updatedUser });
+      return res.status(200).json({ success: true, message: 'User education infomation updated successfully', data: updatedUser });
 
     }
-    else if(step_status == 'personal_details') {
+    else if (step_status == 'personal_details') {
       const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-         const user = await Steps.findOne({User_Id:id});
-    if (!user) {
-      const newUser = new Steps({
+      const user = await Steps.findOne({ User_Id: id });
+      if (!user) {
+        const newUser = new Steps({
           User_Id: id,
           personal_details: 'completed'
-      });
-      const updatedUser = await newUser.save();
-  } else {
-      const updatedUser = await Steps.findByIdAndUpdate(
-        { _id: user.id },  // Query to find the document
+        });
+        const updatedUser = await newUser.save();
+      } else {
+        const updatedUser = await Steps.findByIdAndUpdate(
+          { _id: user.id },  // Query to find the document
           { personal_details: 'completed' }, // Update the neet_info field
           { new: true } // Return the updated document
-      );
-  }
+        );
+      }
       // res.json(updatedUser);
-      return res.status(200).json({ success: true, message: 'User personal details updated successfully',data:updatedUser });
-    } else{
+      return res.status(200).json({ success: true, message: 'User personal details updated successfully', data: updatedUser });
+    } else {
       return res.status(404).json({ success: false, message: 'plz provide right status value' });
     }
   } catch (error) {
@@ -1028,9 +1029,9 @@ exports.updatedUser_Steps = async (req, res) => {
 
 exports.getstepsbyuserId = async (req, res) => {
   try {
-    const user = await Steps.findOne({User_Id:req.params.id});
+    const user = await Steps.findOne({ User_Id: req.params.id });
     res.status(200).json({
-      messsage:'User steps',
+      messsage: 'User steps',
       user
     });
   } catch (error) {
@@ -1070,10 +1071,10 @@ exports.superAdminRegister = async (req, res, next) => {
 
 exports.superAdminLogin = async (req, res, next) => {
   const { email, password } = req.body;
-  
+
   try {
     const findAdmin = await SuperAdmin.findOne({ email }).select("+password");
-    
+
     if (!findAdmin) {
       throw new Error("SuperAdmin not found");
     }
@@ -1122,7 +1123,7 @@ exports.superAdminLogout = async (req, res) => {
     if (authHeader) {
       token = authHeader;
     }
-    
+
     if (!token) {
       return res
         .status(401)
@@ -1131,7 +1132,7 @@ exports.superAdminLogout = async (req, res) => {
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
-    const userData = await SuperAdmin.findOne({_id:decodedData?.id});
+    const userData = await SuperAdmin.findOne({ _id: decodedData?.id });
 
     if (userData.activeToken && userData.activeToken === token) {
       const user = await SuperAdmin.findOneAndUpdate(
@@ -1178,9 +1179,9 @@ exports.superAdminUpdate = async (req, res) => {
 
 exports.getallSuperAdmin = async (req, res) => {
   try {
-    const { page = 1, limit = 10} = req.query;
+    const { page = 1, limit = 10 } = req.query;
     const searchQuery = req.query.search;
-    
+
     const currentPage = parseInt(page, 10);
     const itemsPerPage = parseInt(limit, 10);
 

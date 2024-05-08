@@ -181,7 +181,7 @@ const UserSchema = new mongoose.Schema(
 
     // State_District
 
-    State_Disrict:[
+    State_District:[
      {
       state_id: {
         type: mongoose.Schema.Types.ObjectId,
