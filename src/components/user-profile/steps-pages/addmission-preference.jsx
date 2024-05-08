@@ -5,21 +5,25 @@ import arrow from "../../assets/arrow.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
+const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   const [getPreferences, setPreferences] = useState([]);
+  const [getAllStates, setGetAllStates] = useState([]);
+  const [selectedRadio, setSelectedRadio] = useState("");
+  const [preference1, setPreference1] = useState("");
+  const [preference2, setPreference2] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [checkedColleges, setCheckedColleges] = useState("");
   const [getAdmission, setAdmission] = useState("");
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
   const [statusinfo, setData] = useState({ step_status: "admision_pre" });
   const [Admissions_Preferences, setAdmissions_Preferences] = useState([]);
-  const data=[
-  { id: 1, name: "Government College" },
-  { id: 2, name: "Private/Management" }]
-  
+  const [selectedCollege, setSelectedCollege] = useState(null);
+  const data = [
+    { id: 1, name: "Government College" },
+    { id: 2, name: "Private/Management" },
+  ];
+
   const [selectedColleges, setSelectedColleges] = useState([]);
-
-
   useEffect(() => {
     const fetchStates = async () => {
       try {
@@ -42,19 +46,11 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
       setAdmissions_Preferences("");
     }
   }, [selectedColleges]);
-  
-
-
-
-  console.log('"Admissions_Preferences":', `"${Admissions_Preferences}"`);
-
   const handleCheckboxChange = (collegeName) => {
     if (selectedColleges.includes(collegeName)) {
       setSelectedColleges(
         selectedColleges.filter((college) => college !== collegeName)
       );
-
-      console.log("selectedColleges---------------->>>>>>>>> ", selectedColleges);
     } else {
       setSelectedColleges([...selectedColleges, collegeName]);
     }
@@ -73,21 +69,29 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
       setSelectedCategories(updatedCategories);
     }
 
-    setFormData({
-      ...formData,
-      Course_Preference: isSelected
-        ? formData.Course_Preference.filter((pref) => pref._id !== category._id) // Remove the category from formData
-        : [...formData.Course_Preference, category._id], // Add the category to formData
-        // Include the selected college in the formData
-        Admissions_Preferences: selectedColleges
-    });
+    setFormData(
+      {
+        ...formData,
+        Course_Preference: isSelected
+          ? formData.Course_Preference.filter(
+              (pref) => pref._id !== category._id
+            )
+          : [...formData.Course_Preference, category._id],
+        Admissions_Preferences: selectedColleges,
+        OtherStatePreferences: [
+          {
+            select_options: selectedRadio,
+            Preference_Fields: [preference1, preference2],
+          },
+        ],
+      },
+      () => {
+        console.log("OtherStatePreferences:", formData.OtherStatePreferences);
+      }
+    );
+
+    console.log("formData:", formData.OtherStatePreferences);
   };
-
-
-  console.log("Admissions_Preferences ------------->  :", Admissions_Preferences);
-
-
-  console.log("states 12", Admissions_Preferences);
 
   const [formData, setFormData] = useState({
     Course_Preference: [],
@@ -100,13 +104,16 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
         sponsorsCountryState: "",
       },
     ],
-    OtherStatePreferences: [{ select_options: "" }],
+    OtherStatePreferences: [
+      {
+        select_options: "",
+        Preference_Fields: [],
+      },
+    ],
+
     AnnualMedicalCourseBudget: "",
-    Admissions_Preferences: []  
+    Admissions_Preferences: [],
   });
-
-
-  console.log("FORMADATA-----", formData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -119,6 +126,13 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
         },
       ],
       AnnualMedicalCourseBudget: value,
+      Admissions_Preferences: selectedColleges,
+      OtherStatePreferences: [
+        {
+          select_options: selectedRadio,
+          Preference_Fields: [preference1, preference2],
+        },
+      ],
     }));
   };
   console.log(formData);
@@ -130,12 +144,8 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
     };
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/updatedUser_Steps/${userid}`,
+        `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
-      );
-      console.log(
-        "PUT request successful ------------------------  ",
-        response.data
       );
       next();
     } catch (error) {
@@ -145,13 +155,27 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
   const handleNextClick = () => {
     sendData();
   };
-
   const handleSubmit = () => {
-    console.log("Admissions_Preferences:", selectedColleges);
     setSelectedColleges([]);
+    OtherStatePreferences: [
+      {
+        select_options: selectedRadio,
+        Preference_Fields: [preference1, preference2],
+      },
+    ];
   };
 
-  const [getAllStates, setGetAllStates] = useState("");
+  const handleRadioChange = (event) => {
+    setSelectedRadio(event.target.value);
+  };
+
+  const handlePreference1Change = (event) => {
+    setPreference1(event.target.value);
+  };
+
+  const handlePreference2Change = (event) => {
+    setPreference2(event.target.value);
+  };
 
   useEffect(() => {
     defaultStates();
@@ -171,6 +195,75 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
       });
   };
 
+  const [studentDetail, setStudentDetail] = useState({});
+  const [preferenc1, setPreferenc1] = useState({});
+  const [preferenc2, setPreferenc2] = useState({});
+  const [feesBudget, setfeesBudget] = useState("");
+  const [coursePreferenc, setCoursePreferences] = useState({});
+  const [admissionPreferenc, setAdmissionPreference] = useState({});
+  console.log(admissionPreferenc, "//");
+  const { token } = useSelector((state) => state?.auth);
+
+  useEffect(() => {
+    defaultAUser();
+  }, []);
+
+  const defaultAUser = async () => {
+    const options = {
+      method: "GET",
+      url: `http://localhost:4000/api/auth/getUserById/${userids}`,
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setStudentDetail(response?.data?.user?.NRI_Quta_Prefernce[0]);
+        setPreferenc1(
+          response?.data?.user?.OtherStatePreferences[0]?.Preference_Fields[0]
+        );
+        setPreferenc2(
+          response?.data?.user?.OtherStatePreferences[0]?.Preference_Fields[1]
+        );
+        setfeesBudget(response?.data?.user?.AnnualMedicalCourseBudget);
+        setCoursePreferences(response?.data?.user?.Course_Preference);
+        setAdmissionPreference(response?.data?.user?.Admissions_Preferences);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+  useEffect(() => {
+    const setCoursePreferences = () => {
+      const preferences = [
+        { _id: "662a9e5677db7c5881c4c72c", course_Preference: "MBBS", __v: 0 },
+        { _id: "662a9f8462e421f51be96968", course_Preference: "BDS", __v: 0 },
+      ];
+      const defaultPreferences = preferences.map(
+        (preference) => preference._id
+      );
+      setSelectedCategories(defaultPreferences);
+      console.log(defaultPreferences, "map");
+    };
+    setCoursePreferences();
+  }, []);
+  const handleCheckboxClick = (collegeName) => {
+    setSelectedCollege(collegeName);
+    handleCheckboxChange(collegeName);
+  };
+
+  useEffect(() => {
+    if (typeof admissionPreferenc === "string") {
+      setSelectedCollege(admissionPreferenc);
+    } else if (
+      Array.isArray(admissionPreferenc) &&
+      admissionPreferenc.length > 0
+    ) {
+      setSelectedCollege(admissionPreferenc[0]);
+    }
+  }, [admissionPreferenc]);
   return (
     <section>
       <div className="main_div mx-auto">
@@ -186,21 +279,25 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                 multiple courses)
               </p>
             </div>
-
             <div className="flex flex-wrap gap-[19px] md:w-[50%] mt-5 mb-5">
               {getPreferences.map((category, index) => (
                 <div
                   key={index}
                   className={`flex gap-[3px] items-center rounded-[5px] px-[16px] h-[48px] w-[103px] justify-center cursor-pointer
-            ${
-              selectedCategories.includes(category._id)
-                ? "border-1px border-[#D9D9D9] bg-theme_primary"
-                : "border-1px border-[#D9D9D9] bg-[#FFFFFF]"
-            }
-            `}
+        ${
+          selectedCategories.includes(category._id)
+            ? "border-1px border-[#D9D9D9] bg-theme_primary"
+            : "border-1px border-[#D9D9D9] bg-[#FFFFFF]"
+        }
+      `}
                   onClick={() => handleCategoryClick(category)}
                 >
-                  <input type="checkbox" id={category._id} className="hidden" />
+                  <input
+                    type="checkbox"
+                    id={category._id}
+                    checked={selectedCategories.includes(category._id)}
+                    className="hidden"
+                  />
                   {selectedCategories.includes(category._id) && (
                     <Image
                       src="/svg/profile/tick_white.svg"
@@ -209,16 +306,15 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                       alt="select"
                     />
                   )}
-                  {/* Tick icon */}
                   <label
                     htmlFor={category._id}
                     className={`text-[15px] font-[400] font-inter leading-[18.15px] whitespace-nowrap
-              ${
-                selectedCategories.includes(category._id)
-                  ? "text-[#ffffff]"
-                  : "text-[#747474]"
-              }
-              `}
+          ${
+            selectedCategories.includes(category._id)
+              ? "text-[#ffffff]"
+              : "text-[#747474]"
+          }
+        `}
                   >
                     {category.course_Preference}
                   </label>
@@ -227,37 +323,40 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
             </div>
           </div>
           <hr />
-          {/* =============02============ */}
+          {/* =============02============  */}
           <div className="flex gap-2">
             <h1 className="inter font-[700] 2xl:text-[20px] xl:text-[16px] lg:text-[12px] 2xl:leading-[24px] xl:leading-[20px] lg:leading-[16px] ">
               Admission Preference
             </h1>
           </div>
           <div className="flex 2xl:gap-[25px] xl:gap-[25px] gap-[30px] 2xl:my-[25px] xl:my-[20px] my-[10px]">
-  {Array.isArray(data) && data.map((college, index) => {
-    console.log("College:", college); // Moved the console.log here
-    return (
-      <div key={index} className="flex items-center 2xl:gap-2 gap-1">
-        <input
-          type="checkbox"
-          className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
-          checked={selectedColleges.includes(college.name)}
-          onChange={() => handleCheckboxChange(college.name)}
-        />
-        <h1 className="inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[13px] text-[12px]">
-          {college.name}
-        </h1>
-      </div>
-    );
-  })}
-</div>
-
-
-{console.log("Selected Colleges:", selectedColleges)}
-
+            {Array.isArray(data) &&
+              data.map((college, index) => {
+                const isChecked =
+                  selectedCollege === college.name ||
+                  (Array.isArray(admissionPreferenc) &&
+                    admissionPreferenc.includes(college.name));
+                return (
+                  <div
+                    key={index}
+                    className="flex items-center 2xl:gap-2 gap-1"
+                  >
+                    <input
+                      type="checkbox"
+                      className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
+                      checked={isChecked}
+                      onChange={() => handleCheckboxClick(college.name)}
+                    />
+                    <h1 className="inter font-[400] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[13px] text-[12px]">
+                      {college.name}
+                    </h1>
+                  </div>
+                );
+              })}
+          </div>
 
           <hr />
-          {/* =============03============ */}
+          {/* =============03============  */}
 
           <div>
             <div className="2xl:my-[30px] xl:my-[20px] my-[15px]">
@@ -300,7 +399,9 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                   placeholder="Enter detail"
                   name="relationshipWithSponsor"
                   value={
-                    formData.NRI_Quta_Prefernce[0].relationshipWithSponsor || ""
+                    formData.NRI_Quta_Prefernce[0]?.relationshipWithSponsor ||
+                    studentDetail?.relationshipWithSponsor ||
+                    ""
                   }
                   onChange={handleChange}
                 />
@@ -312,7 +413,12 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                   className="pre_input"
                   placeholder="Enter detail"
                   name="sponsorsCountry"
-                  value={formData.NRI_Quta_Prefernce[0].sponsorsCountry || ""}
+                  // value={formData.NRI_Quta_Prefernce[0].sponsorsCountry || ""}
+                  value={
+                    formData.NRI_Quta_Prefernce[0]?.sponsorsCountry ||
+                    studentDetail?.sponsorsCountry ||
+                    ""
+                  }
                   onChange={handleChange}
                 />
               </div>
@@ -325,8 +431,13 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                   className="pre_input"
                   placeholder="Enter detail"
                   name="sponsorsCountryState"
+                  // value={
+                  //   formData.NRI_Quta_Prefernce[0].sponsorsCountryState || ""
+                  // }
                   value={
-                    formData.NRI_Quta_Prefernce[0].sponsorsCountryState || ""
+                    formData.NRI_Quta_Prefernce[0]?.sponsorsCountryState ||
+                    studentDetail?.sponsorsCountryState ||
+                    ""
                   }
                   onChange={handleChange}
                 />
@@ -348,7 +459,8 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                   type="radio"
                   name="radio-7"
                   value="Yes"
-                  // onChange={handleChange}
+                  checked={selectedRadio === "Yes"}
+                  onChange={handleRadioChange}
                   className="radio radio-[#1172BA] 2xl:w-[22px] 2xl:h-[22px] xl:w-[16px] xl:h-[16px] w-[14px] h-[14px]"
                 />{" "}
                 Yes
@@ -358,7 +470,8 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                   type="radio"
                   name="radio-7"
                   value="No"
-                  // onChange={handleChange}
+                  checked={selectedRadio === "No"}
+                  onChange={handleRadioChange}
                   className="radio radio-[#1172BA] 2xl:w-[22px] 2xl:h-[22px] xl:w-[16px] xl:h-[16px] w-[14px] h-[14px]"
                 />
                 No
@@ -369,47 +482,54 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                 <div className="flex items-center gap-[45px]">
                   <label className="pre_input_lable2">Preference No. 1</label>
                   <div className="">
-                    <select id="states" className="pre_input">
-                      <option value="">Select States</option>
-                      {Array.isArray(getAllStates) &&
-                        getAllStates.map((item) => (
-                          <option
-                            key={item._id}
-                            value={item._id}
-                            className="pre_input"
-                          >
-                            {item.name}
-                          </option>
-                        ))}
+                    <select
+                      id="states1"
+                      className="pre_input"
+                      value={preference1}
+                      // defaultValue={domicileStateCategoryy?.name}
+                      onChange={handlePreference1Change}
+                    >
+                      <option value="">{preferenc1?.name}</option>
+                      {getAllStates.map((item) => (
+                        <option
+                          key={item._id}
+                          value={item._id}
+                          className="pre_input"
+                        >
+                          {item.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
                 <div className="flex items-center gap-[45px]">
                   <label className="pre_input_lable2">Preference No. 2</label>
                   <div className="">
-                    <select id="states" className="pre_input">
-                      <option value=""> Select States</option>
-                      {Array.isArray(getAllStates) &&
-                        getAllStates.map((item) => (
-                          <option
-                            key={item._id}
-                            value={item._id}
-                            className="pre_input"
-                          >
-                            {item.name}
-                          </option>
-                        ))}
+                    <select
+                      id="states2"
+                      className="pre_input"
+                      value={preference2}
+                      onChange={handlePreference2Change}
+                    >
+                      <option value=""> {preferenc2?.name}</option>
+                      {getAllStates.map((item) => (
+                        <option
+                          key={item._id}
+                          value={item._id}
+                          className="pre_input"
+                        >
+                          {item.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
               </div>
               <div className=" relative ">
-                <button className="flex justify-center items-center gap-2 absolute inter font-[700] bottom-0 2xl:my-[10px] xl:my-[8px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px] lg:my-[4px]">
-                  <Image
-                    alt="img"
-                    src={add}
-                    className="2xl:w-[15px] 2xl:h-[15px] xl:w-[12px] xl:h-[12px] w-[11px] h-[11px] rounded-full"
-                  />
+                <button
+                  onClick={handleSubmit}
+                  className="flex justify-center items-center gap-2 absolute inter font-[700] bottom-0 2xl:my-[10px] xl:my-[8px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px] lg:my-[4px]"
+                >
                   Add State
                 </button>
               </div>
@@ -431,16 +551,20 @@ const AddmissionPreference = ({ next, prev, onFormDataChange }) => {
                 id="feesBudgetInput"
                 className="pre_input"
                 placeholder="Enter detail"
-                value={formData.AnnualMedicalCourseBudget}
+                // value={formData.AnnualMedicalCourseBudget}
+                value={formData.AnnualMedicalCourseBudget || feesBudget}
                 onChange={handleChange}
               />
             </div>
           </div>
           <div className="flex xl:gap-[30px] gap-[20px] 2xl:mb-[60px] xl:mb-[40px]">
             <div className="  2xl:my-[30px] xl:my-[20px]">
-              <button  onClick={() => {
-                prev();
-                }} className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]">
+              <button
+                onClick={() => {
+                  prev();
+                }}
+                className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
+              >
                 <Image
                   alt="img"
                   src={arrow}
