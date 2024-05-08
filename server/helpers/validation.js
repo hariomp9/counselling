@@ -19,6 +19,26 @@ const domicileStateCategorySchema = joi.array().items(
     })
 );
 
+// Define the validation for   State_Disrict
+
+const state_districtSchema = joi.array().items(
+    joi.object({
+        state_id: joi.string().custom((value, helpers) => {
+            if (!mongoose.Types.ObjectId.isValid(value)) {
+                return helpers.error('any.invalid');
+            }
+            return value;
+        }),
+        district_ids: joi.array().items(joi.string().custom((value, helpers) => {
+            if (!mongoose.Types.ObjectId.isValid(value)) {
+                return helpers.error('any.invalid');
+            }
+            return value;
+        })).required()
+    })
+);
+
+
 // Define the validation schema for OtherStatePreferences
 const OtherStatePreferencesSchema = joi.array().items(
     joi.object({
@@ -33,6 +53,8 @@ const OtherStatePreferencesSchema = joi.array().items(
 );
 
 
+
+
 const coursePreferenceSchema = joi.array().items(
     joi.string().custom((value, helpers) => {
         if (!mongoose.Types.ObjectId.isValid(value)) {
@@ -45,10 +67,11 @@ const coursePreferenceSchema = joi.array().items(
 // Validation middleware for domicileStateCategory and OtherStatePreferences
 exports.validateUser = async (req, res, next) => {
     try {
-        const { domicileStateCategory, OtherStatePreferences,Course_Preference } = req.body;
+        const { domicileStateCategory, OtherStatePreferences,Course_Preference,State_Disrict} = req.body;
         await domicileStateCategorySchema.validateAsync(domicileStateCategory);
         await OtherStatePreferencesSchema.validateAsync(OtherStatePreferences);
         await coursePreferenceSchema.validateAsync(Course_Preference);
+        await state_districtSchema.validateAsync(State_Disrict);
 
         next();
     } catch (error) {

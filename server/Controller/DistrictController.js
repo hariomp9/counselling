@@ -23,44 +23,14 @@ const validateMongoDbId = require("../Utils/validateMongodbId");
 
 exports.createDistrict = async (req, res, next) => {
     const districtNamesToAdd =
-    [
-        
-            "Angul",
-            "Balangir",
-            "Balasore",
-            "Bargarh",
-            "Bhadrak",
-            "Boudh",
-            "Cuttack",
-            "Debagarh",
-            "Dhenkanal",
-            "Gajapati",
-            "Ganjam",
-            "Jagatsinghpur",
-            "Jajpur",
-            "Jharsuguda",
-            "Kalahandi",
-            "Kandhamal",
-            "Kendrapara",
-            "Kendujhar",
-            "Khordha",
-            "Koraput",
-            "Malkangiri",
-            "Mayurbhanj",
-            "Nabarangpur",
-            "Nayagarh",
-            "Nuapada",
-            "Puri",
-            "Rayagada",
-            "Sambalpur",
-            "Subarnapur",
-            "Sundergarh"
-
-        
-    ]
-    
-
-
+        [
+            "East Sikkim",
+            "North Sikkim",
+            "Pakyong",
+            "Soreng",
+            "South Sikkim",
+            "West Sikkim"
+        ]
     try {
         const districts = await DistrictModel.insertMany(districtNamesToAdd.map(name => ({ District: name })));
         res.status(201).json(districts);

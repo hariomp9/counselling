@@ -20,18 +20,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
     },
     whatsappMobile: {
-      type: String,
+      type: Number,
     },
     Gender: {
       type: String,
-      enum: ['Male', 'Femaile']
+      enum: ['Male', 'Female']
     },
-
-
-    District: {
-      type: String
-    },
-
 
     // Subscription: {
     //   type: String,
@@ -183,6 +177,35 @@ const UserSchema = new mongoose.Schema(
         }
       }
     }],
+
+
+    // State_District
+
+    State_Disrict:[
+     {
+      state_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "State",
+        validate: {
+          validator: function(v) {
+            return mongoose.Types.ObjectId.isValid(v);
+          },
+          message: props => `${props.value} is not a valid state_id!`
+        }
+      },
+      district_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "District",
+        validate: {
+          validator: function(v) {
+            return mongoose.Types.ObjectId.isValid(v);
+          },
+          message: props => `${props.value} is not a valid district_id!`
+        }
+      }
+     }
+      
+     ],
 
     // Parellel Reservations
 
