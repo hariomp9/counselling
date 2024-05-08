@@ -34,6 +34,7 @@ const {
   getSuperAdminById,
   deleteaSuperAdmin
 } = require("../Controller/auth");
+const{validateUser} =require("../helpers/validation");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -78,7 +79,24 @@ router.post("/updatePassword", isAuthenticatedUser, updatePassword);
 router.put("/edit-user/:id",isAuthenticatedUser, updatedUser);
 
 // Get all Users
-router.get("/all-users", isAuthenticatedUser, authorizeRoles("admin"), getallUser);
+router.get("/all-users", isAuthenticatedUser, (req, res, next) => {
+  // Authorize admin role first
+  authorizeRoles("admin")(req, res, err => {
+      // If admin role is authorized, call the next middleware (getallUser)
+      if (!err) {
+          return next();
+      }
+      // If admin role authorization fails, try authorizing super-admin role
+      authorizeRoles("super-admin")(req, res, err => {
+          // If super-admin role is authorized, call the next middleware (getallUser)
+          if (!err) {
+              return next();
+          }
+          // If both admin and super-admin role authorization fails, return an error response
+          return res.status(403).json({ success: false, message: "Unauthorized access" });
+      });
+  });
+}, getallUser);
 
 // Get all Users data
 
@@ -93,7 +111,26 @@ router.route("/getUserById/:id").get(isAuthenticatedUser, getUserById);
 // router.route("/getUserById/:id").get(getUserById);
 
 // Delete a user
-router.delete("/deleteaUser/:id",isAuthenticatedUser, authorizeRoles("admin" ), deleteaUser);
+router.delete("/deleteaUser/:id",isAuthenticatedUser,(req,res,next)=>{
+
+  // Authorize admin role first
+  authorizeRoles("admin")(req, res, err => {
+      // If admin role is authorized, call the next middleware (deleteaUser)
+      if (!err) {
+          return next();
+      }
+      // If admin role authorization fails, try authorizing super-admin role
+      authorizeRoles("super-admin")(req, res, err => {
+          // If super-admin role is authorized, call the next middleware (deleteaUser)
+          if (!err) {
+              return next();
+          }
+          // If both admin and super-admin role authorization fails, return an error response
+          return res.status(403).json({ success: false, message: "Unauthorized access" });
+      });
+  });
+
+} , deleteaUser);
 
 router.route("/forgotpassword").post(forgotPassword);
 router.route("/resetpassword/:resetToken").put(resetPassword);
@@ -107,7 +144,7 @@ router.route("/removeFromWishlist/:collegeId").delete(isAuthenticatedUser , remo
 router.route("/uploadImage").post(isAuthenticatedUser, authorizeRoles("admin"), upload.single('file'),uploadImage)
 
 
-router.put("/updatedUser_Steps/:id", updatedUser_Steps);
+router.put("/updatedUser_Steps/:id",validateUser, updatedUser_Steps);
 
 router.get("/getstepsbyuserId/:id", getstepsbyuserId);
 

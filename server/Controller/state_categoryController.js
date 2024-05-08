@@ -1,9 +1,21 @@
 // Import the State_category model
 const State_category = require("../Model/state_category");
+const mongoose = require("mongoose");
 
 // Create a state category
 exports.CreateState_category = async (req, res) => {
     const { state_id, category_id } = req.body;
+
+    // check state_id and category_id should be mongoose object id
+
+    if (!state_id || !category_id) {
+        return res.status(400).json({ message: "Please provide both state_id and category_id" });
+    }
+
+    // validatie id means should be a mongoose object id
+    if (!mongoose.Types.ObjectId.isValid(state_id) || !mongoose.Types.ObjectId.isValid(category_id)) {
+        return res.status(400).json({ message: "Invalid state_id or category_id" });
+    }
 
     try {
         // Check if the state_category already exists

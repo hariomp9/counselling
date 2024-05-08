@@ -33,9 +33,16 @@ const UserSchema = new mongoose.Schema(
     },
 
 
-    Subscription: {
+    // Subscription: {
+    //   type: String,
+    // },
+
+    SubscriptionsPlan: [{
       type: String,
-    },
+      enum: ["free", "oneToOne", "pro"],
+      default: "free",
+      required: true
+    }],
 
     Comments:{
       type: String
@@ -155,18 +162,26 @@ const UserSchema = new mongoose.Schema(
     //  Add domicileStateCategory
 
     domicileStateCategory: [{
-
       state_id: {
-
         type: mongoose.Schema.Types.ObjectId,
-        ref: "State"
-
+        ref: "State",
+        validate: {
+          validator: function(v) {
+            return mongoose.Types.ObjectId.isValid(v);
+          },
+          message: props => `${props.value} is not a valid state_id!`
+        }
       },
       category_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Category"
+        ref: "Category",
+        validate: {
+          validator: function(v) {
+            return mongoose.Types.ObjectId.isValid(v);
+          },
+          message: props => `${props.value} is not a valid category_id!`
+        }
       }
-
     }],
 
     // Parellel Reservations
@@ -408,6 +423,10 @@ const UserSchema = new mongoose.Schema(
         required: false
       }
     }],
+
+    // Make a User Subscriptions plan
+
+ 
 
 
     // step_status: {

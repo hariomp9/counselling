@@ -97,10 +97,8 @@ exports.register = async (req, res, next) => {
     whatsappMobile: req.body.whatsappMobile, 
     Gender: req.body.Gender,
     District:req.body.District,
-    Subscription:req.body.Subscription,
     Comments:req.body.Comments,
-
-
+    SubscriptionsPlan:req.body.SubscriptionsPlan || 'free',
   };
 
   try {
@@ -419,6 +417,8 @@ exports.generateOtp = async (req, res) => {
   }
 }
 
+
+
 exports.verifyOtp = async (req, res) => {
   try {
     const { userId, otp } = req.body;
@@ -446,6 +446,7 @@ exports.verifyOtp = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
+
 
 exports.forgotPassword = async (req, res, next) => {
   const { email } = req.body;

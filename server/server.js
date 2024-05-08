@@ -40,6 +40,8 @@ app.use("/api/state_category" , require("./Route/state_categoryRouter"))
 app.use("/api/course_preference" , require("./Route/Course_preferenceRoutes"))
 app.use("/api/counselor", require("./Route/CounselorRouter"));
 app.use("/api/news", require("./Route/NewsRouter"));
+app.use("/api/district", require("./Route/DistrictRoute"));
+app.use("/api/state_district", require("./Route/State_DistictRoute"))
 
 
 const PORT = process.env.PORT || 4000;
