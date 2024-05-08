@@ -17,8 +17,8 @@ export const headItems = [
 const Course = () => {
   const [getAllCourse, setGetAllCourse] = useState("");
   const [isOpenDelete, setOpenDelete] = useState(false);
-  const [courseID, setCourseID] = useState("");
   const closeModal = () => setOpenDelete(false);
+  const [courseID, setCourseID] = useState("");
   const [isRefresh, setRefresh] = useState(false);
   const [isLoader, setLoader] = useState(false);
 
