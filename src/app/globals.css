@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
   background-color: white;
   font-style: black;
 }
@@ -376,7 +376,7 @@ html {
 }
 
 .super_box_s {
-  @apply xl:w-[220px] xl:h-[140px] 2xl:w-[312px] 2xl:h-[198px] rounded-md ;
+  @apply xl:w-[220px] xl:h-[140px] 2xl:w-[312px] 2xl:h-[198px] rounded-md;
 }
 
 .super_head {
@@ -390,9 +390,11 @@ html {
 .super_box_no {
   @apply text-[#323232] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[18px] xl:leading-[25px] 2xl:my-0 lg:text-[16px] lg:leading-[22px] sm:text-[18px] sm:leading-[30px];
 }
+
 .super_box_noo {
   @apply text-[#323232] 2xl:text-[30px] 2xl:leading-[40px] xl:text-[18px] xl:leading-[25px] 2xl:my-0 lg:text-[14px] lg:leading-[18px] sm:text-[18px] sm:leading-[30px];
 }
+
 .super_box_img {
   @apply 2xl:w-[33px] 2xl:h-[33px] xl:w-[25px] xl:h-[25px] lg:w-[20px] lg:h-[20px] w-[30px] h-[30px];
 }
@@ -629,6 +631,7 @@ html {
     width: 100%;
   }
 }
+
 /* @media (max-width: 430px){
   .neetdata{
     width: 140px;
@@ -670,25 +673,28 @@ html {
 .pre_input4th {
   @apply border rounded-[5px] outline-none 2xl:w-[126px] xl:w-[80px] lg:w-[70px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[] 2xl:my-[10px] xl:my-[7px] lg:my-[4px] sm:my-[] my-[] 2xl:text-[16px] xl:text-[12px] text-[10px]
 }
+
 /* Add this to your CSS file */
 .table-cell-no-border {
   border: none !important;
 }
 
 
-.createUser-label{
+.createUser-label {
   @apply inter text-[#000000] font-[400] 2xl:text-[18px] 2xl:leading-[40px] xl:text-[12px] xl:leading-[15px] text-[10px]
 }
-.createUser-input{
-  @apply border rounded-[5px] outline-none 2xl:w-[260px] xl:w-[190px] lg:w-[160px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[]  2xl:text-[16px] xl:text-[12px] text-[10px]
+
+.createUser-input {
+  @apply border rounded-[5px] outline-none 2xl:w-[260px] xl:w-[190px] lg:w-[160px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[] 2xl:text-[16px] xl:text-[12px] text-[10px]
 }
-.createUser-input2{
-  @apply border rounded-[5px] outline-none 2xl:w-[549px] xl:w-[400px] lg:w-[160px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[]  2xl:text-[16px] xl:text-[12px] text-[10px]
+
+.createUser-input2 {
+  @apply border rounded-[5px] outline-none 2xl:w-[549px] xl:w-[400px] lg:w-[160px] sm:w-[] w-[] 2xl:h-[48px] xl:h-[35px] lg:h-[30px] sm:h-[] h-[] 2xl:px-[15px] xl:px-[10px] lg:px-[8px] sm:px-[] px-[] 2xl:text-[16px] xl:text-[12px] text-[10px]
 }
 
 .hidden-input {
   position: absolute;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   pointer-events: none;
 }
 
@@ -696,6 +702,39 @@ html {
   cursor: pointer;
 }
 
-.hidden-input:checked + .gender-label {
+.hidden-input:checked+.gender-label {
   border: 5px solid blue;
+}
+
+.userpbox {
+  @apply border rounded-[10px] 2xl:w-[803px] 2xl:h-[410px] xl:w-[500px] xl:h-[250px] lg:w-[370px] h-[220px] sm:w-[] w-[]
+}
+
+.userpboxhbox {
+  @apply w-full bg-[#F5F6FF] rounded-t-[10px] 2xl:h-[79px] xl:h-[50px] lg:h-[35px] sm:h-[] h-[] flex justify-between items-center 2xl:px-[30px] xl:px-[20px] px-[10px]
+}
+
+.userpboxhead {
+  @apply inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[14px] xl:leading-[20px] text-[10px] leading-[20px]
+}
+
+.userpboxbtn {
+  @apply flex gap-1 xl:gap-2 justify-center items-center inter font-[700] text-white bg-[#4F9ED9] rounded-[4px] 2xl:w-[112px] 2xl:h-[48px] xl:w-[70px] xl:h-[30px] lg:w-[45px] h-[20px] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[20px] text-[10px] leading-[20px]
+}
+
+.userpboxlabel {
+  @apply text-[#6F6F6F]
+}
+
+.updateUh1{
+  @apply inter font-[700] 2xl:text-[30px] 2xl:leading-[36.31px] xl:text-[18px] xl:leading-[24px] text-[10px] leading-[20px]
+}
+.updateUpara{
+  @apply inter font-[400] 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] xl:leading-[20px] text-[10px] leading-[20px]
+}
+.userUinput{
+  @apply border rounded-[5px] 2xl:text-[16px] xl:text-[12px] text-[10px] 2xl:p-3 p-2 2xl:w-[390px] 2xl:h-[48px] xl:w-[265px] xl:h-[35px] w-[200px] h-[30px]
+}
+.userUlabel{
+  @apply 2xl:text-[16px] xl:text-[12px] text-[10px]
 }

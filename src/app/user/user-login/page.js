@@ -9,9 +9,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { setToken, removeToken, adDetails } from "@/redux/adminSlice/authSlice";
+import {
+  setUserId,
+  setToken,
+  removeToken,
+  adDetails,
+} from "@/redux/adminSlice/authSlice";
 import poster from "../../../../public/images/poster.webp";
-import student from "../assets/login-student.png"
+import student from "../assets/login-student.png";
 
 const UserLogin = () => {
   const dispatch = useDispatch();
@@ -45,6 +50,7 @@ const UserLogin = () => {
       if (res.data.success) {
         toast.success("Login successful!");
         dispatch(setToken(res?.data?.token));
+        dispatch(setUserId(res?.data?.user?._id));
         dispatch(adDetails(res?.data?.user));
 
         // router.push("/user/user-dashboard");
@@ -234,11 +240,11 @@ const UserLogin = () => {
                  2xl:text-[40px] xl:text-[30px] lg:text-[20px] sm:text-[] text-[]
    2xl:leading-[52px] xl:leading-[35px] lg:leading-[28px] sm:leading-[] leading-[]"
                 >
-                  Log in to your <spam className="font-[700]">Admission Network 24</spam>  Account
+                  Log in to your{" "}
+                  <spam className="font-[700]">Admission Network 24</spam>{" "}
+                  Account
                 </h1>
               </div>
-           
-             
             </div>
             <div
               className="flex items-center gap-[10px] xl:gap-[15px] 2xl:gap-[25px] mx-auto  

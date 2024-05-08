@@ -1,9 +1,46 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import UserSidebar from "../userSidebar";
 import UserNavbar from "../userNav";
 import Link from "next/link";
+import UserProtectedRoute from "@/config/userProtectedRoute";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const UserProfile = () => {
+  const [studentDetail, setStudentDetail] = useState({});
+  const { token } = useSelector((state) => state?.auth);
+  const { _id } = useSelector((state) => state?.auth);
+  const firstNameInitial = studentDetail?.firstname
+    ? studentDetail.firstname[0]
+    : "";
+  const lastNameInitial = studentDetail?.lastname
+    ? studentDetail.lastname[0]
+    : "";
+
+  useEffect(() => {
+    defaultAUser();
+  }, []);
+
+  const defaultAUser = async () => {
+    const options = {
+      method: "GET",
+      url: `http://localhost:4000/api/auth/getUserById/${_id}`,
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setStudentDetail(response?.data?.user);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
   return (
     <>
       {/* <Stepper/> */}
@@ -22,7 +59,7 @@ const UserProfile = () => {
                     <h1 className="userdetailHead">Your Profile</h1>
                   </div>
                   <div>
-                    <Link href="/user2nd/user-profile">
+                    <Link href="/user/update-profile">
                       <button
                         className="bg-[#4F9ED9] rounded-[4px] 2xl:w-[90px] 2xl:h-[35px] xl:w-[50px] xl:h-[25px] lg:w-[40px] lg:h-[22px] w-[40px] h-[20px]
                     inter font-[700] text-white 2xl:text-[14px] 2xl:leading-[20px] xl:text-[9px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px]
@@ -37,22 +74,23 @@ const UserProfile = () => {
                   <div>
                     <div className="bg-[#1172BA] rounded-full flex justify-center items-center 2xl:w-[68px] 2xl:h-[68px] xl:w-[45px] xl:h-[45px] w-[45px] h-[45px]">
                       <h1 className="inter text-white font-[600] 2xl:text-[20px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[16px] text-[10px] my-1 2xl:my-2">
-                        MP
+                        {firstNameInitial}
+                        {lastNameInitial}
                       </h1>
                     </div>
                     <h1 className="inter text-[#000000] font-[600] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] text-[9px] my-1 2xl:my-2">
-                      Mayank Patidar
+                      {studentDetail?.firstname} {studentDetail?.lastname}
                     </h1>
                   </div>
 
                   <div>
                     <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] mb-4">
-                      <p>+91 9874561230</p>
-                      <p>patidar.mayank12@gmail.com</p>
+                      <p>+91 {studentDetail?.mobile} </p>
+                      <p>{studentDetail?.email} </p>
                     </div>
                     <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] mt-4">
                       <p>Whatsapp Number</p>
-                      <p>+91 9874561230</p>
+                      <p>+91 {studentDetail?.mobile}</p>
                     </div>
                   </div>
 
@@ -80,7 +118,7 @@ const UserProfile = () => {
                   </div>
                   <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] lg:w-[160px] xl:w-[200px] 2xl:w-[271px] ">
                     <p>Subscription</p>
-                    <p className="text-[#000]">Indore</p>
+                    <p className="text-[#000]">Starter Plan</p>
                   </div>
                 </div>
               </div>
@@ -176,4 +214,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default UserProtectedRoute(UserProfile);

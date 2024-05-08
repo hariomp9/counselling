@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import UserSidebar from "../userSidebar";
@@ -20,6 +21,7 @@ import neetcard from "../../../../public/images/neetcard.svg";
 import dummy1 from "../assets/dummy1.svg";
 import dummy2 from "../assets/dummy2.svg";
 import web3 from "../assets//webinar3.png";
+import UserProtectedRoute from "@/config/userProtectedRoute";
 
 const data = [
   {
@@ -64,6 +66,7 @@ const data = [
   },
 ];
 const page = () => {
+  
   return (
     <>
       <section>
@@ -362,5 +365,5 @@ const page = () => {
     </>
   );
 };
+export default UserProtectedRoute(page);
 
-export default page;
