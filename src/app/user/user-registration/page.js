@@ -12,7 +12,6 @@ import first from "../assets/1st-right.svg";
 import second from "../assets/2st-right.svg";
 import third from "../assets/3st-right.svg";
 
-
 const UserRegistration = () => {
   const router = useRouter();
   const [userId, setUserId] = useState("");
@@ -424,7 +423,7 @@ const UserRegistration = () => {
             </div>
           </div>
         </div>
-      {/* <VerifyOTP userID={userID} /> */}
+      {/* <VerifyOTPData userID={userID} /> */}
       
       </section>
     </>

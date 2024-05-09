@@ -13,6 +13,11 @@ import second from "../assets/2st-right.svg";
 import third from "../assets/3st-right.svg";
 import UserRegistration from "../user-registration/page";
 
+// Make a conponent that holds the Userid and exports this
+
+
+
+
 const VerifyOTP = ({ userID }) => {
   const id = userID;
   console.log(id, "userID");
@@ -30,7 +35,7 @@ const VerifyOTP = ({ userID }) => {
   const handleVerify = async () => {
     try {
       const response = await axios.post(
-        "https://counselling-backend.vercel.app/api/auth/verify-otp",
+        "http://localhost:4000/api/auth/verify-otp",
         {
           userId: id,
           otp: verifyOTP,

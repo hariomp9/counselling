@@ -36,6 +36,7 @@ const {
 } = require("../Controller/auth");
 const{validateUser} =require("../helpers/validation");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
+const sendTokenMiddleware = require("../middleware/sendTokenMiddleware")
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -66,7 +67,7 @@ router.route("/verifyAdminToken/:token").get(verifyAdmin);
 router.route("/generate-otp").post(generateOtp);
 
 // router.route("/verify-otp").post(verifyOtp);
-router.post("/verify-otp", isAuthenticatedUser,  verifyOtp );
+router.post("/verify-otp",  verifyOtp );
 
 // Create User
 router.route("/register").post(register);
