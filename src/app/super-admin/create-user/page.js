@@ -11,12 +11,16 @@ import previews from "../assets/preview.svg";
 import axios from "axios";
 import { Dialog, Transition } from "@headlessui/react";
 import DeleteModuleC from "@/app/component/admin/students/delete-module";
+import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 const CreateUser = () => {
   const [getAllUser, setGetAllUser] = useState("");
   const [isOpenDelete, setOpenDelete] = useState(false);
   const [isRefresh, setRefresh] = useState(false);
   const [userID, setUserID] = useState("");
+  const { token } = useSelector((state) => state?.auth);
+  const { _id } = useSelector((state) => state?.auth);
 
   function openModal(id) {
     setUserID(id);
@@ -55,8 +59,52 @@ const CreateUser = () => {
     }
   };
 
+  const [studentDetail, setStudentDetail] = useState({
+    SubscriptionsPlan: [""],
+  });
+  console.log(studentDetail, "subs");
+
+  const handleSelectChange = (e) => {
+    const selectedValue = e.target.value;
+    setStudentDetail((prevState) => ({
+      ...prevState,
+      SubscriptionsPlan: [selectedValue],
+    }));
+  };
+
+  const handleUpdateUser = async (_id, subscriptionPlan) => {
+    const updatedDetail = {
+      ...studentDetail,
+      SubscriptionsPlan: subscriptionPlan,
+    };
+
+    try {
+      const response = await axios.put(
+        `http://localhost:4000/api/auth/edit-user/${_id}`,
+        updatedDetail,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: token,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        // refreshData();
+        toast.success("Update successfully!");
+      } else {
+        console.log("Server error");
+        toast.error(error?.response?.data?.message || "Server error");
+      }
+    } catch (error) {
+      console.log(error?.response?.data?.message || "Server error");
+    }
+  };
+
   return (
     <>
+      <ToastContainer autoClose={1000} />
       <section>
         <div className="flex">
           <div className="hidden lg:block w-1/12 border h-screen">
@@ -296,9 +344,9 @@ const CreateUser = () => {
                           <th className="craete_tbl_row text-[#A8A8A8]">
                             Phone Number
                           </th>
-                          {/* <th className="craete_tbl_row text-[#A8A8A8]">
-                            Preview Profile
-                          </th> */}
+                          <th className="craete_tbl_row text-[#A8A8A8]">
+                            Subscription Type
+                          </th>
                           {/* <th className="craete_tbl_row text-[#A8A8A8]">
                             Status
                           </th> */}
@@ -339,15 +387,21 @@ const CreateUser = () => {
                                 {item?.mobile}
                               </td>
 
-                              {/* <td>
-                                <button className="craete_tbl_Pbtn flex justify-center items-center 2xl:gap-1  ">
-                                  <Image
-                                    src={previews}
-                                    className="mr-1 w-[15px] xl:w-[18px] 2xl:w-[22px]"
-                                  />
-                                  Preview
-                                </button>
-                              </td> */}
+                              <td>
+                                <select
+                                  className="border rounded-sm p-1"
+                                  value={studentDetail.SubscriptionsPlan}
+                                  onChange={(e) => {
+                                    handleSelectChange(e);
+                                    handleUpdateUser(item._id, e.target.value);
+                                  }}
+                                >
+                                  <option value="">Select</option>
+                                  <option value="Free">Free</option>
+                                  <option value="One on One">One on One</option>
+                                </select>
+                              </td>
+
                               {/* <td className="craete_tbl_row text-[#FE9E34]">
                             Pending
                           </td> */}
@@ -430,3 +484,32 @@ const CreateUser = () => {
 };
 
 export default CreateUser;
+
+{
+  /* <select
+                                  value=""
+                                  //  onChange={inputHandler}
+                                >
+                                  <option>{item?.SubscriptionsPlan}</option>
+
+                                  <option>Free</option>
+                                  <option>One on One</option>
+                                </select> */
+}
+{
+  /* <div>
+                                  <select
+                                    value={studentDetail.SubscriptionsPlan[0]}
+                                    onChange={(e) => {
+                                      handleSelectChange(e);
+                                      handleUpdateUser(item._id);
+                                    }}
+                                  >
+                                    <option value="">Select a plan</option>
+                                    <option value="Free">Free</option>
+                                    <option value="One on One">
+                                      One on One
+                                    </option>
+                                  </select>
+                                </div> */
+}
