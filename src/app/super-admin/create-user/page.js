@@ -58,30 +58,37 @@ const CreateUser = () => {
       console.log(error, "Error");
     }
   };
+  const [selectedPlan, setSelectedPlan] = useState({ SubscriptionsPlan: [""] });
+  // const [studentDetail, setStudentDetail] = useState({
+  //   SubscriptionsPlan: [""],
+  // });
+  // console.log(studentDetail, "subs");
 
-  const [studentDetail, setStudentDetail] = useState({
-    SubscriptionsPlan: [""],
-  });
-  console.log(studentDetail, "subs");
+  // const handleSelectChange = (e) => {
+  //   const selectedValue = e.target.value;
+  //   setStudentDetail((prevState) => ({
+  //     ...prevState,
+  //     SubscriptionsPlan: [selectedValue],
+  //   }));
+  // };
 
-  const handleSelectChange = (e) => {
-    const selectedValue = e.target.value;
-    setStudentDetail((prevState) => ({
-      ...prevState,
-      SubscriptionsPlan: [selectedValue],
+  const handleUpdateUser = async (e, _id) => {
+    // const updatedDetail = {
+    //   ...studentDetail,
+    //   SubscriptionsPlan: subscriptionPlan,
+    // };
+
+    setSelectedPlan((prevSelectedPlan) => ({
+      ...prevSelectedPlan,
+      ['SubscriptionsPlan']: [e.target.value], // Update SubscriptionsPlan as an array with the selected value
     }));
-  };
-
-  const handleUpdateUser = async (_id, subscriptionPlan) => {
-    const updatedDetail = {
-      ...studentDetail,
-      SubscriptionsPlan: subscriptionPlan,
-    };
-
+    const updatedValue = e.target.value;
+    // console.log("yoyo", selectedPlan)
+    // return
     try {
       const response = await axios.put(
         `http://localhost:4000/api/auth/edit-user/${_id}`,
-        updatedDetail,
+        { SubscriptionsPlan: [updatedValue] },
         {
           headers: {
             "Content-Type": "application/json",
@@ -390,11 +397,8 @@ const CreateUser = () => {
                               <td>
                                 <select
                                   className="border rounded-sm p-1"
-                                  value={studentDetail.SubscriptionsPlan}
-                                  onChange={(e) => {
-                                    handleSelectChange(e);
-                                    handleUpdateUser(item._id, e.target.value);
-                                  }}
+                                  // value={studentDetail.SubscriptionsPlan}
+                                  onChange={(e) => handleUpdateUser(e, item._id)}
                                 >
                                   <option value="">Select</option>
                                   <option value="Free">Free</option>
@@ -403,7 +407,7 @@ const CreateUser = () => {
                               </td>
 
                               {/* <td className="craete_tbl_row text-[#FE9E34]">
-                            Pending
+                            Pending 
                           </td> */}
 
                               <td className="  ">
@@ -437,7 +441,7 @@ const CreateUser = () => {
         </div>
       </section>
       <Transition appear show={isOpenDelete} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+        <Dialog as="div" className="relative z-10" onClose={() => { }}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
