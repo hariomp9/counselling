@@ -57,8 +57,9 @@ const UserRegistration = () => {
         toast.success("Registration Successful!");
         setUserId(response?.data?.user);
         handleSendOTP(response?.data?.user);
-        const userToken = response?.data?.user?.token;
-        router.push("/user/otp-verify/userToken");  ///
+        const userToken = response?.data?.token;
+        console.log(userToken)
+        router.push(`/user/otp-verify/${userToken}`);  ///
        // router.push("/user/otp-verify");
         // router.push({ pathname: '/user/otp-verify', query: { user_id: userId } });
       } else {

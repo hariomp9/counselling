@@ -1,17 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-// import logo from "../../../../public/images/logo.svg";
-// import poster from "../../../../public/images/poster.webp";
+import logo from "../../../../public/images/logo.svg";
+import poster from "../../../../public/images/poster.webp";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import student from "../assets/right-poster.png";
-// import first from "../assets/1st-right.svg";
-// import second from "../assets/2st-right.svg";
-// import third from "../assets/3st-right.svg";
-// import UserRegistration from "../../user-registration/page";
+import student from "../assets/right-poster.png";
+import first from "../assets/1st-right.svg";
+import second from "../assets/2st-right.svg";
+import third from "../assets/3st-right.svg";
+import UserRegistration from "../../user-registration/page";
 
 const VerifyOTP = ({params}) => {
   // const id = userID;
@@ -45,13 +45,12 @@ const VerifyOTP = ({params}) => {
     }
   };
 
-  return
-   (
+  return(
     <>
       <section>
         <div className="lg:flex ">
           <div className="lg:hidden">
-            {/* <Image src={poster} className=" mx-auto" /> */}
+            <Image src={poster} className=" mx-auto" />
           </div>
           
           <div className="lg:w-1/2 lg:h-screen flex mb-16 lg:mb-0 ">
