@@ -16,7 +16,7 @@ import third from "../assets/3st-right.svg";
 const UserRegistration = () => {
   const router = useRouter();
   const [userId, setUserId] = useState("");
-  const userID = userId._id;
+  const userID = userId?._id;
   const [isLoader, setLoader] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
   const [studentDetails, setStudentDetails] = useState({
@@ -53,11 +53,14 @@ const UserRegistration = () => {
         "https://counselling-backend.vercel.app/api/auth/register",
         studentDetails
       );
-      if (response.status === 201) {
+      if (response.status === 201 ) {
         toast.success("Registration Successful!");
-        router.push("/user/otp-verify");
         setUserId(response?.data?.user);
         handleSendOTP(response?.data?.user);
+        const userToken = response?.data?.user?.token;
+        router.push("/user/otp-verify/userToken");  ///
+       // router.push("/user/otp-verify");
+        // router.push({ pathname: '/user/otp-verify', query: { user_id: userId } });
       } else {
         toast.error("Failed to Register. Please try again later.");
       }
@@ -83,7 +86,7 @@ const UserRegistration = () => {
   };
   return (
     <>
-     
+
       <section>
         <div className="lg:flex ">
           <div className="lg:hidden">
@@ -346,7 +349,7 @@ const UserRegistration = () => {
                       </label>
                     </div>
                     <button
-                   
+
                       type="submit"
                       className="bg-[#0071BC] montserrat-btn  text-white p-3 w-full rounded-[6.41px] 2xl:h-[56px] xl:h-[45px] lg:h-[35px]  lg:my-0  2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-5 2xl:mt-[25px] xl:mt-7"
                     >
@@ -424,8 +427,8 @@ const UserRegistration = () => {
             </div>
           </div>
         </div>
-      {/* <VerifyOTP userID={userID} /> */}
-      
+        {/* <VerifyOTP userID={userID} /> */}
+
       </section>
     </>
   );
