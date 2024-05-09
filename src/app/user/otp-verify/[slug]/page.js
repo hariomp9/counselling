@@ -1,30 +1,22 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import logo from "../../../../public/images/logo.svg";
-import poster from "../../../../public/images/poster.webp";
+import logo from "../../../../../public/images/logo.svg";
+import poster from "../../../../../public/images/poster.webp";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import student from "../assets/right-poster.png";
-import first from "../assets/1st-right.svg";
-import second from "../assets/2st-right.svg";
-import third from "../assets/3st-right.svg";
+import student from "../../assets/right-poster.png";
+import first from "../../assets/1st-right.svg";
+import second from "../../assets/2st-right.svg";
+import third from "../../assets/3st-right.svg";
 import UserRegistration from "../../user-registration/page";
 
-// Make a conponent that holds the Userid and exports this
-
-
-
-
-const VerifyOTP = ({ userID }) => {
-  const id = userID;
-  console.log(id, "userID");
-  // const [userId, setUserId] = useState("");
+const VerifyOTP = ({ params }) => {
   const router = useRouter();
-  console.log(params, "userid");
-  // const { userId } = router.query; 
+  const userId = params.slug;
+  console.log(userId);
   const [verifyOTP, setVerifyOTP] = useState("");
 
   const inputHandler = (e) => {
@@ -32,17 +24,20 @@ const VerifyOTP = ({ userID }) => {
     setVerifyOTP(value);
   };
 
-  const handleVerify = async () => {
+  const handleVerify = async (e) => {
+    e.preventDefault();
+
     try {
       const response = await axios.post(
         "http://localhost:4000/api/auth/verify-otp",
+
         {
-          // userId: id,
+          userId: userId,
           otp: verifyOTP,
         }
       );
       toast.success("Verification Successful!");
-      router.push("/user2nd/neetUG-home");
+      router.push("/user/login-lastStep");
       console.log("Verification Response:", response.data);
     } catch (error) {
       console.error("Error occurred while sending OTP:", error);
@@ -50,14 +45,16 @@ const VerifyOTP = ({ userID }) => {
     }
   };
 
-  return(
+  return (
     <>
+      <ToastContainer autoClose={1000} />
+
       <section>
         <div className="lg:flex ">
           <div className="lg:hidden">
             <Image src={poster} className=" mx-auto" />
           </div>
-          
+
           <div className="lg:w-1/2 lg:h-screen flex mb-16 lg:mb-0 ">
             <div className="w-full 2xl:pt-[120px] pt-[40px]">
               <div className="flex items-center w-[70%] md:w-[45%] xl:w-[280px] 2xl:w-[406px] mx-auto ">
@@ -65,7 +62,7 @@ const VerifyOTP = ({ userID }) => {
                   <div className="my-10 lg:mt-0">
                     <div className="flex justify-center 2xl:mt-20 xl:mt-5 lg:mt-3">
                       <Image
-                        src=""
+                        src={logo}
                         alt="logo"
                         className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]"
                       />
