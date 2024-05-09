@@ -65,7 +65,8 @@ router.route("/verifyAdminToken/:token").get(verifyAdmin);
 
 router.route("/generate-otp").post(generateOtp);
 
-router.route("/verify-otp").post(verifyOtp);
+// router.route("/verify-otp").post(verifyOtp);
+router.post("/verify-otp", isAuthenticatedUser,  verifyOtp );
 
 // Create User
 router.route("/register").post(register);

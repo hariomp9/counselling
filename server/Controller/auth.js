@@ -482,7 +482,10 @@ exports.generateOtp = async (req, res) => {
 
 exports.verifyOtp = async (req, res) => {
   try {
-    const { userId, otp } = req.body;
+    const {otp } = req.body;
+    const userId = req.user.id;
+
+
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });

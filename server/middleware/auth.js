@@ -8,6 +8,7 @@ const SuperAdmin = require("../Model/SuperAdminModel");
 
 exports.isAuthenticatedUser = async (req, res, next) => {
   const authorizationHeader = req.headers.authorization;
+  console.log("authorizationHeader", authorizationHeader);
 
   if (!authorizationHeader) {
     return next(new ErrorResponse("Please Login to access this resource", 401));
@@ -19,6 +20,8 @@ exports.isAuthenticatedUser = async (req, res, next) => {
   try {
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
+    console.log("decoded data is", decodedData)
+
     let user;
 
     if (decodedData.role === 'admin') {
@@ -28,8 +31,10 @@ exports.isAuthenticatedUser = async (req, res, next) => {
     } else if (decodedData.role === 'super-admin') {
       user = await SuperAdmin.findById(decodedData.id);
     } 
-    else if (decodedData.role === 'student'   ) {
+    else if (decodedData.role === 'student') {
       user = await User.findById(decodedData.id);
+
+      console.log("user data is" , user)
     }
     else {
       return next(new ErrorResponse("Invalid role in token", 401));
@@ -47,6 +52,7 @@ exports.isAuthenticatedUser = async (req, res, next) => {
     }
     
   } catch (error) {
+
     console.log("Error:", error);
     return next(new ErrorResponse("Token is invalid", 401));
   }
