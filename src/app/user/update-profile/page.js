@@ -27,6 +27,9 @@ const UserProfile = () => {
   const [stateId, setStateId] = useState("");
   const { token } = useSelector((state) => state?.auth);
   const { _id } = useSelector((state) => state?.auth);
+
+  const state_id = stateId;
+  // const district_id = distId;
   // const [studentDetail, setStudentDetail] = useState({
   //   firstname: "",
   //   mobile: "",
@@ -56,7 +59,7 @@ const UserProfile = () => {
       .request(options)
       .then((response) => {
         setStudentDetail(response?.data?.user);
-        console.log(response?.data?.user, "user");
+        console.log(response?.data, "user");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -105,10 +108,6 @@ const UserProfile = () => {
     const options = {
       method: "GET",
       url: "http://localhost:4000/api/state/getAllStates",
-      headers: {
-        Accept: "application/json",
-        authorization: token,
-      },
     };
     axios
       .request(options)
@@ -122,16 +121,12 @@ const UserProfile = () => {
   };
   useEffect(() => {
     defaultDist();
-  }, []);
+  }, [stateId]);
 
   const defaultDist = async () => {
     const options = {
       method: "GET",
       url: `http://localhost:4000/api/state_district/${stateId}`,
-      headers: {
-        Accept: "application/json",
-        authorization: token,
-      },
     };
     axios
       .request(options)
@@ -512,42 +507,55 @@ const UserProfile = () => {
                         />
                       </div>
                       <div className="">
-                        <label className="userUlabel">Current State</label>{" "}
+                        <label className="inter font-[700] text-[20px] leading-[40px]">
+                          Current State
+                        </label>{" "}
                         <br />
-                        <div className="">
-                          <select
-                            id="states2"
-                            className="userUinput"
-                            // value={setStateId}
-                            onChange={(e) => setStateId(e.target.value)}
-                          >
-                            <option value=""> Select State</option>
-                            {Array.isArray(getStates) &&
-                              getStates.map((item) => (
-                                <option
-                                  key={item._id}
-                                  value={item._id}
-                                  className="pre_input"
-                                >
-                                  {item.name}
-                                </option>
-                              ))}
-
-                            <option className="">MP</option>
-                          </select>
+                        <div>
+                          <div className="">
+                            <select
+                              id="states2"
+                              name="state_id"
+                              className="userUinput"
+                              value={stateId}
+                              onChange={(e) => {
+                                setStateId(e.target.value);
+                                // inputHandler(e);
+                              }}
+                            >
+                              <option value=""> Select State</option>
+                              {Array.isArray(getStates) &&
+                                getStates.map((item) => (
+                                  <option
+                                    key={item._id}
+                                    value={item._id}
+                                    className="pre_input"
+                                  >
+                                    {item.name}
+                                  </option>
+                                ))}
+                              {/* <option className="">First Select State</option> */}
+                            </select>
+                          </div>
                         </div>
                       </div>
                       <div className="">
-                        <label className="userUlabel">Current District</label>{" "}
+                        <label className="inter font-[700] text-[20px] leading-[40px]">
+                          Current District
+                        </label>{" "}
                         <br />
                         <div className="">
                           <select
                             id="states2"
+                            name="district_id"
                             className="userUinput"
-                            // value={preference2}
-                            // onChange={handlePreference2Change}
+                            // value={distId}
+                            // onChange={(e) => {
+                            //   setDistId(e.target.value);
+                            //   // inputHandler(e);
+                            // }}
                           >
-                            <option value=""> Select District</option>
+                            <option value=""> First Select State</option>
                             {Array.isArray(getDist) &&
                               getDist.map((item) => (
                                 <option
@@ -555,11 +563,11 @@ const UserProfile = () => {
                                   value={item._id}
                                   className="pre_input"
                                 >
-                                  {item.name}
+                                  {item.District}
                                 </option>
                               ))}
 
-                            <option className="">MP</option>
+                            <option className=""></option>
                           </select>
                         </div>
                       </div>
