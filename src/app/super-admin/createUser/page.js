@@ -17,12 +17,14 @@ const CreateUserForm = () => {
   const [userId, setUserId] = useState("");
   const userID = userId._id;
   const [isLoader, setLoader] = useState(false);
+  const [selectedGender, setSelectedGender] = useState("");
 
   const [studentDetails, setStudentDetails] = useState({
     firstname: "",
     lastname: "",
     email: "",
     mobile: "",
+    Gender: "",
     whatsappMobile: "",
     state: "",
     District: "",
@@ -30,6 +32,8 @@ const CreateUserForm = () => {
     Comments: "",
     password: "",
   });
+
+  console.log(studentDetails, "studentDetail");
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -40,12 +44,31 @@ const CreateUserForm = () => {
   const handleToggle = () => {
     setShowPassword(!showPassword);
   };
+  // const inputHandler = (e) => {
+  //   const { name, value } = e.target;
+  //   setStudentDetails((prevDetails) => ({
+  //     ...prevDetails,
+  //     [name]: value,
+  //   }));
+  // };
   const inputHandler = (e) => {
     const { name, value } = e.target;
-    setStudentDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
+    if (name === "state_id" || name === "district_id") {
+      setStudentDetails((prevState) => ({
+        ...prevState,
+        State_District: [
+          {
+            ...prevState.State_District[0],
+            [name]: value,
+          },
+        ],
+      }));
+    } else {
+      setStudentDetails((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -346,7 +369,7 @@ const CreateUserForm = () => {
                         />
                       </div>
                     </div>
-                    <div className="2xl:mt-[15px] xl:mt-[10px] 2xl:w-[251px] xl:w-[200px] lg:w-[160px]">
+                    {/* <div className="2xl:mt-[15px] xl:mt-[10px] 2xl:w-[251px] xl:w-[200px] lg:w-[160px]">
                       <div>
                         <label className="createUser-label">Gender</label>
                         <div className="flex ">
@@ -369,6 +392,69 @@ const CreateUserForm = () => {
                             </p>
                           </div>
                         </div>
+                      </div>
+                    </div> */}
+
+                    <div className="flex 2xl:mt-[15px] xl:mt-[10px] ">
+                      {/* <div
+                          className={`flex items-center xl:gap-2 gap-1 w-1/2 hover:border-red-800 ${
+                            selectedGender === "Male"
+                              ? "border border-red-500"
+                              : ""
+                          }`}
+                          onClick={() =>
+                            inputHandler({
+                              target: { name: "Gender", value: "Male" },
+                            })
+                          }
+                        >
+                          <Image
+                            src={men}
+                            className="2xl:w-[48px] 2xl:h-[48px] h-auto xl:w-[40px] lg:w-[30px] sm:w-[] w-[] cursor-pointer"
+                          />
+                          <p className="inter font-[400] text-[#747474] 2xl:text-[15px] xl:text-[11px] lg:text-[9px] cursor-pointer">
+                            Male
+                          </p>
+                        </div> */}
+                      <div
+                        className={`flex items-center xl:gap-2 gap-1 w-1/2 ${
+                          selectedGender === "Male"
+                            ? "border border-red-500"
+                            : ""
+                        }`}
+                        onClick={() =>
+                          inputHandler({
+                            target: { name: "Gender", value: "Male" },
+                          })
+                        }
+                      >
+                        <Image
+                          src={men}
+                          className="2xl:w-[48px] 2xl:h-[48px] h-auto xl:w-[40px] lg:w-[30px] sm:w-[] w-[] cursor-pointer"
+                        />
+                        <input type="radio" name="radio-1" className="radio" />
+
+                        <p className="inter font-[400] text-[#747474] 2xl:text-[15px] xl:text-[11px] lg:text-[9px] cursor-pointer">
+                          Male
+                        </p>
+                      </div>
+
+                      <div
+                        className="flex items-center xl:gap-2 gap-1 w-1/2"
+                        onClick={() =>
+                          inputHandler({
+                            target: { name: "Gender", value: "Female" },
+                          })
+                        }
+                      >
+                        <Image
+                          src={women}
+                          className="2xl:w-[48px] 2xl:h-[48px] h-auto xl:w-[40px] lg:w-[30px] sm:w-[] w-[] cursor-pointer"
+                        />
+                        <input type="radio" name="radio-1" className="radio" />
+                        <p className="inter font-[400] text-[#747474] 2xl:text-[15px] xl:text-[11px] lg:text-[9px] cursor-pointer">
+                          Female
+                        </p>
                       </div>
                     </div>
                     <div className="flex xl:gap-[30px] gap-[20px] 2xl:mb-[60px] xl:mb-[40px]">
