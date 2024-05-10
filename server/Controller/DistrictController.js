@@ -24,14 +24,11 @@ const validateMongoDbId = require("../Utils/validateMongodbId");
 exports.createDistrict = async (req, res, next) => {
     const districtNamesToAdd =
         [
-    "Dhalai",
-    "Gomati",
-    "Khowai",
-    "North Tripura",
-    "Sepahijala",
-    "South Tripura",
-    "Unakoti",
-    "West Tripura"
+            "Alipurduar", "Bankura", "Birbhum", "Cooch Behar", "Dakshin Dinajpur",
+            "Darjeeling", "Hooghly", "Howrah", "Jalpaiguri", "Jhargram", "Kalimpong",
+            "Kolkata", "Malda", "Murshidabad", "Nadia", "North 24 Parganas",
+            "Paschim Bardhaman", "Paschim Medinipur", "Purba Bardhaman", "Purba Medinipur",
+            "Purulia", "South 24 Parganas", "Uttar Dinajpur"
         ]
     try {
         const districts = await DistrictModel.insertMany(districtNamesToAdd.map(name => ({ District: name })));
