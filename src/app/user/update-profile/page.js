@@ -15,32 +15,34 @@ import { useRouter } from "next/navigation";
 
 const UserProfile = () => {
   const router = useRouter();
+  const { _id } = useSelector((state) => state?.auth);
+  const [getStates, setGetStates] = useState("");
+  const [getDist, setGetDist] = useState("");
+  const [stateId, setStateId] = useState("");
+  const { token } = useSelector((state) => state?.auth);
+  // const { _id } = useSelector((state) => state?.auth);
+  const [stateID, setStateID] = useState("");
+  const [distId, setDistId] = useState("");
+  const [selectedGender, setSelectedGender] = useState("");
+  const state_id = stateID;
+  const district_id = distId;
   const [studentDetail, setStudentDetail] = useState({
     firstname: "",
     mobile: "",
     email: "",
     Gender: "",
     whatsappMobile: "",
+    State_District: [
+      {
+        state_id: state_id,
+        district_id: district_id,
+      },
+    ],
   });
-  const [getStates, setGetStates] = useState("");
-  const [getDist, setGetDist] = useState("");
-  const [stateId, setStateId] = useState("");
-  const { token } = useSelector((state) => state?.auth);
-  const { _id } = useSelector((state) => state?.auth);
 
-  const state_id = stateId;
-  // const district_id = distId;
-  // const [studentDetail, setStudentDetail] = useState({
-  //   firstname: "",
-  //   mobile: "",
-  //   email: "",
-  //   Gender: "",
-  //   whatsappMobile: "",
-  //   // state: [],
-  //   // city: [],
-  // });
-
-  console.log(stateId, "stateid");
+  const [setstateName, setSetstateName] = useState("");
+  const [districtname, setDistrictname] = useState("");
+  console.log(setstateName, "stateidnaaam");
 
   useEffect(() => {
     defaultAUser();
@@ -59,6 +61,9 @@ const UserProfile = () => {
       .request(options)
       .then((response) => {
         setStudentDetail(response?.data?.user);
+        setSetstateName(response?.data?.user?.State_District[0]?.state_id);
+        setDistrictname(response?.data?.user?.State_District[0]?.district_id);
+
         console.log(response?.data, "user");
       })
       .catch((error) => {
@@ -66,11 +71,31 @@ const UserProfile = () => {
       });
   };
 
+  // const inputHandler = (e) => {
+  //   setStudentDetail({
+  //     ...studentDetail,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
   const inputHandler = (e) => {
-    setStudentDetail({
-      ...studentDetail,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    if (name === "state_id" || name === "district_id") {
+      setStudentDetail((prevState) => ({
+        ...prevState,
+        State_District: [
+          {
+            ...prevState.State_District[0],
+            [name]: value,
+          },
+        ],
+      }));
+    } else {
+      setStudentDetail({
+        ...studentDetail,
+        [name]: value,
+      });
+    }
   };
 
   const handleUpdateUser = async (e) => {
@@ -121,18 +146,18 @@ const UserProfile = () => {
   };
   useEffect(() => {
     defaultDist();
-  }, [stateId]);
+  }, [state_id]);
 
   const defaultDist = async () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/state_district/${stateId}`,
+      url: `http://localhost:4000/api/state_district/${state_id}`,
     };
     axios
       .request(options)
       .then((response) => {
-        setGetDist(response?.data);
-        console.log(response?.data, "city");
+        setGetDist(response?.data[0]?.district_ids);
+        console.log(response?.data[0]?.district_ids, "dist");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -519,11 +544,13 @@ const UserProfile = () => {
                               className="userUinput"
                               value={stateId}
                               onChange={(e) => {
-                                setStateId(e.target.value);
-                                // inputHandler(e);
+                                setStateID(e.target.value);
+                                inputHandler(e);
                               }}
                             >
-                              <option value=""> Select State</option>
+                              {/* <option value="">{setstateName.name}</option> */}
+                              <option value="">Select</option>
+
                               {Array.isArray(getStates) &&
                                 getStates.map((item) => (
                                   <option
@@ -549,13 +576,15 @@ const UserProfile = () => {
                             id="states2"
                             name="district_id"
                             className="userUinput"
-                            // value={distId}
-                            // onChange={(e) => {
-                            //   setDistId(e.target.value);
-                            //   // inputHandler(e);
-                            // }}
+                            value={distId}
+                            onChange={(e) => {
+                              setDistId(e.target.value);
+                              inputHandler(e);
+                            }}
                           >
-                            <option value=""> First Select State</option>
+                            {/* <option value=""> {districtname.District}</option> */}
+                            <option value=""> Select</option>
+
                             {Array.isArray(getDist) &&
                               getDist.map((item) => (
                                 <option

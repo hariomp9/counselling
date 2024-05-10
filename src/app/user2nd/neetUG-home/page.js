@@ -1,5 +1,5 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import UserSidebar from "../userSidebar";
 import UserNavbar from "../userNav";
@@ -22,6 +22,8 @@ import dummy1 from "../assets/dummy1.svg";
 import dummy2 from "../assets/dummy2.svg";
 import web3 from "../assets//webinar3.png";
 import UserProtectedRoute from "@/config/userProtectedRoute";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const data = [
   {
@@ -65,8 +67,40 @@ const data = [
     Links: "Lorem Ipsum is simply dumm text of the printing and industry.",
   },
 ];
-const page = () => {
-  
+const NeetUG = () => {
+  const [studentDetail, setStudentDetail] = useState({});
+  const { token } = useSelector((state) => state?.auth);
+  const { _id } = useSelector((state) => state?.auth);
+  const firstNameInitial = studentDetail?.firstname
+    ? studentDetail.firstname[0]
+    : "";
+  const lastNameInitial = studentDetail?.lastname
+    ? studentDetail.lastname[0]
+    : "";
+
+  useEffect(() => {
+    defaultAUser();
+  }, []);
+
+  const defaultAUser = async () => {
+    const options = {
+      method: "GET",
+      url: `http://localhost:4000/api/auth/getUserById/${_id}`,
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setStudentDetail(response?.data?.user);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
   return (
     <>
       <section>
@@ -83,7 +117,10 @@ const page = () => {
                     <div className="bg-[#F5F6FF] rounded-[10px] sm:flex items-center 2xl:p-10 xl:p-5 lg:p-4 p-3 2xl:h-[127px] xl:h-[80px] lg:h-[70px] sm:h-[70px] h-[161px] ">
                       <div>
                         <h1 className="inter text-[#000000] font-[400] 2xl:text-[30px] 2xl:leading-[36.31px] xl:text-[20px] xl:leading-[25px] lg:text-[16px] lg:leading-[25px] sm:text-[14px] sm:leading-[20px] text-[22px] leading-[27px]">
-                          Welcome <span className="font-semibold">Mayank!</span>
+                          Welcome{" "}
+                          <span className="font-semibold">
+                            {studentDetail?.firstname} {studentDetail?.lastname}
+                          </span>
                         </h1>
                         <p className="inter text-[#000000] font-[400] 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] xl:leading-[18px] lg:text-[8px] lg:leading-[14px] 2xl:my-1 sm:text-[10px] sm:leading-[14px] text-[15px] leading-[24px] para_h">
                           Welcome back and explore the knowledge |{" "}
@@ -119,7 +156,6 @@ const page = () => {
                       </div>
                     </div>
                   </div>
-
 
                   <div className="bg-[#F5F6FF] rounded-[10px] 2xl:h-[360px] xl:h-[250px] lg:h-[220px] sm:h-[240px] my-[25px]">
                     <h1
@@ -355,7 +391,6 @@ const page = () => {
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -365,5 +400,4 @@ const page = () => {
     </>
   );
 };
-export default UserProtectedRoute(page);
-
+export default UserProtectedRoute(NeetUG);

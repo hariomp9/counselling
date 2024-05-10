@@ -153,10 +153,10 @@ const UserProfile = () => {
                       <tr>
                         <td className="inter font-[700] text-[#0071BC] 2xl:text-[18px] 2xl:leading-[40px] xl:text-[11px] xl:leading-[25px] lg:text-[8px] lg:leading-[14px] text-[12px] leading-[16px]">
                           Starter Plan{" "}
-                          <span className="text-[#000000] ">Free</span>
+                          <span className="text-[#000000] ">{studentDetail.SubscriptionsPlan}</span>
                         </td>
                         <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[11px] xl:leading-[24px] lg:text-[10px] lg:leading-[18px] text-[12px]">
-                          March 20th 2024
+                        {studentDetail.createdAt}
                         </td>
                       </tr>
                     </tbody>

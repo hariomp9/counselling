@@ -1,10 +1,49 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import userImg from "./assets/student.png";
 import sideLogo from "./assets/AN24Logo.svg";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const UserNavbar = () => {
+  const [studentDetail, setStudentDetail] = useState({});
+  const { token } = useSelector((state) => state?.auth);
+  const { _id } = useSelector((state) => state?.auth);
+  const [plan, setPlan] = useState("One on One");
+  const firstNameInitial = studentDetail?.firstname
+    ? studentDetail.firstname[0]
+    : "";
+  const lastNameInitial = studentDetail?.lastname
+    ? studentDetail.lastname[0]
+    : "";
+  useEffect(() => {
+    defaultAUser();
+  }, []);
+
+  console.log(plan, "plan");
+
+  const defaultAUser = async () => {
+    const options = {
+      method: "GET",
+      url: `http://localhost:4000/api/auth/getUserById/${_id}`,
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setStudentDetail(response?.data?.user);
+        setPlan(response?.data?.user?.SubscriptionsPlan[0]);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
   return (
     <>
       <section>
@@ -16,16 +55,20 @@ const UserNavbar = () => {
               </h1>
             </div>
             <div className="flex items-center gap-5 2xl:gap-7">
-              <div>
-              <Link href="/user2nd/user-profile">
-                <button
-                  className="bg-[#4F9ED9] text-white inter font-[700] rounded-[5px] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[16px] lg:text-[9px] 
+              {plan === "One on One" ? (
+                <div>
+                  <Link href="/user2nd/user-profile">
+                    <button
+                      className="bg-[#4F9ED9] text-white inter font-[700] rounded-[5px] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[16px] lg:text-[9px] 
             2xl:w-[216px] 2xl:h-[48px] xl:h-[30px] h-[25px] xl:w-[160px] lg:w-[120px] sm:w-[] w-[]  lg:leading-[14px]"
-                >
-                  Complete Your Profile
-                </button>
-                </Link>
-              </div>
+                    >
+                      Complete Your Profile
+                    </button>
+                  </Link>
+                </div>
+              ) : (
+                ""
+              )}
               <div className="flex items-center gap-2">
                 <Image
                   src={userImg}
@@ -33,12 +76,12 @@ const UserNavbar = () => {
                 />
                 <div>
                   <Link href="/user2nd/profile">
-                  <h1 className="inter font-[600] 2xl:text-[20px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[16px] lg:text-[10px] lg:leading-[16px]">
-                    Hariom
-                  </h1>
-                  <h2 className="inter font-[400] text-[#6A6A6A] 2xl:text-[16px] 2xl:leading-[26px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[14px]">
-                    Starter Plan
-                  </h2>
+                    <h1 className="inter font-[600] 2xl:text-[20px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[16px] lg:text-[10px] lg:leading-[16px]">
+                      {studentDetail?.firstname}
+                    </h1>
+                    <h2 className="inter font-[400] text-[#6A6A6A] 2xl:text-[16px] 2xl:leading-[26px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[14px]">
+                      Starter Plan
+                    </h2>
                   </Link>
                 </div>
               </div>
