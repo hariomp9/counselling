@@ -54,7 +54,7 @@ const UserRegistration = () => {
 
     try {
       const response = await axios.post(
-        "https://counselling-backend.vercel.app/api/auth/register",
+        "http://localhost:4000/api/auth/register",
         studentDetails
       );
       if (response.status >= 200 && response.status < 300) {
@@ -76,11 +76,10 @@ const UserRegistration = () => {
       setLoader(false);
     }
   };
-
   const handleSendOTP = async (userID) => {
     try {
       const response = await axios.post(
-        "https://counselling-backend.vercel.app/api/auth/generate-otp",
+        "http://localhost:4000/api/auth/generate-otp",
         { userId: userID }
       );
       console.log(response?.data);
