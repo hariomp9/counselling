@@ -24,12 +24,14 @@ const validateMongoDbId = require("../Utils/validateMongodbId");
 exports.createDistrict = async (req, res, next) => {
     const districtNamesToAdd =
         [
-            "East Sikkim",
-            "North Sikkim",
-            "Pakyong",
-            "Soreng",
-            "South Sikkim",
-            "West Sikkim"
+    "Dhalai",
+    "Gomati",
+    "Khowai",
+    "North Tripura",
+    "Sepahijala",
+    "South Tripura",
+    "Unakoti",
+    "West Tripura"
         ]
     try {
         const districts = await DistrictModel.insertMany(districtNamesToAdd.map(name => ({ District: name })));
@@ -38,6 +40,8 @@ exports.createDistrict = async (req, res, next) => {
         next(error);
     }
 };
+
+
 
 
 // Get all districts

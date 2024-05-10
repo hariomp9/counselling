@@ -98,7 +98,7 @@ exports.register = async (req, res, next) => {
     Gender: req.body.Gender,
     District: req.body.District,
     Comments: req.body.Comments,
-    SubscriptionsPlan: req.body.SubscriptionsPlan || 'free',
+    SubscriptionsPlan: req.body.SubscriptionsPlan || 'Free',
   };
 
   try {
