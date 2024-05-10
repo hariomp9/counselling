@@ -73,7 +73,7 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
   };
 
   const sendData = async (e) => {
-    // e.preventDefault();
+    // e.preventDefault(e);
     const mergedData = {
       ...statusinfo,
       standard_12thMarks: standard,
@@ -126,7 +126,7 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
   return (
     <>
       <section>
-        <form className="main_div mx-auto" onSubmit={sendData}>
+        <form className="main_div mx-auto">
           <div className="bg-white 2xl:w-[952px] xl:w-[680px] lg:w-[570px] 2xl:h-[] xl:h-[] h-[] 2xl:p-[25px] xl:p-[15px] p-[10px]">
             <h1 className="inter font-[700] 2xl:text-[20px] xl:text-[16px] lg:text-[12px] 2xl:leading-[20px] xl:leading-[20px]">
               Standard 12th Exam Marks

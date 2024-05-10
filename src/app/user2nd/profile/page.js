@@ -46,8 +46,6 @@ const UserProfile = () => {
   // Formatting the date to dd/mm/yyyy format
   const formattedDate = createdAt.toLocaleDateString("en-GB");
 
-
-
   return (
     <>
       {/* <Stepper/> */}
@@ -131,7 +129,7 @@ const UserProfile = () => {
               </div>
 
               <div className="2xl:w-[1172px] xl:w-[70%] lg:w-[70%] 2xl:h-[451px] border-[1px] rounded-[10px] 2xl:my-10 xl:my-7 lg:my-5 my-5 ">
-                <div className="bg-[#F5F6FF] flex justify-between items-center 2xl:px-4 2xl:h-[66px] xl:h-[40px] h-[40px] xl:px-3 lg:px-2 px-2">
+                <div className="bg-[#F5F6FF] rounded-t-box flex justify-between items-center 2xl:px-4 2xl:h-[66px] xl:h-[40px] h-[40px] xl:px-3 lg:px-2 px-2">
                   <div className="flex justify-between">
                     <h1 className="userdetailHead">Subscription Details</h1>
                   </div>
@@ -160,10 +158,12 @@ const UserProfile = () => {
                       <tr>
                         <td className="inter font-[700] text-[#0071BC] 2xl:text-[18px] 2xl:leading-[40px] xl:text-[11px] xl:leading-[25px] lg:text-[8px] lg:leading-[14px] text-[12px] leading-[16px]">
                           Starter Plan{" "}
-                          <span className="text-[#000000] ">{studentDetail.SubscriptionsPlan}</span>
+                          <span className="text-[#000000] ">
+                            {studentDetail.SubscriptionsPlan}
+                          </span>
                         </td>
                         <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[11px] xl:leading-[24px] lg:text-[10px] lg:leading-[18px] text-[12px]">
-                        {formattedDate}
+                          {formattedDate}
                         </td>
                       </tr>
                     </tbody>
@@ -189,8 +189,7 @@ const UserProfile = () => {
                     <tbody className="border-none">
                       <tr className="border-none">
                         <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[24px] lg:text-[10px] lg:leading-[18px] text-[12px] ">
-                        {formattedDate}
-
+                          {formattedDate}
                         </td>
                         <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[24px] lg:text-[9px] text-[12px] lg:leading-[16px] 2xl:w-[317px] xl:w-[250px]">
                           Starter Plan Lorem Ipsum is simply dummy text of the
