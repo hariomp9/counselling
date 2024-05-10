@@ -16,16 +16,16 @@ import { useRouter } from "next/navigation";
 const UserProfile = () => {
   const router = useRouter();
   const { _id } = useSelector((state) => state?.auth);
+  const { token } = useSelector((state) => state?.auth);
   const [getStates, setGetStates] = useState("");
   const [getDist, setGetDist] = useState("");
   const [stateId, setStateId] = useState("");
-  const { token } = useSelector((state) => state?.auth);
   // const { _id } = useSelector((state) => state?.auth);
   const [stateID, setStateID] = useState("");
   const [distId, setDistId] = useState("");
-  const [selectedGender, setSelectedGender] = useState("");
   const state_id = stateID;
   const district_id = distId;
+  const [selectedGender, setSelectedGender] = useState("");
   const [studentDetail, setStudentDetail] = useState({
     firstname: "",
     mobile: "",

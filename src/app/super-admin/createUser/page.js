@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SuperNavbar from "../super-navbar";
 import sideLogo from "../../../../public/images/Group 179.svg";
 import Image from "next/image";
@@ -11,13 +11,24 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SuperSidebar from "../super-sidebar";
+import { useSelector } from "react-redux";
 
 const CreateUserForm = () => {
   const router = useRouter();
   const [userId, setUserId] = useState("");
+  const { _id } = useSelector((state) => state?.auth);
+  const { token } = useSelector((state) => state?.auth);
   const userID = userId._id;
   const [isLoader, setLoader] = useState(false);
   const [selectedGender, setSelectedGender] = useState("");
+  const [getStates, setGetStates] = useState("");
+  const [getDist, setGetDist] = useState("");
+  const [stateId, setStateId] = useState("");
+  const [stateID, setStateID] = useState("");
+  const [distId, setDistId] = useState("");
+  const state_id = stateID;
+  const district_id = distId;
 
   const [studentDetails, setStudentDetails] = useState({
     firstname: "",
@@ -26,8 +37,12 @@ const CreateUserForm = () => {
     mobile: "",
     Gender: "",
     whatsappMobile: "",
-    state: "",
-    District: "",
+    State_District: [
+      {
+        state_id: state_id,
+        district_id: district_id,
+      },
+    ],
     Subscription: "",
     Comments: "",
     password: "",
@@ -92,12 +107,51 @@ const CreateUserForm = () => {
       setLoader(false);
     }
   };
+
+  useEffect(() => {
+    defaultState();
+  }, []);
+
+  const defaultState = async () => {
+    const options = {
+      method: "GET",
+      url: "http://localhost:4000/api/state/getAllStates",
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setGetStates(response?.data?.states);
+        console.log(response?.data, "State");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+  useEffect(() => {
+    defaultDist();
+  }, [state_id]);
+
+  const defaultDist = async () => {
+    const options = {
+      method: "GET",
+      url: `http://localhost:4000/api/state_district/${state_id}`,
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setGetDist(response?.data[0]?.district_ids);
+        console.log(response?.data[0]?.district_ids, "dist");
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
   return (
     <>
       <ToastContainer autoClose={1000} />
       <section>
         <div className="flex">
-          <div className="hidden lg:block w-1/12 border h-screen">
+          {/* <div className="hidden lg:block w-1/12 border h-screen">
             <div className="flex justify-center border border-x-0 pb-4  ">
               <a href="/user/user-dashboard">
                 <Image src={sideLogo} className="mx-auto w-10 h-10 mt-5" />
@@ -275,7 +329,8 @@ const CreateUserForm = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
+          <SuperSidebar />
           <div className="w-full">
             <div>
               <SuperNavbar />
@@ -395,7 +450,7 @@ const CreateUserForm = () => {
                       </div>
                     </div> */}
 
-                    <div className="flex 2xl:mt-[15px] xl:mt-[10px] ">
+                    <div className="flex 2xl:mt-[25px] xl:mt-[10px] 2xl:gap-7 xl:gap-4  ">
                       {/* <div
                           className={`flex items-center xl:gap-2 gap-1 w-1/2 hover:border-red-800 ${
                             selectedGender === "Male"
@@ -417,7 +472,7 @@ const CreateUserForm = () => {
                           </p>
                         </div> */}
                       <div
-                        className={`flex items-center xl:gap-2 gap-1 w-1/2 ${
+                        className={`flex items-center xl:gap-2 gap-1  ${
                           selectedGender === "Male"
                             ? "border border-red-500"
                             : ""
@@ -440,7 +495,7 @@ const CreateUserForm = () => {
                       </div>
 
                       <div
-                        className="flex items-center xl:gap-2 gap-1 w-1/2"
+                        className="flex items-center xl:gap-2 gap-1 "
                         onClick={() =>
                           inputHandler({
                             target: { name: "Gender", value: "Female" },
@@ -478,33 +533,69 @@ const CreateUserForm = () => {
                       </div>
                     </div>
                   </div>
+
                   <div className="2xl:w-[549px] xl:w-[400px] lg:w-[320px] ">
                     <div className="flex justify-between 2xl:mt-[15px] xl:mt-[10px]">
                       <div className="2xl:w-[260px] xl:w-[190px] lg:w-[120px]">
                         <label className="createUser-label">
                           Current State
                         </label>
-                        <input
-                          type="text"
-                          className="createUser-input"
-                          placeholder="Enter state Name"
-                          name="state"
-                          value={studentDetails.state}
-                          onChange={inputHandler}
-                          required
-                        />
+                        <div className="">
+                          <select
+                            id="states2"
+                            name="state_id"
+                            className="createUser-input"
+                            value={stateID}
+                            onChange={(e) => {
+                              setStateID(e.target.value);
+                              inputHandler(e);
+                            }}
+                          >
+                            <option value=""> Select State</option>
+                            {Array.isArray(getStates) &&
+                              getStates.map((item) => (
+                                <option
+                                  key={item._id}
+                                  value={item._id}
+                                  className="pre_input"
+                                >
+                                  {item.name}
+                                </option>
+                              ))}
+                            {/* <option className="">First Select State</option> */}
+                          </select>
+                        </div>
                       </div>
                       <div className="2xl:w-[260px] xl:w-[190px] lg:w-[120px]">
                         <label className="createUser-label"> District</label>
-                        <input
-                          type="text"
-                          className="createUser-input"
-                          placeholder="Enter District Name"
-                          name="District"
-                          value={studentDetails.District}
-                          onChange={inputHandler}
-                          required
-                        />
+                        <div className="">
+                          <select
+                            id="states2"
+                            name="district_id"
+                            className="createUser-input"
+                            value={distId}
+                            onChange={(e) => {
+                              setDistId(e.target.value);
+                              inputHandler(e);
+                            }}
+                          >
+                            {/* <option value=""> {districtname.District}</option> */}
+                            <option value=""> Select</option>
+
+                            {Array.isArray(getDist) &&
+                              getDist.map((item) => (
+                                <option
+                                  key={item._id}
+                                  value={item._id}
+                                  className="pre_input"
+                                >
+                                  {item.District}
+                                </option>
+                              ))}
+
+                            <option className=""></option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                     <div className="2xl:mt-[15px] xl:mt-[10px]">
