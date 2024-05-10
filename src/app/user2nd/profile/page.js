@@ -41,6 +41,13 @@ const UserProfile = () => {
       });
   };
 
+  const createdAt = new Date(studentDetail?.createdAt);
+
+  // Formatting the date to dd/mm/yyyy format
+  const formattedDate = createdAt.toLocaleDateString("en-GB");
+
+
+
   return (
     <>
       {/* <Stepper/> */}
@@ -156,7 +163,7 @@ const UserProfile = () => {
                           <span className="text-[#000000] ">{studentDetail.SubscriptionsPlan}</span>
                         </td>
                         <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[11px] xl:leading-[24px] lg:text-[10px] lg:leading-[18px] text-[12px]">
-                        {studentDetail.createdAt}
+                        {formattedDate}
                         </td>
                       </tr>
                     </tbody>
@@ -182,7 +189,8 @@ const UserProfile = () => {
                     <tbody className="border-none">
                       <tr className="border-none">
                         <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[24px] lg:text-[10px] lg:leading-[18px] text-[12px] ">
-                          20th March 2024
+                        {formattedDate}
+
                         </td>
                         <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[24px] lg:text-[9px] text-[12px] lg:leading-[16px] 2xl:w-[317px] xl:w-[250px]">
                           Starter Plan Lorem Ipsum is simply dummy text of the

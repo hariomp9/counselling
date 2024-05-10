@@ -95,7 +95,7 @@ const UserSidebar = () => {
       <section>
         <div className="hidden lg:block  border h-screen xl:w-[130px] ">
           <div className="flex justify-center border border-x-0">
-            <a href="/user/user-dashboard">
+            <a href="/user2nd/neetUG-home">
               <Image
                 src={sideLogo}
                 alt="logo"

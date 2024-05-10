@@ -13,6 +13,7 @@ import second from "../assets/2st-right.svg";
 import third from "../assets/3st-right.svg";
 import { setToken } from "@/redux/adminSlice/authSlice";
 import { useDispatch } from "react-redux";
+import Loader from "@/app/component/loader";
 
 const UserRegistration = () => {
   const dispatch = useDispatch();
@@ -49,8 +50,9 @@ const UserRegistration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
+
     try {
-      setLoader(true);
       const response = await axios.post(
         "https://counselling-backend.vercel.app/api/auth/register",
         studentDetails
@@ -89,6 +91,7 @@ const UserRegistration = () => {
   };
   return (
     <>
+      {isLoader && <Loader />}
       <section>
         <div className="lg:flex ">
           <div className="lg:hidden">

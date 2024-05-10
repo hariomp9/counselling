@@ -22,8 +22,6 @@ const UserNavbar = () => {
     defaultAUser();
   }, []);
 
-  console.log(plan, "plan");
-
   const defaultAUser = async () => {
     const options = {
       method: "GET",
@@ -37,7 +35,7 @@ const UserNavbar = () => {
       .request(options)
       .then((response) => {
         setStudentDetail(response?.data?.user);
-        setPlan(response?.data?.user?.SubscriptionsPlan[0]);
+        setPlan(response?.data?.user?.SubscriptionsPlan);
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -57,7 +55,7 @@ const UserNavbar = () => {
             <div className="flex items-center gap-5 2xl:gap-7">
               {plan === "One on One" ? (
                 <div>
-                  <Link href="/user2nd/user-profile">
+                  <Link href={`/pages/user-stepsForm/${studentDetail._id}`}>
                     <button
                       className="bg-[#4F9ED9] text-white inter font-[700] rounded-[5px] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[16px] lg:text-[9px] 
             2xl:w-[216px] 2xl:h-[48px] xl:h-[30px] h-[25px] xl:w-[160px] lg:w-[120px] sm:w-[] w-[]  lg:leading-[14px]"

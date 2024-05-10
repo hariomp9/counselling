@@ -48,11 +48,7 @@ const UserProfile = ({ params }) => {
           <div className="lg:w-full">
             <UserNavbar />
 
-            {plan === "free" ? (
-              <UserProfileUpdate student_id={student_id} />
-            ) : (
-              <Profile student_id={student_id} />
-            )}
+            <Profile student_id={student_id} />
           </div>
         </div>
       </section>

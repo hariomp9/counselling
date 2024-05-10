@@ -35,6 +35,10 @@ const UserDetails = ({ params }) => {
         console.log(error, "Error");
       });
   };
+  const createdAt = new Date(studentDetail?.createdAt);
+
+  // Formatting the date to dd/mm/yyyy format
+  const formattedDate = createdAt.toLocaleDateString("en-GB");
   return (
     <>
       <section>
@@ -271,7 +275,7 @@ const UserDetails = ({ params }) => {
                   <div className="flex justify-around flex-row lg:flex-col lg:w-auto w-1/2">
                     <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] mb-4">
                       <p>Gender</p>
-                      <p className="text-[#000]">Male</p>
+                      <p className="text-[#000]">{studentDetail?.Gender}</p>
                     </div>
                     <div className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[20px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[12px] text-[10px] leading-[16px] lg:mt-4">
                       <p>Quota</p>
@@ -329,10 +333,12 @@ const UserDetails = ({ params }) => {
                       <tr>
                         <td className="inter font-[700] text-[#0071BC] 2xl:text-[18px] 2xl:leading-[40px] xl:text-[11px] xl:leading-[25px] lg:text-[8px] lg:leading-[14px] text-[12px] leading-[16px]">
                           Starter Plan{" "}
-                          <span className="text-[#000000] ">Free</span>
+                          <span className="text-[#000000] ">
+                            {studentDetail?.SubscriptionsPlan}
+                          </span>
                         </td>
                         <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[11px] xl:leading-[24px] lg:text-[10px] lg:leading-[18px] text-[12px]">
-                          March 20th 2024
+                          {formattedDate}
                         </td>
                       </tr>
                     </tbody>
@@ -358,7 +364,7 @@ const UserDetails = ({ params }) => {
                     <tbody className="border-none">
                       <tr className="border-none">
                         <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[24px] lg:text-[10px] lg:leading-[18px] text-[12px] ">
-                          20th March 2024
+                          {formattedDate}
                         </td>
                         <td className="inter font-[400] text-[#000000] 2xl:text-[14px] 2xl:leading-[15px] xl:text-[10px] xl:leading-[24px] lg:text-[9px] text-[12px] lg:leading-[16px] 2xl:w-[317px] xl:w-[250px]">
                           Starter Plan Lorem Ipsum is simply dummy text of the

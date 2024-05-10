@@ -157,8 +157,8 @@ const LoginLastStep = ({ params }) => {
                         Gender
                       </label>
                       <div className="flex ">
-                        <div
-                          className={`flex items-center xl:gap-2 gap-1 w-1/2 ${
+                        {/* <div
+                          className={`flex items-center xl:gap-2 gap-1 w-1/2 hover:border-red-800 ${
                             selectedGender === "Male"
                               ? "border border-red-500"
                               : ""
@@ -176,6 +176,32 @@ const LoginLastStep = ({ params }) => {
                           <p className="inter font-[400] text-[#747474] 2xl:text-[15px] xl:text-[11px] lg:text-[9px] cursor-pointer">
                             Male
                           </p>
+                        </div> */}
+                        <div
+                          className={`flex items-center xl:gap-2 gap-1 w-1/2 ${
+                            selectedGender === "Male"
+                              ? "border border-red-500"
+                              : ""
+                          }`}
+                          onClick={() =>
+                            inputHandler({
+                              target: { name: "Gender", value: "Male" },
+                            })
+                          }
+                        >
+                          <Image
+                            src={men}
+                            className="2xl:w-[48px] 2xl:h-[48px] h-auto xl:w-[40px] lg:w-[30px] sm:w-[] w-[] cursor-pointer"
+                          />
+                          <input
+                            type="radio"
+                            name="radio-1"
+                            className="radio"
+                          />
+
+                          <p className="inter font-[400] text-[#747474] 2xl:text-[15px] xl:text-[11px] lg:text-[9px] cursor-pointer">
+                            Male
+                          </p>
                         </div>
 
                         <div
@@ -190,8 +216,13 @@ const LoginLastStep = ({ params }) => {
                             src={women}
                             className="2xl:w-[48px] 2xl:h-[48px] h-auto xl:w-[40px] lg:w-[30px] sm:w-[] w-[] cursor-pointer"
                           />
+                          <input
+                            type="radio"
+                            name="radio-1"
+                            className="radio"
+                          />
                           <p className="inter font-[400] text-[#747474] 2xl:text-[15px] xl:text-[11px] lg:text-[9px] cursor-pointer">
-                            Male
+                            Female
                           </p>
                         </div>
                       </div>

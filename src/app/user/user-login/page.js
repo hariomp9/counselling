@@ -52,7 +52,6 @@ const UserLogin = () => {
         dispatch(setToken(res?.data?.token));
         dispatch(setUserId(res?.data?.user?._id));
         dispatch(adDetails(res?.data?.user));
-
         // router.push("/user/user-dashboard");
         router.push("/user2nd/neetUG-home");
       } else {

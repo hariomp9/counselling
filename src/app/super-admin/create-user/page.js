@@ -12,7 +12,8 @@ import axios from "axios";
 import { Dialog, Transition } from "@headlessui/react";
 import DeleteModuleC from "@/app/component/admin/students/delete-module";
 import { useSelector } from "react-redux";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer , toast } from "react-toastify";
+import Loader from "@/app/component/loader";
 
 const CreateUser = () => {
   const [getAllUser, setGetAllUser] = useState("");
@@ -21,6 +22,7 @@ const CreateUser = () => {
   const [userID, setUserID] = useState("");
   const { token } = useSelector((state) => state?.auth);
   const { _id } = useSelector((state) => state?.auth);
+  const [isLoader, setLoader] = useState(false);
 
   function openModal(id) {
     setUserID(id);
@@ -37,6 +39,8 @@ const CreateUser = () => {
     defaultUser();
   }, [isRefresh]);
   const defaultUser = () => {
+    setLoader(true);
+
     const option = {
       method: "GET",
       url: "http://localhost:4000/api/auth/all-users-data",
@@ -45,6 +49,7 @@ const CreateUser = () => {
       .request(option)
       .then((response) => {
         setGetAllUser(response?.data?.user);
+        setLoader(false);
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -73,18 +78,12 @@ const CreateUser = () => {
   // };
 
   const handleUpdateUser = async (e, _id) => {
-    // const updatedDetail = {
-    //   ...studentDetail,
-    //   SubscriptionsPlan: subscriptionPlan,
-    // };
-
     setSelectedPlan((prevSelectedPlan) => ({
       ...prevSelectedPlan,
       ["SubscriptionsPlan"]: [e.target.value], // Update SubscriptionsPlan as an array with the selected value
     }));
     const updatedValue = e.target.value;
-    // console.log("yoyo", selectedPlan)
-    // return
+
     try {
       const response = await axios.put(
         `http://localhost:4000/api/auth/edit-user/${_id}`,
@@ -112,6 +111,8 @@ const CreateUser = () => {
   return (
     <>
       <ToastContainer autoClose={1000} />
+      {isLoader && <Loader />}
+
       <section>
         <div className="flex">
           <div className="hidden lg:block w-1/12 border h-screen">
@@ -326,13 +327,13 @@ const CreateUser = () => {
                     <h1 className="legend text-[#1172BA] font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[16px] xl:leading-[30px] lg:text-[14px] lg:leading-[28px] lg:ml-0 md:ml-6 ml-5">
                       Manage User
                     </h1>
-                    <button className="flex 2xl:gap-2 xl:gap-2 gap-1 justify-center items-center bg-[#5793CE] text-white 2xl:w-[152px] 2xl:h-[48px] xl:w-[110px] xl:h-[35px] h-[25px] w-[110px] rounded-[4px] 2xl:text-[14px] xl:text-[10px] text-[10px]">
+                    {/* <button className="flex 2xl:gap-2 xl:gap-2 gap-1 justify-center items-center bg-[#5793CE] text-white 2xl:w-[152px] 2xl:h-[48px] xl:w-[110px] xl:h-[35px] h-[25px] w-[110px] rounded-[4px] 2xl:text-[14px] xl:text-[10px] text-[10px]">
                       <Image
                         src={add}
                         className="rounded-full 2xl:w-[15px] xl:w-[10px] w-3"
                       />
                       Create Profile
-                    </button>
+                    </button> */}
                   </div>
                   <hr />
                   <div className="overflow-x-auto">
