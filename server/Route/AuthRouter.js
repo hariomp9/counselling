@@ -32,7 +32,8 @@ const {
   superAdminRegister,
   superAdminUpdate,
   getSuperAdminById,
-  deleteaSuperAdmin
+  deleteaSuperAdmin,
+  PushMail
 } = require("../Controller/auth");
 const{validateUser} =require("../helpers/validation");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
@@ -131,6 +132,8 @@ router.route("/uploadImage").post(isAuthenticatedUser, authorizeRoles("admin"), 
 router.put("/updatedUser_Steps/:id",validateUser, updatedUser_Steps);
 
 router.get("/getstepsbyuserId/:id", getstepsbyuserId);
+
+router.route("/PushMail/:id").post(PushMail);
 
 
 

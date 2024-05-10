@@ -686,6 +686,7 @@ exports.verifyAdmin = async (req, res) => {
   }
 };
 
+
 exports.updatedUser = async (req, res) => {
   try {
     let updateData = req.body;
@@ -697,13 +698,8 @@ exports.updatedUser = async (req, res) => {
 
     // Find user by ID and update with the modified data
     const updatedUser = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
-
-    // If the user is marked as interested, send an email
     if (updateData.SubscriptionsPlan === 'One on One' || updateData.SubscriptionsPlan === 'Pro') {
       updatedUser.User_Intersted = 'Intersted';
-
-      // Send email to the user
-      await sendEmailIntersted(updatedUser.email,  updatedUser.firstname  , updatedUser.SubscriptionsPlan);
     }
 
     res.json(updatedUser);
@@ -716,42 +712,74 @@ exports.updatedUser = async (req, res) => {
 
 
 
-//  Send a Email 
+ // Working 
 
-// Function to send welcome email
-async function sendEmailIntersted(email, firstname , SubscriptionsPlan) {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.CLIENT_EMAIL,
-      pass: process.env.CLIENT_EMAIL_PASSWORD
-    },
-    tls: {
-      rejectUnauthorized: false // Disable SSL verification
-    },
-  });
+// exports.updatedUser = async (req, res) => {
+//   try {
+//     let updateData = req.body;
+
+//     // Convert SubscriptionsPlan to string if it's an array
+//     if (Array.isArray(updateData.SubscriptionsPlan)) {
+//       updateData.SubscriptionsPlan = updateData.SubscriptionsPlan[0];
+//     }
+
+//     // Find user by ID and update with the modified data
+//     const updatedUser = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
+
+//     // If the user is marked as interested, send an email
+//     if (updateData.SubscriptionsPlan === 'One on One' || updateData.SubscriptionsPlan === 'Pro') {
+//       updatedUser.User_Intersted = 'Intersted';
+
+//       // Send email to the user
+//       await sendEmailIntersted(updatedUser.email,  updatedUser.firstname  , updatedUser.SubscriptionsPlan);
+//     }
+
+//     res.json(updatedUser);
+//   } catch (error) {
+//     // Handle errors
+//     console.error(error);
+//     res.status(500).json({ message: 'Server Error' });
+//   }
+// };
 
 
-  const mailOptions = {
-    from: 'harshal.brilliance@gmail.com',
-    to: email,
-    subject: 'Welcome to Our Platform!',
-    html: `<p>Thank you for joining us! As a valued member, you now have access to our platform's features and resources.</p>
-    <p>Hello Admin,</p>
-    <p>A new student, <Strong>${firstname}</Strong>, has shown interest in our premium services. They are interested in <Strong>${SubscriptionsPlan}</Strong> plans. Please reach out to them shortly to provide more details about these plans.</p>
-    <p>Looking forward to your assistance in providing information about our premium services!</p>
+
+// //  Send a Email 
+
+// // Function to send welcome email
+// async function sendEmailIntersted(email, firstname , SubscriptionsPlan) {
+//   const transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//       user: process.env.CLIENT_EMAIL,
+//       pass: process.env.CLIENT_EMAIL_PASSWORD
+//     },
+//     tls: {
+//       rejectUnauthorized: false // Disable SSL verification
+//     },
+//   });
+
+
+//   const mailOptions = {
+//     from: 'harshal.brilliance@gmail.com',
+//     to: email,
+//     subject: 'Welcome to Our Platform!',
+//     html: `<p>Thank you for joining us! As a valued member, you now have access to our platform's features and resources.</p>
+//     <p>Hello Admin,</p>
+//     <p>A new student, <Strong>${firstname}</Strong>, has shown interest in our premium services. They are interested in <Strong>${SubscriptionsPlan}</Strong> plans. Please reach out to them shortly to provide more details about these plans.</p>
+//     <p>Looking forward to your assistance in providing information about our premium services!</p>
     
-    `
-  };
+//     `
+//   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error('Error sending email:', error);
-    } else {
-      console.log('Email sent:', info.response);
-    }
-  });
-}
+//   transporter.sendMail(mailOptions, (error, info) => {
+//     if (error) {
+//       console.error('Error sending email:', error);
+//     } else {
+//       console.log('Email sent:', info.response);
+//     }
+//   });
+// }
 
 
 
@@ -1364,3 +1392,64 @@ exports.deleteaSuperAdmin = async (req, res) => {
     throw new Error(error);
   }
 };
+
+
+// make a api to send a user's email by their id
+
+
+exports.PushMail = async (req, res) => {
+  const { id } = req.params;
+  validateMongoDbId(id);
+
+  try {
+    const user = await User.findOne({ _id: id });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    console.log(user);
+    const email = user.email;
+
+    console.log(email);
+
+    if (!email) {
+      return res.status(400).json({ success: false, message: 'Email address not found for the user' });
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.CLIENT_EMAIL,
+        pass: process.env.CLIENT_EMAIL_PASSWORD
+      },
+      tls: {
+        rejectUnauthorized: false // Disable SSL verification
+      },
+    });
+
+    const mailOptions = {
+      from: "harshal.brilliance@gmail.com",
+      to: email,
+      subject: 'Welcome to Our Platform!',
+      html: `<p>Thank you for joining us! As a valued member, you now have access to our platform's features and resources.</p>
+      <p>Hello Admin,</p>
+      <p>A new student, <Strong>${user.firstname}</Strong>, has shown interest in our premium services. They are interested in <Strong>${user.SubscriptionsPlan}</Strong> plans. Please reach out to them shortly to provide more details about these plans.</p>
+      <p>Looking forward to your assistance in providing information about our premium services!</p>
+      
+      `
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ success: false, message: 'Error sending email' });
+      } else {
+        console.log('Email sent:', info.response);
+        res.status(200).json({ success: true, message: 'Email sent successfully' });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+}
