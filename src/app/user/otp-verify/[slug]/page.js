@@ -37,7 +37,8 @@ const VerifyOTP = ({ params }) => {
         }
       );
       toast.success("Verification Successful!");
-      router.push("/user/login-lastStep");
+      // router.push("/user/login-lastStep");
+      router.push(`/user/login-lastStep/${userId}`);
       console.log("Verification Response:", response.data);
     } catch (error) {
       console.error("Error occurred while sending OTP:", error);
