@@ -144,8 +144,8 @@ const PrivateCounselling = () => {
                   // Render "Click Here To Subscribe" button
                   <div className="bg-[#4F9ED9] w-[217px] h-[48px] flex justify-center items-center rounded-md cursor-pointer mb-5">
                     <button
-                      className="bg-[#4F9ED9] text-white rounded-md px-4 py-2"
-                      onClick={() => setButtonClicked(true)}
+                      className="bg-[#4F9ED9] text-white rounded-md px-4  py-2"
+                      onClick={() => setButtonClicked(true)} 
                     >
                       Click Here To Subscribe
                     </button>
