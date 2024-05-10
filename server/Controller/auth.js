@@ -697,8 +697,13 @@ exports.updatedUser = async (req, res) => {
 
     // Find user by ID and update with the modified data
     const updatedUser = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
+
+    // If the user is marked as interested, send an email
     if (updateData.SubscriptionsPlan === 'One on One' || updateData.SubscriptionsPlan === 'Pro') {
       updatedUser.User_Intersted = 'Intersted';
+
+      // Send email to the user
+      await sendEmailIntersted(updatedUser.email,  updatedUser.firstname  , updatedUser.SubscriptionsPlan);
     }
 
     res.json(updatedUser);
@@ -709,6 +714,44 @@ exports.updatedUser = async (req, res) => {
   }
 };
 
+
+
+//  Send a Email 
+
+// Function to send welcome email
+async function sendEmailIntersted(email, firstname , SubscriptionsPlan) {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.CLIENT_EMAIL,
+      pass: process.env.CLIENT_EMAIL_PASSWORD
+    },
+    tls: {
+      rejectUnauthorized: false // Disable SSL verification
+    },
+  });
+
+
+  const mailOptions = {
+    from: 'harshal.brilliance@gmail.com',
+    to: email,
+    subject: 'Welcome to Our Platform!',
+    html: `<p>Thank you for joining us! As a valued member, you now have access to our platform's features and resources.</p>
+    <p>Hello Admin,</p>
+    <p>A new student, <Strong>${firstname}</Strong>, has shown interest in our premium services. They are interested in <Strong>${SubscriptionsPlan}</Strong> plans. Please reach out to them shortly to provide more details about these plans.</p>
+    <p>Looking forward to your assistance in providing information about our premium services!</p>
+    
+    `
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
+}
 
 
 
