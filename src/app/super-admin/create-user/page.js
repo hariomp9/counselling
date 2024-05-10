@@ -14,6 +14,7 @@ import DeleteModuleC from "@/app/component/admin/students/delete-module";
 import { useSelector } from "react-redux";
 import { ToastContainer , toast } from "react-toastify";
 import Loader from "@/app/component/loader";
+import SuperSidebar from "../super-sidebar";
 
 const CreateUser = () => {
   const [getAllUser, setGetAllUser] = useState("");
@@ -115,7 +116,7 @@ const CreateUser = () => {
 
       <section>
         <div className="flex">
-          <div className="hidden lg:block w-1/12 border h-screen">
+          {/* <div className="hidden lg:block w-1/12 border h-screen">
             <div className="flex justify-center border border-x-0 pb-4  ">
               <a href="/user/user-dashboard">
                 <Image src={sideLogo} className="mx-auto w-10 h-10 mt-5" />
@@ -293,7 +294,8 @@ const CreateUser = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
+          <SuperSidebar />
           <div className="w-full">
             <div>
               <SuperNavbar />

@@ -58,7 +58,7 @@ const SuperSidebar = () => {
       <section>
         <div className="hidden lg:block 2xl:w-[130px] xl:w-[110px] lg:w-[80px] border h-screen">
           <div className="flex justify-center border border-x-0   ">
-            <Link href="/user/user-dashboard">
+            <Link href="/super-admin">
               <Image
                 src={sideLogo}
                 className="mx-auto 2xl:w-[110px] 2xl:h-[42.57px] xl:w-[80px] w-[60px] h-auto  my-[15px]"
