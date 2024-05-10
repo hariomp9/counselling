@@ -31,13 +31,24 @@ const UserSchema = new mongoose.Schema(
     //   type: String,
     // },
 
-    SubscriptionsPlan: [{
+    SubscriptionsPlan: {
       type: String,
-      // enum: ["Free", "One-And-One", "Pro"],
-      default: "Free",
+      enum: ['Free', 'One on One', 'Pro'],
+      default: 'Free',
       required: true
-    }],
+    },
 
+
+    // Make a Interster or Non-Interseted field  but condtion is that by default is not intersted but he took SubscriptionsPlan like one to one and Pro so default value should chage in set intersted
+  
+
+  User_Intersted:{
+    type:String,
+    enum:['Intersted', 'Non-Intersted'],
+    default:'Non-Intersted',
+    required:true
+    },
+    
 
     Comments:{
       type: String
@@ -467,6 +478,14 @@ const UserSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+
+
+
+
+
+
+
 
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {

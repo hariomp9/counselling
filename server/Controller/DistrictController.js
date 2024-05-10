@@ -2,41 +2,65 @@ const DistrictModel = require('../Model/DistrictModel')
 const validateMongoDbId = require("../Utils/validateMongodbId");
 // Create a new district
 
-// exports.createDistrict=async(req,res,next)=>{
-// try {
+exports.createDistrict=async(req,res,next)=>{
+try {
 
-// const{District}=req.body
-// const findDistrict=await DistrictModel.findOne({District})
-// if(findDistrict){
-//     return res.status(400).json({message:"District already exists"})
-// }
-// const district=new DistrictModel({
-//     District
-// })
-// const newDistrict=await district.save()
-// res.status(201).json(newDistrict)
-// }catch(error){
-//     next(error)
+const{District}=req.body
+const findDistrict=await DistrictModel.findOne({District})
+if(findDistrict){
+    return res.status(400).json({message:"District already exists"})
+}
+const district=new DistrictModel({
+    District
+})
+const newDistrict=await district.save()
+res.status(201).json(newDistrict)
+}catch(error){
+    next(error)
 
-// }
-// }
+}
+}
 
-exports.createDistrict = async (req, res, next) => {
-    const districtNamesToAdd =
-        [
-            "Alipurduar", "Bankura", "Birbhum", "Cooch Behar", "Dakshin Dinajpur",
-            "Darjeeling", "Hooghly", "Howrah", "Jalpaiguri", "Jhargram", "Kalimpong",
-            "Kolkata", "Malda", "Murshidabad", "Nadia", "North 24 Parganas",
-            "Paschim Bardhaman", "Paschim Medinipur", "Purba Bardhaman", "Purba Medinipur",
-            "Purulia", "South 24 Parganas", "Uttar Dinajpur"
-        ]
-    try {
-        const districts = await DistrictModel.insertMany(districtNamesToAdd.map(name => ({ District: name })));
-        res.status(201).json(districts);
-    } catch (error) {
-        next(error);
-    }
-};
+// exports.createDistrict = async (req, res, next) => {
+//     const districtNamesToAdd =
+//         [
+            
+//                 "Alluri Sitarama Raju",
+//                 "Anakapalli",
+//                 "Anantapur",
+//                 "Annamaya",
+//                 "Bapatla",
+//                 "Chittoor",
+//                 "East Godavari",
+//                 "Eluru",
+//                 "Guntur",
+//                 "Kadapa",
+//                 "Kakinada",
+//                 "Konaseema",
+//                 "Krishna",
+//                 "Kurnool",
+//                 "Manyam",
+//                 "N T Rama Rao",
+//                 "Nandyal",
+//                 "Nellore",
+//                 "Palnadu",
+//                 "Prakasam",
+//                 "Sri Balaji",
+//                 "Sri Satya Sai",
+//                 "Srikakulam",
+//                 "Visakhapatnam",
+//                 "Vizianagaram",
+//                 "West Godavari"
+            
+            
+//         ]
+//     try {
+//         const districts = await DistrictModel.insertMany(districtNamesToAdd.map(name => ({ District: name })));
+//         res.status(201).json(districts);
+//     } catch (error) {
+//         next(error);
+//     }
+// };
 
 
 

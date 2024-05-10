@@ -688,12 +688,29 @@ exports.verifyAdmin = async (req, res) => {
 
 exports.updatedUser = async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    let updateData = req.body;
+
+    // Convert SubscriptionsPlan to string if it's an array
+    if (Array.isArray(updateData.SubscriptionsPlan)) {
+      updateData.SubscriptionsPlan = updateData.SubscriptionsPlan[0];
+    }
+
+    // Find user by ID and update with the modified data
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
+    if (updateData.SubscriptionsPlan === 'One on One' || updateData.SubscriptionsPlan === 'Pro') {
+      updatedUser.User_Intersted = 'Intersted';
+    }
+
     res.json(updatedUser);
   } catch (error) {
-    throw new Error(error);
+    // Handle errors
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
   }
 };
+
+
+
 
 exports.getallUser = async (req, res) => {
   try {
