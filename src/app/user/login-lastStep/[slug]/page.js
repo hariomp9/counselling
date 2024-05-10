@@ -9,11 +9,10 @@ import women from "../../assets/women.svg";
 import Image from "next/image";
 import arrow from "../../assets/arrow.svg";
 import logo from "../../../../../public/images/logo.svg";
-import { ToastContainer , toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 const LoginLastStep = ({ params }) => {
- 
   const router = useRouter();
   const userId = params.slug;
   const [getStates, setGetStates] = useState("");

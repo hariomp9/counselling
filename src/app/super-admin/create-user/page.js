@@ -80,7 +80,7 @@ const CreateUser = () => {
 
     setSelectedPlan((prevSelectedPlan) => ({
       ...prevSelectedPlan,
-      ['SubscriptionsPlan']: [e.target.value], // Update SubscriptionsPlan as an array with the selected value
+      ["SubscriptionsPlan"]: [e.target.value], // Update SubscriptionsPlan as an array with the selected value
     }));
     const updatedValue = e.target.value;
     // console.log("yoyo", selectedPlan)
@@ -398,9 +398,13 @@ const CreateUser = () => {
                                 <select
                                   className="border rounded-sm p-1"
                                   // value={studentDetail.SubscriptionsPlan}
-                                  onChange={(e) => handleUpdateUser(e, item._id)}
+                                  onChange={(e) =>
+                                    handleUpdateUser(e, item._id)
+                                  }
                                 >
-                                  <option value="">Select</option>
+                                  <option value="">
+                                    {item?.SubscriptionsPlan}
+                                  </option>
                                   <option value="Free">Free</option>
                                   <option value="One on One">One on One</option>
                                 </select>
@@ -441,7 +445,7 @@ const CreateUser = () => {
         </div>
       </section>
       <Transition appear show={isOpenDelete} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={() => { }}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
