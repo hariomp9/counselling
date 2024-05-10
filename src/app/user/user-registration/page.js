@@ -11,8 +11,11 @@ import student from "../assets/right-poster.png";
 import first from "../assets/1st-right.svg";
 import second from "../assets/2st-right.svg";
 import third from "../assets/3st-right.svg";
+import { setToken } from "@/redux/adminSlice/authSlice";
+import { useDispatch } from "react-redux";
 
 const UserRegistration = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [userId, setUserId] = useState("");
   const userID = userId?._id;
@@ -52,13 +55,13 @@ const UserRegistration = () => {
         "https://counselling-backend.vercel.app/api/auth/register",
         studentDetails
       );
-      if (response.status === 201) {
+      if (response.status >= 200 && response.status < 300) {
         toast.success("Registration Successful!");
         setUserId(response?.data?.user);
         handleSendOTP(response?.data?.user);
         const userToken = response?.data?.user?._id;
-        console.log(userToken);
-        router.push(`/user/otp-verify/${userToken}`); ///
+        router.push(`/user/otp-verify/${userToken}`);
+
         // router.push("/user/otp-verify");
         // router.push({ pathname: '/user/otp-verify', query: { user_id: userId } });
       } else {
