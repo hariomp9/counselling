@@ -1,31 +1,31 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import SideBar from "../sideBar";
-import Navbar from "../navbar";
+import SideBar from "../../sideBar";
+import Navbar from "../../navbar";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import men from "../assets/men.svg";
-import women from "../assets/women.svg";
+import { useDispatch, useSelector } from "react-redux";
+import men from "../../assets/men.svg";
+import women from "../../assets/women.svg";
 import Image from "next/image";
-import arrow from "../assets/arrow.svg";
-import logo from "../../../../public/images/logo.svg";
-import { ToastContainer } from "react-toastify";
+import arrow from "../../assets/arrow.svg";
+import logo from "../../../../../public/images/logo.svg";
+import { ToastContainer , toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
-const LoginLastStep = () => {
+const LoginLastStep = ({ params }) => {
+ 
+  const router = useRouter();
+  const userId = params.slug;
   const [getStates, setGetStates] = useState("");
   const [getDist, setGetDist] = useState("");
   const [stateId, setStateId] = useState("");
   const { token } = useSelector((state) => state?.auth);
-  const { _id } = useSelector((state) => state?.auth);
+  // const { _id } = useSelector((state) => state?.auth);
   const [stateID, setStateID] = useState("");
   const [distId, setDistId] = useState("");
   const [selectedGender, setSelectedGender] = useState("");
-
   const state_id = stateID;
   const district_id = distId;
-  console.log(state_id, "state_id");
-  console.log(district_id, "district_id");
-
   const [studentDetail, setStudentDetail] = useState({
     Gender: "",
     whatsappMobile: "",
@@ -69,20 +69,20 @@ const LoginLastStep = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/edit-user/${_id}`,
-        studentDetail,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: token,
-          },
-        }
+        `http://localhost:4000/api/auth/edit-user/${userId}`,
+        studentDetail
+        // {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     authorization: token,
+        //   },
+        // }
       );
 
-      if (response.status === 200) {
-        // refreshData();
+      if (response.status >= 200 && response.status < 300) {
         toast.success("Update successfully!");
         router.push("/user/user-login");
+        // refreshData();
       } else {
         console.log("Server error");
         toast.error(error?.response?.data?.message || "Server error");
