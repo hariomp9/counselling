@@ -164,20 +164,31 @@ exports.register = async (req, res, next) => {
 
 //  make a function to genrate a id_Number
 
-const generateIdNumber = async (req, res) => {
-  let highestNumber = await User.findOne({}, {}, { sort: { 'Id_Number': -1 } });
+const generateIdNumber = async () => {
+  try {
+    // Find the user with the highest ID_Number
+    const highestUser = await User.findOne({}, {}, { sort: { 'Id_Number': -1 } });
+    console.log("highestUser:", highestUser);
 
-  let newNumber;
-  if (highestNumber && highestNumber.Id_Number) {
-    const lastNumber = parseInt(highestNumber.Id_Number.slice(2));
-    newNumber = lastNumber + 1;
-  } else {
-    newNumber = 0; // Start from 0 if there are no existing records or if Id_Number is not defined
+    let newNumber;
+    if (highestUser && highestUser.Id_Number) {
+      // Extract the numeric part of the ID_Number, increment it by 1, and pad with zeros
+      const lastNumber = parseInt(highestUser.Id_Number.slice(6)); // Assuming 'UG-24-' has 6 characters
+      newNumber = lastNumber + 1;
+    } else {
+      newNumber = 0; // Start from 0 if there are no existing records or if Id_Number is not defined
+    }
+
+    // Construct the new ID number
+    const idNumber = `UG-24-${newNumber.toString().padStart(7, '0')}`;
+    return idNumber;
+  } catch (error) {
+    console.error("Error generating ID number:", error);
+    // Handle error appropriately, maybe return a default ID or throw an error
+    return null;
   }
-
-  const idNumber = `UG${newNumber.toString().padStart(5, '0')}`;
-  return idNumber;
 }
+
 
 
 
