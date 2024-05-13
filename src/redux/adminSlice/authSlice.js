@@ -28,10 +28,24 @@ export const authSlice = createSlice({
     superAdminDetails: (state, action) => {
       state.superAdminDetails = action.payload;
     },
+    userCourse: (state, action) => {
+      state.userCourse = action.payload;
+    },
+    removeCourse: (state, action) => {
+      state.userCourse = null;
+    },
   },
 });
 
-export const { setUserId , setToken, removeToken, adDetails, superAdminDetails , rem_AdDetails } =
-  authSlice.actions;
+export const {
+  setUserId,
+  setToken,
+  removeToken,
+  adDetails,
+  superAdminDetails,
+  rem_AdDetails,
+  userCourse,
+  removeCourse,
+} = authSlice.actions;
 
 export default authSlice.reducer;

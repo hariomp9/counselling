@@ -160,7 +160,12 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                               <input
                                 type="text"
                                 // value={item.obtained}
-                                defaultValue={item?.obtained}
+                                // defaultValue={item?.obtained}
+                                defaultValue={
+                                  item?.obtained
+                                    ? item?.obtained
+                                    : item?.obtained
+                                }
                                 onChange={(e) =>
                                   inputHandler(
                                     index,

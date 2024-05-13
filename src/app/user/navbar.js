@@ -7,7 +7,7 @@ import notify from "../../../public/images/bell.svg";
 import line from "../../../public/images/Line 21.svg";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
@@ -21,12 +21,15 @@ const Navbar = () => {
     setLoader(true);
 
     try {
-      const res = await axios.get("https://counselling-backend.vercel.app/api/auth/logout", {
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await axios.get(
+        "https://counselling-backend.vercel.app/api/auth/logout",
+        {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (res?.data?.success) {
         toast.success("Logout successful!");

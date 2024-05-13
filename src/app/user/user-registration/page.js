@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import logo from "../../../../public/images/logo.svg";
 import React, { useState } from "react";
 import axios from "axios";
@@ -12,10 +13,14 @@ import first from "../assets/1st-right.svg";
 import second from "../assets/2st-right.svg";
 import third from "../assets/3st-right.svg";
 import { setToken } from "@/redux/adminSlice/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "@/app/component/loader";
+import { removeCourse } from "@/redux/adminSlice/authSlice";
 
 const UserRegistration = () => {
+  const { userCourse } = useSelector((state) => state?.auth);
+  console.log(userCourse, "userCourse");
+
   const dispatch = useDispatch();
   const router = useRouter();
   const [userId, setUserId] = useState("");
@@ -29,6 +34,7 @@ const UserRegistration = () => {
     mobile: "",
     password: "",
     role: "",
+    careerGoals: userCourse,
   });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -63,7 +69,7 @@ const UserRegistration = () => {
         handleSendOTP(response?.data?.user);
         const userToken = response?.data?.user?._id;
         router.push(`/user/otp-verify/${userToken}`);
-
+        dispatch(removeCourse());
         // router.push("/user/otp-verify");
         // router.push({ pathname: '/user/otp-verify', query: { user_id: userId } });
       } else {
@@ -361,6 +367,16 @@ const UserRegistration = () => {
                   </div>
                 </div>
               </form>
+              <div className="flex justify-center">
+                <Link href="/user/user-login">
+                  <button
+                    className="text-[#0071BC] inter font-[700] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[]
+   2xl:leading-[24.5px] xl:leading-[20px] lg:leading-[16px] sm:leading-[] leading-[]"
+                  >
+                    Login
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
           <div className="lg:w-1/2 hidden lg:block bg-[#0071BC] 2xl:pt-[120px] pt-[40px]">

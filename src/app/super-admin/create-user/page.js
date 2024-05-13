@@ -12,18 +12,18 @@ import axios from "axios";
 import { Dialog, Transition } from "@headlessui/react";
 import DeleteModuleC from "@/app/component/admin/students/delete-module";
 import { useSelector } from "react-redux";
-import { ToastContainer , toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Loader from "@/app/component/loader";
 import SuperSidebar from "../super-sidebar";
 
 const CreateUser = () => {
   const [getAllUser, setGetAllUser] = useState("");
-  const [isOpenDelete, setOpenDelete] = useState(false);
   const [isRefresh, setRefresh] = useState(false);
+  const [isLoader, setLoader] = useState(false);
+  const [isOpenDelete, setOpenDelete] = useState(false);
   const [userID, setUserID] = useState("");
   const { token } = useSelector((state) => state?.auth);
   const { _id } = useSelector((state) => state?.auth);
-  const [isLoader, setLoader] = useState(false);
 
   function openModal(id) {
     setUserID(id);
@@ -346,7 +346,7 @@ const CreateUser = () => {
                             User Name
                           </th>
                           <th className="craete_tbl_row text-[#A8A8A8]">
-                            Subscription
+                            Course
                           </th>
                           <th className="craete_tbl_row text-[#A8A8A8]">
                             Email Id
@@ -354,9 +354,9 @@ const CreateUser = () => {
                           <th className="craete_tbl_row text-[#A8A8A8]">
                             Phone Number
                           </th>
-                          <th className="craete_tbl_row text-[#A8A8A8]">
+                          {/* <th className="craete_tbl_row text-[#A8A8A8]">
                             Subscription Type
-                          </th>
+                          </th> */}
                           {/* <th className="craete_tbl_row text-[#A8A8A8]">
                             Status
                           </th> */}
@@ -389,7 +389,7 @@ const CreateUser = () => {
 
                               <td className="craete_tbl_row">
                                 {" "}
-                                {item?.Subscription}
+                                {item?.careerGoals}
                               </td>
                               <td className="craete_tbl_row">{item?.email}</td>
                               <td className="craete_tbl_row">
@@ -397,7 +397,7 @@ const CreateUser = () => {
                                 {item?.mobile}
                               </td>
 
-                              <td>
+                              {/* <td>
                                 <select
                                   className="border rounded-sm p-1"
                                   // value={studentDetail.SubscriptionsPlan}
@@ -411,7 +411,7 @@ const CreateUser = () => {
                                   <option value="Free">Free</option>
                                   <option value="One on One">One on One</option>
                                 </select>
-                              </td>
+                              </td> */}
 
                               {/* <td className="craete_tbl_row text-[#FE9E34]">
                             Pending 
@@ -495,32 +495,3 @@ const CreateUser = () => {
 };
 
 export default CreateUser;
-
-{
-  /* <select
-                                  value=""
-                                  //  onChange={inputHandler}
-                                >
-                                  <option>{item?.SubscriptionsPlan}</option>
-
-                                  <option>Free</option>
-                                  <option>One on One</option>
-                                </select> */
-}
-{
-  /* <div>
-                                  <select
-                                    value={studentDetail.SubscriptionsPlan[0]}
-                                    onChange={(e) => {
-                                      handleSelectChange(e);
-                                      handleUpdateUser(item._id);
-                                    }}
-                                  >
-                                    <option value="">Select a plan</option>
-                                    <option value="Free">Free</option>
-                                    <option value="One on One">
-                                      One on One
-                                    </option>
-                                  </select>
-                                </div> */
-}
