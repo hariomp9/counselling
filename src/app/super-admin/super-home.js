@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import one from "./assets/one.svg";
 import two from "./assets/two.svg";
@@ -23,6 +23,10 @@ import advanceplan from "./assets/advanceplan.svg";
 import dropdown from "./assets/dropdown.svg";
 import edit from "./assets/edit.svg";
 import deletes from "./assets/delete.svg";
+import axios from "axios";
+import { Dialog, Transition } from "@headlessui/react";
+import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 
 const data = [
   {
@@ -67,8 +71,121 @@ const data = [
   },
 ];
 const SuperHome = () => {
+  const [getInterstedUsers, setGetInterstedUsers] = useState("");
+  const [isOpenDelete, setOpenDelete] = useState(false);
+  const [isUpdateUser, setisUpdateUser] = useState(false);
+  const [userID, setUserID] = useState("");
+  const [isRefresh, setRefresh] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const { token } = useSelector((state) => state?.auth);
+  const [plan, setPlan] = useState("Pending");
+  const [studentDetail, setStudentDetail] = useState([]);
+
+  function openModal(id) {
+    setUserID(id);
+    setOpenDelete(true);
+  }
+  function openUpdateModal(id) {
+    setUserID(id);
+    setisUpdateUser(true);
+  }
+
+  const closeModal = () => setOpenDelete(false);
+  const closeModall = () => setisUpdateUser(false);
+
+  const refreshData = () => {
+    setRefresh(!isRefresh);
+  };
+
+  useEffect(() => {
+    defaultUser();
+  }, [isRefresh]);
+
+  const defaultUser = () => {
+    const option = {
+      method: "GET",
+      url: "http://localhost:4000/api/auth/getInterstedUsers",
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setGetInterstedUsers(response?.data?.users);
+        setPlan(response?.data?.users[0]?.Status);
+        console.log(response?.data?.users[0]?.Status);
+      })
+      .catch((error) => {
+        console.log(error, "Error");
+      });
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/api/auth/deleteInterstedUsers/${userID}`,
+        {
+          headers: {
+            Accept: "application/json",
+            authorization: token,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("Student remove successfully!");
+        closeModal();
+        refreshData();
+      } else {
+        toast.error("Failed. Something went wrong!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed. Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    console.log("Received name:", name);
+    console.log("Received value:", value);
+    setStudentDetail({
+      ...studentDetail,
+      Status: value,
+    });
+  };
+
+  const handleUpdateUser = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:4000/api/auth/edit-user/${userID}`,
+        studentDetail,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: token,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        refreshData();
+        toast.success("Update successfully!");
+        closeModall();
+      } else {
+        console.log("Server error");
+        toast.error(error?.response?.data?.message || "Server error");
+      }
+    } catch (error) {
+      console.log(error?.response?.data?.message || "Server error");
+    }
+  };
+
   return (
     <>
+      <ToastContainer autoClose={1000} />
       <section className="bg-white">
         <div className="flex ">
           <SuperSidebar />
@@ -268,7 +385,11 @@ const SuperHome = () => {
               <div className="2xl:w-[542px] xl:w-[340px] w-[220px] ">
                 <div className="flex justify-between items-center p-5 w-full 2xl:h-[79px] xl:h-[60px] h-[45px] border rounded-[10px]">
                   <h1 className="super_head ">Total Revenue</h1>
-                  <Image src={dropdown} alt="dropdown-img" className="w-[20px] xl:w-[25px] 2xl:w-[30px]" />
+                  <Image
+                    src={dropdown}
+                    alt="dropdown-img"
+                    className="w-[20px] xl:w-[25px] 2xl:w-[30px]"
+                  />
                 </div>
 
                 <div className="my-[30px] w-full bg-[#F5F6FF] 2xl:p-[35px] xl:p-[20px] p-[10px]  2xl:h-[317px] xl:h-[280px]">
@@ -289,7 +410,9 @@ const SuperHome = () => {
                           <p className="legend font-[500] super_box_p">
                             Starter Plan
                           </p>
-                          <p className="legend font-[500] super_box_noo">9846</p>
+                          <p className="legend font-[500] super_box_noo">
+                            9846
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -306,7 +429,9 @@ const SuperHome = () => {
                           <p className="legend font-[500] super_box_p">
                             Basic Plan
                           </p>
-                          <p className="legend font-[500] super_box_noo">3261</p>
+                          <p className="legend font-[500] super_box_noo">
+                            3261
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -323,7 +448,9 @@ const SuperHome = () => {
                           <p className="legend font-[500] super_box_p">
                             Pro Plan
                           </p>
-                          <p className="legend font-[500] super_box_noo">6581</p>
+                          <p className="legend font-[500] super_box_noo">
+                            6581
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -340,7 +467,9 @@ const SuperHome = () => {
                           <p className="legend font-[500] super_box_p">
                             Advance Plan
                           </p>
-                          <p className="legend font-[500] super_box_noo">2548</p>
+                          <p className="legend font-[500] super_box_noo">
+                            2548
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -368,7 +497,10 @@ const SuperHome = () => {
                     </thead>
                     <tbody>
                       {data.map((item, index) => (
-                        <tr key={item.id} className="2xl:h-[80px] xl:h-[60px] h-[45px] ">
+                        <tr
+                          key={item.id}
+                          className="2xl:h-[80px] xl:h-[60px] h-[45px] "
+                        >
                           <td className="tablerow">{index + 1}</td>
                           <td className="tablerow">{item.CounsellingType}</td>
                           <td className="tablerow table-para">
@@ -396,7 +528,9 @@ const SuperHome = () => {
 
             <div className=" 2xl:p-[30px] xl:p-[20px] p-[15px] bg-white ">
               <div className="border rounded-[10px] bg-[#F5F6FF] ">
-                <h1 className="super_head 2xl:p-5 xl:p-3 p-2">1 on 1 Counselling</h1>
+                <h1 className="super_head 2xl:p-5 xl:p-3 p-2">
+                  1 on 1 Counselling
+                </h1>
                 <div className="overflow-x-auto">
                   <table className="table table-xs my-5 md:w-[125%] sm:w-[130%] w-[150%] lg:w-full table_w">
                     <thead>
@@ -405,8 +539,10 @@ const SuperHome = () => {
                         <th className="craete_tbl_row text-[#A8A8A8]">
                           Student Name
                         </th>
+                        <th className="craete_tbl_row text-[#A8A8A8]">Course</th>
+                        <th className="craete_tbl_row text-[#A8A8A8]">Email</th>
                         <th className="craete_tbl_row text-[#A8A8A8]">
-                          Course
+                          Mobile Number
                         </th>
                         <th className="craete_tbl_row text-[#A8A8A8]">
                           ID Number
@@ -421,139 +557,67 @@ const SuperHome = () => {
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="border-none">
-                      <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
-                        <td className="py-3">
-                          <p className="craete_tbl_row">01</p>
-                        </td>
-                        <td className="py-3">
-                          <p className="craete_tbl_row">Suresh Inamdar</p>
-                        </td>
-                        <td className="craete_tbl_row">UG</td>
-                        <td className="craete_tbl_row">UG243001</td>
+                    {Array.isArray(getInterstedUsers) &&
+                      getInterstedUsers.map((item, index) => (
+                        <tbody key={index} className="border-none">
+                          <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
+                            <td className="py-3">
+                              <p className="craete_tbl_row">01</p>
+                            </td>
+                            <td className="py-3">
+                              <p className="craete_tbl_row">
+                                {item?.firstname} {item?.lastname}
+                              </p>
+                            </td>
+                            <td className="craete_tbl_row">
+                              {item?.careerGoals}
+                            </td>
+                            <td className="craete_tbl_row">{item?.email}</td>
+                            <td className="craete_tbl_row">{item?.mobile}</td>
 
-                        <td>
-                          <button className="craete_tbl_Pbtn">Preview</button>
-                        </td>
-                        <td className="craete_tbl_row text-[#FE9E34]">
-                          Pending
-                        </td>
+                            <td className="craete_tbl_row">
+                              {item?.Id_Number}
+                            </td>
 
-                        <td className="  ">
-                          <button className="">
-                            <Image src={edit} className="mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
-                          </button>
-                          <button className="">
-                            <Image src={deletes} className="ml-2  w-[15px] xl:w-[20px] 2xl:w-[25px" />
-                          </button>
-                        </td>
-                      </tr>
-                      <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
-                        <td className="py-3">
-                          <p className="craete_tbl_row">01</p>
-                        </td>
-                        <td className="py-3">
-                          <p className="craete_tbl_row">Suresh Inamdar</p>
-                        </td>
-                        <td className="craete_tbl_row">UG</td>
-                        <td className="craete_tbl_row">UG243001</td>
-
-                        <td>
-                          <button className="craete_tbl_Pbtn">Preview</button>
-                        </td>
-                        <td className="craete_tbl_row text-[#25B948]">
-                        Approved
-                        </td>
-
-                        <td className="  ">
-                          <button className="">
-                            <Image src={edit} className="mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
-                          </button>
-                          <button className="">
-                            <Image src={deletes} className="ml-2  w-[15px] xl:w-[20px] 2xl:w-[25px" />
-                          </button>
-                        </td>
-                      </tr>
-                      <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
-                        <td className="py-3">
-                          <p className="craete_tbl_row">01</p>
-                        </td>
-                        <td className="py-3">
-                          <p className="craete_tbl_row">Suresh Inamdar</p>
-                        </td>
-                        <td className="craete_tbl_row">UG</td>
-                        <td className="craete_tbl_row">UG243001</td>
-
-                        <td>
-                          <button className="craete_tbl_Pbtn">Preview</button>
-                        </td>
-                        <td className="craete_tbl_row text-[#FE9E34]">
-                          Pending
-                        </td>
-
-                        <td className="  ">
-                          <button className="">
-                            <Image src={edit} className="mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
-                          </button>
-                          <button className="">
-                            <Image src={deletes} className="ml-2  w-[15px] xl:w-[20px] 2xl:w-[25px" />
-                          </button>
-                        </td>
-                      </tr>
-                      <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
-                        <td className="py-3">
-                          <p className="craete_tbl_row">01</p>
-                        </td>
-                        <td className="py-3">
-                          <p className="craete_tbl_row">Suresh Inamdar</p>
-                        </td>
-                        <td className="craete_tbl_row">UG</td>
-                        <td className="craete_tbl_row">UG243001</td>
-
-                        <td>
-                          <button className="craete_tbl_Pbtn">Preview</button>
-                        </td>
-                        <td className="craete_tbl_row text-[#25B948]">
-                        Approved
-                        </td>
-
-                        <td className="  ">
-                          <button className="">
-                            <Image src={edit} className="mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
-                          </button>
-                          <button className="">
-                            <Image src={deletes} className="ml-2  w-[15px] xl:w-[20px] 2xl:w-[25px" />
-                          </button>
-                        </td>
-                      </tr>
-                      <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
-                        <td className="py-3">
-                          <p className="craete_tbl_row">01</p>
-                        </td>
-                        <td className="py-3">
-                          <p className="craete_tbl_row">Suresh Inamdar</p>
-                        </td>
-                        <td className="craete_tbl_row">UG</td>
-                        <td className="craete_tbl_row">UG243001</td>
-
-                        <td>
-                          <button className="craete_tbl_Pbtn">Preview</button>
-                        </td>
-                        <td className="craete_tbl_row text-[#25B948]">
-                        Approved
-                        </td>
-
-                        <td className="  ">
-                          <button className="">
-                            <Image src={edit} className="mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]" />
-                          </button>
-                          <button className="">
-                            <Image src={deletes} className="ml-2  w-[15px] xl:w-[20px] 2xl:w-[25px" />
-                          </button>
-                        </td>
-                      </tr>
-                   
-                    </tbody>
+                            <td>
+                              <button className="craete_tbl_Pbtn">
+                                Preview
+                              </button>
+                            </td>
+                            <td className="">
+                              {plan === "Pending" ? (
+                                <p className="craete_tbl_row text-[#FE9E34]">
+                                  Pending
+                                </p>
+                              ) : (
+                                <p className="craete_tbl_row text-[#25B948]">
+                                  Approved
+                                </p>
+                              )}
+                            </td>
+                            <td className="  ">
+                              <button
+                                onClick={() => openUpdateModal(item._id)}
+                                className=""
+                              >
+                                <Image
+                                  src={edit}
+                                  className="mr-2 w-[15px] xl:w-[20px] 2xl:w-[25px]"
+                                />
+                              </button>
+                              <button
+                                onClick={() => openModal(item._id)}
+                                className=""
+                              >
+                                <Image
+                                  src={deletes}
+                                  className="ml-2  w-[15px] xl:w-[20px] 2xl:w-[25px"
+                                />
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      ))}
                   </table>
                 </div>
               </div>
@@ -561,6 +625,167 @@ const SuperHome = () => {
           </div>
         </div>
       </section>
+      <Transition appear show={isOpenDelete} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-[90%] sm:w-full sm:max-w-[500px] transform overflow-hidden rounded-2xl bg-white p-4  sm:px-8 lg:px-8 2xl:p-10 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-5"
+                  >
+                    Are You Sure! Want to Delete?
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-[12px] sm:text-[16px] font-normal ms:leading-[30px] text-gray-500 mt-4">
+                      Do you really want to delete these records? You cant view
+                      this in your list anymore if you delete!
+                    </p>
+                  </div>
+
+                  <div className=" mt-4 lg:mt-8">
+                    <div className="flex justify-between gap-x-5">
+                      <button
+                        className="w-full border border-1 rounded-md border-lightBlue-400 text-lightBlue-700 hover:bg-lightBlue-200 text-sm  px-2 py-3
+                              hover:border-none  border-sky-400 text-sky-700 hover:bg-sky-200 custom_btn_d "
+                        onClick={closeModal}
+                      >
+                        No, Keep It
+                      </button>
+
+                      <button
+                        className={`w-full  rounded-md 
+            custom_btn_d 
+                              border-red-400 text-red-700 bg-red-200  
+                              hover:border-none
+                        ${isLoading ? "bg-gray-200" : "hover:bg-red-200"}
+                        hover:border-none`}
+                        onClick={handleDelete}
+                        disabled={isLoading}
+                      >
+                        {isLoading ? "Deleting..." : "Yes, Delete It"}
+                      </button>
+                    </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      <Transition appear show={isUpdateUser} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={() => {}}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-[90%] sm:w-full sm:max-w-[500px] transform overflow-hidden rounded-2xl bg-white p-4  sm:px-8 lg:px-8 2xl:p-10 text-left align-middle shadow-xl transition-all">
+                  <div className="flex justify-end">
+                    <button onClick={closeModall}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="xl:w-8 xl:h-8 w-5 h-5"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18 18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <Dialog.Title
+                    as="h3"
+                    className="custom_heading_text font-semibold leading-6 text-gray-900 mt lg:mt-5"
+                  >
+                    Are You Sure! Want to Update?
+                  </Dialog.Title>
+                  <div className="mt-2"></div>
+
+                  <div className=" mt-4 lg:mt-8">
+                    <div className="flex justify-between gap-x-5">
+                      <button
+                        className={`w-full  rounded-md 
+            custom_btn_d 
+                              border-red-400 text-red-700 bg-red-200  
+                              hover:border-none
+                        ${isLoading ? "bg-gray-200" : "hover:bg-red-200"}
+                        hover:border-none`}
+                        value="Rejected"
+                        onClick={() => {
+                          handleUpdateUser();
+                          inputHandler({
+                            target: { name: "Status", value: "Rejected" },
+                          });
+                        }}
+                        disabled={isLoading}
+                      >
+                        {isLoading ? "Rejecting..." : "Reject"}
+                      </button>
+                      <button
+                        value="Approved"
+                        className="w-full border border-1 rounded-md border-lightBlue-400 text-lightBlue-700 hover:bg-lightBlue-200 text-sm px-2 py-3 hover:border-none border-green-400 text-green-700 hover:bg-green-200 custom_btn_d"
+                        onClick={() => {
+                          handleUpdateUser();
+                          inputHandler({
+                            target: { name: "Status", value: "Approved" },
+                          });
+                        }}
+                      >
+                        Approve
+                      </button>
+                    </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </>
   );
 };

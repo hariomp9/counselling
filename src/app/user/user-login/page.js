@@ -218,7 +218,7 @@ const UserLogin = () => {
                   <div>
                     <p className="inter text-[#3F3F3F] font-[400] 2xl:text-[20px] xl:text-[16px] text-[14px] text-center">
                       Don’t have an account?
-                      <a href="/user/user-registration">
+                      <a href="/user/getStart">
                         <span className="inter font-[700] text-[#0071BC] ">
                           {" "}
                           Register Now
