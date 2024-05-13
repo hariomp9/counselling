@@ -1579,3 +1579,25 @@ exports.getInterstedUsers  = async (req, res) => {
 }
 
 
+exports.deleteInterstedUser = async (req, res) => {
+  const { id } = req.params;
+  validateMongoDbId(id);
+
+  try {
+    // Find the user by id
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    // Soft delete the user by setting 'deleted' field to true
+    user.emailSent = false;
+    await user.save();
+
+    res.status(200).json({ success: true, message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+
