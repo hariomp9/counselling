@@ -57,6 +57,13 @@ const UserSchema = new mongoose.Schema(
       required:true
     },
 
+    // Email Status
+    emailSent :{
+      type:String,
+      enum:['true', 'false'],
+      default:'false',
+      required:true
+    },
 
     // Id_Number 
 

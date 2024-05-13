@@ -1492,7 +1492,6 @@ exports.PushMail = async (req, res) => {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    console.log(user);
     const email = user.email;
 
     console.log(email);
@@ -1524,11 +1523,13 @@ exports.PushMail = async (req, res) => {
       `
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, async(error, info) => {
       if (error) {
         console.error('Error sending email:', error);
         res.status(500).json({ success: false, message: 'Error sending email' });
       } else {
+        user.emailSent = true; // For example, you can set a boolean field to indicate that an email has been sent
+        await user.save(); // Save the updated user
         console.log('Email sent:', info.response);
         res.status(200).json({ success: true, message: 'Email sent successfully' });
       }
@@ -1552,7 +1553,7 @@ exports.getInterstedUsers  = async (req, res) => {
     const skip = (currentPage - 1) * itemsPerPage;
 
     // Construct query conditions
-    const query = { User_Intersted: 'Intersted' };
+    const query = { emailSent: 'true' };
     if (firstName) {
       query.firstname = { $regex: new RegExp(firstName, 'i') }; // Case-insensitive search
     }
