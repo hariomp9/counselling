@@ -104,46 +104,6 @@ exports.register = async (req, res, next) => {
     SubscriptionsPlan: req.body.SubscriptionsPlan || 'Free',
     User_Intersted: req.body.User_Intersted || 'Non-Intersted',
     Status: req.body.Status || 'Pending',
-    standard_12thMarks: req.body.standard_12thMarks && req.body.standard_12thMarks.length > 0 ? req.body.standard_12thMarks.map(mark => ({
-      subject: mark.subject || 'N/A',
-      obtained: mark.obtained || 0, // Use 0 as the default value for obtained
-      outOf: mark.outOf || 0 // Use 0 as the default value for outOf
-    })) : [{
-      subject: 'N/A',
-      obtained: 0, // Use 0 as the default value for obtained
-      outOf: 0 // Use 0 as the default value for outOf
-    }],
-
-    exams: req.body.exams && req.body.exams.length > 0 ? req.body.exams.map(exam => ({
-      type: exam.type || 'N/A',
-      passingDistrict: exam.passingDistrict || 'N/A',
-      passingState: exam.passingState || 'N/A',
-    })): [{
-      type: 'N/A',
-      passingDistrict: 'N/A',
-      passingState: 'N/A',
-    }],
-
-    Academic_Details : req.body.Academic_Details && req.body.Academic_Details.length > 0 ? req.body.Academic_Details.map(academic => ({
-      type: academic.type || 'N/A',
-      Board_University: academic.Board_University || 'N/A',
-      School_College: academic.School_College || 'N/A',
-      PassingYear: academic.PassingYear || '0',
-      ObtainedMarks: academic.ObtainedMarks || '0',
-      Result: academic.Result || '0',
-      CGPA: academic.CGPA || '0',
-
-    })): [{
-      type: 'N/A',
-      Board_University: 'N/A',
-      School_College: 'N/A',
-      PassingYear: '0',
-      ObtainedMarks: '0',
-      Result: '0',
-      CGPA: '0',
-    }],
-
-
     Id_Number:await generateIdNumber()
   };
 
@@ -158,6 +118,47 @@ exports.register = async (req, res, next) => {
 
 
 // also Include this
+
+// standard_12thMarks: req.body.standard_12thMarks && req.body.standard_12thMarks.length > 0 ? req.body.standard_12thMarks.map(mark => ({
+//   subject: mark.subject || 'N/A',
+//   obtained: mark.obtained || 0, // Use 0 as the default value for obtained
+//   outOf: mark.outOf || 0 // Use 0 as the default value for outOf
+// })) : [{
+//   subject: 'N/A',
+//   obtained: 0, // Use 0 as the default value for obtained
+//   outOf: 0 // Use 0 as the default value for outOf
+// }],
+
+// exams: req.body.exams && req.body.exams.length > 0 ? req.body.exams.map(exam => ({
+//   type: exam.type || 'N/A',
+//   passingDistrict: exam.passingDistrict || 'N/A',
+//   passingState: exam.passingState || 'N/A',
+// })): [{
+//   type: 'N/A',
+//   passingDistrict: 'N/A',
+//   passingState: 'N/A',
+// }],
+
+// Academic_Details : req.body.Academic_Details && req.body.Academic_Details.length > 0 ? req.body.Academic_Details.map(academic => ({
+//   type: academic.type || 'N/A',
+//   Board_University: academic.Board_University || 'N/A',
+//   School_College: academic.School_College || 'N/A',
+//   PassingYear: academic.PassingYear || '0',
+//   ObtainedMarks: academic.ObtainedMarks || '0',
+//   Result: academic.Result || '0',
+//   CGPA: academic.CGPA || '0',
+
+// })): [{
+//   type: 'N/A',
+//   Board_University: 'N/A',
+//   School_College: 'N/A',
+//   PassingYear: '0',
+//   ObtainedMarks: '0',
+//   Result: '0',
+//   CGPA: '0',
+// }],
+
+
 
 
 
