@@ -81,7 +81,7 @@ router.route("/adminRegister").post(adminRegister);
 router.post("/updatePassword", isAuthenticatedUser, updatePassword);
 
 // Update User
-router.put("/edit-user/:id", updatedUser);
+router.put("/edit-user/:id", updatedUser, isAuthenticatedUser);
 
 // Get all Users
 router.get("/all-users", isAuthenticatedUser, (req, res, next) => {

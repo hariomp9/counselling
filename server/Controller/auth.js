@@ -780,10 +780,23 @@ exports.updatedUser = async (req, res) => {
     }
 
     // Find user by ID and update with the modified data
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
-    if (updateData.SubscriptionsPlan === 'One on One' || updateData.SubscriptionsPlan === 'Pro') {
-      updatedUser.User_Intersted = 'Intersted';
+    let updatedUser = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
+
+    // Check if the user's status is "Pending"
+    if (updatedUser.Status === 'Pending') {
+      updatedUser.SubscriptionsPlan = 'Free'; // Update SubscriptionPlan to "Free"
+      await updatedUser.save(); // Save the updated user
+      return res.status(200).json({ message: 'User status is Pending' });
     }
+
+    // Check if SubscriptionsPlan is "One on One" or "Pro" and status is "Approved", then set User_Interested to "Interested"
+    if (updatedUser.Status === 'Approved') {
+      updatedUser.User_Intersted = 'Intersted'; // Corrected spelling
+      updatedUser.SubscriptionsPlan = 'One on One';
+    }
+
+    // Save the updated user
+    updatedUser = await updatedUser.save();
 
     res.json(updatedUser);
   } catch (error) {
@@ -792,6 +805,9 @@ exports.updatedUser = async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
+
+
+
 
 
 
