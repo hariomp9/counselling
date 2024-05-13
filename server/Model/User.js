@@ -48,6 +48,22 @@ const UserSchema = new mongoose.Schema(
     default:'Non-Intersted',
     required:true
     },
+
+    Status:{
+
+      type:String,
+      enum:['Pending', 'Approved', 'Rejected'],
+      default:'Pending',
+      required:true
+    },
+
+
+    // Id_Number 
+
+    Id_Number: {
+      type: String,
+      required: true
+    },
     
 
     Comments:{
@@ -310,14 +326,17 @@ const UserSchema = new mongoose.Schema(
     standard_12thMarks: [{
       subject: {
         type: String,
+        default: 'N/A',
         // required: true,
       },
       obtained: {
         type: Number,
+        default: '0',
         // required: true,
       },
       outOf: {
         type: Number,
+        default: '0',
         // required: true,
       },
     }],
@@ -326,15 +345,18 @@ const UserSchema = new mongoose.Schema(
     exams: [{
       type: {
         type: String,
-        enum: ['10th', '12th'], // Enum for exam type
+        enum: ['10th', '12th' , 'N/A'], // Enum for exam type
+        default: 'N/A',
         // required: true,
       },
       passingDistrict: {
         type: String,
+        default: 'N/A',
         // required: true,
       },
       passingState: {
         type: String,
+        default: 'N/A',
         // required: true,
       }
     }],
@@ -344,31 +366,37 @@ const UserSchema = new mongoose.Schema(
     Academic_Details: [{
       type: {
         type: String,
+        default: 'N/A',
         // required: true,
       },
       Board_University: {
         type: String,
+        default: 'N/A',
         // required: true,
       },
       School_College: {
         type: String,
+        default: 'N/A',
         // required: true,
       },
       PassingYear: {
         type: Number,
+        default: '0',
         // required: true,
       },
       ObtainedMarks: {
         type: Number,
+        default: '0',
         // required: true,
       },
       Result: {
         type: String,
+        default: '0',
         // required: true,
       },
       CGPA: {
         type: String,
-        required: true
+        default: '0',
       }
 
     }],
@@ -458,6 +486,12 @@ const UserSchema = new mongoose.Schema(
         required: false
       }
     }],
+
+  
+
+    // 
+
+
 
     // Make a User Subscriptions plan
 

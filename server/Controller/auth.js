@@ -81,6 +81,9 @@ exports.register = async (req, res, next) => {
     return res.status(203).json({ error: "User with this email already exists." });
   }
 
+
+
+
   const userData = {
     email,
     password,
@@ -99,6 +102,49 @@ exports.register = async (req, res, next) => {
     District: req.body.District,
     Comments: req.body.Comments,
     SubscriptionsPlan: req.body.SubscriptionsPlan || 'Free',
+    User_Intersted: req.body.User_Intersted || 'Non-Intersted',
+    Status: req.body.Status || 'Pending',
+    standard_12thMarks: req.body.standard_12thMarks && req.body.standard_12thMarks.length > 0 ? req.body.standard_12thMarks.map(mark => ({
+      subject: mark.subject || 'N/A',
+      obtained: mark.obtained || 0, // Use 0 as the default value for obtained
+      outOf: mark.outOf || 0 // Use 0 as the default value for outOf
+    })) : [{
+      subject: 'N/A',
+      obtained: 0, // Use 0 as the default value for obtained
+      outOf: 0 // Use 0 as the default value for outOf
+    }],
+
+    exams: req.body.exams && req.body.exams.length > 0 ? req.body.exams.map(exam => ({
+      type: exam.type || 'N/A',
+      passingDistrict: exam.passingDistrict || 'N/A',
+      passingState: exam.passingState || 'N/A',
+    })): [{
+      type: 'N/A',
+      passingDistrict: 'N/A',
+      passingState: 'N/A',
+    }],
+
+    Academic_Details : req.body.Academic_Details && req.body.Academic_Details.length > 0 ? req.body.Academic_Details.map(academic => ({
+      type: academic.type || 'N/A',
+      Board_University: academic.Board_University || 'N/A',
+      School_College: academic.School_College || 'N/A',
+      PassingYear: academic.PassingYear || '0',
+      ObtainedMarks: academic.ObtainedMarks || '0',
+      Result: academic.Result || '0',
+      CGPA: academic.CGPA || '0',
+
+    })): [{
+      type: 'N/A',
+      Board_University: 'N/A',
+      School_College: 'N/A',
+      PassingYear: '0',
+      ObtainedMarks: '0',
+      Result: '0',
+      CGPA: '0',
+    }],
+
+
+    Id_Number:await generateIdNumber()
   };
 
   try {
@@ -109,6 +155,31 @@ exports.register = async (req, res, next) => {
     next(error);
   }
 };
+
+
+// also Include this
+
+
+
+//  make a function to genrate a id_Number
+
+const generateIdNumber = async (req, res) => {
+  let highestNumber = await User.findOne({}, {}, { sort: { 'Id_Number': -1 } });
+
+  let newNumber;
+  if (highestNumber && highestNumber.Id_Number) {
+    const lastNumber = parseInt(highestNumber.Id_Number.slice(2));
+    newNumber = lastNumber + 1;
+  } else {
+    newNumber = 0; // Start from 0 if there are no existing records or if Id_Number is not defined
+  }
+
+  const idNumber = `UG${newNumber.toString().padStart(5, '0')}`;
+  return idNumber;
+}
+
+
+
 
 // Function to send welcome email
 async function sendWelcomeEmail(email, password, username) {
@@ -1367,6 +1438,7 @@ exports.getallSuperAdmin = async (req, res) => {
 };
 
 
+
 exports.getSuperAdminById = async (req, res) => {
   try {
     const user = await SuperAdmin.findById(req.params.id);
@@ -1377,6 +1449,7 @@ exports.getSuperAdminById = async (req, res) => {
     throw new Error(error);
   }
 };
+
 
 
 exports.deleteaSuperAdmin = async (req, res) => {
@@ -1453,3 +1526,43 @@ exports.PushMail = async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 }
+
+
+// make a api to get Users by their User_Intersted is 'Intersted'
+
+
+exports.getInterstedUsers  = async (req, res) => {
+  try {
+    // Extract query parameters
+    const { page = 1, limit = 20, firstName, idNumber } = req.query;
+    const currentPage = parseInt(page, 10);
+    const itemsPerPage = parseInt(limit, 10);
+    const skip = (currentPage - 1) * itemsPerPage;
+
+    // Construct query conditions
+    const query = { User_Intersted: 'Intersted' };
+    if (firstName) {
+      query.firstname = { $regex: new RegExp(firstName, 'i') }; // Case-insensitive search
+    }
+    if (idNumber) {
+      query.Id_Number = idNumber;
+    }
+
+    // Find users based on query conditions, sort by firstName, and apply pagination
+    const users = await User.find(query).sort({ firstname: 1 }).skip(skip).limit(itemsPerPage);
+
+    // Check if users are found
+    if (users.length === 0) {
+      return res.status(404).json({ success: false, message: 'No users found' });
+    }
+
+    res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+}
+
+
