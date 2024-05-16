@@ -122,11 +122,13 @@ const UserProfile = () => {
         toast.success("Update successfully!");
         // router.push("/user2nd/profile");
       } else {
-        console.log("Server error");
+        // console.log("Server error");
         toast.error(error?.response?.data?.message || "Server error");
+        // console.log(error?.response?.data?.message, "hey");
       }
     } catch (error) {
-      console.log(error?.response?.data?.message || "Server error");
+      toast.error(error?.response?.data?.message || "Server error");
+      // console.log(error?.response, "hey");
     }
   };
 
