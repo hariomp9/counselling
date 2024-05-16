@@ -1,6 +1,7 @@
 const User = require("../Model/User");
 const Admin = require("../Model/AdminModel");
 const SuperAdmin = require("../Model/SuperAdminModel");
+const Counselor = require("../Model/CounselorModel")
 const Steps = require("../Model/stepsModel");
 const Course_Preference = require("../Model/Course_Preferece");
 const OTP = require("../Model/OtpModel")
@@ -11,6 +12,7 @@ const sendToken = require("../Utils/jwtToken");
 const jwt = require("jsonwebtoken");
 const uploadOnS3 = require("../Utils/uploadImage");
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
 require("dotenv").config({ path: "./.env" });
 
 exports.uploadImage = async (req, res, next) => {
@@ -188,10 +190,6 @@ const generateIdNumber = async () => {
     return null;
   }
 }
-
-
-
-
 
 // Function to send welcome email
 async function sendWelcomeEmail(email, password, username) {
@@ -770,41 +768,119 @@ exports.verifyAdmin = async (req, res) => {
 };
 
 
+// exports.updatedUser = async (req, res) => {
+//   try {
+//     let updateData = req.body;
+
+//     // Convert SubscriptionsPlan to string if it's an array
+//     if (Array.isArray(updateData.SubscriptionsPlan)) {
+//       updateData.SubscriptionsPlan = updateData.SubscriptionsPlan[0];
+//     }
+
+//     // Find user by ID and update with the modified data
+//     let updatedUser = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
+
+//     // Check if the user's status is "Pending"
+//     if (updatedUser.Status === 'Pending') {
+//       updatedUser.SubscriptionsPlan = 'Free'; // Update SubscriptionPlan to "Free"
+//       await updatedUser.save(); // Save the updated user
+//       return res.status(200).json({ message: 'User status is Pending' });
+//     }
+
+//     // Check if SubscriptionsPlan is "One on One" or "Pro" and status is "Approved", then set User_Interested to "Interested"
+//     if (updatedUser.Status === 'Approved') {
+//       updatedUser.User_Intersted = 'Intersted'; // Corrected spelling
+//       updatedUser.SubscriptionsPlan = 'One on One';
+//     }
+
+//     // Save the updated user
+//     updatedUser = await updatedUser.save();
+
+//     res.json(updatedUser);
+//   } catch (error) {
+//     // Handle errors
+//     console.error(error);
+//     res.status(500).json({ message: 'Server Error' });
+//   }
+// };
+
+
+///
+// const bcrypt = require('bcrypt');
+// const User = require('../models/User'); // Adjust the path as needed
+
+
 exports.updatedUser = async (req, res) => {
   try {
-    let updateData = req.body;
+    const { oldPassword, newPassword, confirmPassword, ...updateData } = req.body;
+
+    console.log("currentPassword:", oldPassword);
+
+    // Find user by ID and include the password field
+    let updatedUser = await User.findById(req.params.id).select('+password');
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    console.log("updatedUser:", updatedUser.password);
+
+    // Verify the current password if provided
+    if (oldPassword) {
+      const isMatchPassword = await updatedUser.matchPasswords(oldPassword);
+      console.log("isMatchPassword:", isMatchPassword);
+      if (!isMatchPassword) {
+        return res.status(400).json({ message: "Current password is not correct" });
+      }
+    }
+
+    // Handle password update if new password is provided
+    if (newPassword) {
+      if (newPassword.length < 6) {
+        return res.status(400).json({ message: "New password must be at least 6 characters" });
+      }
+
+      if (newPassword !== confirmPassword) {
+        return res.status(400).json({ message: "New password and confirm password do not match" });
+      }
+
+      // Update the user's password
+      updatedUser.password = newPassword;
+      console.log("New Password (Plain):", newPassword);
+    }
 
     // Convert SubscriptionsPlan to string if it's an array
     if (Array.isArray(updateData.SubscriptionsPlan)) {
       updateData.SubscriptionsPlan = updateData.SubscriptionsPlan[0];
     }
 
-    // Find user by ID and update with the modified data
-    let updatedUser = await User.findByIdAndUpdate(req.params.id, updateData, { new: true });
+    // Update other user fields
+    Object.assign(updatedUser, updateData);
 
     // Check if the user's status is "Pending"
     if (updatedUser.Status === 'Pending') {
       updatedUser.SubscriptionsPlan = 'Free'; // Update SubscriptionPlan to "Free"
-      await updatedUser.save(); // Save the updated user
-      return res.status(200).json({ message: 'User status is Pending' });
     }
 
-    // Check if SubscriptionsPlan is "One on One" or "Pro" and status is "Approved", then set User_Interested to "Interested"
-    if (updatedUser.Status === 'Approved') {
+       if (updatedUser.Status === 'Approved') {
       updatedUser.User_Intersted = 'Intersted'; // Corrected spelling
       updatedUser.SubscriptionsPlan = 'One on One';
     }
-
     // Save the updated user
-    updatedUser = await updatedUser.save();
+    await updatedUser.save();
 
-    res.json(updatedUser);
+    res.json({ message: 'User updated successfully', updatedUser });
+
   } catch (error) {
     // Handle errors
     console.error(error);
     res.status(500).json({ message: 'Server Error' });
   }
 };
+
+
+
+
+
 
 
 
@@ -1510,7 +1586,7 @@ exports.PushMail = async (req, res) => {
 
     const email = user.email;
 
-    console.log(email);
+
 
     if (!email) {
       return res.status(400).json({ success: false, message: 'Email address not found for the user' });
@@ -1616,4 +1692,85 @@ exports.deleteInterstedUser = async (req, res) => {
   }
 };
 
+
+
+
+// Now I have to check how much is sign up in weekly basis , monthly basis and yearly basis of user 
+
+exports.getWeeklyUsers = async (req, res) => {
+  try {
+    const today = new Date();
+    const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000); // Calculate last week
+    const lastMonth = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000); // Calculate last month
+    const lastYear = new Date(today.getTime() - 365 * 24 * 60 * 60 * 1000); // Calculate last year
+    
+
+    const weeklyUsersCount = await User.countDocuments({ createdAt: { $gte: lastWeek } }); // Count weekly signupss;
+    const monthlyUsersCount = await User.countDocuments({ createdAt: { $gte: lastMonth } });
+    const yearlyUsersCount = await User.countDocuments({ createdAt: { $gte: lastYear } });
+    const TotalSignup = await User.countDocuments(); // Count yearly signups
+    const Counseller = await Counselor.countDocuments(); // Count yearly signups
+    const TotalAdmin = await Admin.countDocuments(); // Count yearly signups
+    const checkSubscribenplanfree =  await User.find({SubscriptionsPlan: 'Free'}).countDocuments();
+    const checkOneonOne =  await User.find({SubscriptionsPlan: 'One on One'}).countDocuments();
+
+    res.status(200).json({
+      success: true,
+      weeklySignup: weeklyUsersCount,
+      monthlySignup: monthlyUsersCount,
+      yearlySignup: yearlyUsersCount,
+      TotalSignup: TotalSignup,
+      Counseller: Counseller,
+      TotalAdmin: TotalAdmin,
+      Free_Subscription_plan : checkSubscribenplanfree,
+      One_on_One_Subscription_plan: checkOneonOne
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+
+
+// Forgot Password 
+
+// const bcrypt = require('bcrypt');
+// const User = require('../models/User'); // Make sure to adjust the path to your User model
+
+// exports.forgotPassword = async (req, res, next) => {
+//   try {
+//     const { email, oldPassword } = req.body; // Assuming email is used to identify the user
+
+//     // Find the user by email
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.status(400).json({ message: 'User not found' });
+//     }
+
+//     // Compare the provided old password with the stored password
+//     const isMatch = await bcrypt.compare(oldPassword, user.password);
+//     if (!isMatch) {
+//       return res.status(400).json({ message: 'Old password is incorrect' });
+//     }
+
+//     // Generate a new password
+//     const newPassword = Math.random().toString(36).slice(-8);
+
+//     // Hash the new password
+//     const salt = await bcrypt.genSalt(10);
+//     const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+//     // Update the user's password in the database
+//     user.password = hashedPassword;
+//     await user.save();
+
+//     res.status(200).json({
+//       message: 'Password updated successfully',
+//       newPassword: newPassword, // For security reasons, you should typically not send the new password in the response. Instead, consider sending it via a more secure method, like email.
+//     });
+//   } catch (error) {
+//     console.error('Error occurred while updating password:', error);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// };
 

@@ -35,7 +35,8 @@ const {
   deleteaSuperAdmin,
   PushMail,
   getInterstedUsers,
-  deleteInterstedUser
+  deleteInterstedUser,
+  getWeeklyUsers
 } = require("../Controller/auth");
 const{validateUser} =require("../helpers/validation");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
@@ -140,6 +141,8 @@ router.route("/PushMail/:id").post(PushMail);
 router.get("/getInterstedUsers", getInterstedUsers , isAuthenticatedUser)
 
 router.delete("/deleteInterstedUsers/:id",  deleteInterstedUser , isAuthenticatedUser)
+
+router.get("/getWeeklyUsers", getWeeklyUsers )
 
 
 

@@ -79,9 +79,9 @@ const UserSchema = new mongoose.Schema(
 
     password: {
       type: String,
-      minlength: 6,
       select: false,
     },
+
     cast: {
       type: String
     },
@@ -332,18 +332,16 @@ const UserSchema = new mongoose.Schema(
     // Standard 12th Exam Marks 
     standard_12thMarks: [{
       subject: {
-        type: String,
-        default: 'N/A',
+        type: String
+    
         // required: true,
       },
       obtained: {
-        type: Number,
-        default: '0',
+        type: Number
         // required: true,
       },
       outOf: {
         type: Number,
-        default: '0',
         // required: true,
       },
     }],
@@ -352,18 +350,16 @@ const UserSchema = new mongoose.Schema(
     exams: [{
       type: {
         type: String,
-        enum: ['10th', '12th' , 'N/A'], // Enum for exam type
-        default: 'N/A',
+        enum: ['10th', '12th' , 'N/A'] // Enum for exam type
+  
         // required: true,
       },
       passingDistrict: {
-        type: String,
-        default: 'N/A',
+        type: String
         // required: true,
       },
       passingState: {
-        type: String,
-        default: 'N/A',
+        type: String
         // required: true,
       }
     }],
@@ -372,38 +368,31 @@ const UserSchema = new mongoose.Schema(
     // Exam Details
     Academic_Details: [{
       type: {
-        type: String,
-        default: 'N/A',
+        type: String
         // required: true,
       },
       Board_University: {
-        type: String,
-        default: 'N/A',
+        type: String
         // required: true,
       },
       School_College: {
-        type: String,
-        default: 'N/A',
+        type: String
         // required: true,
       },
       PassingYear: {
-        type: Number,
-        default: '0',
+        type: Number
         // required: true,
       },
       ObtainedMarks: {
-        type: Number,
-        default: '0',
+        type: Number
         // required: true,
       },
       Result: {
-        type: String,
-        default: '0',
+        type: String
         // required: true,
       },
       CGPA: {
-        type: String,
-        default: '0',
+        type: String
       }
 
     }],
@@ -521,13 +510,6 @@ const UserSchema = new mongoose.Schema(
 );
 
 
-
-
-
-
-
-
-
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
@@ -539,6 +521,8 @@ UserSchema.pre("save", async function (next) {
 });
 
 UserSchema.methods.matchPasswords = async function (password) {
+  console.log("password", this.password);
+  console.log("password", password);
   return await bcrypt.compare(password, this.password);
 };
 
