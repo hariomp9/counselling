@@ -350,7 +350,7 @@ const UserSchema = new mongoose.Schema(
     exams: [{
       type: {
         type: String,
-        enum: ['10th', '12th' , 'N/A'] // Enum for exam type
+        enum: ['10th', '12th'] // Enum for exam type
   
         // required: true,
       },
