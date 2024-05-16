@@ -22,7 +22,6 @@ const UserProtectedRoute = (WrappedComponent) => {
         }
         verify();
       };
-
       checkAuth();
     }, [userAuthToken, router]);
 
