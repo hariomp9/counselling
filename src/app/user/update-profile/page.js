@@ -38,11 +38,16 @@ const UserProfile = () => {
         district_id: district_id,
       },
     ],
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
 
   const [setstateName, setSetstateName] = useState("");
   const [districtname, setDistrictname] = useState("");
-  console.log(setstateName, "stateidnaaam");
+  const state = setstateName.name;
+  const district = districtname.District;
+  // console.log(district, "stateidnaaam");
 
   useEffect(() => {
     defaultAUser();
@@ -409,7 +414,7 @@ const UserProfile = () => {
                     <p className="updateUpara">Edit your profile & password</p>
                   </div>
                 </div>
-                <div className="bg-[#F5F6FF] rounded-[10px] 2xl:w-[1345px] 2xl:h-[513px] xl:w-[900px] xl:h-[350px] lg:w-[650px] h-[280px] 2xl:mt-[30px] xl:mt-[20px] mt-[15px] 2xl:p-[55px] xl:p-[30px] p-[15px]">
+                <div className="bg-[#F5F6FF] rounded-[10px] 2xl:w-[1345px] 2xl:h-[613px] xl:w-[900px] xl:h-[350px] lg:w-[650px] h-[280px] 2xl:mt-[30px] xl:mt-[20px] mt-[15px] 2xl:p-[55px] xl:p-[30px] p-[15px]">
                   <form onSubmit={handleUpdateUser}>
                     <div className="flex flex-wrap 2xl:gap-[30px] xl:gap-[20px] gap-[10px]">
                       <div className="">
@@ -542,14 +547,15 @@ const UserProfile = () => {
                               id="states2"
                               name="state_id"
                               className="userUinput"
-                              value={stateId}
+                              // value={stateId}
+                              defaultValue={state}
                               onChange={(e) => {
                                 setStateID(e.target.value);
                                 inputHandler(e);
                               }}
                             >
                               {/* <option value="">{setstateName.name}</option> */}
-                              <option value="">Select</option>
+                              <option value="">{state}</option>
 
                               {Array.isArray(getStates) &&
                                 getStates.map((item) => (
@@ -576,14 +582,15 @@ const UserProfile = () => {
                             id="states2"
                             name="district_id"
                             className="userUinput"
-                            value={distId}
+                            // value={distId}
+                            defaultValue={district}
                             onChange={(e) => {
                               setDistId(e.target.value);
                               inputHandler(e);
                             }}
                           >
                             {/* <option value=""> {districtname.District}</option> */}
-                            <option value=""> Select</option>
+                            <option value=""> {district}</option>
 
                             {Array.isArray(getDist) &&
                               getDist.map((item) => (
@@ -601,10 +608,66 @@ const UserProfile = () => {
                         </div>
                       </div>
                     </div>
+                    <div className="flex flex-wrap 2xl:gap-[30px] xl:gap-[20px] gap-[10px] 2xl:my-7 xl:my-5 my-3">
+                      <div className="">
+                        <label className="userUlabel">Old Password</label>{" "}
+                        <br />
+                        <input
+                          // defaultValue={
+                          //   studentDetail?.firstname
+                          //     ? studentDetail?.firstname
+                          //     : studentDetail?.firstname
+                          // }
+                          type="password"
+                          name="oldPassword"
+                          className="userUinput"
+                          placeholder="Enter Password"
+                          required
+                          maxLength={12}
+                          onChange={inputHandler}
+                        />
+                      </div>
+                      <div className="">
+                        <label className="userUlabel">New Password</label>{" "}
+                        <br />
+                        <input
+                          // defaultValue={
+                          //   studentDetail?.lastname
+                          //     ? studentDetail?.lastname
+                          //     : studentDetail?.lastname
+                          // }
+                          type="password"
+                          name="newPassword"
+                          className="userUinput"
+                          placeholder="Enter Password"
+                          required
+                          maxLength={12}
+                          onChange={inputHandler}
+                        />
+                      </div>
+                      <div className="">
+                        <label className="userUlabel">Confirm Password</label>{" "}
+                        <br />
+                        <input
+                          // defaultValue={
+                          //   studentDetail?.mobile
+                          //     ? studentDetail?.mobile
+                          //     : studentDetail?.mobile
+                          // }
+                          type="password"
+                          name="confirmPassword"
+                          className="userUinput"
+                          placeholder="Enter Password"
+                          required
+                          maxLength={12}
+                          onChange={inputHandler}
+                        />
+                      </div>
+                    </div>
 
                     <div className="2xl:mt-[65px] xl:mt-[40px] mt-[30px]">
                       <button type="submit" className=" userpboxbtn ">
-                        Submit
+                        Update
                         <Image
                           src={arrow}
                           className="xl:w-[14px] xl:h-[10px] w-[10px] h-[8px]"
