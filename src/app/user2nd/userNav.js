@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
-import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
+import { removeToken, rem_AdDetails ,removeUserId } from "@/redux/adminSlice/authSlice";
 import logout from "./assets/logout.svg";
 import key from "./assets/key.svg";
 import user from "./assets/profile-circle.svg";
@@ -18,6 +18,9 @@ const UserNavbar = () => {
   const [studentDetail, setStudentDetail] = useState({});
   const { token } = useSelector((state) => state?.auth);
   const { _id } = useSelector((state) => state?.auth);
+  console.log(_id, "ifgdb");
+  const { ad_details } = useSelector((state) => state?.auth);
+  console.log(ad_details, "ad_details");
   const [plan, setPlan] = useState("One on One");
   const firstNameInitial = studentDetail?.firstname
     ? studentDetail.firstname[0]
@@ -68,6 +71,7 @@ const UserNavbar = () => {
       if (res?.data?.success) {
         toast.success("Logout successfully !");
         dispatch(removeToken());
+        dispatch(removeUserId());
         dispatch(rem_AdDetails());
         router.push("/user/user-login");
         // setLoader(false);
@@ -197,7 +201,7 @@ const UserNavbar = () => {
                   </Link>
                   <hr />
 
-                  <Link href="/user2nd/profile" className="justify-between">
+                  <Link href="/user/update-profile" className="justify-between">
                     <li className="2xl:px-[20px] xl:px-[20px] px-[15px] 2xl:h-[70px]">
                       <div className="2xl:h-[80px] gap-[15px] flex items-center justify-start">
                         <Image src={key} className="" />

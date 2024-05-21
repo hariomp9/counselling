@@ -16,7 +16,7 @@ import UserRegistration from "../../user-registration/page";
 const VerifyOTP = ({ params }) => {
   const router = useRouter();
   const userId = params.slug;
-  console.log(userId);
+  // console.log(userId);
   const [verifyOTP, setVerifyOTP] = useState("");
 
   const inputHandler = (e) => {

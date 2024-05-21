@@ -12,14 +12,14 @@ import student from "../assets/right-poster.png";
 import first from "../assets/1st-right.svg";
 import second from "../assets/2st-right.svg";
 import third from "../assets/3st-right.svg";
-import { setToken } from "@/redux/adminSlice/authSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { adDetails, setToken } from "@/redux/adminSlice/authSlice";
+import { useDispatch, useSelector , setUserId } from "react-redux";
 import Loader from "@/app/component/loader";
 import { removeCourse } from "@/redux/adminSlice/authSlice";
 
 const UserRegistration = () => {
   const { userCourse } = useSelector((state) => state?.auth);
-  console.log(userCourse, "userCourse");
+  // console.log(userCourse, "userCourse");
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -70,6 +70,8 @@ const UserRegistration = () => {
         const userToken = response?.data?.user?._id;
         router.push(`/user/otp-verify/${userToken}`);
         dispatch(removeCourse());
+        dispatch(setToken(response?.data?.token));
+        dispatch(adDetails(res?.data?.user));
         // router.push("/user/otp-verify");
         // router.push({ pathname: '/user/otp-verify', query: { user_id: userId } });
       } else {
