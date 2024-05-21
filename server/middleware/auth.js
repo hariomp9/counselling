@@ -16,6 +16,7 @@ exports.isAuthenticatedUser = async (req, res, next) => {
   // Extract the token from the Authorization header
   const token = authorizationHeader;
 
+
   try {
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
     let user;
@@ -29,8 +30,6 @@ exports.isAuthenticatedUser = async (req, res, next) => {
     } 
     else if (decodedData.role === 'student') {
       user = await User.findById(decodedData.id);
-
-      console.log("user data is" , user)
     }
     else {
       return next(new ErrorResponse("Invalid role in token", 401));
