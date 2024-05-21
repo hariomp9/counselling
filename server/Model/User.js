@@ -40,29 +40,29 @@ const UserSchema = new mongoose.Schema(
 
 
     // Make a Interster or Non-Interseted field  but condtion is that by default is not intersted but he took SubscriptionsPlan like one to one and Pro so default value should chage in set intersted
-  
 
-  User_Intersted:{
-    type:String,
-    enum:['Intersted', 'Non-Intersted'],
-    default:'Non-Intersted',
-    required:true
+
+    User_Intersted: {
+      type: String,
+      enum: ['Intersted', 'Non-Intersted'],
+      default: 'Non-Intersted',
+      required: true
     },
 
-    Status:{
+    Status: {
 
-      type:String,
-      enum:['Pending', 'Approved', 'Rejected'],
-      default:'Pending',
-      required:true
+      type: String,
+      enum: ['Pending', 'Approved', 'Rejected'],
+      default: 'Pending',
+      required: true
     },
 
     // Email Status
-    emailSent :{
-      type:String,
-      enum:['true', 'false'],
-      default:'false',
-      required:true
+    emailSent: {
+      type: String,
+      enum: ['true', 'false'],
+      default: 'false',
+      required: true
     },
 
     // Id_Number 
@@ -71,9 +71,9 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    
 
-    Comments:{
+
+    Comments: {
       type: String
     },
 
@@ -92,6 +92,7 @@ const UserSchema = new mongoose.Schema(
     },
     activeToken: {
       type: String,
+      default: null,
     },
     address: String,
     state: {
@@ -195,7 +196,7 @@ const UserSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "State",
         validate: {
-          validator: function(v) {
+          validator: function (v) {
             return mongoose.Types.ObjectId.isValid(v);
           },
           message: props => `${props.value} is not a valid state_id!`
@@ -205,7 +206,7 @@ const UserSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category",
         validate: {
-          validator: function(v) {
+          validator: function (v) {
             return mongoose.Types.ObjectId.isValid(v);
           },
           message: props => `${props.value} is not a valid category_id!`
@@ -216,31 +217,31 @@ const UserSchema = new mongoose.Schema(
 
     // State_District
 
-    State_District:[
-     {
-      state_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "State",
-        validate: {
-          validator: function(v) {
-            return mongoose.Types.ObjectId.isValid(v);
-          },
-          message: props => `${props.value} is not a valid state_id!`
-        }
-      },
-      district_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "District",
-        validate: {
-          validator: function(v) {
-            return mongoose.Types.ObjectId.isValid(v);
-          },
-          message: props => `${props.value} is not a valid district_id!`
+    State_District: [
+      {
+        state_id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "State",
+          validate: {
+            validator: function (v) {
+              return mongoose.Types.ObjectId.isValid(v);
+            },
+            message: props => `${props.value} is not a valid state_id!`
+          }
+        },
+        district_id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "District",
+          validate: {
+            validator: function (v) {
+              return mongoose.Types.ObjectId.isValid(v);
+            },
+            message: props => `${props.value} is not a valid district_id!`
+          }
         }
       }
-     }
-      
-     ],
+
+    ],
 
     // Parellel Reservations
 
@@ -333,7 +334,7 @@ const UserSchema = new mongoose.Schema(
     standard_12thMarks: [{
       subject: {
         type: String
-    
+
         // required: true,
       },
       obtained: {
@@ -351,7 +352,7 @@ const UserSchema = new mongoose.Schema(
       type: {
         type: String,
         enum: ['10th', '12th'] // Enum for exam type
-  
+
         // required: true,
       },
       passingDistrict: {
@@ -467,9 +468,9 @@ const UserSchema = new mongoose.Schema(
         // required: true,
       },
 
-      Parents_Profession:{
-        type:String,
-        required:false
+      Parents_Profession: {
+        type: String,
+        required: false
       },
 
       parentOccupation: {
@@ -483,7 +484,7 @@ const UserSchema = new mongoose.Schema(
       }
     }],
 
-  
+
 
     // 
 
@@ -491,7 +492,7 @@ const UserSchema = new mongoose.Schema(
 
     // Make a User Subscriptions plan
 
- 
+
 
 
     // step_status: {
@@ -499,6 +500,7 @@ const UserSchema = new mongoose.Schema(
     //   enum: ["pending", "in_progress", "completed"],
     //   default: "pending",
     // },
+
 
     passwordChangedAt: Date,
     passwordResetToken: String,

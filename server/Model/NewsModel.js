@@ -11,6 +11,14 @@ const newsSchema = new mongoose.Schema(
     doc_url: {
       type: String,
     },
+    Start_date: {
+      type: Date,
+    },
+
+    End_date: {
+      type: Date,
+    },
+
   },
   {
     timestamps: true,

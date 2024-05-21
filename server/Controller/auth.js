@@ -106,6 +106,7 @@ exports.register = async (req, res, next) => {
     SubscriptionsPlan: req.body.SubscriptionsPlan || 'Free',
     User_Intersted: req.body.User_Intersted || 'Non-Intersted',
     Status: req.body.Status || 'Pending',
+    activeToken: req.body.activeToken || null,
     Id_Number:await generateIdNumber()
   };
 
@@ -812,9 +813,8 @@ exports.verifyAdmin = async (req, res) => {
 
 exports.updatedUser = async (req, res) => {
   try {
+    
     const { oldPassword, newPassword, confirmPassword, ...updateData } = req.body;
-
-    console.log("currentPassword:", oldPassword);
 
     // Find user by ID and include the password field
     let updatedUser = await User.findById(req.params.id).select('+password');
@@ -822,7 +822,6 @@ exports.updatedUser = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    console.log("updatedUser:", updatedUser.password);
 
     // Verify the current password if provided
     if (oldPassword) {
@@ -845,7 +844,6 @@ exports.updatedUser = async (req, res) => {
 
       // Update the user's password
       updatedUser.password = newPassword;
-      console.log("New Password (Plain):", newPassword);
     }
 
     // Convert SubscriptionsPlan to string if it's an array
@@ -1699,31 +1697,87 @@ exports.deleteInterstedUser = async (req, res) => {
 
 exports.getWeeklyUsers = async (req, res) => {
   try {
-    const today = new Date();
-    const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000); // Calculate last week
-    const lastMonth = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000); // Calculate last month
-    const lastYear = new Date(today.getTime() - 365 * 24 * 60 * 60 * 1000); // Calculate last year
-    
 
-    const weeklyUsersCount = await User.countDocuments({ createdAt: { $gte: lastWeek } }); // Count weekly signupss;
+    const todayDay = new Date();
+    todayDay.setHours(0, 0, 0, 0); // Set time to the beginning of today (midnight)
+
+    const endOfToday = new Date(todayDay);
+    endOfToday.setHours(23, 59, 59, 999); // Set time to the end of today
+
+    const today = new Date();
+
+
+
+    const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000); // Calculate last week
+    console.log("lastWeek:", lastWeek);
+
+
+    const lastMonth = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000); // Calculate last month
+
+    console.log("lastMonth:", lastMonth);
+    
+    const lastYear = new Date(today.getTime() - 365 * 24 * 60 * 60 * 1000); // Calculate last year
+
+  
+    const todayUsersCount = await User.countDocuments({
+      createdAt: {
+        $gte: todayDay,
+        $lt: endOfToday
+      }
+    });
+
+
+    const todayCounsllerCount = await Counselor.countDocuments({
+      createdAt:{
+        $gte: todayDay,
+        $lt: endOfToday
+      }
+    })
+    
+   // Count Weekly  Signup
+    const weeklyUsersCount = await User.countDocuments({ createdAt: { $gte: lastWeek } });
+    console.log("weeklyUsersCount:", weeklyUsersCount);
+
+    const weeklyAdminCount = await Admin.countDocuments({createdAt:{ $gte: lastWeek} })
+    console.log("weeklyAdminCount:", weeklyAdminCount);
+
+    const weeklyCounsellerCount = await Counselor.countDocuments({createdAt:{$gte:lastWeek}})
+    console.log("weeklyCounsellerCount:", weeklyCounsellerCount);
+    
+    // Count Monthly  signupss;
     const monthlyUsersCount = await User.countDocuments({ createdAt: { $gte: lastMonth } });
+    const monthlyAdminCount = await Admin.countDocuments({ createdAt: { $gte: lastMonth } });
+    const monthlyCounsellerCount = await Counselor.countDocuments({ createdAt: { $gte: lastMonth } });
+
+
+
     const yearlyUsersCount = await User.countDocuments({ createdAt: { $gte: lastYear } });
-    const TotalSignup = await User.countDocuments(); // Count yearly signups
+    const yearlyAdminCount = await Admin.countDocuments({ createdAt: { $gte: lastYear } });
+    const yearlyCounsellerCount = await Counselor.countDocuments({ createdAt: { $gte: lastYear } });
+
+
+    const StudentSignup = await User.countDocuments(); // Count yearly signups
     const Counseller = await Counselor.countDocuments(); // Count yearly signups
     const TotalAdmin = await Admin.countDocuments(); // Count yearly signups
     const checkSubscribenplanfree =  await User.find({SubscriptionsPlan: 'Free'}).countDocuments();
     const checkOneonOne =  await User.find({SubscriptionsPlan: 'One on One'}).countDocuments();
 
+    const TotalSignup = StudentSignup + Counseller + TotalAdmin
+
+
     res.status(200).json({
       success: true,
-      weeklySignup: weeklyUsersCount,
-      monthlySignup: monthlyUsersCount,
-      yearlySignup: yearlyUsersCount,
-      TotalSignup: TotalSignup,
+      weeklySignup: weeklyUsersCount + weeklyAdminCount + weeklyCounsellerCount ,
+      monthlySignup: monthlyUsersCount + monthlyAdminCount + monthlyCounsellerCount,
+      yearlySignup: yearlyUsersCount + yearlyAdminCount + yearlyCounsellerCount,
+      StudentSignup: StudentSignup,
       Counseller: Counseller,
       TotalAdmin: TotalAdmin,
       Free_Subscription_plan : checkSubscribenplanfree,
-      One_on_One_Subscription_plan: checkOneonOne
+      One_on_One_Subscription_plan: checkOneonOne,
+      TotalSignUp:TotalSignup,
+      todayUsersCount:todayUsersCount,
+      todayCounsellor:todayCounsllerCount
     });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Internal server error' });
