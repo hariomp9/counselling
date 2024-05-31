@@ -46,6 +46,7 @@ const UserLogin = () => {
           },
           
         }
+        
       );
       console.log("Login Response:", res);
       if (res.data.success) {
@@ -76,7 +77,7 @@ const UserLogin = () => {
       <ToastContainer autoClose={1000} />
       {isLoader && <Loader />}
       <section>
-        <div className="  lg:flex  lg:flex-row ">
+        <div className="  lg:flex  lg:flex-row loginC ">
           <div className="lg:hidden">
             <Image src={poster} alt="banner-img" className=" mx-auto" />
           </div>
@@ -88,12 +89,12 @@ const UserLogin = () => {
                     <Image
                       src={logo}
                       alt="logo"
-                      className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]"
+                      className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px] logologin"
                     />
                   </div>
                 </div>
                 <form
-                  className="w-full 2xl:mt-36 xl:mt-20 lg:mt-16"
+                  className="w-full 2xl:mt-36 xl:mt-20 lg:mt-16 loginform"
                   onSubmit={handleSubmit}
                 >
                   <div className="flex gap-1  2xl:gap-2 text-center xl:my-8 2xl:my-12">
@@ -120,11 +121,11 @@ const UserLogin = () => {
                       type="email"
                       id="email"
                       name="email"
-                      className=" montserrat-otp text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                      className=" montserrat-otp text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4 logininp"
                       placeholder="Enter Email"
                     />
                   </div>
-                  <div className="my-3">
+                  <div className="">
                     <label
                       htmlFor="email"
                       className="montserrat-lable block text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px] "
@@ -135,7 +136,7 @@ const UserLogin = () => {
                       <button
                         type="button"
                         className=" absolute  transform -translate-y-1/2 cursor-pointer 
-                        2xl:right-7 2xl:top-[35px] xl:right-5 xl:top-[28px] lg:right-5 lg:top-[20px]"
+                        2xl:right-7 2xl:top-[35px] xl:right-5 xl:top-[28px] lg:right-5 lg:top-[20px] "
                         onClick={handleToggle}
                       >
                         {showPassword ? (
@@ -185,7 +186,7 @@ const UserLogin = () => {
                         id="password"
                         name="password"
                         checked={showPassword}
-                        className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full  2xl:h-[52px] xl:h-[40px] lg:h-[25px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px]  text-[10px] py-3 px-4"
+                        className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full  2xl:h-[52px] xl:h-[40px] lg:h-[25px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px]  text-[10px] py-3 px-4 logininp"
                         placeholder="Password"
                       />
                     </div>
@@ -211,7 +212,7 @@ const UserLogin = () => {
                     <button
                       type="submit"
                       disabled={isLoader}
-                      className="bg-[#0071BC] inter font-[700] text-white p-3 w-full rounded-[5px] 2xl:h-[70px] xl:h-[45px] lg:h-[35px]  2xl:my-10 lg:my-5  xl:my-8 2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-3"
+                      className="bg-[#0071BC] inter font-[700] text-white p-3 w-full rounded-[5px] 2xl:h-[70px] xl:h-[45px] lg:h-[35px]  2xl:my-10 lg:my-5  xl:my-8 2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-3 logininp"
                     >
                       Login
                     </button>
@@ -252,7 +253,7 @@ const UserLogin = () => {
             >
               <Image
                 src={student}
-                className="2xl:w-[664.78px] 2xl:h-[697.4px] h-auto xl:w-[450px] lg:w-[300px] sm:w-[] w-[] mx-auto"
+                className="2xl:w-[664.78px] 2xl:h-[697.4px] h-auto xl:w-[450px] lg:w-[300px] sm:w-[] w-[] mx-auto studenImg"
               />
             </div>
           </div>

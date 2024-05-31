@@ -16,6 +16,9 @@ export const authSlice = createSlice({
     setUserId: (state, action) => {
       state._id = action.payload;
     },
+    removeUserId: (state, action) => {
+      state._id = null;
+    },
     removeToken: (state, action) => {
       state.token = null;
     },
@@ -46,6 +49,7 @@ export const {
   rem_AdDetails,
   userCourse,
   removeCourse,
+  removeUserId,
 } = authSlice.actions;
 
 export default authSlice.reducer;

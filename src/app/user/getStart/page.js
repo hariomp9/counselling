@@ -32,7 +32,7 @@ const GetStart = () => {
       <ToastContainer autoClose={1000} />
       {isLoader && <Loader />}
       <section>
-        <div className="  lg:flex  lg:flex-row ">
+        <div className="  lg:flex  lg:flex-row loginC">
           <div className="lg:hidden">
             <Image src={poster} alt="banner-img" className=" mx-auto" />
           </div>
@@ -44,12 +44,12 @@ const GetStart = () => {
                     <Image
                       src={logo}
                       alt="logo"
-                      className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]"
+                      className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px] logologin"
                     />
                   </div>
                 </div>
                 <form
-                  className="w-full 2xl:mt-36 xl:mt-20 lg:mt-16"
+                  className="w-full 2xl:mt-36 xl:mt-20 lg:mt-16 loginform"
                   //   onSubmit={handleSubmit}
                 >
                   <div className="flex gap-1  2xl:gap-2 text-center xl:my-10 2xl:my-12 pt-[10px]">
@@ -126,7 +126,7 @@ const GetStart = () => {
             >
               <Image
                 src={student}
-                className="2xl:w-[664.78px] 2xl:h-[697.4px] h-auto xl:w-[450px] lg:w-[300px] sm:w-[] w-[] mx-auto"
+                className="2xl:w-[664.78px] 2xl:h-[697.4px] h-auto xl:w-[450px] lg:w-[300px] sm:w-[] w-[] mx-auto studenImg"
               />
             </div>
           </div>

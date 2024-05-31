@@ -624,7 +624,6 @@ const UserProfile = () => {
                           name="oldPassword"
                           className="userUinput"
                           placeholder="Enter Password"
-                          required
                           maxLength={12}
                           onChange={inputHandler}
                         />
@@ -642,7 +641,6 @@ const UserProfile = () => {
                           name="newPassword"
                           className="userUinput"
                           placeholder="Enter Password"
-                          required
                           maxLength={12}
                           onChange={inputHandler}
                         />
@@ -660,7 +658,6 @@ const UserProfile = () => {
                           name="confirmPassword"
                           className="userUinput"
                           placeholder="Enter Password"
-                          required
                           maxLength={12}
                           onChange={inputHandler}
                         />

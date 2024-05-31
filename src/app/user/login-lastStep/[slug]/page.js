@@ -11,10 +11,13 @@ import arrow from "../../assets/arrow.svg";
 import logo from "../../../../../public/images/logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { setUserId } from "@/redux/adminSlice/authSlice";
 
 const LoginLastStep = ({ params }) => {
   const router = useRouter();
   const userId = params.slug;
+  const dispatch = useDispatch();
+
   const [getStates, setGetStates] = useState("");
   const [getDist, setGetDist] = useState("");
   const [stateId, setStateId] = useState("");
@@ -80,7 +83,9 @@ const LoginLastStep = ({ params }) => {
 
       if (response.status >= 200 && response.status < 300) {
         toast.success("Update successfully!");
-        router.push("/user/user-login");
+        dispatch(setUserId(response?.data?.updatedUser?._id));
+        router.push("/user2nd/neetUG-home");
+
         // refreshData();
       } else {
         console.log("Server error");
@@ -123,7 +128,8 @@ const LoginLastStep = ({ params }) => {
       .request(options)
       .then((response) => {
         setGetDist(response?.data[0]?.district_ids);
-        console.log(response?.data[0]?.district_ids, "dist");
+
+        // console.log(response?.data[0]?.district_ids, "dist");
       })
       .catch((error) => {
         console.log(error, "Error");

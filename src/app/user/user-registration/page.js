@@ -12,14 +12,14 @@ import student from "../assets/right-poster.png";
 import first from "../assets/1st-right.svg";
 import second from "../assets/2st-right.svg";
 import third from "../assets/3st-right.svg";
-import { setToken } from "@/redux/adminSlice/authSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { adDetails, setToken } from "@/redux/adminSlice/authSlice";
+import { useDispatch, useSelector, setUserId } from "react-redux";
 import Loader from "@/app/component/loader";
 import { removeCourse } from "@/redux/adminSlice/authSlice";
 
 const UserRegistration = () => {
   const { userCourse } = useSelector((state) => state?.auth);
-  console.log(userCourse, "userCourse");
+  // console.log(userCourse, "userCourse");
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -70,6 +70,8 @@ const UserRegistration = () => {
         const userToken = response?.data?.user?._id;
         router.push(`/user/otp-verify/${userToken}`);
         dispatch(removeCourse());
+        dispatch(setToken(response?.data?.token));
+        dispatch(adDetails(res?.data?.user));
         // router.push("/user/otp-verify");
         // router.push({ pathname: '/user/otp-verify', query: { user_id: userId } });
       } else {
@@ -98,7 +100,7 @@ const UserRegistration = () => {
     <>
       {isLoader && <Loader />}
       <section>
-        <div className="lg:flex ">
+        <div className="lg:flex loginC ">
           <div className="lg:hidden">
             <Image src={poster} alt="banner" className=" mx-auto" />
           </div>
@@ -111,12 +113,12 @@ const UserRegistration = () => {
                       <Image
                         src={logo}
                         alt="logo"
-                        className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]  mb-5 2xl:mb-0"
+                        className="logologin 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]  mb-5 2xl:mb-0"
                       />
                     </div>
-                    <div className="flex justify-center lg:gap-1 xl:gap-2 2xl:gap-5 text-center 2xl:mt-[50px] gap-2">
+                    <div className="flex justify-center lg:gap-1 xl:gap-2 2xl:gap-5 text-center 2xl:mt-[50px] gap-2 beingbox">
                       <div className="text-center">
-                        <h1 className=" w-full inter font-[600] 2xl:text-[30px] xl:text-[25px] lg:text-[18px] text-[22px] 2xl:leading-[36.31px] xl:leading-[30.31px] text-center">
+                        <h1 className="beingbox w-full inter font-[600] 2xl:text-[30px] xl:text-[25px] lg:text-[18px] text-[22px] 2xl:leading-[36.31px] xl:leading-[30.31px] text-center">
                           Begin your journey
                         </h1>
                       </div>
@@ -208,7 +210,7 @@ const UserRegistration = () => {
                             type="text"
                             id="firstname"
                             name="firstname"
-                            className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                            className="logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                             placeholder="First"
                           />
                         </div>
@@ -227,7 +229,7 @@ const UserRegistration = () => {
                             type="text"
                             id="lastname"
                             name="lastname"
-                            className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                            className=" logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                             placeholder="Last"
                           />
                         </div>
@@ -249,7 +251,7 @@ const UserRegistration = () => {
                         type="text"
                         id="email"
                         name="email"
-                        className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                        className="logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                         placeholder="Enter"
                       />
                     </div>
@@ -269,7 +271,7 @@ const UserRegistration = () => {
                         type="number"
                         id="mobile"
                         name="mobile"
-                        className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                        className="logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                         placeholder="Enter"
                       />
                     </div>
@@ -332,7 +334,7 @@ const UserRegistration = () => {
                           required
                           id="password"
                           name="password"
-                          className=" montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                          className="logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                           placeholder="Password"
                         />
                       </div>
@@ -360,7 +362,7 @@ const UserRegistration = () => {
                     </div>
                     <button
                       type="submit"
-                      className="bg-[#0071BC] montserrat-btn  text-white p-3 w-full rounded-[6.41px] 2xl:h-[56px] xl:h-[45px] lg:h-[35px]  lg:my-0  2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-5 2xl:mt-[25px] xl:mt-7"
+                      className="logininp bg-[#0071BC] montserrat-btn  text-white p-3 w-full rounded-[6.41px] 2xl:h-[56px] xl:h-[45px] lg:h-[35px]  lg:my-0  2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-5 2xl:mt-[25px] xl:mt-7"
                     >
                       Continue
                     </button>
@@ -379,7 +381,8 @@ const UserRegistration = () => {
               </div>
             </div>
           </div>
-          <div className="lg:w-1/2 hidden lg:block bg-[#0071BC] 2xl:pt-[120px] pt-[40px]">
+
+          <div className="lg:w-1/2 hidden lg:block bg-[#0071BC] 2xl:pt-[120px] pt-[40px] siginbox">
             <div className="2xl:w-[740px] xl:w-[500px] w-[400px] mx-auto ">
               <div>
                 <h1
@@ -437,11 +440,11 @@ const UserRegistration = () => {
             </div>
             <div
               className="flex items-center gap-[10px] xl:gap-[15px] 2xl:gap-[25px] mx-auto 2xl:w-[432px] 
-              2xl:mt-[80px] xl:mt-[40px] lg:mt-[25px] sm:mt-[] mt-[]"
+              2xl:mt-[80px] xl:mt-[40px] lg:mt-[25px] sm:mt-[] mt-[] imgDiv"
             >
               <Image
                 src={student}
-                className="2xl:w-[384px] 2xl:h-[473px] h-auto xl:w-[220px] lg:w-[180px] sm:w-[] w-[] mx-auto"
+                className="2xl:w-[384px] 2xl:h-[473px] h-auto xl:w-[220px] lg:w-[180px] sm:w-[] w-[] mx-auto studenImgs"
               />
             </div>
           </div>

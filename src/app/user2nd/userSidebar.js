@@ -7,7 +7,7 @@ import documentM from "./assets/documents.svg";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
+import { removeToken, rem_AdDetails, removeUserId } from "@/redux/adminSlice/authSlice";
 import { ToastContainer, toast } from "react-toastify";
 import home from "./assets/home.svg";
 import Subscription from "./assets/subscription.svg";
@@ -86,6 +86,7 @@ const UserSidebar = () => {
 
     dispatch(removeToken());
     dispatch(rem_AdDetails());
+    dispatch(removeUserId());
 
     router.push("/user/user-login");
   };
