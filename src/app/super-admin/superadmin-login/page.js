@@ -9,6 +9,7 @@ import { setToken, removeToken, superAdminDetails } from "@/redux/adminSlice/aut
 import Link from "next/link";
 import Loader from "@/app/component/loader";
 import RightSection from "@/app/auth/right-section/page";
+import config from "@/config";
 
 const SuperAdminLogin = () => {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const SuperAdminLogin = () => {
     setLoader(true);
     try {
       const res = await axios.post(
-        "https://counselling-backend.vercel.app/api/auth/superAdminLogin",
+        `${config.baseURL}/api/auth/superAdminLogin`,
         loginDetails,
         {
           headers: {

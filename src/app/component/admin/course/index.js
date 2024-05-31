@@ -4,6 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import DeleteCourse from "./deleet-modeule";
 import Loader from "../../loader";
+import config from "@/config";
 
 export const headItems = [
   "S. No.",
@@ -40,7 +41,7 @@ const Course = () => {
 
     const option = {
       method: "GET",
-      url: "https://counselling-backend.vercel.app/api/course/getAllCourses",
+      url: `${config.baseURL}/api/course/getAllCourses`,
     };
     axios
       .request(option)

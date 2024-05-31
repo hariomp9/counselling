@@ -5,6 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
+import config from "@/config";
 
 const UpdateCounsellor = ({ params }) => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const UpdateCounsellor = ({ params }) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `https://counselling-backend.vercel.app/api/counselor/updateCounselor/${params.slug}`,
+        `${config.baseURL}/api/counselor/updateCounselor/${params.slug}`,
         counsellorDetail,
         {
           headers: {

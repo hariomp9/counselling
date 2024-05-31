@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
+import config from "@/config";
 
 const Navbar = () => {
   const { token } = useSelector((state) => state?.auth);
@@ -22,7 +23,7 @@ const Navbar = () => {
 
     try {
       const res = await axios.get(
-        "https://counselling-backend.vercel.app/api/auth/logout",
+        `${config.baseURL}/api/auth/logout`,
         {
           headers: {
             Authorization: token,

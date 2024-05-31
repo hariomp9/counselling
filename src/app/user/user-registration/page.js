@@ -16,6 +16,7 @@ import { adDetails, setToken } from "@/redux/adminSlice/authSlice";
 import { useDispatch, useSelector, setUserId } from "react-redux";
 import Loader from "@/app/component/loader";
 import { removeCourse } from "@/redux/adminSlice/authSlice";
+import config from "@/config";
 
 const UserRegistration = () => {
   const { userCourse } = useSelector((state) => state?.auth);
@@ -60,7 +61,7 @@ const UserRegistration = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/register",
+        `${config.baseURL}/api/auth/register`,
         studentDetails
       );
       if (response.status >= 200 && response.status < 300) {
@@ -87,7 +88,7 @@ const UserRegistration = () => {
   const handleSendOTP = async (userID) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/generate-otp",
+        "${config.baseURL}/api/auth/generate-otp",
         { userId: userID }
       );
       console.log(response?.data);

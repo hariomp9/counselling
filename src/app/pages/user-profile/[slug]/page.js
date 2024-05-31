@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import sideLogo from "/public/images/Group 179.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const UserDetails = ({ params }) => {
   const [studentDetail, setStudentDetail] = useState({});
@@ -20,7 +21,7 @@ const UserDetails = ({ params }) => {
   const openModal = async () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/auth/getUserById/${params.slug}`,
+      url: `${config.baseURL}/api/auth/getUserById/${params.slug}`,
       headers: {
         Accept: "application/json",
         authorization: token,

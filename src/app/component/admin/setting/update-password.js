@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import Loader from "../../loader";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const ChangePassword = () => {
   const router = useRouter();
@@ -45,7 +46,7 @@ const ChangePassword = () => {
     } else {
       try {
         setLoader(true);
-        const res = await axios.post("/api/auth/updatePassword", formData, {
+        const res = await axios.post(`${config.baseURL}/api/auth/updatePassword`, formData, {
           headers: {
             "Content-Type": "application/json",
             authorization: token,

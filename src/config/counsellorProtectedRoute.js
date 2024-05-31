@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { removeToken } from "@/redux/adminSlice/authSlice";
 import Loader from "@/app/component/loader";
+import config from "@/config";
 
 const counsellorProtectedRoute = (WrappedComponent) => {
   const Wrapper = (props) => {
@@ -32,7 +33,7 @@ const counsellorProtectedRoute = (WrappedComponent) => {
       setIsAuth(false);
       try {
         const res = await axios.get(
-          `http://localhost:4000/api/counselor/verifyCounselor/${counsellorAuthToken}`
+          `${config.baseURL}/api/counselor/verifyCounselor/${counsellorAuthToken}`
         );
         if (res?.data?.data === null) {
           router.push("/counsellor/counsellor-login ");

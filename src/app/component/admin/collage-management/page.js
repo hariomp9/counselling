@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "../../loader";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import config from "@/config";
 
 export const headItems = [
   "S. No.",
@@ -66,7 +67,7 @@ const CollageManagement = () => {
 
     const option = {
       method: "GET",
-      url: "https://counselling-backend.vercel.app/api/collage/getAllColleges",
+      url: "${config.baseURL}/api/collage/getAllColleges",
     };
     axios
       .request(option)
@@ -87,7 +88,7 @@ const CollageManagement = () => {
     } else {
       const options = {
         method: "GET",
-        url: `https://counselling-backend.vercel.app/api/collage/getAllColleges?search=${search}`,
+        url: `${config.baseURL}/api/collage/getAllColleges?search=${search}`,
         headers: {
           authorization: token,
         },

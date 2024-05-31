@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import rightImg from "../assets/right (1).svg";
 import Link from "next/link";
+import config from "@/config";
 
 const PrivateCounselling = () => {
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -26,7 +27,7 @@ const PrivateCounselling = () => {
     try {
       const options = {
         method: "GET",
-        url: `http://localhost:4000/api/auth/getUserById/${_id}`,
+        url: `${config.baseURL}/api/auth/getUserById/${_id}`,
         headers: {
           Accept: "application/json",
           Authorization: token,
@@ -48,7 +49,7 @@ const PrivateCounselling = () => {
 
   const handleSubscription = async () => {
     try {
-      const response = await axios.post(`http://localhost:4000/api/auth/PushMail/${_id}`);
+      const response = await axios.post(`${config.baseURL}/api/auth/PushMail/${_id}`);
       console.log(response)
       if (response.status === 200) {
         setSuccessMessageVisible(true);

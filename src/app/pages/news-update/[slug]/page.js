@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import news from "../../../../../public/news/news.webp";
+import config from "@/config";
 
 const UpdateNews = ({ params }) => {
   const router = useRouter();
@@ -24,7 +25,7 @@ const UpdateNews = ({ params }) => {
     try {
       const options = {
         method: "GET",
-        url: `https://counselling-backend.vercel.app/api/news/getNewsById/${params.slug}`,
+        url: `${config.baseURL}/api/news/getNewsById/${params.slug}`,
         headers: {
           Accept: "application/json",
           authorization: token,
@@ -46,7 +47,7 @@ const UpdateNews = ({ params }) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `https://counselling-backend.vercel.app/api/news/updateNews/${params.slug}`,
+        `${config.baseURL}/api/news/updateNews/${params.slug}`,
         newsDetail,
         {
           headers: {

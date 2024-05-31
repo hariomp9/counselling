@@ -12,6 +12,7 @@ import first from "../../assets/1st-right.svg";
 import second from "../../assets/2st-right.svg";
 import third from "../../assets/3st-right.svg";
 import UserRegistration from "../../user-registration/page";
+import config from "@/config";
 
 const VerifyOTP = ({ params }) => {
   const router = useRouter();
@@ -29,7 +30,7 @@ const VerifyOTP = ({ params }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/verify-otp",
+        `${config.baseURL}/api/auth/verify-otp`,
 
         {
           userId: userId,
@@ -129,7 +130,7 @@ const VerifyOTP = ({ params }) => {
                       name="otp"
                       className="logininp montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border w-full 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
                     />
-                  
+
                     <button
                       onClick={handleVerify}
                       type="submit"

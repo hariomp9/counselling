@@ -13,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SuperSidebar from "../super-sidebar";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const CreateUserForm = () => {
   const router = useRouter();
@@ -90,7 +91,7 @@ const CreateUserForm = () => {
     try {
       setLoader(true);
       const response = await axios.post(
-        "http://localhost:4000/api/auth/register",
+        `${config.baseURL}/api/auth/register`,
         studentDetails
       );
       if (response.status === 201) {
@@ -115,7 +116,7 @@ const CreateUserForm = () => {
   const defaultState = async () => {
     const options = {
       method: "GET",
-      url: "http://localhost:4000/api/state/getAllStates",
+      url: `${config.baseURL}/api/state/getAllStates`,
     };
     axios
       .request(options)
@@ -134,7 +135,7 @@ const CreateUserForm = () => {
   const defaultDist = async () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/state_district/${state_id}`,
+      url: `${config.baseURL}/api/state_district/${state_id}`,
     };
     axios
       .request(options)

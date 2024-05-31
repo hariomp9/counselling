@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import Loader from "@/app/component/loader";
+import config from "@/config";
 
 export const headItems = [
   "S. No.",
@@ -35,7 +36,7 @@ const UserFavoritrList = () => {
   const defaultUser = () => {
     const options = {
       method: "GET",
-      url: "https://counselling-backend.vercel.app/api/auth/getaUser",
+      url: `${config.baseURL}/api/auth/getaUser`,
       headers: {
         Accept: "application/json",
         authorization: token,
@@ -57,7 +58,7 @@ const UserFavoritrList = () => {
 
     try {
       const response = await axios.delete(
-        "https://counselling-backend.vercel.app/api/auth/deleteAllWishlistItems",
+        "${config.baseURL}/api/auth/deleteAllWishlistItems",
 
         {
           headers: {
@@ -86,7 +87,7 @@ const UserFavoritrList = () => {
 
     try {
       const response = await axios.delete(
-        `https://counselling-backend.vercel.app/api/auth/removeFromWishlist/${id}`,
+        `${config.baseURL}/api/auth/removeFromWishlist/${id}`,
 
         {
           headers: {

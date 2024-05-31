@@ -6,6 +6,7 @@ import Link from "next/link";
 import UserProtectedRoute from "@/config/userProtectedRoute";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const UserProfile = () => {
   const [studentDetail, setStudentDetail] = useState({});
@@ -25,7 +26,7 @@ const UserProfile = () => {
   const defaultAUser = async () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/auth/getUserById/${_id}`,
+      url: `${config.baseURL}/api/auth/getUserById/${_id}`,
       headers: {
         Accept: "application/json",
         authorization: token,

@@ -6,6 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import Loader from "@/app/component/loader";
+import config from "@/config";
 
 const ChangePassword = () => {
   const router = useRouter();
@@ -46,7 +47,7 @@ const ChangePassword = () => {
       try {
         setLoader(true);
         const res = await axios.put(
-          "https://counselling-backend.vercel.app/api/counselor/updateCounselorPassword",
+          `${config.baseURL}/api/counselor/updateCounselorPassword`,
           formData,
           {
             headers: {

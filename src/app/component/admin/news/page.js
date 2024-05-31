@@ -6,6 +6,7 @@ import news from "../../../../../public/news/news.webp";
 import { Dialog, Transition } from "@headlessui/react";
 import DeleteNews from "./delete-news/page";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const News = () => {
   const [getNews, setGetNews] = useState("");
@@ -53,7 +54,7 @@ const News = () => {
     } else {
       const options = {
         method: "GET",
-        url: `https://counselling-backend.vercel.app/api/news/getAllNews?search=${search}`,
+        url: `${config.baseURL}/api/news/getAllNews?search=${search}`,
         headers: {
           authorization: token,
         },

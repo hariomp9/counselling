@@ -6,6 +6,7 @@ import Navbar from "../navbar";
 import SideBar from "../sideBar";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import config from "@/config";
 
 const UserProfile = () => {
   const { token } = useSelector((state) => state?.auth);
@@ -17,7 +18,7 @@ const UserProfile = () => {
   const defaultUser = () => {
     const option = {
       method: "GET",
-      url: "https://counselling-backend.vercel.app/api/auth/getaUser",
+      url: `${config.baseURL}/api/auth/getaUser`,
       headers: {
         authorization: token,
       },

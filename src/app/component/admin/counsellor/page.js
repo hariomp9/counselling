@@ -7,6 +7,7 @@ import Link from "next/link";
 import AddCounsellor from "./add-counsellor/page";
 import DeleteModule from "./delete-module";
 import { useSelector } from "react-redux";
+import config from "@/config";
 // import Pagination from "../Pagination/Index";
 
 export const headItems = ["S. No.", "Name", " Contact No", "Email", "Action"];
@@ -50,7 +51,7 @@ const Counsellor = () => {
   const defaultCounsellor = () => {
     const option = {
       method: "GET",
-      url: "https://counselling-backend.vercel.app/api/counselor/getAllCounselors",
+      url: `${config.baseURL}/api/counselor/getAllCounselors"`,
     };
     axios
       .request(option)
@@ -69,7 +70,7 @@ const Counsellor = () => {
     } else {
       const options = {
         method: "GET",
-        url: `https://counselling-backend.vercel.app/api/counselor/getAllCounselors?search=${search}`,
+        url: `${config.baseURL}/api/counselor/getAllCounselors?search=${search}`,
         headers: {
           authorization: token,
         },

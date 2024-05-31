@@ -3,6 +3,7 @@ import Image from "next/image";
 import arrow from "../../assets/arrow.svg";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import config from "@/config";
 
 const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
   const Academic_Details = [
@@ -82,7 +83,7 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
     };
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
+        `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
       );
       next();
@@ -106,7 +107,7 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
   const defaultAUser = () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/auth/getUserById/${userids}`,
+      url: `${config.baseURL}/api/auth/getUserById/${userids}`,
       headers: {
         Accept: "application/json",
         authorization: token,

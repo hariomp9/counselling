@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Loader from "../../../loader";
 import { useRouter } from "next/navigation";
+import config from "@/config";
 
 const AddCounsellor = () => {
   const router = useRouter();
@@ -27,7 +28,7 @@ const AddCounsellor = () => {
       setLoader(true);
 
       const response = await axios.post(
-        "https://counselling-backend.vercel.app/api/counselor/addCounselor",
+        `${config.baseURL}/api/counselor/addCounselor`,
         counselloDetail,
         {
           headers: {

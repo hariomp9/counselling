@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Loader from "../../loader";
+import config from "@/config";
 
 const DeleteModule = ({ counsellorID, closeModal, refreshData }) => {
   const [isLoading, setLoading] = useState(false);
@@ -20,7 +21,7 @@ const DeleteModule = ({ counsellorID, closeModal, refreshData }) => {
 
     try {
       const response = await axios.delete(
-        `https://counselling-backend.vercel.app/api/counselor/deleteCounselor/${counsellorID}`,
+        `${config.baseURL}/api/counselor/deleteCounselor/${counsellorID}`,
         {
           headers: {
             Accept: "application/json",

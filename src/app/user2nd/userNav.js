@@ -12,6 +12,7 @@ import { removeToken, rem_AdDetails ,removeUserId } from "@/redux/adminSlice/aut
 import logout from "./assets/logout.svg";
 import key from "./assets/key.svg";
 import user from "./assets/profile-circle.svg";
+import config from "@/config";
 
 const UserNavbar = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ const UserNavbar = () => {
 
     try {
       const res = await axios.get(
-        "https://counselling-backend.vercel.app/api/auth/logout",
+        `${config.baseURL}/api/auth/logout`,
         {
           headers: {
             Authorization: token,
