@@ -14,6 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import config from "@/config";
 
 const SuperSidebar = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const SuperSidebar = () => {
     setLoader(true);
 
     try {
-      const res = await axios.get(`api/auth/superAdminLogout`, {
+      const res = await axios.get(`${config.baseURL}api/auth/superAdminLogout`, {
         headers: {
           Authorization: token,
           "Content-Type": "application/json",

@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Loader from "../../../loader";
+import config from "@/config";
 
 const CreateCollege = ({ closeDrawer, refreshData }) => {
   const [isLoader, setLoader] = useState(false);
@@ -28,7 +29,7 @@ const CreateCollege = ({ closeDrawer, refreshData }) => {
       setLoader(true);
 
       const response = await axios.post(
-        "https://counselling-backend.vercel.app/api/collage/createCollege",
+        `${config.baseURL}/api/collage/createCollege`,
         collegeDetail,
         {
           headers: {

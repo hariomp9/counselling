@@ -24,6 +24,7 @@ import web3 from "../assets//webinar3.png";
 import UserProtectedRoute from "@/config/userProtectedRoute";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import config from "@/config";
 
 const data = [
   {
@@ -87,7 +88,7 @@ const NeetUG = () => {
   const defaultAUser = async () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/auth/getUserById/${_id}`,
+      url: `${config.baseURL}/api/auth/getUserById/${_id}`,
       headers: {
         Accept: "application/json",
         authorization: token,

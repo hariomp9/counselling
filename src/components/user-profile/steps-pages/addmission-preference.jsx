@@ -4,6 +4,7 @@ import add from "../../../../public/images/add.svg";
 import arrow from "../../assets/arrow.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   const [getPreferences, setPreferences] = useState([]);
@@ -28,7 +29,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
     const fetchStates = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/course_preference/coursepreferences"
+          `${config.baseURL}/api/course_preference/coursepreferences`
         );
         setPreferences(response.data.coursePreferences);
       } catch (error) {
@@ -144,7 +145,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
     };
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
+        `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
       );
       next();
@@ -183,7 +184,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   const defaultStates = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/state/getAllStates",
+      url: `${config.baseURL}/api/state/getAllStates`,
     };
     axios
       .request(option)
@@ -211,7 +212,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   const defaultAUser = async () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/auth/getUserById/${userids}`,
+      url: `${config.baseURL}/api/auth/getUserById/${userids}`,
       headers: {
         Accept: "application/json",
         authorization: token,

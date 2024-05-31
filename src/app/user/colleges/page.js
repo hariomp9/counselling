@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Loader from "@/app/component/loader";
 import SideBar from "../sideBar";
 import Link from "next/link";
+import config from "@/config";
 
 export const headItems = [
   "S. No.",
@@ -38,7 +39,7 @@ const Colleges = () => {
 
     const option = {
       method: "GET",
-      url: "https://counselling-backend.vercel.app/api/collage/getAllColleges",
+      url: `${config.baseURL}/api/collage/getAllColleges`,
     };
     axios
       .request(option)
@@ -56,7 +57,7 @@ const Colleges = () => {
 
     try {
       const response = await axios.post(
-        "https://counselling-backend.vercel.app/api/auth/addToWishlist",
+        `${config.baseURL}/api/auth/addToWishlist`,
         {
           collegeId: id,
         },

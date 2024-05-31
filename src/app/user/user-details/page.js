@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const UserDetails = () => {
   const router = useRouter();
@@ -51,7 +52,7 @@ const UserDetails = () => {
   const defaultUser = () => {
     const option = {
       method: "GET",
-      url: "https://counselling-backend.vercel.app/api/auth/getaUser",
+      url: `${config.baseURL}/api/auth/getaUser`,
       headers: {
         Accept: "application/json",
         authorization: token,
@@ -71,7 +72,7 @@ const UserDetails = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `https://counselling-backend.vercel.app/api/auth/edit-user/${userID}`,
+        `${config.baseURL}/api/auth/edit-user/${userID}`,
         studentDetails,
         {
           headers: {

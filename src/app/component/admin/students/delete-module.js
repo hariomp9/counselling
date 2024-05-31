@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const DeleteModuleC = ({ userID, closeModal, refreshData }) => {
   const [isLoading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ const DeleteModuleC = ({ userID, closeModal, refreshData }) => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/auth/deleteaUser/${userID}`,
+        `${config.baseURL}/api/auth/deleteaUser/${userID}`,
         {
           headers: {
             Accept: "application/json",

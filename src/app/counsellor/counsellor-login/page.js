@@ -9,6 +9,7 @@ import { setToken, removeToken, adDetails } from "@/redux/adminSlice/authSlice";
 import Link from "next/link";
 import Loader from "@/app/component/loader";
 import RightSection from "@/app/auth/right-section/page";
+import config from "@/config";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const Login = () => {
     setLoader(true);
     try {
       const res = await axios.post(
-        "https://counselling-backend.vercel.app/api/counselor/counselorLogin",
+        `${config.baseURL}/api/counselor/counselorLogin`,
         loginDetails,
         {
           headers: {

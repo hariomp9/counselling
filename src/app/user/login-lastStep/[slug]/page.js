@@ -12,6 +12,7 @@ import logo from "../../../../../public/images/logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { setUserId } from "@/redux/adminSlice/authSlice";
+import config from "@/config";
 
 const LoginLastStep = ({ params }) => {
   const router = useRouter();
@@ -71,7 +72,7 @@ const LoginLastStep = ({ params }) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/edit-user/${userId}`,
+        `${config.baseURL}/api/auth/edit-user/${userId}`,
         studentDetail
         // {
         //   headers: {
@@ -103,7 +104,7 @@ const LoginLastStep = ({ params }) => {
   const defaultState = async () => {
     const options = {
       method: "GET",
-      url: "http://localhost:4000/api/state/getAllStates",
+      url: `${config.baseURL}/api/state/getAllStates`,
     };
     axios
       .request(options)
@@ -122,7 +123,7 @@ const LoginLastStep = ({ params }) => {
   const defaultDist = async () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/state_district/${state_id}`,
+      url: `${config.baseURL}/api/state_district/${state_id}`,
     };
     axios
       .request(options)

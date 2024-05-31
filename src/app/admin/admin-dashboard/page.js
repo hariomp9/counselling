@@ -26,6 +26,7 @@ import logout from "../../../../public/images/logout-.svg";
 import protectedRoute from "@/config/protectedRoute";
 import Counsellor from "@/app/component/admin/counsellor/page";
 import News from "@/app/component/admin/news/page";
+import config from "@/config";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -95,7 +96,7 @@ const AdminDashboard = () => {
     setLoader(true);
 
     try {
-      const res = await axios.get(`/api/auth/logout`, {
+      const res = await axios.get(`${config.baseURL}/api/auth/logout`, {
         headers: {
           Authorization: token,
           "Content-Type": "application/json",

@@ -4,6 +4,7 @@ import UserSidebar from "../userSidebar";
 import UserNavbar from "../userNav";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import config from "@/config";
 
 const UserProfil = () => {
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
@@ -18,7 +19,7 @@ const UserProfil = () => {
   const defaultAUser = async () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/auth/getUserById/${userid}`,
+      url: `${config.baseURL}/api/auth/getUserById/${userid}`,
      
     };
     axios

@@ -4,6 +4,7 @@ import arrow from "../../assets/arrow.svg";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import config from "@/config";
 
 const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
@@ -109,7 +110,7 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
     };
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
+        `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
       );
 
@@ -135,7 +136,7 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
   const defaultAUser = () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/auth/getUserById/${userids}`,
+      url: `${config.baseURL}/api/auth/getUserById/${userids}`,
       headers: {
         Accept: "application/json",
         authorization: token,

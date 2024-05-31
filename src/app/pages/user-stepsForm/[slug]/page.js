@@ -7,6 +7,7 @@ import UserNavbar from "@/app/user2nd/userNav";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import UserProfileUpdate from "../../../user/update-profile/page";
+import config from "@/config";
 
 const UserProfile = ({ params }) => {
   const student_id = params.slug;
@@ -23,7 +24,7 @@ const UserProfile = ({ params }) => {
   const defaultAUser = async () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/auth/getUserById/${student_id}`,
+      url: `${config.baseURL}/api/auth/getUserById/${student_id}`,
       headers: {
         Accept: "application/json",
         authorization: token,

@@ -17,6 +17,7 @@ import {
 } from "@/redux/adminSlice/authSlice";
 import poster from "../../../../public/images/poster.webp";
 import student from "../assets/login-student.png";
+import config from "@/config";
 
 const UserLogin = () => {
   const dispatch = useDispatch();
@@ -38,15 +39,13 @@ const UserLogin = () => {
     setLoader(true);
     try {
       const res = await axios.post(
-        "https://counselling-backend.vercel.app/api/auth/login",
+        `${config.baseURL}/api/auth/login`,
         loginDetails,
         {
           headers: {
             "Content-Type": "application/json",
           },
-          
         }
-        
       );
       console.log("Login Response:", res);
       if (res.data.success) {

@@ -10,6 +10,7 @@ import { removeToken, rem_AdDetails } from "@/redux/adminSlice/authSlice";
 import UserProtectedRoute from "@/config/userProtectedRoute";
 import Loader from "../component/loader.js";
 import { ToastContainer, toast } from "react-toastify";
+import config from "@/config";
 
 const SideBar = () => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const SideBar = () => {
 
     try {
       const res = await axios.get(
-        "https://counselling-backend.vercel.app/api/auth/logout",
+        `${config.baseURL}/api/auth/logout`,
         {
           headers: {
             Authorization: token,

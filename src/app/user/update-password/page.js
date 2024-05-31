@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Loader from "@/app/component/loader";
 import Navbar from "../navbar";
 import SideBar from "../sideBar";
+import config from "@/config";
 
 const ChangePassword = () => {
   const router = useRouter();
@@ -48,7 +49,7 @@ const ChangePassword = () => {
       try {
         setLoader(true);
         const res = await axios.post(
-          "https://counselling-backend.vercel.app/api/auth/updatePassword",
+          `${config.baseURL}/api/auth/updatePassword`,
           formData,
           {
             headers: {

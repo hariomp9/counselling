@@ -27,6 +27,7 @@ import axios from "axios";
 import { Dialog, Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import config from "@/config";
 
 const data = [
   {
@@ -104,7 +105,7 @@ const SuperHome = () => {
   const defaultUser = () => {
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/auth/getInterstedUsers",
+      url: `${config.baseURL}/api/auth/getInterstedUsers`,
     };
     axios
       .request(option)
@@ -124,7 +125,7 @@ const SuperHome = () => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/auth/deleteInterstedUsers/${userID}`,
+        `${config.baseURL}/api/auth/deleteInterstedUsers/${userID}`,
         {
           headers: {
             Accept: "application/json",
@@ -160,7 +161,7 @@ const SuperHome = () => {
   const handleUpdateUser = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/edit-user/${userID}`,
+        `${config.baseURL}/api/auth/edit-user/${userID}`,
         studentDetail,
         {
           headers: {

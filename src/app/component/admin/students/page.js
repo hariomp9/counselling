@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import UpdateStudent from "../../../pages/college-update/[slug]/page";
 import Loader from "../../loader";
 import Link from "next/link";
+import config from "@/config";
 
 export const headItems = [
   "S. No.",
@@ -56,7 +57,7 @@ const Students = () => {
 
     const option = {
       method: "GET",
-      url: "https://counselling-backend.vercel.app/api/auth/all-users",
+      url: `${config.baseURL}/api/auth/all-users`,
 
       headers: {
         Accept: "application/json",
@@ -81,7 +82,7 @@ const Students = () => {
     } else {
       const options = {
         method: "GET",
-        url: `https://counselling-backend.vercel.app/api/auth/all-users?search=${search}`,
+        url: `${config.baseURL}/api/auth/all-users?search=${search}`,
         headers: {
           authorization: token,
         },

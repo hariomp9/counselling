@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import Loader from "@/app/component/loader";
 import SuperSidebar from "../super-sidebar";
+import config from "@/config";
 
 const CreateUser = () => {
   const [getAllUser, setGetAllUser] = useState("");
@@ -44,7 +45,7 @@ const CreateUser = () => {
 
     const option = {
       method: "GET",
-      url: "http://localhost:4000/api/auth/all-users-data",
+      url: `${config.baseURL}/api/auth/all-users-data`,
     };
     axios
       .request(option)
@@ -87,7 +88,7 @@ const CreateUser = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/edit-user/${_id}`,
+        `${config.baseURL}/api/auth/edit-user/${_id}`,
         { SubscriptionsPlan: [updatedValue] },
         {
           headers: {

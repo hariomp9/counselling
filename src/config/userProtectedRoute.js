@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setToken, removeToken } from "@/redux/adminSlice/authSlice";
 import Loader from "@/app/component/loader";
+import config from "@/config";
 
 const UserProtectedRoute = (WrappedComponent) => {
   const Wrapper = (props) => {
@@ -30,7 +31,7 @@ const UserProtectedRoute = (WrappedComponent) => {
       setIsAuth(false);
       try {
         const res = await axios.get(
-          `https://counselling-backend.vercel.app/api/auth/verifyUserToken/${userAuthToken}`
+          `${config.baseURL}/api/auth/verifyUserToken/${userAuthToken}`
         );
         if (res.status === 200) {
           setIsAuth(true);

@@ -5,6 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
+import config from "@/config";
 
 const UpdateModule = ({ params }) => {
   const router = useRouter();
@@ -19,7 +20,7 @@ const UpdateModule = ({ params }) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `https://counselling-backend.vercel.app/api/collage/updateCollege/${params.slug}`,
+        `${config.baseURL}/api/collage/updateCollege/${params.slug}`,
         collegeDetail,
         {
           headers: {

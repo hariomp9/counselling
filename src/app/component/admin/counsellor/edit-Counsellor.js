@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import config from "@/config";
 
 const UpdateCounsellor = ({ editData, closeDrawerO, refreshData }) => {
   const counsellorID = editData._id;
@@ -20,7 +21,7 @@ const UpdateCounsellor = ({ editData, closeDrawerO, refreshData }) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `https://counselling-backend.vercel.app/api/counselor/updateCounselor/${counsellorID}`,
+        `${config.baseURL}/api/counselor/updateCounselor/${counsellorID}`,
         counsellorDetail,
         {
           headers: {

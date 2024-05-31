@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const DeleteCourse = ({ courseID, closeModal, refreshData }) => {
   const [isLoading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ const DeleteCourse = ({ courseID, closeModal, refreshData }) => {
 
     try {
       const response = await axios.delete(
-        `https://counselling-backend.vercel.app/api/course/deleteCourse/${courseID}`,
+        `${config.baseURL}/api/course/deleteCourse/${courseID}`,
         {
           headers: {
             Accept: "application/json",

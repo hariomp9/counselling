@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { removeToken } from "@/redux/adminSlice/authSlice";
 import Loader from "@/app/component/loader";
+import config from "@/config";
 
 const protectedRoute = (WrappedComponent) => {
   const Wrapper = (props) => {
@@ -32,7 +33,7 @@ const protectedRoute = (WrappedComponent) => {
       setIsAuth(false);
       try {
         const res = await axios.get(
-          `https://counselling-backend.vercel.app/api/auth/verifyAdminToken/${adminAuthToken}`
+          `${config.baseURL}/api/auth/verifyAdminToken/${adminAuthToken}`
         );
         if (res?.data?.data === null) {
           router.push("/admin-login ");

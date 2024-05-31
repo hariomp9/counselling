@@ -5,6 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
+import config from "@/config";
 
 const Page = ({ params }) => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const Page = ({ params }) => {
     try {
       const options = {
         method: "GET",
-        url: `https://counselling-backend.vercel.app/api/auth/getUserById/${params.slug}`,
+        url: `${config.baseURL}/api/auth/getUserById/${params.slug}`,
         headers: {
           Accept: "application/json",
           authorization: token,

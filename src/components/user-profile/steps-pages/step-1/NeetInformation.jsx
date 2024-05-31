@@ -8,6 +8,7 @@ import MinorityReservation from "./inner-pages/MinorityReservation";
 import Image from "next/image";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import config from "@/config";
 
 const Reservation = ["HA", "MKB", "DEF", "PWD", "ORPHAN"];
 const minorityReservation = [
@@ -49,7 +50,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
 
     axios
       .get(
-        `http://localhost:4000/api/state_category/getStatesByCategory/${state}`
+        `${config.baseURL}/api/state_category/getStatesByCategory/${state}`
       )
       .then((response) => {
         setStateCat(response?.data);
@@ -77,7 +78,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
     };
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/auth/updatedUser_Steps/${userid || userids}`,
+        `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
         payload
       );
       console.log("PUT request successful", response?.data);
@@ -92,7 +93,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:4000/api/category/getCategory"
+        "${config.baseURL}/api/category/getCategory"
       );
       if (!response.ok) {
         throw new Error("Failed to fetch categories");
@@ -106,7 +107,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
   const fetchStates = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/state/getAllStates"
+        `${config.baseURL}/api/state/getAllStates`
       );
       setStates(response.data.states);
     } catch (error) {
@@ -132,7 +133,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
   const defaultAUser = async () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/auth/getUserById/${userids}`,
+      url: `${config.baseURL}/api/auth/getUserById/${userids}`,
       headers: {
         Accept: "application/json",
         authorization: token,
