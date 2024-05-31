@@ -61,14 +61,14 @@ const VerifyOTP = ({ params }) => {
               <div className="flex items-center w-[70%] md:w-[45%] xl:w-[280px] 2xl:w-[406px] mx-auto ">
                 <div>
                   <div className="my-10 lg:mt-0">
-                    <div className="flex justify-center 2xl:mt-20 xl:mt-5 lg:mt-3">
+                    <div className="flex justify-center 2xl:mt-20 xl:mt-5 lg:mt-3 otplogo">
                       <Image
                         src={logo}
                         alt="logo"
-                        className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]"
+                        className=" logologin 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px]"
                       />
                     </div>
-                    <div className="flex items-center justify-center lg:mt-16 xl:mt-20 2xl:mt-40 my-7 lg:my-0">
+                    <div className="flex items-center justify-center lg:mt-16 xl:mt-20 2xl:mt-40 my-7 lg:my-0 loginform">
                       <div>
                         <h1 className=" inter 2xl:w-[389px]  font-[700] 2xl:text-[30px] xl:text-[22px] lg:text-[16px] xl:w-[290px] w-[210px] 2xl:leading-[40px] text-center">
                           Almost done
@@ -127,81 +127,20 @@ const VerifyOTP = ({ params }) => {
                       type=""
                       id="number"
                       name="otp"
-                      className=" montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border w-full 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
+                      className="logininp montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border w-full 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
                     />
-                    {/* <div className="2xl:w-[406.5] xl:w-[] lg:w-[] sm:w-[] w-[] flex justify-between">
-                      <input
-                        value={verifyOTP}
-                        onChange={inputHandler}
-                        maxLength={1}
-                        required
-                        type=""
-                        id="number"
-                        name="number"
-                        className=" montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border 2xl:w-[50px] xl:w-[35px] lg:w-[30px] 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
-                      />
-                      <input
-                        value={verifyOTP}
-                        onChange={inputHandler}
-                        maxLength={1}
-                        required
-                        type=""
-                        id="number"
-                        name="number"
-                        className=" montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border 2xl:w-[50px] xl:w-[35px] lg:w-[30px] 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
-                      />
-                      <input
-                        value={verifyOTP}
-                        onChange={inputHandler}
-                        maxLength={1}
-                        required
-                        type=""
-                        id="number"
-                        name="number"
-                        className=" montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border 2xl:w-[50px] xl:w-[35px] lg:w-[30px] 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
-                      />
-                      <input
-                        value={verifyOTP}
-                        onChange={inputHandler}
-                        maxLength={1}
-                        required
-                        type=""
-                        id="number"
-                        name="number"
-                        className=" montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border 2xl:w-[50px] xl:w-[35px] lg:w-[30px] 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
-                      />
-                      <input
-                        value={verifyOTP}
-                        onChange={inputHandler}
-                        maxLength={1}
-                        required
-                        type=""
-                        id="number"
-                        name="number"
-                        className=" montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border 2xl:w-[50px] xl:w-[35px] lg:w-[30px] 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
-                      />
-                      <input
-                        value={verifyOTP}
-                        onChange={inputHandler}
-                        maxLength={1}
-                        required
-                        type=""
-                        id="number"
-                        name="number"
-                        className=" montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border 2xl:w-[50px] xl:w-[35px] lg:w-[30px] 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
-                      />
-                    </div> */}
+                  
                     <button
                       onClick={handleVerify}
                       type="submit"
-                      className="bg-[#0071BC] montserrat-btn  text-white p-3 w-full rounded-[5px] 2xl:h-[66px] xl:h-[42px] lg:h-[35px]  2xl:my-10 lg:my-5  xl:my-5 2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-5"
+                      className="logininp bg-[#0071BC] montserrat-btn  text-white p-3 w-full rounded-[5px] 2xl:h-[66px] xl:h-[42px] lg:h-[35px]  2xl:my-10 lg:my-5  xl:my-5 2xl:text-[16px] xl:text-[14px] sm:text-[12px] text-[12px] my-5"
                     >
                       Verify
                     </button>
                   </form>
                   <div className="flex justify-center">
                     <button
-                      className="text-[#0071BC] inter font-[700] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[]
+                      className="logininp text-[#0071BC] inter font-[700] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[]
    2xl:leading-[24.5px] xl:leading-[20px] lg:leading-[16px] sm:leading-[] leading-[]"
                     >
                       Resend OTP
@@ -212,13 +151,13 @@ const VerifyOTP = ({ params }) => {
             </div>
           </div>
 
-          <div className="lg:w-1/2 hidden lg:block bg-[#0071BC] 2xl:pt-[120px] pt-[40px]">
+          <div className="lg:w-1/2 hidden lg:block bg-[#0071BC] 2xl:pt-[120px] pt-[40px] loginC siginbox">
             <div className="2xl:w-[740px] xl:w-[500px] w-[400px] mx-auto ">
               <div>
                 <h1
                   className="inter font-[700] text-white 
                  2xl:text-[40px] xl:text-[30px] lg:text-[20px] sm:text-[] text-[]
-   2xl:leading-[48.41px] xl:leading-[35px] lg:leading-[28px] sm:leading-[] leading-[]"
+   2xl:leading-[48.41px] xl:leading-[35px] lg:leading-[28px] sm:leading-[] leading-[] "
                 >
                   Come join us
                 </h1>
@@ -274,7 +213,7 @@ const VerifyOTP = ({ params }) => {
             >
               <Image
                 src={student}
-                className="2xl:w-[384px] 2xl:h-[473px] h-auto xl:w-[220px] lg:w-[180px] sm:w-[] w-[] mx-auto"
+                className="2xl:w-[384px] 2xl:h-[473px] h-auto xl:w-[220px] lg:w-[180px] sm:w-[] w-[] mx-auto studenImgs"
               />
             </div>
           </div>

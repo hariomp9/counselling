@@ -726,15 +726,52 @@ html {
   @apply text-[#6F6F6F]
 }
 
-.updateUh1{
+.updateUh1 {
   @apply inter font-[700] 2xl:text-[30px] 2xl:leading-[36.31px] xl:text-[18px] xl:leading-[24px] text-[10px] leading-[20px]
 }
-.updateUpara{
+
+.updateUpara {
   @apply inter font-[400] 2xl:text-[14px] 2xl:leading-[24px] xl:text-[10px] xl:leading-[20px] text-[10px] leading-[20px]
 }
-.userUinput{
+
+.userUinput {
   @apply border rounded-[5px] 2xl:text-[16px] xl:text-[12px] text-[10px] 2xl:p-3 p-2 2xl:w-[390px] 2xl:h-[48px] xl:w-[265px] xl:h-[35px] w-[200px] h-[30px]
 }
-.userUlabel{
+
+.userUlabel {
   @apply 2xl:text-[16px] xl:text-[12px] text-[10px]
+}
+
+@media (min-width: 1536px) and (max-width: 1800px) {
+  .loginC {
+    height: 690px !important;
+  }
+  .logologin{
+    width: 158px !important;
+    height: 54px !important;
+  }
+  .loginform{
+    margin-top: 0px !important;
+  }
+  .studenImg{
+    width: 450px !important;
+    height: 390px !important;
+  }
+  .logininp{
+    height: 45px !important;
+  }
+.siginbox{
+  padding-top: 20px !important;
+}
+.beingbox{
+  margin-top:  0px !important;
+  font-size: 25px !important;
+}
+.studenImgs{
+  width: 250px !important;
+  height: auto !important;
+}
+.otplogo{
+  margin-top: 0px !important;
+}
 }
