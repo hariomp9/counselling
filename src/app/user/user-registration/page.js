@@ -88,7 +88,7 @@ const UserRegistration = () => {
   const handleSendOTP = async (userID) => {
     try {
       const response = await axios.post(
-        "${config.baseURL}/api/auth/generate-otp",
+        `${config.baseURL}/api/auth/generate-otp`,
         { userId: userID }
       );
       console.log(response?.data);
