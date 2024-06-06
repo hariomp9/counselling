@@ -719,8 +719,7 @@ html {
 }
 
 .userpboxbtn {
-  @apply flex gap-1 xl:gap-2 justify-center items-center inter font-[700] text-white bg-[#4F9ED9] rounded-[4px] 2xl:w-[112px] 2xl:h-[48px] xl:w-[70px] xl:h-[30px] lg:w-[45px] h-[20px] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[20px] text-[10px] leading-[20px]
-}
+  @apply flex gap-1 xl:gap-2 justify-center items-center inter font-[700] text-white bg-[#4F9ED9] rounded-[4px] 2xl:w-[112px] 2xl:h-[48px] xl:w-[70px] xl:h-[30px] lg:w-[60px] h-[25px] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[20px] text-[10px] leading-[20px] }
 
 .userpboxlabel {
   @apply text-[#6F6F6F]

@@ -142,7 +142,7 @@ const LoginLastStep = ({ params }) => {
       <ToastContainer autoClose={1000} />{" "}
       <div>
         <div>
-          <div className="2xl:w-[1293px]   mx-auto">
+          <div className="2xl:w-[1293px] my-10  mx-auto">
             <div className="flex justify-center 2xl:my-[40px] xl:mb-5 lg:mb-3">
               <Image
                 src={logo}
@@ -154,16 +154,16 @@ const LoginLastStep = ({ params }) => {
           <section className="mx-auto">
             <form
               onSubmit={handleUpdateUser}
-              className="2xl:w-[1293px] xl:w-2/3 xl:p-[70px] py-[100px] bg-[#F5F6FF] 2xl:px-[210px] mx-auto"
+              className="2xl:w-[1293px] xl:w-[48%] w-[48%] p-[30px] xl:p-[50px] 2xl:py-[100px] bg-[#F5F6FF] 2xl:px-[210px] mx-auto"
             >
-              <div className=" flex flex-wrap gap-[50px]">
-                <div className="2xl:w-[390px] 2xl:h-[100px]">
+              <div className=" flex flex-wrap justify-between gap-3 xl:gap-[20px] 2xl:gap-[50px]">
+                <div className="2xl:w-[390px]  2xl:h-[100px]  xl:w-[265px] xl:h-[35px] w-[200px] h-[30px]">
                   <div className=" 2xl:w-[251px] xl:w-[200px] lg:w-[160px]">
                     <div>
-                      <label className="inter font-[700] text-[20px] leading-[40px]">
+                      <label className="inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[14px] lg:text-[12px]">
                         Gender
                       </label>
-                      <div className="flex ">
+                      <div className="flex gap-[20px] w-full">
                         {/* <div
                           className={`flex items-center xl:gap-2 gap-1 w-1/2 hover:border-red-800 ${
                             selectedGender === "Male"
@@ -237,9 +237,10 @@ const LoginLastStep = ({ params }) => {
                   </div>
                 </div>
                 <div className="2xl:w-[390px] 2xl:h-[100px]">
-                  <label className="inter font-[700] text-[20px] leading-[40px]">
+                  <label className="inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[14px] lg:text-[12px]">
                     Whatsapp Number
                   </label>
+                  <br/>
                   <input
                     defaultValue={
                       studentDetail?.whatsappMobile
@@ -262,7 +263,7 @@ const LoginLastStep = ({ params }) => {
                   />
                 </div>
                 <div className="2xl:w-[390px] 2xl:h-[100px]">
-                  <label className="inter font-[700] text-[20px] leading-[40px]">
+                  <label className="inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[14px] lg:text-[12px]">
                     Current State
                   </label>{" "}
                   <br />
@@ -295,7 +296,7 @@ const LoginLastStep = ({ params }) => {
                   </div>
                 </div>
                 <div className="2xl:w-[390px] 2xl:h-[100px]">
-                  <label className="inter font-[700] text-[20px] leading-[40px]">
+                  <label className="inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[14px] lg:text-[12px]">
                     Current District
                   </label>{" "}
                   <br />
