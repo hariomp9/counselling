@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../../public/images/logo.svg";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -43,6 +43,9 @@ const UserRegistration = () => {
   console.log(number);
 
   const [showPassword, setShowPassword] = useState(false);
+  useEffect(() => {
+    console.log(otpM, "otpMm");
+  }, [otpM]);
 
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
@@ -91,26 +94,29 @@ const UserRegistration = () => {
       setLoader(false);
     }
   };
+
   const handleSendOTP = async (userID) => {
     try {
       const response = await axios.post(
         `${config.baseURL}/api/auth/generate-otp`,
         { userId: userID }
       );
-      console.log(response.data.otpCode, "otpCode");
-      setOtpM(response.data.otpCode);
-      handleSendMOTP();
+      const otpCode = response.data.otpCode;
+      console.log(otpCode, "otpCode"); // Log the OTP code directly
+
+      setOtpM(otpCode);
+
+      handleSendMOTP(otpCode);
     } catch (error) {
       console.error(error);
       console.log("Error occurred while sending OTP");
     }
   };
 
-  const handleSendMOTP = async () => {
+  const handleSendMOTP = async (otpCode) => {
     try {
-      const response = await axios.post(
-        `https://2factor.in/API/R1/?module=TRANS_SMS&apikey=3eed462e-e8dc-addf-0200cd936042&to=${number}&from=ADNETC&templatename=an24_otp&var1=${otpM}`
-        // { userId: userID }
+      const response = await axios.get(
+        `https://2factor.in/API/R1/?module=TRANS_SMS&apikey=3eed462e-e8dc-11ed-addf-0200cd936042&to=${number}&from=ADNETC&templatename=an24_otp&var1=${otpCode}`
       );
       console.log(response?.data, "m");
     } catch (error) {
@@ -118,6 +124,7 @@ const UserRegistration = () => {
       console.log("Error occurred while sending OTP");
     }
   };
+
   return (
     <>
       {isLoader && <Loader />}

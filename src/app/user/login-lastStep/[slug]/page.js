@@ -142,7 +142,7 @@ const LoginLastStep = ({ params }) => {
       <ToastContainer autoClose={1000} />{" "}
       <div>
         <div>
-          <div className="2xl:w-[1293px] mx-auto">
+          <div className="2xl:w-[1293px]   mx-auto">
             <div className="flex justify-center 2xl:my-[40px] xl:mb-5 lg:mb-3">
               <Image
                 src={logo}
@@ -154,7 +154,7 @@ const LoginLastStep = ({ params }) => {
           <section className="mx-auto">
             <form
               onSubmit={handleUpdateUser}
-              className="2xl:w-[1293px] py-[100px] bg-[#F5F6FF] 2xl:px-[210px] mx-auto"
+              className="2xl:w-[1293px] xl:w-2/3 xl:p-[70px] py-[100px] bg-[#F5F6FF] 2xl:px-[210px] mx-auto"
             >
               <div className=" flex flex-wrap gap-[50px]">
                 <div className="2xl:w-[390px] 2xl:h-[100px]">
