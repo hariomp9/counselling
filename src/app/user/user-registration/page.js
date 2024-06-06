@@ -28,6 +28,8 @@ const UserRegistration = () => {
   const userID = userId?._id;
   const [isLoader, setLoader] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
+  const [otpM, setOtpM] = useState("");
+  console.log(otpM, "otpMm");
   const [studentDetails, setStudentDetails] = useState({
     firstname: "",
     lastname: "",
@@ -37,6 +39,9 @@ const UserRegistration = () => {
     role: "",
     careerGoals: userCourse,
   });
+  const number = studentDetails.mobile;
+  console.log(number);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleRadioChange = (event) => {
@@ -73,6 +78,7 @@ const UserRegistration = () => {
         dispatch(removeCourse());
         dispatch(setToken(response?.data?.token));
         dispatch(adDetails(res?.data?.user));
+
         // router.push("/user/otp-verify");
         // router.push({ pathname: '/user/otp-verify', query: { user_id: userId } });
       } else {
@@ -91,7 +97,22 @@ const UserRegistration = () => {
         `${config.baseURL}/api/auth/generate-otp`,
         { userId: userID }
       );
-      console.log(response?.data);
+      console.log(response.data.otpCode, "otpCode");
+      setOtpM(response.data.otpCode);
+      handleSendMOTP();
+    } catch (error) {
+      console.error(error);
+      console.log("Error occurred while sending OTP");
+    }
+  };
+
+  const handleSendMOTP = async () => {
+    try {
+      const response = await axios.post(
+        `https://2factor.in/API/R1/?module=TRANS_SMS&apikey=3eed462e-e8dc-addf-0200cd936042&to=${number}&from=ADNETC&templatename=an24_otp&var1=${otpM}`
+        // { userId: userID }
+      );
+      console.log(response?.data, "m");
     } catch (error) {
       console.error(error);
       console.log("Error occurred while sending OTP");
@@ -123,22 +144,7 @@ const UserRegistration = () => {
                           Begin your journey
                         </h1>
                       </div>
-                      {/* <Image
-                        src={together}
-                        alt="together-icon"
-                        className="2xl:w-[35px] 2xl:h-[35px] xl:w-[20px] xl:h-[20px] lg:w-[15px] lg:h-[15px] lg:mt-[2px] xl:mt-[6px] 2xl:mt-1 w-[15px]"
-                      /> */}
                     </div>
-                    {/* <div className="flex justify-center sm:gap-2 2xl:my-2  mb-1">
-                      <p className="poppins font-[400] text-[#323232] xl:leading-[19.5px] 2xl:text-[16px] xl:text-[12px] text-[10px]">
-                        Already have an account?
-                      </p>
-                      <a href="/user/user-login">
-                        <p className="poppins font-[500] text-[#EB2027] xl:leading-[19.5px] underline 2xl:text-[16px] xl:text-[12px] text-[10px]">
-                          Log in
-                        </p>
-                      </a>
-                    </div> */}
                   </div>
 
                   <div className=""></div>
@@ -148,52 +154,6 @@ const UserRegistration = () => {
               <form onSubmit={handleSubmit}>
                 <div className="mx-auto my-2 xl:my-3 2xl:my-[]">
                   <div className=" w-[80%] lg:w-[60%] mx-auto ">
-                    {/* <label
-                      htmlFor="course"
-                      className="montserrat-lable block text-[#000000] 2xl:text-[18px] xl:text-[14px] text-[12px] "
-                    >
-                      Course
-                    </label>
-                    <div className="flex my-[2px] xl:my-1 2xl:my-2 gap-3">
-                      <div class="flex items-center space-x-2">
-                        <input
-                          type="checkbox"
-                          id="circleCheckbox"
-                          class="hidden"
-                        />
-
-                        <input
-                          type="radio"
-                          name="radio-7"
-                          value="neetug"
-                          className="radio radio-info w-4 h-4 sm:w-5 sm:h-5  2xl:w-6 2xl:h-6"
-                          checked={selectedValue === "neetug"}
-                          onChange={handleRadioChange}
-                        />
-                        <span className="2xl:text-[18px] xl:text-[12px] text-[12px] leading-[19.5px]">
-                          NEET UG
-                        </span>
-                      </div>
-                      <div class="flex items-center space-x-2">
-                        <input
-                          type="checkbox"
-                          id="circleCheckbox "
-                          class="hidden"
-                        />
-
-                        <input
-                          type="radio"
-                          name="radio-7"
-                          value="neetpg"
-                          className="radio radio-info w-4 h-4 sm:w-5 sm:h-5  2xl:w-6 2xl:h-6"
-                          checked={selectedValue === "neetpg"}
-                          onChange={handleRadioChange}
-                        />
-                        <span className="2xl:text-[18px] xl:text-[12px] text-[12px] leading-[19.5px]">
-                          NEET PG
-                        </span>
-                      </div>
-                    </div> */}
                     <div className="2xl:my-5 xl:my-3 my-2">
                       <div className="flex 2xl:gap-7 xl:gap-4 lg:gap-3 xl:my-1 2xl:my-2 sm:gap-4 gap-3">
                         <div>
@@ -263,7 +223,7 @@ const UserRegistration = () => {
                       >
                         Mobile Number
                       </label>
-                      <input
+                      {/* <input
                         value={studentDetails.mobile}
                         onChange={inputHandler}
                         maxLength={10}
@@ -273,6 +233,17 @@ const UserRegistration = () => {
                         id="mobile"
                         name="mobile"
                         className="logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                        placeholder="Enter"
+                      /> */}
+                      <input
+                        value={studentDetails.mobile}
+                        onChange={inputHandler}
+                        maxLength={12}
+                        required
+                        type="tel"
+                        id="mobile"
+                        name="mobile"
+                        className="logininp montserrat-otp text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                         placeholder="Enter"
                       />
                     </div>
