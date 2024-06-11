@@ -4,7 +4,7 @@ import Link from "next/link";
 import logo from "../../../../public/images/logo.svg";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import poster from "../../../../public/images/poster.webp";
@@ -72,24 +72,24 @@ const UserRegistration = () => {
         `${config.baseURL}/api/auth/register`,
         studentDetails
       );
-      if (response.status >= 200 && response.status < 300) {
-        toast.success("Registration Successful!");
-        setUserId(response?.data?.user);
-        handleSendOTP(response?.data?.user);
-        const userToken = response?.data?.user?._id;
-        router.push(`/user/otp-verify/${userToken}`);
-        dispatch(removeCourse());
-        dispatch(setToken(response?.data?.token));
-        dispatch(adDetails(res?.data?.user));
 
-        // router.push("/user/otp-verify");
-        // router.push({ pathname: '/user/otp-verify', query: { user_id: userId } });
+      if (response.status === 201) {
+        toast.success("Registration Successful!");
+        const userId = response.data.user._id;
+        setUserId(userId);
+        handleSendOTP(response.data.user);
+        router.push(`/user/otp-verify/${userId}`);
+        dispatch(removeCourse());
+        dispatch(setToken(response.data.token));
+        dispatch(adDetails(response.data.user));
       } else {
-        toast.error("Failed to Register. Please try again later.");
+        toast.error(response.data.error);
       }
     } catch (error) {
-      console.error(error);
-      toast.error("An error occurred while registering.");
+      console.error("Error", error);
+      toast.error(
+        "An error occurred during registration. Please try again later."
+      );
     } finally {
       setLoader(false);
     }
@@ -128,6 +128,7 @@ const UserRegistration = () => {
   return (
     <>
       {isLoader && <Loader />}
+      <ToastContainer autoClose={1000}/>
       <section>
         <div className="lg:flex loginC ">
           <div className="lg:hidden">
@@ -173,7 +174,7 @@ const UserRegistration = () => {
                           <input
                             value={studentDetails.firstname}
                             onChange={inputHandler}
-                            maxLength={100}
+                            maxLength={32}
                             required
                             type="text"
                             id="firstname"
@@ -192,7 +193,7 @@ const UserRegistration = () => {
                           <input
                             value={studentDetails.lastname}
                             onChange={inputHandler}
-                            maxLength={100}
+                            maxLength={32}
                             required
                             type="text"
                             id="lastname"
@@ -315,6 +316,8 @@ const UserRegistration = () => {
                           name="password"
                           className="logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                           placeholder="Password"
+                          // pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}"
+                          title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
                         />
                       </div>
                     </div>

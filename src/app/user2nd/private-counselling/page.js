@@ -9,6 +9,8 @@ import axios from "axios";
 import rightImg from "../assets/right (1).svg";
 import Link from "next/link";
 import config from "@/config";
+import UserProtectedRoute from "@/config/userProtectedRoute";
+import { ToastContainer } from "react-toastify";
 
 const PrivateCounselling = () => {
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -62,6 +64,7 @@ const PrivateCounselling = () => {
   return (
     <>
       <section>
+      <ToastContainer autoClose={1000}/>
         <div className="flex">
           <div>
             <UserSidebar />
@@ -161,4 +164,4 @@ const PrivateCounselling = () => {
   );
 };
 
-export default PrivateCounselling;
+export default UserProtectedRoute(PrivateCounselling);

@@ -93,7 +93,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "${config.baseURL}/api/category/getCategory"
+        `${config.baseURL}/api/category/getCategory`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch categories");
@@ -149,6 +149,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
         setAllIndiaCategory(
           response?.data?.user?.All_India_Category_id?.Select_category
         );
+        console.log(response?.data?.user?.All_India_Category_id  , "cll")
         setParallelReservation(
           response?.data?.user?.ParellelReservations[0]?.Reservation_Fields
         );
@@ -200,7 +201,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
         <div className="flex justify-start items-center gap-[32px]">
           <div
             onClick={() => prev()}
-            className="flex  gap-[5px] justify-center items-center rounded-[4px] h-[48px] bg-[#4F9ED9] text-[#ffffff] px-[20px] whitespace-nowrap text-[15px] font-[700] leading-[20px] font-inter cursor-pointer"
+           className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
           >
             <Image
               src="/svg/profile/left_arrow.svg"
@@ -215,7 +216,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
               sendData();
               handleNextClick();
             }}
-            className="flex gap-[5px]  justify-center items-center rounded-[4px] h-[48px] bg-[#4F9ED9] text-[#ffffff] px-[20px] whitespace-nowrap text-[15px] font-[700] leading-[20px] font-inter cursor-pointer"
+          className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
           >
             Next
             <Image

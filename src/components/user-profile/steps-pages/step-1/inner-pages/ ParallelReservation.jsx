@@ -57,7 +57,7 @@ const ParallelReservation = ({
             reservation?.map((category, index) => (
               <div
                 key={index}
-                className={`flex gap-[3px] items-center rounded-[5px] px-[16px] h-[48px] w-[103px] justify-center cursor-pointer
+                className={`flex gap-[3px] items-center rounded-[5px] 2xl:px-[16px] 2xl:h-[48px] 2xl:w-[210px] 2xl:text-[16px] xl:px-[10px] xl:h-[35px]  xl:text-[12px] justify-center cursor-pointer
                 ${
                   parallelReserv === category
                     ? "border-1px border-[#D9D9D9] bg-theme_primary"
@@ -88,7 +88,7 @@ const ParallelReservation = ({
                 )}
                 <label
                   htmlFor={category}
-                  className={`text-[15px] font-[400] font-inter leading-[18.15px] whitespace-nowrap
+                  className={`2xl:text-[15px] font-[400] font-inter 2xl:leading-[18.15px] whitespace-nowrap
                     ${
                       parallelReserv === category
                         ? "text-[#ffffff]"

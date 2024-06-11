@@ -31,9 +31,11 @@ const UserLogin = () => {
     email: "",
     password: "",
   });
+
   const InputHandler = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
