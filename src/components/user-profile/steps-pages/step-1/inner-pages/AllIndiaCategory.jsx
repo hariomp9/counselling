@@ -9,7 +9,7 @@ const AllIndiaCategory = ({
 }) => {
   const [selectedCategory, setSelectedCategory] = useState(allIndiaCategory);
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category?.Select_category);  
+    setSelectedCategory(category?.Select_category);
     onSelectCategory(category?._id);
   };
   useEffect(() => {
@@ -22,11 +22,11 @@ const AllIndiaCategory = ({
       <h6 className="text-[15px] font-[300] leading-[18.15px] font-inter mt-[19px] mb-[14px]">
         Select the category for all india counselling
       </h6>
-      <div className="flex flex-wrap gap-[19px] md:w-[50%]">
+      <div className="flex flex-wrap gap-[19px]">
         {categoryValues.map((category, index) => (
           <div
             key={index}
-            className={`flex gap-[3px] items-center rounded-[5px] px-[16px] h-[48px] w-[103px] justify-center cursor-pointer
+            className={`flex gap-[3px] items-center rounded-[5px] 2xl:px-[16px] 2xl:h-[48px] 2xl:w-[210px] 2xl:text-[16px] xl:px-[10px] xl:h-[35px]  xl:text-[12px] justify-center cursor-pointer
                     ${
                       selectedCategory === category.Select_category
                         ? "border-1px border-[#D9D9D9] bg-theme_primary"
@@ -47,7 +47,7 @@ const AllIndiaCategory = ({
             {/* Tick icon */}
             <label
               htmlFor={category._id}
-              className={`text-[15px] font-[400] font-inter leading-[18.15px] whitespace-nowrap
+              className={`2xl:text-[15px] font-[400] font-inter 2xl:leading-[18.15px] whitespace-nowrap
                          ${
                            selectedCategory === category.Select_category
                              ? "text-[#ffffff]"

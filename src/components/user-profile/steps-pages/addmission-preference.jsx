@@ -280,11 +280,11 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                 multiple courses)
               </p>
             </div>
-            <div className="flex flex-wrap gap-[19px] md:w-[50%] mt-5 mb-5">
+            <div className="flex flex-wrap gap-[19px]  mt-5 mb-5">
               {getPreferences.map((category, index) => (
                 <div
                   key={index}
-                  className={`flex gap-[3px] items-center rounded-[5px] px-[16px] h-[48px] w-[103px] justify-center cursor-pointer
+                  className={`flex gap-[3px] items-center rounded-[5px] 2xl:px-[16px] 2xl:h-[48px] 2xl:w-[210px] 2xl:text-[16px] xl:px-[10px] xl:h-[35px]  xl:text-[12px] justify-center cursor-pointer
         ${
           selectedCategories.includes(category._id)
             ? "border-1px border-[#D9D9D9] bg-theme_primary"
@@ -309,7 +309,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                   )}
                   <label
                     htmlFor={category._id}
-                    className={`text-[15px] font-[400] font-inter leading-[18.15px] whitespace-nowrap
+                    className={`2xl:text-[15px] font-[400] font-inter 2xl:leading-[18.15px] whitespace-nowrap
           ${
             selectedCategories.includes(category._id)
               ? "text-[#ffffff]"

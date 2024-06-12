@@ -40,7 +40,7 @@ const UserNavbar = () => {
   const defaultAUser = async () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/auth/getUserById/${_id}`,
+      url: `${config.baseURL}/api/auth/getUserById/${_id}`,
       headers: {
         Accept: "application/json",
         authorization: token,
