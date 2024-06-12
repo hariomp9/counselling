@@ -128,7 +128,7 @@ const VerifyOTP = ({ params }) => {
                       type=""
                       id="number"
                       name="otp"
-                      className="logininp montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border w-full 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
+                      className="logininp text-center montserrat-otp rounded-[6.41px] bg-[#EDEDED]  border w-full 2xl:h-[50px] xl:h-[35px] lg:h-[30px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] lg:px-[10px] xl:px-3 2xl:px-4"
                     />
 
                     <button

@@ -83,6 +83,8 @@ const SuperHome = () => {
   const [plan, setPlan] = useState("Pending");
   const [studentDetail, setStudentDetail] = useState([]);
 
+  
+
   function openModal(id) {
     setUserID(id);
     setOpenDelete(true);
@@ -112,7 +114,8 @@ const SuperHome = () => {
       .request(option)
       .then((response) => {
         setGetInterstedUsers(response?.data?.users);
-        setPlan(response?.data?.users[0]?.Status);
+        setPlan(response?.data?.users?.Status);
+        console.log(response?.data?.users,"status")
         console.log(response?.data?.users[0]?.Status);
       })
       .catch((error) => {
@@ -589,7 +592,7 @@ const SuperHome = () => {
                               </button>
                             </td>
                             <td className="">
-                              {plan === "Pending" ? (
+                              {plan === {item?.Status} ? (
                                 <p className="craete_tbl_row text-[#FE9E34]">
                                   Pending
                                 </p>

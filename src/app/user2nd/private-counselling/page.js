@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import UserSidebar from "../userSidebar";
 import UserNavbar from "../userNav";
@@ -11,6 +11,7 @@ import Link from "next/link";
 import config from "@/config";
 import UserProtectedRoute from "@/config/userProtectedRoute";
 import { ToastContainer } from "react-toastify";
+import Loader from "@/app/component/loader";
 
 const PrivateCounselling = () => {
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -18,12 +19,13 @@ const PrivateCounselling = () => {
   const { token, _id } = useSelector((state) => state?.auth);
   const [plan, setPlan] = useState("One on One");
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
+  const [isLoader, setLoader] = useState(false);
 
   useEffect(() => {
     defaultAUser();
   }, []);
 
-  console.log(_id)
+  console.log(_id);
 
   const defaultAUser = async () => {
     try {
@@ -50,11 +52,17 @@ const PrivateCounselling = () => {
   }, [buttonClicked, plan]);
 
   const handleSubscription = async () => {
+    setLoader(true);
+    
     try {
-      const response = await axios.post(`${config.baseURL}/api/auth/PushMail/${_id}`);
-      console.log(response)
+      const response = await axios.post(
+        `${config.baseURL}/api/auth/PushMail/${_id}`
+      );
+      console.log(response);
       if (response.status === 200) {
         setSuccessMessageVisible(true);
+      setLoader(false);
+
       }
     } catch (error) {
       console.error("Error triggering subscription:", error);
@@ -64,7 +72,9 @@ const PrivateCounselling = () => {
   return (
     <>
       <section>
-      <ToastContainer autoClose={1000}/>
+      {isLoader && <Loader />}
+
+        <ToastContainer autoClose={1000} />
         <div className="flex">
           <div>
             <UserSidebar />
@@ -149,7 +159,7 @@ const PrivateCounselling = () => {
                   <div className="bg-[#4F9ED9] w-[217px] h-[48px] flex justify-center items-center rounded-md cursor-pointer mb-5">
                     <button
                       className="bg-[#4F9ED9] text-white rounded-md px-4  py-2"
-                      onClick={() => setButtonClicked(true)} 
+                      onClick={() => setButtonClicked(true)}
                     >
                       Click Here To Subscribe
                     </button>

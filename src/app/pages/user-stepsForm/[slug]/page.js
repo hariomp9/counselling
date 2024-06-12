@@ -8,7 +8,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import UserProfileUpdate from "../../../user/update-profile/page";
 import config from "@/config";
-import UserProtectedRoute from "@/config/userProtectedRoute";
 
 const UserProfile = ({ params }) => {
   const student_id = params.slug;
@@ -58,4 +57,4 @@ const UserProfile = ({ params }) => {
   );
 };
 
-export default UserProtectedRoute(UserProfile);
+export default UserProfile;
