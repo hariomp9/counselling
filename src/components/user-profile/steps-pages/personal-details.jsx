@@ -57,22 +57,13 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
     ],
   });
 
-  // const handleInputChanges = (index, e) => {
-  //   const { name, value } = e.target;
-  //   const updatedDetails = [...parentDetail.parentDetails];
-  //   updatedDetails[index][name] = value;
-  //   setParentDetails({ parentDetails: updatedDetails });
-  // };
+  const handleInputChanges = (index, e) => {
+    const { name, value } = e.target;
+    const updatedDetails = [...parentDetail.parentDetails];
+    updatedDetails[index][name] = value;
+    setParentDetails({ parentDetails: updatedDetails });
+  };
 
-  // const handleInputChanges = (index, event) => {
-  //   const { name, value } = event.target;
-  //   const updatedParentDetails = [...parentDetails];
-  //   updatedParentDetails[index] = {
-  //     ...updatedParentDetails[index],
-  //     [name]: value,
-  //   };
-  //   setParentDetails(updatedParentDetails);
-  // };
 
   const handleCheckboxChange = (index, event) => {
     const { name, checked } = event.target;
@@ -120,10 +111,7 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
       console.error("Error making PUT request:", error);
     }
   };
-  // const handleNextClick = () => {
-  //   sendData();
-  // };
-
+ 
   const [studentAddress, setStudentAddress] = useState({});
   const [studentDetails, setStudentDetails] = useState({});
   const [parentDetailss, setParentDetail] = useState({});

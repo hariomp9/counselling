@@ -616,11 +616,6 @@ const UserProfile = () => {
                         <label className="userUlabel">Old Password</label>{" "}
                         <br />
                         <input
-                          // defaultValue={
-                          //   studentDetail?.firstname
-                          //     ? studentDetail?.firstname
-                          //     : studentDetail?.firstname
-                          // }
                           type="password"
                           name="oldPassword"
                           className="userUinput"
@@ -633,11 +628,6 @@ const UserProfile = () => {
                         <label className="userUlabel">New Password</label>{" "}
                         <br />
                         <input
-                          // defaultValue={
-                          //   studentDetail?.lastname
-                          //     ? studentDetail?.lastname
-                          //     : studentDetail?.lastname
-                          // }
                           type="password"
                           name="newPassword"
                           className="userUinput"
@@ -650,11 +640,6 @@ const UserProfile = () => {
                         <label className="userUlabel">Confirm Password</label>{" "}
                         <br />
                         <input
-                          // defaultValue={
-                          //   studentDetail?.mobile
-                          //     ? studentDetail?.mobile
-                          //     : studentDetail?.mobile
-                          // }
                           type="password"
                           name="confirmPassword"
                           className="userUinput"
