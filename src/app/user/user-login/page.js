@@ -204,7 +204,7 @@ const UserLogin = () => {
                           </span>
                         </label>
                       </div>
-                      <a href="/user/user-login">
+                      <a href="/user/forgot-password">
                         <p className="montserrat-lable  text-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[12px]">
                           Forget Password?
                         </p>
