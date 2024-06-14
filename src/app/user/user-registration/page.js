@@ -62,7 +62,7 @@ const UserRegistration = () => {
       [name]: value,
     }));
   };
-
+const [errorM, setErrorM] = useState("")
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
@@ -84,6 +84,7 @@ const UserRegistration = () => {
         dispatch(adDetails(response.data.user));
       } else {
         toast.error(response.data.error);
+        setErrorM(response.data.error)
       }
     } catch (error) {
       console.error("Error", error);
@@ -220,6 +221,7 @@ const UserRegistration = () => {
                         className="logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                         placeholder="Enter"
                       />
+                      <p className="text-red-700">{errorM}</p>
                     </div>
                     <div className="2xl:my-5 xl:my-3 my-2">
                       <label
