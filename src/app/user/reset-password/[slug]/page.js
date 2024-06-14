@@ -73,7 +73,7 @@ const ResetPassword = ({ params }) => {
                 <input
                   type="password"
                   name="password"
-                  onChange={(e) => setPassword(!password)}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="login-input w-full mt-2 custom-input h-[35px] lg:h-[40px]  xl:h-[50px] 2xl:h-[60px]"
                   required
                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}"
