@@ -97,14 +97,14 @@ const UserNavbar = () => {
     <>
       <ToastContainer autoClose={1000} />
       <section>
-        <nav className=" hidden lg:block 2xl:px-10 xl:px-6 lg:px-4 lg:py-[13px] xl:py-[13px] 2xl:p-[9px]  border border-s-0 w-full flex-row ">
+        <nav className=" hidden lg:block 2xl:px-10 xl:px-6 lg:px-4 lg:py-[13px] xl:py-[8px] 2xl:p-[9px]  border border-s-0 w-full flex-row ">
           <div className="flex justify-between ">
             <div className="flex items-center">
               <h1 className="inter font-[600] 2xl:text-[25px] 2xl:leading-[45px] xl:text-[18px] xl:leading-[28px] lg:text-[14px] lg:leading-[20px] sm:text-[12px] text-[10px] sm:leading-[16px] ">
                 NEET UG 2024
               </h1>
             </div>
-            <div className="flex items-center gap-5 2xl:gap-7">
+            <div className="flex items-center gap-5 2xl:gap-7 w-[15%]">
               {plan === "One on One" ? (
                 <div>
                   <Link href={`/pages/user-stepsForm/${studentDetail._id}`}>
@@ -135,15 +135,15 @@ const UserNavbar = () => {
                 </div>
               </div> */}
 
-              <div className="dropdown dropdown-end 2xl:w-[170px]">
-                <div tabIndex={0} role="button" className="  btn-circle ">
+              <div className="dropdown dropdown-end w-[70%] 2xl:w-[170px]">
+                <div tabIndex={0} role="button" className=" btn-circle ">
                   <div className=" rounded-full w-full">
                     <div className="flex items-center gap-2">
                       <Image
                         src={userImg}
                         className="2xl:w-[50px] 2xl:h-[50px] xl:w-[35px] xl:h-[35px] w-[35px] h-[35px] rounded-full"
                       />
-                      <div className="w-[170px]">
+                      <div className="w-[50%]">
                         <h1 className="inter font-[600] 2xl:text-[20px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[16px] lg:text-[10px] lg:leading-[16px] w-[110px] ">
                           {studentDetail?.firstname}
                         </h1>
@@ -156,7 +156,7 @@ const UserNavbar = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="border menu menu-sm dropdown-content mt-3 z-[1] p-2  shadow bg-base-100 rounded-box 2xl:w-[353px] 2xl:h-[320px]"
+                  className="border menu menu-sm dropdown-content mt-3 z-[1] p-2  shadow bg-base-100 rounded-box  2xl:w-[353px] 2xl:h-[320px]"
                 >
                   <div className="flex justify-between 2xl:px-[30px] xl:px-[20px] px-[15px] 2xl:h-[70px]">
                     <div className="flex gap-[15px] items-center">
@@ -255,7 +255,7 @@ const UserNavbar = () => {
               NEET UG 2024
             </h1>
           </div>
-          <div className="flex items-center gap-2 2xl:gap-7">
+          <div className="flex items-center gap-2 2xl:gap-7 w-[200px]">
             <div>
               <button className="bg-[#4F9ED9] text-white inter font-[700] px-1 rounded-[5px] h-[25px] sm:text-[8px] sm:leading-[12px] text-[9px] leading-[11px]">
                 Complete Your Profile

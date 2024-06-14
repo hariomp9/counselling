@@ -62,7 +62,7 @@ const UserRegistration = () => {
       [name]: value,
     }));
   };
-const [errorM, setErrorM] = useState("")
+  const [errorM, setErrorM] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
@@ -84,7 +84,7 @@ const [errorM, setErrorM] = useState("")
         dispatch(adDetails(response.data.user));
       } else {
         toast.error(response.data.error);
-        setErrorM(response.data.error)
+        setErrorM(response.data.error);
       }
     } catch (error) {
       console.error("Error", error);
@@ -245,13 +245,17 @@ const [errorM, setErrorM] = useState("")
                       <input
                         value={studentDetails.mobile}
                         onChange={inputHandler}
-                        maxLength={12}
                         required
-                        type="tel"
+               
                         id="mobile"
                         name="mobile"
                         className="logininp montserrat-otp text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                         placeholder="Enter"
+                        onInput={(e) => {
+                          const value = e.target.value.replace(/\D/g, "");
+                          e.target.value = value.slice(0, 15);
+                          inputHandler(e);
+                        }}
                       />
                     </div>
                     <div className="2xl:my-5 xl:my-3 my-2">

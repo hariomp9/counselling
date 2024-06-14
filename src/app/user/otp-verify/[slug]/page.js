@@ -42,8 +42,7 @@ const VerifyOTP = ({ params }) => {
       router.push(`/user/login-lastStep/${userId}`);
       console.log("Verification Response:", response.data);
     } catch (error) {
-      console.error("Error occurred while sending OTP:", error);
-      toast.error("Error occurred while sending OTP");
+      toast.error(error.response.data.message);
     }
   };
 

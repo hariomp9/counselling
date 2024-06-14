@@ -53,7 +53,7 @@ const PrivateCounselling = () => {
 
   const handleSubscription = async () => {
     setLoader(true);
-    
+
     try {
       const response = await axios.post(
         `${config.baseURL}/api/auth/PushMail/${_id}`
@@ -61,8 +61,7 @@ const PrivateCounselling = () => {
       console.log(response);
       if (response.status === 200) {
         setSuccessMessageVisible(true);
-      setLoader(false);
-
+        setLoader(false);
       }
     } catch (error) {
       console.error("Error triggering subscription:", error);
@@ -72,7 +71,7 @@ const PrivateCounselling = () => {
   return (
     <>
       <section>
-      {isLoader && <Loader />}
+        {isLoader && <Loader />}
 
         <ToastContainer autoClose={1000} />
         <div className="flex">
@@ -82,12 +81,12 @@ const PrivateCounselling = () => {
           <div className="w-full">
             <UserNavbar />
 
-            <div className="2xl:w-[1725px] xl:w-[1800px] xl:h-[130px] bg-[#F5F6FF] font-inter mt-[20px] ml-[50px] rounded-[10px] flex items-center">
+            <div className="2xl:w-[1500px] xl:w-[1200px] xl:h-[100px] 2xl:h-[140px] bg-[#F5F6FF] font-inter mt-[20px] ml-[50px] rounded-[10px] flex items-center">
               <div className="ml-10">
-                <div className="text-[36px] font-[700]">
+                <div className="2xl:text-[36px] xl:text-[20px] text-[20px] font-[700]">
                   Welcome to Private Counselling
                 </div>
-                <div className="text-black font-[400] mt-2 text-[15px]">
+                <div className="text-black font-[400] mt-2 2xl:text-[15px] xl:text-[12px] text-[10px] ">
                   It is a long established fact that a reader will be distracted
                   by the readable content of a page when looking at its layout.
                 </div>
@@ -95,42 +94,41 @@ const PrivateCounselling = () => {
             </div>
 
             <div className="flex">
-              <div className="flex-start ml-6">
+              <div className="flex-start ml-6 w-[100%]">
                 <Image
                   src={woman2}
                   alt="Description of the image"
                   width={552.76}
                   height={492}
-                  className="mt-[30px]"
-                  style={{ minWidth: "552.76px", minHeight: "492px" }}
+                  className="mt-[30px]  2xl:w-[552px] 2xl:h-[492px]"
                 />
               </div>
 
-              <div className="flex flex-col justify-between mt-[30px] ml-[300px]">
-                <div className="mr-[300px] ">
-                  <div className="w-[263px] font-[700] h-[36px] text-[30px] flex justify-end">
-                    1 on 1 Counselling
-                  </div>
-
-                  <div className="font-inter mt-[40px] font-[400] text-[20px]">
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking at
-                    its layout. The point of using Lorem Ipsum is that it has a
-                    more-or-less normal distribution of letters, as opposed to
-                    using Content here, content here, making it look like
-                    readable English.
-                    <div className="mt-2">
+              <div className="flex flex-col justify-center mt-[30px] ">
+                <div className="2xl:mr-[300px] w-[80%] mx-auto">
+                  <div className="font-inter mt-[40px] font-[400] 2xl:text-[20px] xl:text-[14px] text-[12px] w-[80%] mx-auto">
+                    <h1 className=" font-[700] h-[36px]  2xl:text-[30px] xl:text-[20px] text-[14px] my-5">
+                      1 on 1 Counselling
+                    </h1>
+                    <p>
                       It is a long established fact that a reader will be
                       distracted by the readable content of a page when looking
                       at its layout. The point of using Lorem Ipsum is that it
                       has a more-or-less normal distribution of letters, as
                       opposed to using Content here, content here, making it
                       look like readable English.
+                    </p>
+                    <div className="mt-2">
+                      <p>
+                        It is a long established fact that a reader will be
+                        distracted by the readable content of a page when
+                        looking at its layout. The point of using Lorem Ipsum is
+                        that it has a more-or-less normal distribution of
+                        letters, as opposed to using Content here, content here,
+                        making it look like readable English.
+                      </p>
                     </div>
-                  </div>
-                </div>
-
-                {successMessageVisible && (
+                    {successMessageVisible && (
                   <div className="text-black mt-2 w-[695px] h-[110px] flex ml-5 p-4 items-center bg-[#E9F3E8] rounded-[10px] my-6 mx-3 font-[500] text-[20px]">
                     <Image
                       src={rightImg}
@@ -144,7 +142,7 @@ const PrivateCounselling = () => {
 
                 {successMessageVisible ? null : plan === "One on One" ? (
                   // Render "Complete Your Profile" button
-                  <div className="bg-[#4F9ED9] w-[217px] h-[48px] flex justify-center items-center rounded-md cursor-pointer mb-5">
+                  <div className="bg-[#4F9ED9] w-[217px] 2xl:w-[280px]  2xl:text-[20px] xl:text-[14px] text-[12px] my-5 2xl:h-[48px] xl:h-[35px] h-[30px] flex justify-center items-center rounded-md cursor-pointer mb-5">
                     <Link href={`/pages/user-stepsForm/${studentDetail._id}`}>
                       <button
                         className="bg-[#4F9ED9] text-white rounded-md px-4 py-2"
@@ -156,15 +154,19 @@ const PrivateCounselling = () => {
                   </div>
                 ) : (
                   // Render "Click Here To Subscribe" button
-                  <div className="bg-[#4F9ED9] w-[217px] h-[48px] flex justify-center items-center rounded-md cursor-pointer mb-5">
+                  <div className="bg-[#4F9ED9] w-[217px] 2xl:w-[280px]  2xl:text-[20px] xl:text-[14px] text-[12px] my-5 2xl:h-[48px] xl:h-[35px] h-[30px] flex justify-center items-center rounded-md cursor-pointer mb-5">
                     <button
-                      className="bg-[#4F9ED9] text-white rounded-md px-4  py-2"
+                      className="bg-[#4F9ED9] text-white rounded-md px-4  2xl:py-2"
                       onClick={() => setButtonClicked(true)}
                     >
                       Click Here To Subscribe
                     </button>
                   </div>
                 )}
+                  </div>
+                </div>
+
+                
               </div>
             </div>
           </div>
