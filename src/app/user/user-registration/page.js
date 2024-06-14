@@ -174,13 +174,14 @@ const UserRegistration = () => {
                             onChange={inputHandler}
                             maxLength={32}
                             required
-                            type="text"
+                            pattern="[a-zA-Z]+"
                             id="firstname"
                             name="firstname"
                             className="logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
                             placeholder="First"
                           />
                         </div>
+
                         <div>
                           <label
                             htmlFor="firstname"
@@ -193,7 +194,7 @@ const UserRegistration = () => {
                             onChange={inputHandler}
                             maxLength={32}
                             required
-                            type="text"
+                            pattern="[a-zA-Z]+"
                             id="lastname"
                             name="lastname"
                             className=" logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
@@ -246,7 +247,6 @@ const UserRegistration = () => {
                         value={studentDetails.mobile}
                         onChange={inputHandler}
                         required
-               
                         id="mobile"
                         name="mobile"
                         className="logininp montserrat-otp text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
