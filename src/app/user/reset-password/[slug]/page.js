@@ -48,6 +48,13 @@ const ResetPassword = ({ params }) => {
       <ToastContainer autoClose={1000} />
       <div className="flex mt-20 ">
         <div className="w-1/3 border rounded-lg p-5 mx-auto items-center shadow-black">
+          <div className="flex justify-center 2xl:mb-20 xl:mb-5 lg:mb-3">
+            <Image
+              src={logo}
+              alt="logo"
+              className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px] logologin"
+            />
+          </div>
           <div
             className="flex justify-between items-center border border-[#f3f3f3] rounded-lg bg-white
     2xl:px-5  2xl:h-[50px] 2xl:my-5
@@ -63,13 +70,6 @@ const ResetPassword = ({ params }) => {
             </h2>
           </div>
           <div>
-            <div className="flex justify-center 2xl:mb-20 xl:mb-5 lg:mb-3">
-              <Image
-                src={logo}
-                alt="logo"
-                className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px] logologin"
-              />
-            </div>
             <form
               onSubmit={handleSubmit}
               className=" bg-white border  rounded-lg 2xl:p-2 xl:p-5  lg:p-1 md:p-2 p-1  mx-auto"
