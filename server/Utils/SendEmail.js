@@ -8,6 +8,10 @@ const awsConfig = {
   region: process.env.awsMailRegion,
 };
 
+
+
+
+
 const SES = new AWS.SES(awsConfig);
 const sendEmail = async (options) => {
   try {
@@ -39,6 +43,8 @@ module.exports = sendEmail;
 
 
 // Make a function using Nodemailer to send an email
+
+
 
 
 

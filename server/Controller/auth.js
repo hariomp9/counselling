@@ -624,6 +624,7 @@ const sendEmails = async (options) => {
 exports.forgotPassword = async (req, res, next) => {
   const { email } = req.body;
 
+
   try {
     const user = await User.findOne({ email });
 
@@ -641,6 +642,7 @@ exports.forgotPassword = async (req, res, next) => {
     <!DOCTYPE html>
     <html>
     <head>
+
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -702,6 +704,7 @@ exports.forgotPassword = async (req, res, next) => {
     `;
 
     try {
+      
       await sendEmails({
         to: user.email,
         subject: "Password Reset Request",
