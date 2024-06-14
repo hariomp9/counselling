@@ -28,6 +28,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import config from "@/config";
+// import SuperAdProtectedR from "@/config/superAdProtectedR";
 
 const data = [
   {
@@ -111,7 +112,8 @@ const SuperHome = () => {
       .request(option)
       .then((response) => {
         setGetInterstedUsers(response?.data?.users);
-        setPlan(response?.data?.users[0]?.Status);
+        setPlan(response?.data?.users?.Status);
+        console.log(response?.data?.users, "status");
         console.log(response?.data?.users[0]?.Status);
       })
       .catch((error) => {
@@ -540,7 +542,9 @@ const SuperHome = () => {
                         <th className="craete_tbl_row text-[#A8A8A8]">
                           Student Name
                         </th>
-                        <th className="craete_tbl_row text-[#A8A8A8]">Course</th>
+                        <th className="craete_tbl_row text-[#A8A8A8]">
+                          Course
+                        </th>
                         <th className="craete_tbl_row text-[#A8A8A8]">Email</th>
                         <th className="craete_tbl_row text-[#A8A8A8]">
                           Mobile Number
@@ -790,5 +794,6 @@ const SuperHome = () => {
     </>
   );
 };
-
 export default SuperHome;
+
+// export default SuperAdProtectedR(SuperHome);

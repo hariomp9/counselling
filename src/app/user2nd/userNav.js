@@ -8,7 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
-import { removeToken, rem_AdDetails ,removeUserId } from "@/redux/adminSlice/authSlice";
+import {
+  removeToken,
+  rem_AdDetails,
+  removeUserId,
+} from "@/redux/adminSlice/authSlice";
 import logout from "./assets/logout.svg";
 import key from "./assets/key.svg";
 import user from "./assets/profile-circle.svg";
@@ -36,7 +40,7 @@ const UserNavbar = () => {
   const defaultAUser = async () => {
     const options = {
       method: "GET",
-      url: `http://localhost:4000/api/auth/getUserById/${_id}`,
+      url: `${config.baseURL}/api/auth/getUserById/${_id}`,
       headers: {
         Accept: "application/json",
         authorization: token,
@@ -59,15 +63,12 @@ const UserNavbar = () => {
     // setLoader(true);
 
     try {
-      const res = await axios.get(
-        `${config.baseURL}/api/auth/logout`,
-        {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const res = await axios.get(`${config.baseURL}/api/auth/logout`, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      });
       // console.log(res);
       if (res?.data?.success) {
         toast.success("Logout successfully !");

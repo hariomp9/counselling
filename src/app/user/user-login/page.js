@@ -31,9 +31,11 @@ const UserLogin = () => {
     email: "",
     password: "",
   });
+
   const InputHandler = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
@@ -202,7 +204,7 @@ const UserLogin = () => {
                           </span>
                         </label>
                       </div>
-                      <a href="/user/user-login">
+                      <a href="/user/forgot-password">
                         <p className="montserrat-lable  text-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[12px]">
                           Forget Password?
                         </p>

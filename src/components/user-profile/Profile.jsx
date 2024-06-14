@@ -35,12 +35,12 @@ const Profile = ({ student_id }) => {
   const userids = student_id;
 
   return (
-    <div className="w-[100%] max-w-[1345px] mx-auto py-[40px]">
+    <div className="w-[100%] xl:w-[80%] 2xl:max-w-[1345px] mx-auto">
       <div className="bg-theme_background  p-[20px] flex flex-col justify-center items-center gap-[8px]">
-        <h2 className="text-[30px] font-[700] leading-[36.31px] font-[Inter]">
+        <h2 className="font-[700] 2xl:text-[30px]  2xl:leading-[36.31px] xl:text-[20px] text-[16px]  font-[Inter]">
           Complete your profile
         </h2>
-        <p className="text-[14px] font-[400] leading-[24px] font-[Inter]">
+        <p className="font-[400] font-[Inter] 2xl:text-[14px] 2xl:leading-[24px] xl:text-[12px] text-[10px] ">
           Start completing your profile to get better result and analysis{" "}
         </p>
       </div>
