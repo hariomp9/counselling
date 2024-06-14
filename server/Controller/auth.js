@@ -636,7 +636,7 @@ exports.forgotPassword = async (req, res, next) => {
     console.log("resetToken:", resetToken);
     await user.save();
 
-    const resetUrl = `http://35.154.216.63:4000/user/reset-password/${resetToken}`;
+    const resetUrl = `http://35.154.216.63:3000/user/reset-password/${resetToken}`;
 
     const message = `
     <!DOCTYPE html>
@@ -704,7 +704,7 @@ exports.forgotPassword = async (req, res, next) => {
     `;
 
     try {
-      
+
       await sendEmails({
         to: user.email,
         subject: "Password Reset Request",
