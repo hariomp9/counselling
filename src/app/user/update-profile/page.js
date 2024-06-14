@@ -634,6 +634,9 @@ const UserProfile = () => {
                           placeholder="Enter Password"
                           maxLength={12}
                           onChange={inputHandler}
+                          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}"
+                          title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
+                      
                         />
                       </div>
                       <div className="">
@@ -646,6 +649,9 @@ const UserProfile = () => {
                           placeholder="Enter Password"
                           maxLength={12}
                           onChange={inputHandler}
+                          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}"
+                          title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
+                      
                         />
                       </div>
                     </div>
