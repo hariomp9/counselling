@@ -16,7 +16,7 @@ const ForgotPassword = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/forgotpassword",
+        `${config.baseURL}/api/auth/forgotpassword`,
         { email: email },
         {
           headers: {
@@ -72,12 +72,12 @@ const ForgotPassword = () => {
                       />
                     </div>
                     {messgae && (
-                      <div className="py-2 px-4 rounded text-[green] bg-[#e0f8e0c1] font-medium text-[15px]">
+                      <div className="py-2 px-4 rounded text-[green] bg-[#e0f8e0c1] font-medium 2xl:text-[18px] text-[14px]">
                         {messgae}
                       </div>
                     )}
                     {isError && (
-                      <div className="py-2 px-4 rounded bg-[#e6c8c8e3] text-[red] text-[12px] font-medium mb-2">
+                      <div className="py-2 px-4 rounded bg-[#e6c8c8e3] text-[red] 2xl:text-[18px] text-[14px] font-medium mb-2">
                         {isError}
                       </div>
                     )}

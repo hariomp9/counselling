@@ -13,9 +13,8 @@ body {
   }
 
   .login-input {
-    @apply px-4 py-2 2xl:h-[48px] h-[40px] border border-[#E4E4E4] bg-white rounded-[3px] text-[#262628] text-[15px] font-[400px] leading-normal focus-visible:outline-none placeholder:text-[14px] placeholder:text-[#262628];
+    @apply px-4 py-2 2xl:h-[48px] h-[40px] border border-[#E4E4E4] bg-white rounded-[3px] text-[#262628] text-[16px] font-[400px] leading-normal focus-visible:outline-none placeholder:text-[14px] placeholder:text-[#262628];
   }
-
   .login-inputad {
     @apply px-4 py-2 2xl:h-[70px] xl:h-[45px] lg:h-[40px] border border-[#E4E4E4] bg-white rounded-full text-[#262628] 2xl:text-[18px] xl:text-[14px] lg:text-[10px] text-[10px] font-[400px] leading-normal focus-visible:outline-none placeholder:text-[14px] placeholder:text-[#262628];
   }
