@@ -19,6 +19,7 @@ const VerifyOTP = ({ params }) => {
   const userId = params.slug;
   // console.log(userId);
   const [verifyOTP, setVerifyOTP] = useState("");
+  const [seconds, setSeconds] = useState(120); // Set countdown time in seconds
 
   const inputHandler = (e) => {
     const { value } = e.target;
@@ -31,18 +32,62 @@ const VerifyOTP = ({ params }) => {
     try {
       const response = await axios.post(
         `${config.baseURL}/api/auth/verify-otp`,
-
         {
           userId: userId,
           otp: verifyOTP,
         }
       );
       toast.success("Verification Successful!");
-      // router.push("/user/login-lastStep");
       router.push(`/user/login-lastStep/${userId}`);
       console.log("Verification Response:", response.data);
     } catch (error) {
       toast.error(error.response.data.message);
+    }
+  };
+
+  useEffect(() => {
+    if (seconds > 0) {
+      const timer = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [seconds]);
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+  };
+
+  const handleSendOTP = async (userId) => {
+    try {
+      const response = await axios.post(
+        `${config.baseURL}/api/auth/generate-otp`,
+        { userId: userId }
+      );
+      const otpCode = response.data.otpCode;
+      console.log(otpCode, "otpCode"); // Log the OTP code directly
+
+      setOtpM(otpCode);
+
+      handleSendMOTP(otpCode);
+    } catch (error) {
+      console.error(error);
+      console.log("Error occurred while sending OTP");
+    }
+  };
+
+  const handleSendMOTP = async (otpCode) => {
+    try {
+      const response = await axios.get(
+        `https://2factor.in/API/R1/?module=TRANS_SMS&apikey=3eed462e-e8dc-11ed-addf-0200cd936042&to=${number}&from=ADNETC&templatename=an24_otp&var1=${otpCode}`
+      );
+      console.log(response?.data, "m");
+    } catch (error) {
+      console.error(error);
+      console.log("Error occurred while sending OTP");
     }
   };
 
@@ -79,46 +124,12 @@ const VerifyOTP = ({ params }) => {
                       </div>
                     </div>
                     <div className="flex justify-center my-1">
-                      <span className="countdown font-mono 2xl:text-[16px] text-[12px] text-[#0071BC]">
-                        <span style={{ "--value": 1 }}></span>:
-                        <span style={{ "--value": 48 }}></span>
+                      <span className="countdown font-mono 2xl:text-[25px] text-[16px] text-[#0071BC]">
+                        {formatTime(seconds)}
                       </span>
                     </div>
                   </div>
                   <form className="lg:mt-5 2xl:mt-10">
-                    {/* <div className="xl:my-3 2xl:my-5">
-                    <label
-                      htmlFor="email"
-                      className="montserrat-lable block text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px] "
-                    >
-                      Enter your phone number
-                    </label>
-                    <input
-                      // value={studentDetails.firstname}
-                      // onChange={inputHandler}
-                      maxLength={10}
-                      required
-                      type="number"
-                      id="number"
-                      name="number"
-                      className=" montserrat-otp  text-[#979797] border rounded-full lg:px-6 lg:py-4 w-full 2xl:h-[70px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
-                      placeholder="Number"
-                    />
-                    <div className="flex justify-end xl:my-1">
-                      <button onClick={handleSendOTP}>
-                        <p className="montserrat-otp  text-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[12px]">
-                          Get OTP
-                        </p>
-                      </button>{" "}
-                    </div>
-                  </div> */}
-                    {/* <label
-                      htmlFor="email"
-                      className="montserrat-lable block text-[#323232] 2xl:text-[18px] xl:text-[14px] text-[12px] "
-                    >
-                      Enter 6 digit number
-                    </label> */}
-
                     <input
                       value={verifyOTP}
                       onChange={inputHandler}
@@ -142,6 +153,8 @@ const VerifyOTP = ({ params }) => {
                     <button
                       className="logininp text-[#0071BC] inter font-[700] 2xl:text-[20px] xl:text-[14px] lg:text-[10px] sm:text-[] text-[]
    2xl:leading-[24.5px] xl:leading-[20px] lg:leading-[16px] sm:leading-[] leading-[]"
+                      onClick={() => handleSendOTP()} // Reset the timer on resend
+                      disabled={seconds > 0} // Disable the button until the timer runs out
                     >
                       Resend OTP
                     </button>
