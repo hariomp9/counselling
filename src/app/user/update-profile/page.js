@@ -433,7 +433,7 @@ const UserProfile = () => {
                           className="userUinput"
                           placeholder="Enter Name"
                           required
-                          maxLength={200}
+                          maxLength={32}
                           onChange={inputHandler}
                         />
                       </div>
@@ -450,7 +450,7 @@ const UserProfile = () => {
                           className="userUinput"
                           placeholder="Enter Name"
                           required
-                          maxLength={200}
+                          maxLength={32}
                           onChange={inputHandler}
                         />
                       </div>
@@ -507,6 +507,7 @@ const UserProfile = () => {
                           name="Gender"
                           className="userUinput"
                           onChange={inputHandler}
+
                         >
                           <option value="">{studentDetail?.Gender}</option>
                           <option value="Male">Male</option>

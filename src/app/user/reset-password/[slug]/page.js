@@ -4,7 +4,9 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import config from "@/config";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import Image from "next/image";
+import logo from "../../../../public/images/logo.svg";
 
 const ResetPassword = ({ params }) => {
   const router = useRouter();
@@ -27,7 +29,7 @@ const ResetPassword = ({ params }) => {
         }
       );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         setLoading(false);
         router.push("/user/user-login");
         toast.success("Password Update Successfully");
@@ -43,6 +45,7 @@ const ResetPassword = ({ params }) => {
 
   return (
     <>
+      <ToastContainer autoClose={1000} />
       <div className="flex mt-20 ">
         <div className="w-1/3 border rounded-lg p-5 mx-auto items-center shadow-black">
           <div
@@ -60,6 +63,13 @@ const ResetPassword = ({ params }) => {
             </h2>
           </div>
           <div>
+            <div className="flex justify-center 2xl:mb-20 xl:mb-5 lg:mb-3">
+              <Image
+                src={logo}
+                alt="logo"
+                className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px] logologin"
+              />
+            </div>
             <form
               onSubmit={handleSubmit}
               className=" bg-white border  rounded-lg 2xl:p-2 xl:p-5  lg:p-1 md:p-2 p-1  mx-auto"
@@ -76,6 +86,7 @@ const ResetPassword = ({ params }) => {
                   onChange={(e) => setPassword(e.target.value)}
                   className="login-input w-full mt-2 custom-input h-[35px] lg:h-[40px]  xl:h-[50px] 2xl:h-[60px]"
                   required
+                  placeholder="Enter New Password"
                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}"
                   title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
                 />

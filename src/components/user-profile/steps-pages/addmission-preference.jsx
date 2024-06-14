@@ -399,6 +399,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                   className="pre_input"
                   placeholder="Enter detail"
                   name="relationshipWithSponsor"
+                  maxLength={64}
                   value={
                     formData.NRI_Quta_Prefernce[0]?.relationshipWithSponsor ||
                     studentDetail?.relationshipWithSponsor ||
@@ -414,6 +415,8 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                   className="pre_input"
                   placeholder="Enter detail"
                   name="sponsorsCountry"
+                  maxLength={64}
+
                   // value={formData.NRI_Quta_Prefernce[0].sponsorsCountry || ""}
                   value={
                     formData.NRI_Quta_Prefernce[0]?.sponsorsCountry ||
@@ -430,6 +433,8 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                 <input
                   type="text"
                   className="pre_input"
+                  maxLength={64}
+
                   placeholder="Enter detail"
                   name="sponsorsCountryState"
                   // value={

@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import config from "@/config";
 import { ToastContainer } from "react-toastify";
-import Link from "next/link";
+import Image from "next/image";
+import logo from "../../../../public/images/logo.svg";
+
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -51,6 +53,13 @@ const ForgotPassword = () => {
           <div className="md:px-[50px] w-full mx-auto">
             <div className="relative flex flex-col 2xl:gap-x-20 xl:gap-x-10 gap-x-7 min-h-screen justify-center lg:shadow-none   lg:flex-row space-y-8 md:space-y-0 w-[100%] px-[10px]bg-white lg:px-[40px] py-[20px] md:py-[40px] ">
               <div className="w-[90%] sm:w-[60%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%] mx-auto">
+              <div className="flex justify-center 2xl:mb-20 xl:mb-5 lg:mb-3">
+                    <Image
+                      src={logo}
+                      alt="logo"
+                      className=" 2xl:w-[218px] 2xl:h-[73px] xl:w-[158px] xl:h-[54px] lg:w-[128px] lg:h-[40px] w-[120px] logologin"
+                    />
+                  </div>
                 <form action="" className="mx-auto" onSubmit={handleSubmit}>
                   <div className="flex flex-col gap-4 justify-center p-4 lg:p-8 md:max-w-[80%] lg:w-full lg:max-w-[100%] mx-auto ">
                     <div className="text-left ">

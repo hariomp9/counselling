@@ -67,6 +67,7 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               name="FullName"
               onChange={handleChange}
               value={formData.NEET_Details.FullName}
+              maxLength={64}
             />
           </div>
           <div className="col-span-1 profile_input_box">
@@ -76,27 +77,28 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               placeholder="Enter Mobile Number"
               name="MobileNumber"
               onChange={handleChange}
+              maxLength={15}
               value={formData.NEET_Details.MobileNumber}
-              // value={
-              //   formData.NEET_Details.MobileNumber
-              //     ? formData.NEET_Details.MobileNumber
-              //     : studentDetail.MobileNumber
-              // }
+              onInput={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+                e.target.value = value.slice(0, 15);
+                handleChange(e);
+              }}
             />
           </div>
           <div className="col-span-1 profile_input_box">
             <label> Whatsapp Number</label>
             <input
-              type="text"
               placeholder="Enter Whatsapp Number"
               name="WhatsappNumber"
+              maxLength={15}
               onChange={handleChange}
               value={formData.NEET_Details.WhatsappNumber}
-              // value={
-              //   formData.NEET_Details.WhatsappNumber
-              //     ? formData.NEET_Details.WhatsappNumber
-              //     : studentDetail.WhatsappNumber
-              // }
+              onInput={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+                e.target.value = value.slice(0, 15);
+                handleChange(e);
+              }}
             />
           </div>
           <div className="col-span-1 profile_input_box">
@@ -107,11 +109,6 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               name="NEET_RegisterNumber"
               onChange={handleChange}
               value={formData.NEET_Details.NEET_RegisterNumber}
-              // value={
-              //   formData.NEET_Details.NEET_RegisterNumber
-              //     ? formData.NEET_Details.NEET_RegisterNumber
-              //     : studentDetail.NEET_RegisterNumber
-              // }
             />
           </div>
           <div className="col-span-1 profile_input_box">
