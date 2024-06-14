@@ -82,6 +82,8 @@ const SuperHome = () => {
   const { token } = useSelector((state) => state?.auth);
   const [plan, setPlan] = useState("Pending");
   const [studentDetail, setStudentDetail] = useState([]);
+  // const statusList = plan.map(user => user.Status);
+  // console.log(statusList , "Status")
 
   function openModal(id) {
     setUserID(id);
@@ -112,9 +114,8 @@ const SuperHome = () => {
       .request(option)
       .then((response) => {
         setGetInterstedUsers(response?.data?.users);
-        setPlan(response?.data?.users?.Status);
-        console.log(response?.data?.users, "status");
-        console.log(response?.data?.users[0]?.Status);
+        setPlan(response?.data?.users[0]?.Status);
+        console.log(response?.data?.users[0]?.Status, "status");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -174,9 +175,9 @@ const SuperHome = () => {
       );
 
       if (response.status === 200) {
-        refreshData();
         toast.success("Update successfully!");
         closeModall();
+        refreshData();
       } else {
         console.log("Server error");
         toast.error(error?.response?.data?.message || "Server error");
