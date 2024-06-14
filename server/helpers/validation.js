@@ -63,6 +63,8 @@ const coursePreferenceSchema = joi.array().items(
     })
 );
 
+
+
 // Validation middleware for domicileStateCategory and OtherStatePreferences
 exports.validateUser = async (req, res, next) => {
     try {

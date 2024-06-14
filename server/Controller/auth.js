@@ -13,6 +13,7 @@ const jwt = require("jsonwebtoken");
 const uploadOnS3 = require("../Utils/uploadImage");
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
+const{EmailSend} =require('../Utils/SendEmail')
 require("dotenv").config({ path: "./.env" });
 
 exports.uploadImage = async (req, res, next) => {
@@ -591,6 +592,35 @@ exports.verifyOtp = async (req, res) => {
 }
 
 
+
+// Email sending function
+const sendEmails = async (options) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.CLIENT_EMAIL,
+      pass: process.env.CLIENT_EMAIL_PASSWORD,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.CLIENT_EMAIL,
+    to: options.to,
+    subject: options.subject,
+    html: options.text,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error('Error sending email:', error);
+    throw error;
+  }
+};
+
 exports.forgotPassword = async (req, res, next) => {
   const { email } = req.body;
 
@@ -600,80 +630,84 @@ exports.forgotPassword = async (req, res, next) => {
     if (!user) {
       return res.status(401).json(`${email} this email is not registered`);
     }
+
     const resetToken = user.getResetPasswordToken();
+    console.log("resetToken:", resetToken);
     await user.save();
 
-    const resetUrl = `https://counselling-backend.vercel.app/auth/reset-password/${resetToken}`;
+    const resetUrl = `http://35.154.216.63:4000/user/reset-password/${resetToken}`;
 
     const message = `
     <!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-        }
-        .header {
-            background-color: #f5f5f5;
-            padding: 10px;
-            border-radius: 5px 5px 0 0;
-        }
-        .content {
-            padding: 20px;
-        }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white !important;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .footer {
-            background-color: #f5f5f5;
-            padding: 10px;
-            border-top: 1px solid #e0e0e0;
-            border-radius: 0 0 5px 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h2>Hello ${user.firstname},</h2>
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid #e0e0e0;
+                border-radius: 5px;
+            }
+            .header {
+                background-color: #f5f5f5;
+                padding: 10px;
+                border-radius: 5px 5px 0 0;
+            }
+            .content {
+                padding: 20px;
+            }
+            .button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white !important;
+                text-decoration: none;
+                border-radius: 5px;
+            }
+            .footer {
+                background-color: #f5f5f5;
+                padding: 10px;
+                border-top: 1px solid #e0e0e0;
+                border-radius: 0 0 5px 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h2>Hello ${user.firstname},</h2>
+            </div>
+            <div class="content">
+                <p>We have received a request to reset your password for your account on <strong>Consulling</strong>. If you did not request this change, you can ignore this email and your password will not be changed.</p>
+                
+                <p>To reset your password, please click on the following link and follow the instructions:</p>
+                
+                <p><a class="button" href="${resetUrl}">Reset Password</a></p>
+                
+                <p>This link will expire in <strong>15 minutes</strong> for security reasons. If you need to reset your password after this time, please make another request.</p>
+            </div>
+            <div class="footer">
+                <h3>Thank you,</h3>
+                <h3>Consulling Team </h3>
+            </div>
         </div>
-        <div class="content">
-            <p>We have received a request to reset your password for your account on <strong>Event Panel</strong>. If you did not request this change, you can ignore this email and your password will not be changed.</p>
-            
-            <p>To reset your password, please click on the following link and follow the instructions:</p>
-            
-            <p><a class="button" href="${resetUrl}">Reset Password</a></p>
-            
-            <p>This link will expire in <strong>15 minutes</strong> for security reasons. If you need to reset your password after this time, please make another request.</p>
-        </div>
-        <div class="footer">
-            <h3>Thank you,</h3>
-            <h3>Event Team </h3>
-        </div>
-    </div>
-</body>
-</html>
+    </body>
+    </html>
     `;
+
     try {
-      await sendEmail({
+      await sendEmails({
         to: user.email,
-        subject: "Account Password Reset Link",
+        subject: "Password Reset Request",
         text: message,
       });
+
       res.status(200).json({
         success: true,
         data: "Password Reset Email Sent Successfully",
@@ -684,14 +718,13 @@ exports.forgotPassword = async (req, res, next) => {
 
       await user.save();
 
-      return res
-        .status(500)
-        .json({ success: false, data: "Email could not be sent" });
+      return res.status(500).json({ success: false, data: "Email could not be sent" });
     }
   } catch (error) {
     next(error);
   }
 };
+
 
 exports.resetPassword = async (req, res, next) => {
   try {
