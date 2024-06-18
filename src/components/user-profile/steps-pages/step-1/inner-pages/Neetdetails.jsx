@@ -106,6 +106,7 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               type="text"
               placeholder="Enter NEET Register Number"
               name="NEET_RegisterNumber"
+              maxLength={30}
               onChange={handleChange}
               value={formData?.NEET_Details?.NEET_RegisterNumber}
             />
@@ -118,6 +119,8 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               name="RollNo"
               onChange={handleChange}
               value={formData?.NEET_Details?.RollNo}
+              maxLength={30}
+
               // value={
               //   formData.NEET_Details.RollNo
               //     ? formData.NEET_Details.RollNo
@@ -130,6 +133,7 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
             <input
               type="text"
               placeholder="Enter Marks"
+              maxLength={10}
               name="Marks"
               onChange={handleChange}
               value={formData?.NEET_Details?.Marks}
@@ -141,6 +145,8 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               type="text"
               placeholder="Enter All India Rank"
               name="AllIndiaRank"
+              maxLength={15}
+
               onChange={handleChange}
               value={formData?.NEET_Details?.AllIndiaRank}
             />
@@ -151,6 +157,8 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               type="text"
               placeholder="Enter State Rank"
               name="StateRank"
+              maxLength={15}
+
               onChange={handleChange}
               value={formData?.NEET_Details?.StateRank}
             />
