@@ -395,15 +395,18 @@ const CreateUserForm = () => {
                       <div>
                         <label className="createUser-label">Phone Number</label>
                         <input
-                          type="number"
                           className="createUser-input2"
                           placeholder="000 000 0000"
                           name="mobile"
                           value={studentDetails.mobile}
                           onChange={inputHandler}
-                          maxLength={10}
                           pattern="0-9"
                           required
+                          onInput={(e) => {
+                            const value = e.target.value.replace(/\D/g, "");
+                            e.target.value = value.slice(0, 15);
+                            inputHandler(e);
+                          }}
                         />
                       </div>
                     </div>
@@ -413,15 +416,17 @@ const CreateUserForm = () => {
                           Whatsapp Number
                         </label>
                         <input
-                          type="number"
                           className="createUser-input2"
                           placeholder="000 000 0000"
                           name="whatsappMobile"
                           value={studentDetails.whatsappMobile}
                           onChange={inputHandler}
-                          maxLength={10}
-                          pattern="0-9"
                           required
+                          onInput={(e) => {
+                            const value = e.target.value.replace(/\D/g, "");
+                            e.target.value = value.slice(0, 15);
+                            inputHandler(e);
+                          }}
                         />
                       </div>
                     </div>

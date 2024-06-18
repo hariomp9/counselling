@@ -56,7 +56,7 @@ const ResetPassword = ({ params }) => {
             />
           </div>
           <div
-            className="flex justify-between items-center border border-[#f3f3f3] rounded-lg bg-white
+            className="flex justify-between items-center rounded-lg bg-white
     2xl:px-5  2xl:h-[50px] 2xl:my-5
     xl:px-4  xl:h-[40px] xl:my-2
     lg:px-3  lg:h-[35px] lg:my-2

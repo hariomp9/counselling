@@ -119,17 +119,17 @@ const UserProfile = () => {
       );
 
       if (response.status === 200) {
-        // refreshData();
         toast.success("Update successfully!");
-        // router.push("/user2nd/profile");
+        router.push("/user/update-profile")
+        // setStudentDetail({
+        //   newPassword: "",
+        //   confirmPassword: "",
+        // });
       } else {
-        // console.log("Server error");
         toast.error(error?.response?.data?.message || "Server error");
-        // console.log(error?.response?.data?.message, "hey");
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Server error");
-      // console.log(error?.response, "hey");
     }
   };
 
@@ -507,7 +507,6 @@ const UserProfile = () => {
                           name="Gender"
                           className="userUinput"
                           onChange={inputHandler}
-
                         >
                           <option value="">{studentDetail?.Gender}</option>
                           <option value="Male">Male</option>
@@ -637,7 +636,6 @@ const UserProfile = () => {
                           onChange={inputHandler}
                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}"
                           title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
-                      
                         />
                       </div>
                       <div className="">
@@ -652,7 +650,6 @@ const UserProfile = () => {
                           onChange={inputHandler}
                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}"
                           title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
-                      
                         />
                       </div>
                     </div>
