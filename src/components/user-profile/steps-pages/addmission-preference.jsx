@@ -416,7 +416,6 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                   placeholder="Enter detail"
                   name="sponsorsCountry"
                   maxLength={64}
-
                   // value={formData.NRI_Quta_Prefernce[0].sponsorsCountry || ""}
                   value={
                     formData.NRI_Quta_Prefernce[0]?.sponsorsCountry ||
@@ -434,7 +433,6 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                   type="text"
                   className="pre_input"
                   maxLength={64}
-
                   placeholder="Enter detail"
                   name="sponsorsCountryState"
                   // value={
