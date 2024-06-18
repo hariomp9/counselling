@@ -23,9 +23,9 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
     // Do something with the updated form data
     setNeet(formData);
   };
-
+  
   console.log(onFormDataChange, "dataa");
-
+  
   const [categories, setCategories] = useState([]);
   const [states, setStates] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -44,6 +44,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
     state_id: "",
     category_id: "",
   });
+  const [allIndiaCategory, setAllIndiaCategory] = useState("");
 
   const handleSelectState = (state) => {
     setSelectedState(state);
@@ -71,7 +72,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
     const payload = {
       ...data,
       ...getNeet,
-      All_India_Category_id: selectedCategory,
+      All_India_Category_id: allIndiaCategory,
       domicileStateCategory: [domicileStateCategory],
       ParellelReservations: [parallelReservation],
       MinorityReservations: minReservation,
@@ -121,7 +122,6 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
 
   const [studentDetail, setStudentDetail] = useState({});
   const [domicileStateCategoryy, setDomicileStateCategory] = useState({});
-  const [allIndiaCategory, setAllIndiaCategory] = useState("");
   const [parallelReservtion, setParallelReservation] = useState({});
   const [minorityReservtion, setMinorityReservation] = useState({});
   console.log(minorityReservtion, "user");
@@ -169,7 +169,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
         <AllIndiaCategory
           categoryValues={categories}
-          onSelectCategory={setSelectedCategory}
+          onSelectCategory={setAllIndiaCategory}
           allIndiaCategory={allIndiaCategory}
         />
 

@@ -10,6 +10,9 @@ const DomicileStateCategory = ({
   handleDomicileSt,
   domicileStateCategoryy,
 }) => {
+  console.log("test===> ", domicileStateCategoryy?.category_id?.Select_category
+  );
+  
   const [selectedCategory, setSelectedCategory] = useState(null);
   const handleState = (e) => {
     onSelectState(e.target.value);
