@@ -633,7 +633,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
               <div className=" relative ">
                 <button
                   onClick={handleAddField}
-                  className="gap-2 absolute inter font-[700] bottom-0 2xl:mb-[17px] xl:mb-[7px] lg:mb-[4px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
+                  className="gap-2 absolute inter font-[700] bottom-0 2xl:mb-[17px] xl:mb-[17px] lg:mb-[15px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
                 >
                   Add State
                 </button>
