@@ -13,7 +13,7 @@ const ParallelReservation = ({
   );
   const handleRadioChange = (e) => {
     setSelectedValue(e.target.value);
-    InputHandler(e.target.name, e.target.value);
+    InputHandler(e.target.name);
   };
 
   const handleCategoryClick = (name, category) => {

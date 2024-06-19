@@ -8,7 +8,7 @@ import config from "@/config";
 
 const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
-  const [getPreferences, setPreferences] = useState([]);
+  const [getPreferences, setPreferenc] = useState([]);
   const [getAllStates, setGetAllStates] = useState([]);
   const [selectedRadio, setSelectedRadio] = useState("");
   const [preference1, setPreference1] = useState("");
@@ -23,26 +23,29 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
     { id: 1, name: "Government College" },
     { id: 2, name: "Private/Management" },
   ];
-  const [preferencesss, setPreferencess] = useState([
+  const [preferencesss, setPreferences] = useState([
     { id: 1, value: "" },
     { id: 2, value: "" },
   ]);
 
   const handleAddField = () => {
     const newId = preferencesss.length + 1;
-    setPreferencess([...preferencesss, { id: newId, value: "" }]);
+    setPreferences([...preferencesss, { id: newId, value: "" }]);
   };
 
   const handleStateChange = (event, index) => {
     const updatedPreferences = [...preferencesss];
     updatedPreferences[index].stateId = event.target.value;
-    updatedPreferences[index].stateName = getAllStates.find(state => state._id === event.target.value)?.name || ''; // Get state name for display
+    updatedPreferences[index].stateName =
+      getAllStates.find((state) => state._id === event.target.value)?.name ||
+      ""; // Get state name for display
 
     setPreferences(updatedPreferences);
 
     // Update formData.OtherStatePreferences.Preference_Fields on state change
     const updatedFormData = { ...formData };
-    updatedFormData.OtherStatePreferences[0].Preference_Fields = updatedPreferences.map(pref => pref.stateId);
+    updatedFormData.OtherStatePreferences[0].Preference_Fields =
+      updatedPreferences.map((pref) => pref.stateId);
     setFormData(updatedFormData);
   };
 
@@ -79,7 +82,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
         const response = await axios.get(
           `${config.baseURL}/api/course_preference/coursepreferences`
         );
-        setPreferences(response.data.coursePreferences);
+        setPreferenc(response.data.coursePreferences);
       } catch (error) {
         console.error("Error fetching states:", error);
       }
@@ -146,13 +149,13 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
         ...formData,
         Course_Preference: isSelected
           ? formData.Course_Preference.filter(
-            (pref) => pref._id !== category._id
-          )
+              (pref) => pref._id !== category._id
+            )
           : [...formData.Course_Preference, category._id],
         Admissions_Preferences: selectedColleges,
         OtherStatePreferences: [
           {
-            select_options: selectedRadio,
+            select_options: 'Yes',
             Preference_Fields: preState,
           },
         ],
@@ -183,18 +186,45 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   //     ],
   //   }));
   // };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     NRI_Quta_Prefernce: [
+  //       {
+  //         ...prevFormData.NRI_Quta_Prefernce[0],
+  //         [name]: value,
+  //       },
+  //     ],
+  //     AnnualMedicalCourseBudget: value,
+  //     Admissions_Preferences: selectedColleges,
+  //     OtherStatePreferences: [
+  //       {
+  //         ...prevFormData.OtherStatePreferences[0],
+  //         select_options: "",
+  //         Preference_Fields: [],
+  //       },
+  //     ],
+  //   }));
+  // };
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       NRI_Quta_Prefernce: [
         {
           ...prevFormData.NRI_Quta_Prefernce[0],
-          [name]: value,
+          [name]:
+            value ||
+            prevFormData.NRI_Quta_Prefernce[0][name] ||
+            studentDetail[name],
         },
       ],
-      AnnualMedicalCourseBudget: value,
-      Admissions_Preferences: selectedColleges,
+      AnnualMedicalCourseBudget:
+        value || prevFormData.AnnualMedicalCourseBudget,
+      Admissions_Preferences:
+        selectedColleges || prevFormData.Admissions_Preferences,
       OtherStatePreferences: [
         {
           ...prevFormData.OtherStatePreferences[0],
@@ -256,6 +286,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   };
 
   const [studentDetail, setStudentDetail] = useState({});
+  console.log(studentDetail, "studentDetailstudentDetail");
   const [preferenc1, setPreferenc1] = useState({});
   const [preferenc2, setPreferenc2] = useState({});
   const [feesBudget, setfeesBudget] = useState("");
@@ -280,25 +311,31 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
       .request(options)
       .then((response) => {
         // console.log("response",response?.data?.user?.OtherStatePreferences[0]?.Preference_Fields);
-        
+
         setStudentDetail(response?.data?.user?.NRI_Quta_Prefernce[0]);
         setfeesBudget(response?.data?.user?.AnnualMedicalCourseBudget);
         setCoursePreferences(response?.data?.user?.Course_Preference);
         setAdmissionPreference(response?.data?.user?.Admissions_Preferences);
 
-        const existingPrefs = response.data?.user?.OtherStatePreferences[0]?.Preference_Fields || [];
-        setPreferencess(existingPrefs?.map((stateId, index) => ({
-          id: index + 1,
-          stateId: stateId?._id,
-          stateName: getAllStates?.find(state => state?._id === stateId)?.name || stateId?.name,
-        })));
+        const existingPrefs =
+          response.data?.user?.OtherStatePreferences[0]?.Preference_Fields ||
+          [];
+        setPreferences(
+          existingPrefs?.map((stateId, index) => ({
+            id: index + 1,
+            stateId: stateId?._id,
+            stateName:
+              getAllStates?.find((state) => state?._id === stateId)?.name ||
+              stateId?.name,
+          }))
+        );
       })
       .catch((error) => {
         console.log(error, "Error");
-      }); 
-    };
-    console.log("ssssss",preferencesss)
-    useEffect(() => {
+      });
+  };
+  console.log("ssssss", preferencesss);
+  useEffect(() => {
     const setCoursePreferences = () => {
       const preferences = [
         { _id: "662a9e5677db7c5881c4c72c", course_Preference: "MBBS", __v: 0 },
@@ -347,10 +384,11 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                 <div
                   key={index}
                   className={`flex gap-[3px] items-center rounded-[5px] 2xl:px-[16px] 2xl:h-[48px] 2xl:w-[210px] 2xl:text-[16px] xl:px-[10px] xl:h-[35px]  xl:text-[12px] justify-center cursor-pointer
-        ${selectedCategories.includes(category._id)
-                      ? "border-1px border-[#D9D9D9] bg-theme_primary"
-                      : "border-1px border-[#D9D9D9] bg-[#FFFFFF]"
-                    }
+        ${
+          selectedCategories.includes(category._id)
+            ? "border-1px border-[#D9D9D9] bg-theme_primary"
+            : "border-1px border-[#D9D9D9] bg-[#FFFFFF]"
+        }
       `}
                   onClick={() => handleCategoryClick(category)}
                 >
@@ -371,10 +409,11 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                   <label
                     htmlFor={category._id}
                     className={`2xl:text-[15px] font-[400] font-inter 2xl:leading-[18.15px] whitespace-nowrap
-          ${selectedCategories.includes(category._id)
-                        ? "text-[#ffffff]"
-                        : "text-[#747474]"
-                      }
+          ${
+            selectedCategories.includes(category._id)
+              ? "text-[#ffffff]"
+              : "text-[#747474]"
+          }
         `}
                   >
                     {category.course_Preference}
@@ -462,8 +501,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                   maxLength={64}
                   value={
                     formData.NRI_Quta_Prefernce[0]?.relationshipWithSponsor ||
-                    studentDetail?.relationshipWithSponsor ||
-                    ""
+                    studentDetail?.relationshipWithSponsor
                   }
                   onChange={handleChange}
                 />
@@ -541,23 +579,42 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
 
             <div className="flex gap-[35px] mb-[30px]">
               <div className=" ">
-
-                {preferencesss.map((pref, index) => (
-                  <div
-                    key={pref.id}
-                    className="flex items-center gap-[45px] my-2"
-                  >
-                    <label className="pre_input_lable2">
-                      Preference No. {pref.id}
-                    </label>
+                {preferencesss.length > 0 ? (
+                  preferencesss.map((pref, index) => (
+                    <div
+                      key={pref.id}
+                      className="flex items-center gap-[45px] my-2"
+                    >
+                      <label className="pre_input_lable2">
+                        Preference No. {pref.id}
+                      </label>
+                      <div>
+                        <select
+                          id={`states${pref.id}`}
+                          className="pre_input"
+                          value={pref.stateId}
+                          onChange={(event) => handleStateChange(event, index)}
+                        >
+                          <option value={pref.value}>Select State</option>
+                          {getAllStates.map((item) => (
+                            <option
+                              key={item._id}
+                              value={item._id}
+                              className="pre_input"
+                            >
+                              {item.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex items-center gap-[45px] my-2">
+                    <label className="pre_input_lable2">Preference No. 1</label>
                     <div>
-                      <select
-                        id={`states${pref.id}`}
-                        className="pre_input"
-                        value={pref.stateId}
-                        onChange={(event) => handleStateChange(event, index)}
-                      >
-                        <option value={pref.value}>Select State</option>
+                      <select id="statesDefault" className="pre_input">
+                        <option value="">Select State</option>
                         {getAllStates.map((item) => (
                           <option
                             key={item._id}
@@ -570,12 +627,13 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                       </select>
                     </div>
                   </div>
-                ))}
+                )}
               </div>
+
               <div className=" relative ">
                 <button
                   onClick={handleAddField}
-                  className="flex justify-center items-center gap-2 absolute inter font-[700] bottom-0 2xl:my-[10px] xl:my-[8px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px] lg:my-[4px]"
+                  className="gap-2 absolute inter font-[700] bottom-0 2xl:mb-[17px] xl:mb-[7px] lg:mb-[4px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
                 >
                   Add State
                 </button>
