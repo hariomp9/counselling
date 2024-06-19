@@ -32,7 +32,47 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
     const newId = preferencesss.length + 1;
     setPreferencess([...preferencesss, { id: newId, value: "" }]);
   };
+
+  const handleStateChange = (event, index) => {
+    const updatedPreferences = [...preferencesss];
+    updatedPreferences[index].stateId = event.target.value;
+    updatedPreferences[index].stateName = getAllStates.find(state => state._id === event.target.value)?.name || ''; // Get state name for display
+
+    setPreferences(updatedPreferences);
+
+    // Update formData.OtherStatePreferences.Preference_Fields on state change
+    const updatedFormData = { ...formData };
+    updatedFormData.OtherStatePreferences[0].Preference_Fields = updatedPreferences.map(pref => pref.stateId);
+    setFormData(updatedFormData);
+  };
+
+  // const handlePreferenceChange = (event) => {
+  //   console.log("events are", event);
+
+  //   let newIds = [];
+
+  //   if (typeof event === "string") {
+  //     newIds.push(event);
+  //   } else if (typeof event === "object" && !Array.isArray(event)) {
+  //     for (let key in event) {
+  //       if (Array.isArray(event[key])) {
+  //         event[key].forEach((item) => {
+  //           if (item._id) {
+  //             newIds.push(item._id);
+  //           }
+  //         });
+  //       }
+  //     }
+  //   } else {
+  //     console.error("Unexpected event format:", event);
+  //     return;
+  //   }
+  //   const updatedState = [...preState, ...newIds];
+  //   setPreState(updatedState);
+  // };
+
   const [selectedColleges, setSelectedColleges] = useState([]);
+
   useEffect(() => {
     const fetchStates = async () => {
       try {
@@ -69,31 +109,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
     AnnualMedicalCourseBudget: "",
     Admissions_Preferences: [],
   });
-  console.log(preState, "preState===============================");
-  const handlePreferenceChange = (event) => {
-    console.log("events are", event);
-
-    let newIds = [];
-
-    if (typeof event === "string") {
-      newIds.push(event);
-    } else if (typeof event === "object" && !Array.isArray(event)) {
-      for (let key in event) {
-        if (Array.isArray(event[key])) {
-          event[key].forEach((item) => {
-            if (item._id) {
-              newIds.push(item._id);
-            }
-          });
-        }
-      }
-    } else {
-      console.error("Unexpected event format:", event);
-      return;
-    }
-    const updatedState = [...preState, ...newIds];
-    setPreState(updatedState);
-  };
+  // console.log(preState, "preState===============================");
 
   useEffect(() => {
     if (selectedColleges.length > 0) {
@@ -130,8 +146,8 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
         ...formData,
         Course_Preference: isSelected
           ? formData.Course_Preference.filter(
-              (pref) => pref._id !== category._id
-            )
+            (pref) => pref._id !== category._id
+          )
           : [...formData.Course_Preference, category._id],
         Admissions_Preferences: selectedColleges,
         OtherStatePreferences: [
@@ -182,8 +198,8 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
       OtherStatePreferences: [
         {
           ...prevFormData.OtherStatePreferences[0],
-          select_options: selectedRadio,
-          Preference_Fields: preState,
+          select_options: "",
+          Preference_Fields: [],
         },
       ],
     }));
@@ -194,6 +210,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
       ...statusinfo,
       ...formData,
     };
+    console.log("spa==", mergedData);
     try {
       const response = await axios.put(
         `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
@@ -248,7 +265,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
 
   useEffect(() => {
     defaultAUser();
-  }, []);
+  }, [userids, token]);
 
   const defaultAUser = async () => {
     const options = {
@@ -262,16 +279,26 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
     axios
       .request(options)
       .then((response) => {
+        // console.log("response",response?.data?.user?.OtherStatePreferences[0]?.Preference_Fields);
+        
         setStudentDetail(response?.data?.user?.NRI_Quta_Prefernce[0]);
         setfeesBudget(response?.data?.user?.AnnualMedicalCourseBudget);
         setCoursePreferences(response?.data?.user?.Course_Preference);
         setAdmissionPreference(response?.data?.user?.Admissions_Preferences);
+
+        const existingPrefs = response.data?.user?.OtherStatePreferences[0]?.Preference_Fields || [];
+        setPreferencess(existingPrefs?.map((stateId, index) => ({
+          id: index + 1,
+          stateId: stateId?._id,
+          stateName: getAllStates?.find(state => state?._id === stateId)?.name || stateId?.name,
+        })));
       })
       .catch((error) => {
         console.log(error, "Error");
-      });
-  };
-  useEffect(() => {
+      }); 
+    };
+    console.log("ssssss",preferencesss)
+    useEffect(() => {
     const setCoursePreferences = () => {
       const preferences = [
         { _id: "662a9e5677db7c5881c4c72c", course_Preference: "MBBS", __v: 0 },
@@ -320,11 +347,10 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                 <div
                   key={index}
                   className={`flex gap-[3px] items-center rounded-[5px] 2xl:px-[16px] 2xl:h-[48px] 2xl:w-[210px] 2xl:text-[16px] xl:px-[10px] xl:h-[35px]  xl:text-[12px] justify-center cursor-pointer
-        ${
-          selectedCategories.includes(category._id)
-            ? "border-1px border-[#D9D9D9] bg-theme_primary"
-            : "border-1px border-[#D9D9D9] bg-[#FFFFFF]"
-        }
+        ${selectedCategories.includes(category._id)
+                      ? "border-1px border-[#D9D9D9] bg-theme_primary"
+                      : "border-1px border-[#D9D9D9] bg-[#FFFFFF]"
+                    }
       `}
                   onClick={() => handleCategoryClick(category)}
                 >
@@ -345,11 +371,10 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                   <label
                     htmlFor={category._id}
                     className={`2xl:text-[15px] font-[400] font-inter 2xl:leading-[18.15px] whitespace-nowrap
-          ${
-            selectedCategories.includes(category._id)
-              ? "text-[#ffffff]"
-              : "text-[#747474]"
-          }
+          ${selectedCategories.includes(category._id)
+                        ? "text-[#ffffff]"
+                        : "text-[#747474]"
+                      }
         `}
                   >
                     {category.course_Preference}
@@ -516,7 +541,49 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
 
             <div className="flex gap-[35px] mb-[30px]">
               <div className=" ">
-                {/* <div className="flex items-center gap-[45px]">
+
+                {preferencesss.map((pref, index) => (
+                  <div
+                    key={pref.id}
+                    className="flex items-center gap-[45px] my-2"
+                  >
+                    <label className="pre_input_lable2">
+                      Preference No. {pref.id}
+                    </label>
+                    <div>
+                      <select
+                        id={`states${pref.id}`}
+                        className="pre_input"
+                        value={pref.stateId}
+                        onChange={(event) => handleStateChange(event, index)}
+                      >
+                        <option value={pref.value}>Select State</option>
+                        {getAllStates.map((item) => (
+                          <option
+                            key={item._id}
+                            value={item._id}
+                            className="pre_input"
+                          >
+                            {item.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className=" relative ">
+                <button
+                  onClick={handleAddField}
+                  className="flex justify-center items-center gap-2 absolute inter font-[700] bottom-0 2xl:my-[10px] xl:my-[8px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px] lg:my-[4px]"
+                >
+                  Add State
+                </button>
+              </div>
+            </div>
+          </div>
+          <>
+            {/* <div className="flex items-center gap-[45px]">
                   <label className="pre_input_lable2">Preference No. 1</label>
                   <div className="">
                     <select
@@ -561,47 +628,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                     </select>
                   </div>
                 </div> */}
-                {preferencesss.map((pref) => (
-                  <div
-                    key={pref.id}
-                    className="flex items-center gap-[45px] my-2"
-                  >
-                    <label className="pre_input_lable2">
-                      Preference No. {pref.id}
-                    </label>
-                    <div>
-                      <select
-                        id={`states${pref.id}`}
-                        className="pre_input"
-                        value={pref.value}
-                        onChange={(e) => handlePreferenceChange(e.target.value)}
-                      >
-                        <option value={pref.value}>Select State</option>
-                        {getAllStates.map((item) => (
-                          <option
-                            key={item._id}
-                            value={item._id}
-                            className="pre_input"
-                          >
-                            {item.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className=" relative ">
-                <button
-                  onClick={handleAddField}
-                  className="flex justify-center items-center gap-2 absolute inter font-[700] bottom-0 2xl:my-[10px] xl:my-[8px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px] lg:my-[4px]"
-                >
-                  Add State
-                </button>
-              </div>
-            </div>
-          </div>
-
+          </>
           <hr />
           {/* =============05============ */}
 
