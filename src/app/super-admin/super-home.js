@@ -81,7 +81,7 @@ const SuperHome = () => {
   const [isLoading, setLoading] = useState(false);
   const { token } = useSelector((state) => state?.auth);
   const [plan, setPlan] = useState("Pending");
-  const [studentDetail, setStudentDetail] = useState([]);
+  const [studentDetail, setStudentDetail] = useState("Approved");
   // const statusList = plan.map(user => user.Status);
   // console.log(statusList , "Status")
 
@@ -114,8 +114,8 @@ const SuperHome = () => {
       .request(option)
       .then((response) => {
         setGetInterstedUsers(response?.data?.users);
-        setPlan(response?.data?.users[0]?.Status);
-        console.log(response?.data?.users[0]?.Status, "status");
+        setPlan(response?.data?.users);
+        console.log(response?.data?.users, "status");
       })
       .catch((error) => {
         console.log(error, "Error");
@@ -568,7 +568,7 @@ const SuperHome = () => {
                         <tbody key={index} className="border-none">
                           <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
                             <td className="py-3">
-                              <p className="craete_tbl_row">01</p>
+                              <p className="craete_tbl_row">{index+1}</p>
                             </td>
                             <td className="py-3">
                               <p className="craete_tbl_row">
@@ -591,7 +591,7 @@ const SuperHome = () => {
                               </button>
                             </td>
                             <td className="">
-                              {plan === "Pending" ? (
+                              {item?.Status === "Pending" ? (
                                 <p className="craete_tbl_row text-[#FE9E34]">
                                   Pending
                                 </p>
