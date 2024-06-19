@@ -135,7 +135,7 @@ const UserNavbar = () => {
                 </div>
               </div> */}
 
-              <div className="dropdown dropdown-end xl:w-[100px] 2xl:w-[150px] ">
+              <div className="dropdown dropdown-end w-[100px] xl:w-[100px] 2xl:w-[150px] ">
                 <div tabIndex={0} role="button" className=" btn-circle ">
                   <div className=" rounded-full w-full">
                     <div className="flex items-center gap-2">
@@ -144,24 +144,24 @@ const UserNavbar = () => {
                         className="2xl:w-[50px] 2xl:h-[50px] xl:w-[35px] xl:h-[35px] w-[35px] h-[35px] rounded-full"
                       />
                       <div className="">
-                        <h1 className="inter font-[600] 2xl:text-[20px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[16px] lg:text-[10px] lg:leading-[16px] 2xl:w-[150px] xl:w-[70px] ">
+                        <h1 className="inter font-[600] 2xl:text-[20px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[16px] lg:text-[10px] lg:leading-[16px] 2xl:w-[150px] xl:w-[70px] w-[70px] ">
                           {studentDetail?.firstname}
                         </h1>
-                        <h2 className="inter font-[400] text-[#6A6A6A] 2xl:text-[16px] 2xl:leading-[26px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[14px] 2xl:w-[150px] xl:w-[70px] ">
+                        <h2 className="inter font-[400] text-[#6A6A6A] 2xl:text-[16px] 2xl:leading-[26px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[14px] 2xl:w-[150px] xl:w-[70px] w-[70px] ">
                           {studentDetail?.SubscriptionsPlan}
                         </h2>
                       </div>
                     </div>
                   </div>
                 </div>
-                
+
                 <ul
                   tabIndex={0}
-                  className="border menu menu-sm dropdown-content mt-3 z-[1] p-2  shadow bg-base-100 rounded-box w-[203px] xl:w-[220px]  2xl:w-[353px] 2xl:h-[320px]"
+                  className="border menu menu-sm dropdown-content mt-3 z-[1] px-2  shadow bg-base-100 rounded-box w-[203px] xl:w-[220px]  2xl:w-[353px] "
                 >
                   <div className="flex justify-between 2xl:px-[30px] xl:px-[20px] px-[15px] 2xl:h-[70px]">
-                    <div className="flex gap-[15px] items-center">
-                      <div className="bg-[#1172BA] rounded-full flex justify-center items-center 2xl:w-[32px] 2xl:h-[32px] xl:w-[35px] xl:h-[35px] w-[45px] h-[45px]">
+                    <div className="flex gap-[15px] items-center 2xl:h-[80px] xl:h-[50px]  h-[40px]">
+                      <div className="bg-[#1172BA] rounded-full flex justify-center items-center 2xl:w-[55px] 2xl:h-[55px] xl:w-[35px] xl:h-[35px] w-[25px] h-[25px]">
                         <h1 className="inter text-white font-[600] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[16px] text-[10px] my-1 2xl:my-2">
                           {firstNameInitial}
                           {lastNameInitial}
@@ -193,8 +193,11 @@ const UserNavbar = () => {
 
                   <Link href="/user2nd/profile" className="justify-between">
                     <li className="2xl:px-[20px] xl:px-[20px] px-[15px] 2xl:h-[70px]">
-                      <div className="2xl:h-[80px] xl:h-[50px]  gap-[15px] flex items-center justify-start">
-                        <Image src={user} className="2xl:w-[35px] xl:w-[20px]" />
+                      <div className="2xl:h-[80px] xl:h-[50px]  h-[40px] gap-[15px] flex items-center justify-start">
+                        <Image
+                          src={user}
+                          className="2xl:w-[35px] xl:w-[20px] w-[20px]"
+                        />
 
                         <p className="inter font-[400] 2xl:text-[15px] 2xl:leading-[22px] xl:text-[12px] text-[10px]">
                           My Profile
@@ -206,8 +209,8 @@ const UserNavbar = () => {
 
                   <Link href="/user/update-profile" className="justify-between">
                     <li className="2xl:px-[20px] xl:px-[20px] px-[15px] 2xl:h-[70px]">
-                      <div className="2xl:h-[80px] xl:h-[50px]  gap-[15px] flex items-center justify-start">
-                        <Image src={key} className="2xl:w-[35px] xl:w-[20px]" />
+                      <div className="2xl:h-[80px] xl:h-[50px]  h-[40px] gap-[15px] flex items-center justify-start">
+                        <Image src={key} className="2xl:w-[35px] xl:w-[20px] w-[20px]" />
                         <p className="inter font-[400] 2xl:text-[15px] 2xl:leading-[22px] xl:text-[12px] text-[10px]">
                           Change Password
                         </p>{" "}
@@ -218,8 +221,11 @@ const UserNavbar = () => {
 
                   <button onClick={handleLogout}>
                     <li className="2xl:px-[20px] xl:px-[20px] px-[15px] 2xl:h-[70px]">
-                      <div className="2xl:h-[60px] gap-[15px] flex items-center justify-start">
-                        <Image src={logout} className="2xl:w-[35px] xl:w-[20px]" />
+                      <div className="2xl:h-[80px] xl:h-[50px]  h-[40px] gap-[15px] flex items-center justify-start">
+                        <Image
+                          src={logout}
+                          className="2xl:w-[35px] xl:w-[20px] w-[20px]"
+                        />
                         <p className="inter font-[400] text-[#DC2635] 2xl:text-[15px] 2xl:leading-[22px] xl:text-[12px] text-[10px]">
                           Signout
                         </p>

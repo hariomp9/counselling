@@ -7,23 +7,31 @@ import { useSelector } from "react-redux";
 import config from "@/config";
 
 const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
+  const userid = useSelector((state) => state?.auth?.ad_details?._id);
   const [getPreferences, setPreferences] = useState([]);
   const [getAllStates, setGetAllStates] = useState([]);
   const [selectedRadio, setSelectedRadio] = useState("");
   const [preference1, setPreference1] = useState("");
   const [preference2, setPreference2] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [checkedColleges, setCheckedColleges] = useState("");
-  const [getAdmission, setAdmission] = useState("");
-  const userid = useSelector((state) => state?.auth?.ad_details?._id);
   const [statusinfo, setData] = useState({ step_status: "admision_pre" });
   const [Admissions_Preferences, setAdmissions_Preferences] = useState([]);
   const [selectedCollege, setSelectedCollege] = useState(null);
+  const [preState, setPreState] = useState([]);
+
   const data = [
     { id: 1, name: "Government College" },
     { id: 2, name: "Private/Management" },
   ];
+  const [preferencesss, setPreferencess] = useState([
+    { id: 1, value: "" },
+    { id: 2, value: "" },
+  ]);
 
+  const handleAddField = () => {
+    const newId = preferencesss.length + 1;
+    setPreferencess([...preferencesss, { id: newId, value: "" }]);
+  };
   const [selectedColleges, setSelectedColleges] = useState([]);
   useEffect(() => {
     const fetchStates = async () => {
@@ -39,6 +47,53 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
 
     fetchStates();
   }, []);
+
+  const [formData, setFormData] = useState({
+    Course_Preference: [],
+
+    NRI_Quta_Prefernce: [
+      {
+        nriQuotaPreference: "",
+        relationshipWithSponsor: "",
+        sponsorsCountry: "",
+        sponsorsCountryState: "",
+      },
+    ],
+    OtherStatePreferences: [
+      {
+        select_options: "",
+        Preference_Fields: [],
+      },
+    ],
+
+    AnnualMedicalCourseBudget: "",
+    Admissions_Preferences: [],
+  });
+  console.log(preState, "preState===============================");
+  const handlePreferenceChange = (event) => {
+    console.log("events are", event);
+
+    let newIds = [];
+
+    if (typeof event === "string") {
+      newIds.push(event);
+    } else if (typeof event === "object" && !Array.isArray(event)) {
+      for (let key in event) {
+        if (Array.isArray(event[key])) {
+          event[key].forEach((item) => {
+            if (item._id) {
+              newIds.push(item._id);
+            }
+          });
+        }
+      }
+    } else {
+      console.error("Unexpected event format:", event);
+      return;
+    }
+    const updatedState = [...preState, ...newIds];
+    setPreState(updatedState);
+  };
 
   useEffect(() => {
     if (selectedColleges.length > 0) {
@@ -82,7 +137,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
         OtherStatePreferences: [
           {
             select_options: selectedRadio,
-            Preference_Fields: [preference1, preference2],
+            Preference_Fields: preState,
           },
         ],
       },
@@ -90,32 +145,28 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
         console.log("OtherStatePreferences:", formData.OtherStatePreferences);
       }
     );
-
-    console.log("formData:", formData.OtherStatePreferences);
   };
 
-  const [formData, setFormData] = useState({
-    Course_Preference: [],
-
-    NRI_Quta_Prefernce: [
-      {
-        nriQuotaPreference: "",
-        relationshipWithSponsor: "",
-        sponsorsCountry: "",
-        sponsorsCountryState: "",
-      },
-    ],
-    OtherStatePreferences: [
-      {
-        select_options: "",
-        Preference_Fields: [],
-      },
-    ],
-
-    AnnualMedicalCourseBudget: "",
-    Admissions_Preferences: [],
-  });
-
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     NRI_Quta_Prefernce: [
+  //       {
+  //         ...prevFormData.NRI_Quta_Prefernce[0],
+  //         [name]: value,
+  //       },
+  //     ],
+  //     AnnualMedicalCourseBudget: value,
+  //     Admissions_Preferences: selectedColleges,
+  //     OtherStatePreferences: [
+  //       {
+  //         select_options: selectedRadio,
+  //         Preference_Fields: preState,
+  //       },
+  //     ],
+  //   }));
+  // };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -130,13 +181,13 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
       Admissions_Preferences: selectedColleges,
       OtherStatePreferences: [
         {
+          ...prevFormData.OtherStatePreferences[0],
           select_options: selectedRadio,
-          Preference_Fields: [preference1, preference2],
+          Preference_Fields: preState,
         },
       ],
     }));
   };
-  console.log(formData);
 
   const sendData = async () => {
     const mergedData = {
@@ -156,27 +207,18 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   const handleNextClick = () => {
     sendData();
   };
-  const handleSubmit = () => {
-    setSelectedColleges([]);
-    OtherStatePreferences: [
-      {
-        select_options: selectedRadio,
-        Preference_Fields: [preference1, preference2],
-      },
-    ];
-  };
 
   const handleRadioChange = (event) => {
     setSelectedRadio(event.target.value);
   };
 
-  const handlePreference1Change = (event) => {
-    setPreference1(event.target.value);
-  };
+  // const handlePreference1Change = (event) => {
+  //   setPreference1(event.target.value);
+  // };
 
-  const handlePreference2Change = (event) => {
-    setPreference2(event.target.value);
-  };
+  // const handlePreference2Change = (event) => {
+  //   setPreference2(event.target.value);
+  // };
 
   useEffect(() => {
     defaultStates();
@@ -202,7 +244,6 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   const [feesBudget, setfeesBudget] = useState("");
   const [coursePreferenc, setCoursePreferences] = useState({});
   const [admissionPreferenc, setAdmissionPreference] = useState({});
-  console.log(admissionPreferenc, "//");
   const { token } = useSelector((state) => state?.auth);
 
   useEffect(() => {
@@ -222,12 +263,6 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
       .request(options)
       .then((response) => {
         setStudentDetail(response?.data?.user?.NRI_Quta_Prefernce[0]);
-        setPreferenc1(
-          response?.data?.user?.OtherStatePreferences[0]?.Preference_Fields[0]
-        );
-        setPreferenc2(
-          response?.data?.user?.OtherStatePreferences[0]?.Preference_Fields[1]
-        );
         setfeesBudget(response?.data?.user?.AnnualMedicalCourseBudget);
         setCoursePreferences(response?.data?.user?.Course_Preference);
         setAdmissionPreference(response?.data?.user?.Admissions_Preferences);
@@ -435,9 +470,6 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                   maxLength={64}
                   placeholder="Enter detail"
                   name="sponsorsCountryState"
-                  // value={
-                  //   formData.NRI_Quta_Prefernce[0].sponsorsCountryState || ""
-                  // }
                   value={
                     formData.NRI_Quta_Prefernce[0]?.sponsorsCountryState ||
                     studentDetail?.sponsorsCountryState ||
@@ -481,9 +513,10 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                 No
               </div>
             </div>
+
             <div className="flex gap-[35px] mb-[30px]">
               <div className=" ">
-                <div className="flex items-center gap-[45px]">
+                {/* <div className="flex items-center gap-[45px]">
                   <label className="pre_input_lable2">Preference No. 1</label>
                   <div className="">
                     <select
@@ -527,11 +560,40 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                       ))}
                     </select>
                   </div>
-                </div>
+                </div> */}
+                {preferencesss.map((pref) => (
+                  <div
+                    key={pref.id}
+                    className="flex items-center gap-[45px] my-2"
+                  >
+                    <label className="pre_input_lable2">
+                      Preference No. {pref.id}
+                    </label>
+                    <div>
+                      <select
+                        id={`states${pref.id}`}
+                        className="pre_input"
+                        value={pref.value}
+                        onChange={(e) => handlePreferenceChange(e.target.value)}
+                      >
+                        <option value={pref.value}>Select State</option>
+                        {getAllStates.map((item) => (
+                          <option
+                            key={item._id}
+                            value={item._id}
+                            className="pre_input"
+                          >
+                            {item.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                ))}
               </div>
               <div className=" relative ">
                 <button
-                  onClick={handleSubmit}
+                  onClick={handleAddField}
                   className="flex justify-center items-center gap-2 absolute inter font-[700] bottom-0 2xl:my-[10px] xl:my-[8px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px] lg:my-[4px]"
                 >
                   Add State
