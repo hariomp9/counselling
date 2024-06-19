@@ -114,7 +114,7 @@ const NeetUG = () => {
           <div className="w-full">
             <UserNavbar />
             <div className="2xl:w-[1725px] xl:w-[1150px] lg:w-[880px] mx-auto px-[15px] sm:px-[30px] mt-[20px] lg:px-0 ">
-              <div className="flex flex-col lg:flex-row gap-[30px]  2xl:mt-[30px] xl:mt-[25px] lg:mt-[20px]">
+              <div className="flex flex-col lg:flex-row gap-[20px] xl:gap-[30px]  2xl:mt-[30px] xl:mt-[25px] lg:mt-[20px]">
                 <div>
                   <div className="relative 2xl:w-[1090px] xl:w-[750px] lg:w-[600px] ">
                     <div className="bg-[#F5F6FF] rounded-[10px] sm:flex items-center 2xl:p-10 xl:p-5 lg:p-4 p-3 2xl:h-[127px] xl:h-[80px] lg:h-[70px] sm:h-[70px] h-[161px] ">
@@ -251,7 +251,7 @@ const NeetUG = () => {
                   </div>
                 </div>
 
-                <div className="2xl:w-[604px] xl:w-[450px] lg:w-[300px] ">
+                <div className="2xl:w-[604px] xl:w-[450px] lg:w-[270px] ">
                   <div className="bg-[#F5F6FF] 2xl:p-5 p-4">
                     <h1 className="neethead2">
                       Join AN’24’s Upcoming Counselling Webinars
