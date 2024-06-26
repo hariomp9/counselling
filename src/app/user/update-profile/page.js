@@ -13,6 +13,7 @@ import UserProtectedRoute from "@/config/userProtectedRoute";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import config from "@/config";
+import Link from "next/link";
 
 const UserProfile = () => {
   const router = useRouter();
@@ -120,7 +121,7 @@ const UserProfile = () => {
 
       if (response.status === 200) {
         toast.success("Update successfully!");
-        router.push("/user/update-profile")
+        router.push("/user/update-profile");
         // setStudentDetail({
         //   newPassword: "",
         //   confirmPassword: "",
@@ -654,7 +655,19 @@ const UserProfile = () => {
                       </div>
                     </div>
 
-                    <div className="2xl:mt-[65px] xl:mt-[40px] mt-[30px]">
+                    <div className="2xl:mt-[65px] xl:mt-[40px] mt-[30px] flex  2xl:gap-5 gap-3">
+                      <Link href="/user2nd/neetUG-home">
+                        <span
+                          type="submit"
+                          className=" cursor-pointer userpboxbtn "
+                        >
+                          <Image
+                            src={arrow}
+                            className="xl:w-[14px] xl:h-[10px] w-[10px] h-[8px] -rotate-180"
+                          />
+                          Cancel
+                        </span>
+                      </Link>{" "}
                       <button type="submit" className=" userpboxbtn ">
                         Update
                         <Image

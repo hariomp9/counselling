@@ -291,7 +291,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   const [preferenc2, setPreferenc2] = useState({});
   const [feesBudget, setfeesBudget] = useState("");
   const [coursePreferenc, setCoursePreferences] = useState({});
-  console.log(coursePreferenc?._id ,"coursePreferenc")
+  console.log(coursePreferenc?._id, "coursePreferenc");
   const [admissionPreferenc, setAdmissionPreference] = useState({});
   const { token } = useSelector((state) => state?.auth);
 
@@ -407,7 +407,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                       alt="select"
                     />
                   )}
-                  <label
+                  <p
                     htmlFor={category._id}
                     className={`2xl:text-[15px] font-[400] font-inter 2xl:leading-[18.15px] whitespace-nowrap
           ${
@@ -418,7 +418,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
         `}
                   >
                     {category.course_Preference}
-                  </label>
+                  </p>
                 </div>
               ))}
             </div>
@@ -703,9 +703,13 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                 id="feesBudgetInput"
                 className="pre_input"
                 placeholder="Enter detail"
-                // value={formData.AnnualMedicalCourseBudget}
                 value={formData.AnnualMedicalCourseBudget || feesBudget}
                 onChange={handleChange}
+                onInput={(e) => {
+                  const value = e.target.value.replace(/\D/g, "");
+                  e.target.value = value.slice(0, 7);
+                  handleChange(e);
+                }}
               />
             </div>
           </div>

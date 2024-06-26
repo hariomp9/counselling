@@ -240,7 +240,7 @@ const LoginLastStep = ({ params }) => {
                   <label className="inter font-[700] 2xl:text-[20px] 2xl:leading-[40px] xl:text-[14px] lg:text-[12px]">
                     Whatsapp Number
                   </label>
-                  <br/>
+                  <br />
                   <input
                     defaultValue={
                       studentDetail?.whatsappMobile
