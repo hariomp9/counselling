@@ -457,6 +457,11 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
                     name="FamilyAnualIncome"
                     value={parentDetail?.parentDetails[0]?.FamilyAnualIncome}
                     onChange={handleInputChanges}
+                    onInput={(e) => {
+                  const value = e.target.value.replace(/\D/g, "");
+                  e.target.value = value.slice(0, 7);
+                  handleInputChanges(e);
+                }}
                   />
                 </div>
               </div>
@@ -487,7 +492,7 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
                   }}
                   className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
                 >
-                  Next
+                  Complete
                   <Image
                     src={arrow}
                     className="2xl:w-[14px] 2xl:h-[10px] rounded-full"
