@@ -195,6 +195,7 @@ const SuperHome = () => {
           <SuperSidebar />
           <div className="w-full">
             <SuperNavbar />
+
             <div className="flex justify-between 2xl:px-16 px-5">
               <div className="flex">
                 <div className="relative ">
@@ -481,7 +482,6 @@ const SuperHome = () => {
                 </div>
               </div>
             </div>
-
             {/* ===============table============= */}
             <div className=" 2xl:p-[30px] xl:p-[20px] p-[15px] bg-white ">
               <div className="border rounded-[10px] bg-[#F5F6FF] ">
@@ -527,9 +527,7 @@ const SuperHome = () => {
                 </div>
               </div>
             </div>
-
             {/* ===============table============= */}
-
             <div className=" 2xl:p-[30px] xl:p-[20px] p-[15px] bg-white ">
               <div className="border rounded-[10px] bg-[#F5F6FF] ">
                 <h1 className="super_head 2xl:p-5 xl:p-3 p-2">
@@ -568,7 +566,7 @@ const SuperHome = () => {
                         <tbody key={index} className="border-none">
                           <tr className="2xl:h-[102px] xl:h-[80px] h-[60px]">
                             <td className="py-3">
-                              <p className="craete_tbl_row">{index+1}</p>
+                              <p className="craete_tbl_row">{index + 1}</p>
                             </td>
                             <td className="py-3">
                               <p className="craete_tbl_row">

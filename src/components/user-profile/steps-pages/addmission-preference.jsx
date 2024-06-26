@@ -155,7 +155,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
         Admissions_Preferences: selectedColleges,
         OtherStatePreferences: [
           {
-            select_options: 'Yes',
+            select_options: "Yes",
             Preference_Fields: preState,
           },
         ],
@@ -291,6 +291,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   const [preferenc2, setPreferenc2] = useState({});
   const [feesBudget, setfeesBudget] = useState("");
   const [coursePreferenc, setCoursePreferences] = useState({});
+  console.log(coursePreferenc?._id ,"coursePreferenc")
   const [admissionPreferenc, setAdmissionPreference] = useState({});
   const { token } = useSelector((state) => state?.auth);
 
