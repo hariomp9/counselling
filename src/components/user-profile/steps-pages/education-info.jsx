@@ -56,40 +56,31 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
       type: type.type,
     }))
   );
-  const [studentDetail, setStudentDetail] = useState({});
-  const [examData, setExamData] = useState({});
-  const [academicData, setAcademicData] = useState({});
 
   const inputHandler = (index, fieldName, value) => {
-    const newData = [...studentDetail];
+    const newData = [...standard];
     newData[index][fieldName] = value;
-    // setStandard_12thMarks(newData);
-    setStudentDetail(newData);
+    setStandard_12thMarks(newData);
   };
   const inputHandlers = (index, fieldName, value) => {
-    const newData = [...academicData];
+    const newData = [...academi];
     newData[index][fieldName] = value;
-    // setAcademic_Details(newData);
-    setAcademicData(newData);
+    setAcademic_Details(newData);
   };
   const inputHandle = (index, fieldName, value) => {
-    const newData = [...examData];
+    const newData = [...exam];
     newData[index][fieldName] = value;
-    // setExams(newData);
-    setExamData(newData);
+    setExams(newData);
   };
 
   const sendData = async (e) => {
     // e.preventDefault(e);
     const mergedData = {
       ...statusinfo,
-      standard_12thMarks: studentDetail,
-      Academic_Details: academicData,
-      exams: examData,
+      standard_12thMarks: standard,
+      Academic_Details: academi,
+      exams: exam,
     };
-    console.log(mergedData);
-
-    // return
     try {
       const response = await axios.put(
         `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
@@ -104,7 +95,10 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
   //   sendData();
   // };
 
-  // console.log(studentDetail, "ssssss");
+  const [studentDetail, setStudentDetail] = useState({});
+  const [examData, setExamData] = useState({});
+  const [academicData, setAcademicData] = useState({});
+  // console.log(academicData, "data");
   const { token } = useSelector((state) => state?.auth);
   useEffect(() => {
     defaultAUser();
@@ -219,7 +213,11 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                                   type="text"
                                   // value={item.obtained}
                                   // defaultValue={item?.obtained}
-                                  value={item?.obtained}
+                                  defaultValue={
+                                    item?.obtained
+                                      ? item?.obtained
+                                      : item?.obtained
+                                  }
                                   onChange={(e) =>
                                     inputHandler(
                                       index,
@@ -237,7 +235,7 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                                 <input
                                   type="text"
                                   // value={item.outOf}
-                                  value={item?.outOf}
+                                  defaultValue={item?.outOf}
                                   onChange={(e) =>
                                     inputHandler(index, "outOf", e.target.value)
                                   }
