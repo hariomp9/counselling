@@ -47,7 +47,7 @@ const AllIndiaCategory = ({
             {/* Tick icon */}
             <label
               htmlFor={category._id}
-              className={`2xl:text-[15px] font-[400] font-inter 2xl:leading-[18.15px] whitespace-nowrap
+              className={`2xl:text-[15px] font-[400] font-inter 2xl:leading-[18.15px] whitespace-nowrap cursor-pointer
                          ${
                            selectedCategory === category.Select_category
                              ? "text-[#ffffff]"
