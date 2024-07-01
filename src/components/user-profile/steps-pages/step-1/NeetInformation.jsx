@@ -23,19 +23,21 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
     // Do something with the updated form data
     setNeet(formData);
   };
-  
-  console.log(onFormDataChange, "dataa");
-  
+
   const [categories, setCategories] = useState([]);
   const [states, setStates] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedState, setSelectedState] = useState();
   const [getStateCat, setStateCat] = useState([]);
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
-  // console.log(userid, "userdataa");
   const [getNeet, setNeet] = useState([]);
   const [data, setData] = useState({ step_status: "neet_info" });
-  const [minReservation, SetMinReservation] = useState(null);
+  const [profileCompletedNeet, setProfileCompletedNeet] = useState("");
+  console.log(profileCompletedNeet, "profileCompleted");
+  const [minReservation, SetMinReservation] = useState({
+    Minority: "",
+    select_option: "",
+  });
   const [parallelReservation, SetParallelReservation] = useState({
     select_options: "",
     Reservation_Fields: "",
@@ -50,9 +52,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
     setSelectedState(state);
 
     axios
-      .get(
-        `${config.baseURL}/api/state_category/getStatesByCategory/${state}`
-      )
+      .get(`${config.baseURL}/api/state_category/getStatesByCategory/${state}`)
       .then((response) => {
         setStateCat(response?.data);
       })
@@ -63,12 +63,14 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
   const InputHandler = (name, value) => {
     SetParallelReservation({ ...parallelReservation, [name]: value });
   };
+  const InputHandlers = (name, value) => {
+    SetMinReservation({ ...minReservation, [name]: value });
+  };
   const handleDomicileSt = (name, value) => {
     SetDomicileStateCategory({ ...domicileStateCategory, [name]: value });
   };
 
   const sendData = async () => {
-    console.log("===>", parallelReservation);
     const payload = {
       ...data,
       ...getNeet,
@@ -82,7 +84,6 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
         `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
         payload
       );
-      console.log("PUT request successful", response?.data);
       next();
     } catch (error) {
       console.error("Error making PUT request:", error);
@@ -123,11 +124,11 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
   const [studentDetail, setStudentDetail] = useState({});
   const [domicileStateCategoryy, setDomicileStateCategory] = useState({});
   const [parallelReservtion, setParallelReservation] = useState({});
-  const [minorityReservtion, setMinorityReservation] = useState({});
-  console.log(minorityReservtion, "user");
+  const [minorityReservtio, setMinorityReservatio] = useState({});
   const { token } = useSelector((state) => state?.auth);
   useEffect(() => {
     defaultAUser();
+    defaultProfileComplete();
   }, []);
 
   const defaultAUser = async () => {
@@ -149,16 +150,37 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
         setAllIndiaCategory(
           response?.data?.user?.All_India_Category_id?.Select_category
         );
-        console.log(response?.data?.user?.All_India_Category_id  , "cll")
         setParallelReservation(
           response?.data?.user?.ParellelReservations[0]?.Reservation_Fields
         );
-        setMinorityReservation(response?.data?.user?.MinorityReservations[0]);
+        setMinorityReservatio(
+          response?.data?.user?.MinorityReservations[0]?.Minority
+        );
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
+
+  const defaultProfileComplete = () => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/auth/getstepsbyuserId/${userids}`,
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setProfileCompletedNeet(response?.data?.user?.neet_info);
+      })
+      .catch((error) => {
+        alert("failed");
+      });
+  };
+  useEffect(() => {
+    if (profileCompletedNeet.toLowerCase() === "completed") {
+      next();
+    }
+  }, [profileCompletedNeet]);
   return (
     <>
       <div className="bg-theme_background py-[40px] px-[55px]">
@@ -195,13 +217,13 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
         <div className="h-[1px] bg-[#E3E3E3] w-[100%] mt-[48px] mb-[33px]" />
         <MinorityReservation
           options={minorityReservation}
-          SetMinReservation={SetMinReservation}
-          minorityReservtion={minorityReservtion}
+          InputHandlers={InputHandlers}
+          minorityReservtio={minorityReservtio}
         />
         <div className="flex justify-start items-center gap-[32px]">
           <div
             onClick={() => prev()}
-           className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
+            className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
           >
             <Image
               src="/svg/profile/left_arrow.svg"
@@ -216,7 +238,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
               sendData();
               handleNextClick();
             }}
-          className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
+            className="flex justify-center items-center gap-2 inter font-[700] 2xl:my-[10px] bg-[#4F9ED9] text-white 2xl:w-[112px] xl:w-[80px] w-[65px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
           >
             Next
             <Image

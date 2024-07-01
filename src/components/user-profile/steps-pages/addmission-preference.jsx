@@ -294,9 +294,11 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   console.log(coursePreferenc?._id, "coursePreferenc");
   const [admissionPreferenc, setAdmissionPreference] = useState({});
   const { token } = useSelector((state) => state?.auth);
+  const [profileCompleteAddmision, setProfileCompleteAddmision] = useState("");
 
   useEffect(() => {
     defaultAUser();
+    // defaultProfileComplete();
   }, [userids, token]);
 
   const defaultAUser = async () => {
@@ -350,9 +352,15 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
     };
     setCoursePreferences();
   }, []);
+
   const handleCheckboxClick = (collegeName) => {
-    setSelectedCollege(collegeName);
-    handleCheckboxChange(collegeName);
+    if (selectedColleges.includes(collegeName)) {
+      setSelectedColleges(
+        selectedColleges.filter((name) => name !== collegeName)
+      );
+    } else {
+      setSelectedColleges([...selectedColleges, collegeName]);
+    }
   };
 
   useEffect(() => {
@@ -365,6 +373,26 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
       setSelectedCollege(admissionPreferenc[0]);
     }
   }, [admissionPreferenc]);
+
+  // const defaultProfileComplete = () => {
+  //   const option = {
+  //     method: "GET",
+  //     url: `${config.baseURL}/api/auth/getstepsbyuserId/${userids}`,
+  //   };
+  //   axios
+  //     .request(option)
+  //     .then((response) => {
+  //       setProfileCompleteAddmision(response?.data?.user?.admision_pre);
+  //     })
+  //     .catch((error) => {
+  //       alert("failed");
+  //     });
+  // };
+  // useEffect(() => {
+  //   if (profileCompleteAddmision.toLowerCase() === "completed") {
+  //     next();
+  //   }
+  // }, [profileCompleteAddmision]);
   return (
     <section>
       <div className="main_div mx-auto">
@@ -432,19 +460,16 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
           </div>
           <div className="flex 2xl:gap-[25px] xl:gap-[25px] gap-[30px] 2xl:my-[25px] xl:my-[20px] my-[10px]">
             {Array.isArray(data) &&
-              data.map((college, index) => {
-                const isChecked =
-                  selectedCollege === college.name ||
-                  (Array.isArray(admissionPreferenc) &&
-                    admissionPreferenc.includes(college.name));
+              data.map((college) => {
+                const isChecked = selectedColleges.includes(college.name);
                 return (
                   <div
-                    key={index}
+                    key={college.id}
                     className="flex items-center 2xl:gap-2 gap-1"
                   >
                     <input
                       type="checkbox"
-                      className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
+                      className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] w-[10px] h-[10px]"
                       checked={isChecked}
                       onChange={() => handleCheckboxClick(college.name)}
                     />
@@ -704,7 +729,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                 className="pre_input"
                 placeholder="Enter detail"
                 value={formData.AnnualMedicalCourseBudget || feesBudget}
-                onChange={handleChange}
+                // onChange={handleChange}
                 onInput={(e) => {
                   const value = e.target.value.replace(/\D/g, "");
                   e.target.value = value.slice(0, 7);
