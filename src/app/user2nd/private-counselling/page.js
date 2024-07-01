@@ -20,7 +20,7 @@ const PrivateCounselling = () => {
   const [plan, setPlan] = useState("One on One");
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const [isLoader, setLoader] = useState(false);
-  const [requestStatus, setRequestStatus] = useState("Pending");
+  const [requestStatus, setRequestStatus] = useState("false");
 
   useEffect(() => {
     defaultAUser();
@@ -40,6 +40,7 @@ const PrivateCounselling = () => {
       setStudentDetail(response?.data?.user);
       setRequestStatus(response?.data?.user?.Status);
       setPlan(response?.data?.user?.SubscriptionsPlan);
+      setRequestStatus(response?.data?.user?.emailSent);
     } catch (error) {
       console.log("Error fetching user details:", error);
     }
@@ -158,13 +159,30 @@ const PrivateCounselling = () => {
                       </div>
                     ) : (
                       // Render "Click Here To Subscribe" button
-                      <div className="bg-[#4F9ED9] w-[217px] 2xl:w-[280px]  2xl:text-[20px] xl:text-[14px] text-[12px] my-5 2xl:h-[48px] xl:h-[35px] h-[30px] flex justify-center items-center rounded-md cursor-pointer mb-5">
-                        <button
-                          className="bg-[#4F9ED9] text-white rounded-md px-4  2xl:py-2"
-                          onClick={() => setButtonClicked(true)}
-                        >
-                          Click Here To Subscribe
-                        </button>
+
+                      <div>
+                        {successMessageVisible ? null : requestStatus ===
+                          "false" ? (
+                          <div className="bg-[#4F9ED9] w-[217px] 2xl:w-[280px]  2xl:text-[20px] xl:text-[14px] text-[12px] my-5 2xl:h-[48px] xl:h-[35px] h-[30px] flex justify-center items-center rounded-md cursor-pointer mb-5">
+                            <button
+                              className="bg-[#4F9ED9] text-white rounded-md px-4  2xl:py-2"
+                              onClick={() => setButtonClicked(true)}
+                            >
+                              Click Here To Subscribe
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="text-black mt-2 w-[695px] h-[110px] flex ml-5 p-4 items-center bg-[#E9F3E8] rounded-[10px] my-6 mx-3 font-[500] text-[20px]">
+                            <Image
+                              src={rightImg}
+                              alt="rightimg"
+                              className="ml-3 my-6 mr-4"
+                            />
+                            Your request for Premium counselling is received.
+                            Our expert counsellor will get in touch with you
+                            shortly.
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>

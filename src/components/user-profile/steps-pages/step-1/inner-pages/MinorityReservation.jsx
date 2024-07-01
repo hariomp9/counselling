@@ -33,7 +33,7 @@ const MinorityReservation = ({
                     ${
                       minority === category
                         ? "border-1px border-[#D9D9D9] bg-theme_primary"
-                        : "border-1px border-[#D9D9D9] bg-[#FFFFFF] "
+                        : "border-1px border-[#D9D9D9] bg-[#FFFFFF]"
                     }
                     `}
             onClick={() => handleCategoryClick(category)}
@@ -49,7 +49,7 @@ const MinorityReservation = ({
             )}{" "}
             <label
               htmlFor={category}
-              className={`2xl:text-[15px] font-[400] font-inter 2xl:leading-[18.15px] whitespace-nowrap
+              className={`2xl:text-[15px] font-[400] font-inter 2xl:leading-[18.15px] whitespace-nowrap cursor-pointer
                          ${
                            minority === category
                              ? "text-[#ffffff]"
