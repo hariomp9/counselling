@@ -79,6 +79,7 @@ exports.updateCollege = async (req, res, next) => {
   }
 };
 
+
 // Delete college by ID
 exports.deleteCollege = async (req, res, next) => {
   try {
@@ -91,3 +92,4 @@ exports.deleteCollege = async (req, res, next) => {
     next(error);
   }
 };
+

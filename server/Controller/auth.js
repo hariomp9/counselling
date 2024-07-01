@@ -377,6 +377,7 @@ exports.adminLogin = async (req, res, next) => {
   }
 };
 
+
 exports.logout = async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
@@ -427,6 +428,7 @@ exports.logout = async (req, res) => {
     }
   }
 };
+
 
 exports.adminLogout = async (req, res) => {
   try {
@@ -1729,7 +1731,9 @@ exports.deleteInterstedUser = async (req, res) => {
 
 
 
-// Now I have to check how much is sign up in weekly basis , monthly basis and yearly basis of user 
+
+
+// Now I have to check how much is sign up in weekly basis , monthly basis and yearly basis of users 
 
 exports.getWeeklyUsers = async (req, res) => {
   try {
@@ -1741,9 +1745,7 @@ exports.getWeeklyUsers = async (req, res) => {
     endOfToday.setHours(23, 59, 59, 999); // Set time to the end of today
 
     const today = new Date();
-
-
-
+    
     const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000); // Calculate last week
     console.log("lastWeek:", lastWeek);
 

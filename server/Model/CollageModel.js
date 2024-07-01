@@ -53,3 +53,4 @@ const collegeSchema = new mongoose.Schema(
 const College = mongoose.model("College", collegeSchema);
 
 module.exports = College;
+  

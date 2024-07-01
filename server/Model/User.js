@@ -260,8 +260,16 @@ const UserSchema = new mongoose.Schema(
     // Minority Reservations
 
     MinorityReservations: [{
-      type: String,
-      enum: ["Jain Minority", "Muslim Minority", "Christian Minority", "Gujarati / Sindhi Minority", "Hindi Linguistic Minority"]
+      Minority: {
+        type: String,
+        enum: ["Jain Minority", "Muslim Minority", "Christian Minority", "Gujarati / Sindhi Minority", "Hindi Linguistic Minority"]
+      },
+      select_options: {
+        type: String,
+        enum: ["Yes", "No"],
+        default:"No"
+      }
+  
     }],
 
     // Course Preference and User can select multiple courses
