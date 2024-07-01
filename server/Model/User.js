@@ -264,7 +264,7 @@ const UserSchema = new mongoose.Schema(
         type: String,
         enum: ["Jain Minority", "Muslim Minority", "Christian Minority", "Gujarati / Sindhi Minority", "Hindi Linguistic Minority"]
       },
-      select_options: {
+      select_option: {
         type: String,
         enum: ["Yes", "No"],
         default:"No"
