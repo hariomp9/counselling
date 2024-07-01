@@ -350,9 +350,15 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
     };
     setCoursePreferences();
   }, []);
+
   const handleCheckboxClick = (collegeName) => {
-    setSelectedCollege(collegeName);
-    handleCheckboxChange(collegeName);
+    if (selectedColleges.includes(collegeName)) {
+      setSelectedColleges(
+        selectedColleges.filter((name) => name !== collegeName)
+      );
+    } else {
+      setSelectedColleges([...selectedColleges, collegeName]);
+    }
   };
 
   useEffect(() => {
@@ -432,19 +438,16 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
           </div>
           <div className="flex 2xl:gap-[25px] xl:gap-[25px] gap-[30px] 2xl:my-[25px] xl:my-[20px] my-[10px]">
             {Array.isArray(data) &&
-              data.map((college, index) => {
-                const isChecked =
-                  selectedCollege === college.name ||
-                  (Array.isArray(admissionPreferenc) &&
-                    admissionPreferenc.includes(college.name));
+              data.map((college) => {
+                const isChecked = selectedColleges.includes(college.name);
                 return (
                   <div
-                    key={index}
+                    key={college.id}
                     className="flex items-center 2xl:gap-2 gap-1"
                   >
                     <input
                       type="checkbox"
-                      className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] sm:w-[] w-[]"
+                      className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px] w-[10px] h-[10px]"
                       checked={isChecked}
                       onChange={() => handleCheckboxClick(college.name)}
                     />
