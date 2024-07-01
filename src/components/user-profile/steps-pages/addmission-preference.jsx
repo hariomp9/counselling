@@ -294,9 +294,11 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   console.log(coursePreferenc?._id, "coursePreferenc");
   const [admissionPreferenc, setAdmissionPreference] = useState({});
   const { token } = useSelector((state) => state?.auth);
+  const [profileCompleteAddmision, setProfileCompleteAddmision] = useState("");
 
   useEffect(() => {
     defaultAUser();
+    // defaultProfileComplete();
   }, [userids, token]);
 
   const defaultAUser = async () => {
@@ -371,6 +373,26 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
       setSelectedCollege(admissionPreferenc[0]);
     }
   }, [admissionPreferenc]);
+
+  // const defaultProfileComplete = () => {
+  //   const option = {
+  //     method: "GET",
+  //     url: `${config.baseURL}/api/auth/getstepsbyuserId/${userids}`,
+  //   };
+  //   axios
+  //     .request(option)
+  //     .then((response) => {
+  //       setProfileCompleteAddmision(response?.data?.user?.admision_pre);
+  //     })
+  //     .catch((error) => {
+  //       alert("failed");
+  //     });
+  // };
+  // useEffect(() => {
+  //   if (profileCompleteAddmision.toLowerCase() === "completed") {
+  //     next();
+  //   }
+  // }, [profileCompleteAddmision]);
   return (
     <section>
       <div className="main_div mx-auto">
@@ -707,7 +729,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                 className="pre_input"
                 placeholder="Enter detail"
                 value={formData.AnnualMedicalCourseBudget || feesBudget}
-                onChange={handleChange}
+                // onChange={handleChange}
                 onInput={(e) => {
                   const value = e.target.value.replace(/\D/g, "");
                   e.target.value = value.slice(0, 7);

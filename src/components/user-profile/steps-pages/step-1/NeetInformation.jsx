@@ -24,17 +24,16 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
     setNeet(formData);
   };
 
-  console.log(onFormDataChange, "dataa");
-
   const [categories, setCategories] = useState([]);
   const [states, setStates] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedState, setSelectedState] = useState();
   const [getStateCat, setStateCat] = useState([]);
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
-  // console.log(userid, "userdataa");
   const [getNeet, setNeet] = useState([]);
   const [data, setData] = useState({ step_status: "neet_info" });
+  const [profileCompletedNeet, setProfileCompletedNeet] = useState("");
+  console.log(profileCompletedNeet, "profileCompleted");
   const [minReservation, SetMinReservation] = useState({
     Minority: "",
     select_option: "",
@@ -72,7 +71,6 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
   };
 
   const sendData = async () => {
-    console.log("===>", parallelReservation);
     const payload = {
       ...data,
       ...getNeet,
@@ -86,7 +84,6 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
         `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
         payload
       );
-      console.log("PUT request successful", response?.data);
       next();
     } catch (error) {
       console.error("Error making PUT request:", error);
@@ -128,10 +125,10 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
   const [domicileStateCategoryy, setDomicileStateCategory] = useState({});
   const [parallelReservtion, setParallelReservation] = useState({});
   const [minorityReservtio, setMinorityReservatio] = useState({});
-  console.log(minorityReservtio,"minorityReservtio")
   const { token } = useSelector((state) => state?.auth);
   useEffect(() => {
     defaultAUser();
+    defaultProfileComplete();
   }, []);
 
   const defaultAUser = async () => {
@@ -153,16 +150,37 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
         setAllIndiaCategory(
           response?.data?.user?.All_India_Category_id?.Select_category
         );
-        console.log(response?.data?.user?.All_India_Category_id, "cll");
         setParallelReservation(
           response?.data?.user?.ParellelReservations[0]?.Reservation_Fields
         );
-        setMinorityReservatio(response?.data?.user?.MinorityReservations[0]?.Minority);
+        setMinorityReservatio(
+          response?.data?.user?.MinorityReservations[0]?.Minority
+        );
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
+
+  const defaultProfileComplete = () => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/auth/getstepsbyuserId/${userids}`,
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setProfileCompletedNeet(response?.data?.user?.neet_info);
+      })
+      .catch((error) => {
+        alert("failed");
+      });
+  };
+  useEffect(() => {
+    if (profileCompletedNeet.toLowerCase() === "completed") {
+      next();
+    }
+  }, [profileCompletedNeet]);
   return (
     <>
       <div className="bg-theme_background py-[40px] px-[55px]">

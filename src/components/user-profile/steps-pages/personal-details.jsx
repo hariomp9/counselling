@@ -5,12 +5,14 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import config from "@/config";
+import { useRouter } from "next/navigation";
 
 const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
+  const [personalDetails, setPersonalDetails] = useState("");
+
   const [studentAddresss, setStudentAddress] = useState({});
   const [studentDetail, setStudentDetails] = useState({});
   const [parentDetailss, setParentDetail] = useState({});
-
   const [nriQouta, setNriQouta] = useState({});
   const { token } = useSelector((state) => state?.auth);
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
@@ -170,8 +172,6 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
     }));
   };
 
- 
-
   const sendData = async () => {
     const mergedData = {
       ...statusinfo,
@@ -194,6 +194,7 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
 
   useEffect(() => {
     defaultAUser();
+    defaultProfileComplete();
   }, []);
 
   const defaultAUser = () => {
@@ -216,6 +217,27 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
         console.log(error, "Error");
       });
   };
+
+  const defaultProfileComplete = () => {
+    const option = {
+      method: "GET",
+      url: `${config.baseURL}/api/auth/getstepsbyuserId/${userids}`,
+    };
+    axios
+      .request(option)
+      .then((response) => {
+        setPersonalDetails(response?.data?.user?.personal_details);
+      })
+      .catch((error) => {
+        alert("failed");
+      });
+  };
+  const router = useRouter();
+  useEffect(() => {
+    if (personalDetails.toLowerCase() === "completed") {
+      router.push("/user2nd/profile");
+    }
+  }, [personalDetails]);
 
   return (
     <>
@@ -458,10 +480,10 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
                     value={parentDetail?.parentDetails[0]?.FamilyAnualIncome}
                     onChange={handleInputChanges}
                     onInput={(e) => {
-                  const value = e.target.value.replace(/\D/g, "");
-                  e.target.value = value.slice(0, 7);
-                  handleInputChanges(e);
-                }}
+                      const value = e.target.value.replace(/\D/g, "");
+                      e.target.value = value.slice(0, 7);
+                      handleInputChanges(e);
+                    }}
                   />
                 </div>
               </div>

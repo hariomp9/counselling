@@ -72,7 +72,6 @@ const NeetUG = () => {
   const [studentDetail, setStudentDetail] = useState({});
   const { token } = useSelector((state) => state?.auth);
   const { _id } = useSelector((state) => state?.auth);
- 
 
   const firstNameInitial = studentDetail?.firstname
     ? studentDetail.firstname[0]
