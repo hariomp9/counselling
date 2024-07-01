@@ -111,6 +111,7 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
       }),
     }));
   };
+  
   useEffect(() => {
     if (studentDetail) {
       setStudentsde({

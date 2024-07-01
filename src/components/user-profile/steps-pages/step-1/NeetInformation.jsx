@@ -128,7 +128,7 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
   const { token } = useSelector((state) => state?.auth);
   useEffect(() => {
     defaultAUser();
-    defaultProfileComplete();
+    // defaultProfileComplete();
   }, []);
 
   const defaultAUser = async () => {
@@ -162,25 +162,26 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
       });
   };
 
-  const defaultProfileComplete = () => {
-    const option = {
-      method: "GET",
-      url: `${config.baseURL}/api/auth/getstepsbyuserId/${userids}`,
-    };
-    axios
-      .request(option)
-      .then((response) => {
-        setProfileCompletedNeet(response?.data?.user?.neet_info);
-      })
-      .catch((error) => {
-        alert("failed");
-      });
-  };
-  useEffect(() => {
-    if (profileCompletedNeet.toLowerCase() === "completed") {
-      next();
-    }
-  }, [profileCompletedNeet]);
+  // const defaultProfileComplete = () => {
+  //   const option = {
+  //     method: "GET",
+  //     url: `${config.baseURL}/api/auth/getstepsbyuserId/${userids}`,
+  //   };
+  //   axios
+  //     .request(option)
+  //     .then((response) => {
+  //       setProfileCompletedNeet(response?.data?.user?.neet_info);
+  //     })
+  //     .catch((error) => {
+  //       alert("failed");
+  //     });
+  // };
+  // useEffect(() => {
+  //   if (profileCompletedNeet.toLowerCase() === "completed") {
+  //     next();
+  //   }
+  // }, [profileCompletedNeet]);
+
   return (
     <>
       <div className="bg-theme_background py-[40px] px-[55px]">

@@ -7,6 +7,9 @@ import config from "@/config";
 
 const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
   const [isKarnatakaCounselling, setIsKarnatakaCounselling] = useState(true);
+  const [studentDetail, setStudentDetail] = useState({});
+  console.log(studentDetail, "studentDetail");
+  const [examData, setExamData] = useState({});
   const Academic_Details = [
     { id: "1", type: "12th" },
     { id: "2", type: "11th" },
@@ -39,6 +42,7 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
   ];
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
   const [statusinfo, setData] = useState({ step_status: "education_info" });
+
   const [standard, setStandard_12thMarks] = useState(
     standard_12thMarks.map((subject) => ({
       subject: subject.subject,
@@ -47,7 +51,7 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
     }))
   );
 
-  const [academi, setAcademic_Details] = useState(
+  const [academicData, setAcademicData] = useState(
     Academic_Details.map((type) => ({
       type: type.type,
     }))
@@ -57,30 +61,43 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
       type: type.type,
     }))
   );
+  useEffect(() => {
+    if (Array.isArray(studentDetail)) {
+      setStandard_12thMarks(
+        studentDetail.map((detail) => ({
+          subject: detail.subject,
+          obtained: detail.obtained || "",
+          outOf: detail.outOf || "",
+        }))
+      );
+    }
+  }, [studentDetail]);
 
-  const inputHandler = (index, fieldName, value) => {
-    const newData = [...standard];
-    newData[index][fieldName] = value;
-    setStandard_12thMarks(newData);
+  const inputHandler = (index, name, value) => {
+    setStandard_12thMarks((prevState) =>
+      prevState.map((item, i) =>
+        i === index ? { ...item, [name]: value } : item
+      )
+    );
   };
   const inputHandlers = (index, fieldName, value) => {
-    const newData = [...academi];
+    const newData = [...academicData];
     newData[index][fieldName] = value;
-    setAcademic_Details(newData);
-  };
-  const inputHandle = (index, fieldName, value) => {
-    const newData = [...exam];
-    newData[index][fieldName] = value;
-    setExams(newData);
+    setAcademicData(newData);
   };
 
+  const inputHandle = (index, fieldName, value) => {
+    const newData = [...examData];
+    newData[index][fieldName] = value;
+    setExamData(newData);
+  };
   const sendData = async (e) => {
     // e.preventDefault(e);
     const mergedData = {
       ...statusinfo,
       standard_12thMarks: standard,
-      Academic_Details: academi,
-      exams: exam,
+      Academic_Details: academicData,
+      exams: examData,
     };
     try {
       const response = await axios.put(
@@ -96,9 +113,6 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
   //   sendData();
   // };
 
-  const [studentDetail, setStudentDetail] = useState({});
-  const [examData, setExamData] = useState({});
-  const [academicData, setAcademicData] = useState({});
   // console.log(academicData, "data");
   const { token } = useSelector((state) => state?.auth);
   useEffect(() => {
@@ -117,8 +131,8 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
     axios
       .request(options)
       .then((response) => {
-        setStudentDetail(response?.data?.user?.standard_12thMarks);
         setExamData(response?.data?.user?.exams);
+        setStudentDetail(response?.data?.user?.standard_12thMarks);
         setAcademicData(response?.data?.user?.Academic_Details);
       })
       .catch((error) => {
@@ -145,8 +159,8 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {Array.isArray(studentDetail) && studentDetail.length > 0
-                      ? studentDetail.map((item, index) => (
+                    {Array.isArray(standard) && standard.length > 0
+                      ? standard.map((item, index) => (
                           <tr
                             key={index}
                             className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px] border-none 2xl:px-[30px] table-cell-no-border"
@@ -157,15 +171,11 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                             >
                               <label>{item.subject}</label>
                             </td>
-                            <td className="table-cell-no-border  w-1/3">
+                            <td className="table-cell-no-border w-1/3">
                               <div>
                                 <input
                                   type="text"
-                                  defaultValue={
-                                    item?.obtained
-                                      ? item?.obtained
-                                      : item?.obtained
-                                  }
+                                  value={item.obtained}
                                   onChange={(e) =>
                                     inputHandler(
                                       index,
@@ -178,60 +188,11 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                                 />
                               </div>
                             </td>
-                            <td className="table-cell-no-border  w-1/3">
+                            <td className="table-cell-no-border w-1/3">
                               <div>
                                 <input
                                   type="text"
-                                  defaultValue={item?.outOf}
-                                  onChange={(e) =>
-                                    inputHandler(index, "outOf", e.target.value)
-                                  }
-                                  className="pre_input2nd"
-                                  placeholder="Enter Detail"
-                                />
-                              </div>
-                            </td>
-                          </tr>
-                        ))
-                      : Array.isArray(standard_12thMarks) &&
-                        standard_12thMarks.length > 0
-                      ? standard_12thMarks.map((item, index) => (
-                          <tr
-                            key={index}
-                            className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px] border-none 2xl:px-[30px] table-cell-no-border"
-                          >
-                            <td
-                              key={index}
-                              className="table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px]"
-                            >
-                              <label>{item.subject}</label>
-                            </td>
-                            <td className="table-cell-no-border  w-1/3">
-                              <div>
-                                <input
-                                  type="text"
-                                  defaultValue={
-                                    item?.obtained
-                                      ? item?.obtained
-                                      : item?.obtained
-                                  }
-                                  onChange={(e) =>
-                                    inputHandler(
-                                      index,
-                                      "obtained",
-                                      e.target.value
-                                    )
-                                  }
-                                  className="pre_input2nd"
-                                  placeholder="Enter Detail"
-                                />
-                              </div>
-                            </td>
-                            <td className="table-cell-no-border  w-1/3">
-                              <div>
-                                <input
-                                  type="text"
-                                  defaultValue={item?.outOf}
+                                  value={item.outOf}
                                   onChange={(e) =>
                                     inputHandler(index, "outOf", e.target.value)
                                   }
@@ -271,16 +232,16 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                           key={index}
                           className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px]  2xl:px-[30px]"
                         >
-                          <td className=" table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px] border-none table-cell-no-border">
+                          <td className="table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px] border-none table-cell-no-border">
                             {item?.type}
                           </td>
-                          <td className=" table-cell-no-border w-1/3 table-cell-no-border">
+                          <td className="table-cell-no-border w-1/3 table-cell-no-border">
                             <div>
                               <input
                                 type="text"
                                 className="pre_input"
                                 placeholder="Enter detail"
-                                defaultValue={item?.passingDistrict}
+                                value={item?.passingDistrict || ""}
                                 onChange={(e) =>
                                   inputHandle(
                                     index,
@@ -291,56 +252,11 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
                               />
                             </div>
                           </td>
-                          <td className=" table-cell-no-border w-1/3 table-cell-no-border">
+                          <td className="table-cell-no-border w-1/3 table-cell-no-border">
                             <div>
                               <input
                                 type="text"
-                                defaultValue={item?.passingState}
-                                onChange={(e) =>
-                                  inputHandle(
-                                    index,
-                                    "passingState",
-                                    e.target.value
-                                  )
-                                }
-                                className="pre_input2nd"
-                                placeholder="Enter Detail"
-                              />
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    : Array.isArray(exam) && exam.length > 0
-                    ? exam.map((item, index) => (
-                        <tr
-                          key={index}
-                          className="2xl:h-[96px] inter font-[300] 2xl:text-[15px] xl:text-[12px] lg:text-[10px] 2xl:leading-[18px] xl:leading-[20px]  2xl:px-[30px]"
-                        >
-                          <td className=" table-cell-no-border w-1/3 inter font-[300] 2xl:text-[15px] 2xl:leading-[18.15px] xl:text-[12px] text-[12px] border-none table-cell-no-border">
-                            {item?.type}
-                          </td>
-                          <td className=" table-cell-no-border w-1/3 table-cell-no-border">
-                            <div>
-                              <input
-                                type="text"
-                                className="pre_input"
-                                placeholder="Enter detail"
-                                defaultValue={item?.passingDistrict}
-                                onChange={(e) =>
-                                  inputHandle(
-                                    index,
-                                    "passingDistrict",
-                                    e.target.value
-                                  )
-                                }
-                              />
-                            </div>
-                          </td>
-                          <td className=" table-cell-no-border w-1/3 table-cell-no-border">
-                            <div>
-                              <input
-                                type="text"
-                                defaultValue={item?.passingState}
+                                value={item?.passingState || ""}
                                 onChange={(e) =>
                                   inputHandle(
                                     index,
