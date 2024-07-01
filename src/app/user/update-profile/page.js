@@ -13,6 +13,7 @@ import UserProtectedRoute from "@/config/userProtectedRoute";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import config from "@/config";
+import Link from "next/link";
 
 const UserProfile = () => {
   const router = useRouter();
@@ -119,17 +120,17 @@ const UserProfile = () => {
       );
 
       if (response.status === 200) {
-        // refreshData();
         toast.success("Update successfully!");
-        // router.push("/user2nd/profile");
+        router.push("/user/update-profile");
+        // setStudentDetail({
+        //   newPassword: "",
+        //   confirmPassword: "",
+        // });
       } else {
-        // console.log("Server error");
         toast.error(error?.response?.data?.message || "Server error");
-        // console.log(error?.response?.data?.message, "hey");
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Server error");
-      // console.log(error?.response, "hey");
     }
   };
 
@@ -433,7 +434,7 @@ const UserProfile = () => {
                           className="userUinput"
                           placeholder="Enter Name"
                           required
-                          maxLength={200}
+                          maxLength={32}
                           onChange={inputHandler}
                         />
                       </div>
@@ -450,7 +451,7 @@ const UserProfile = () => {
                           className="userUinput"
                           placeholder="Enter Name"
                           required
-                          maxLength={200}
+                          maxLength={32}
                           onChange={inputHandler}
                         />
                       </div>
@@ -636,7 +637,6 @@ const UserProfile = () => {
                           onChange={inputHandler}
                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}"
                           title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
-                      
                         />
                       </div>
                       <div className="">
@@ -651,12 +651,23 @@ const UserProfile = () => {
                           onChange={inputHandler}
                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}"
                           title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
-                      
                         />
                       </div>
                     </div>
 
-                    <div className="2xl:mt-[65px] xl:mt-[40px] mt-[30px]">
+                    <div className="2xl:mt-[65px] xl:mt-[40px] mt-[30px] flex  2xl:gap-5 gap-3">
+                      <Link href="/user2nd/neetUG-home">
+                        <span
+                          type="submit"
+                          className=" cursor-pointer userpboxbtn "
+                        >
+                          <Image
+                            src={arrow}
+                            className="xl:w-[14px] xl:h-[10px] w-[10px] h-[8px] -rotate-180"
+                          />
+                          Cancel
+                        </span>
+                      </Link>{" "}
                       <button type="submit" className=" userpboxbtn ">
                         Update
                         <Image

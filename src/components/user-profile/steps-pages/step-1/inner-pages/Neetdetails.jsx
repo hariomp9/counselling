@@ -2,33 +2,32 @@ import React, { useState, useEffect } from "react";
 import HeadTitle from "../HeadTitle";
 
 const Neetdetails = ({ onFormDataChange, studentDetail }) => {
-  const [formData, setFormData] = useState({
-    NEET_Details: {
-      FullName: "",
-      MobileNumber: "",
-      WhatsappNumber: "",
-      NEET_RegisterNumber: "",
-      RollNo: "",
-      Marks: "",
-      AllIndiaRank: "",
-      StateRank: "",
-    },
-  });
-
+  const [formData, setFormData] = useState({});
   useEffect(() => {
     if (studentDetail) {
-      setFormData({
+      setFormData((prevFormData) => ({
         NEET_Details: {
-          FullName: studentDetail.FullName || "",
-          MobileNumber: studentDetail.MobileNumber || "",
-          WhatsappNumber: studentDetail.WhatsappNumber || "",
-          NEET_RegisterNumber: studentDetail.NEET_RegisterNumber || "",
-          RollNo: studentDetail.RollNo || "",
-          Marks: studentDetail.Marks || "",
-          AllIndiaRank: studentDetail.AllIndiaRank || "",
-          StateRank: studentDetail.StateRank || "",
+          ...prevFormData.NEET_Details,
+          FullName:
+            studentDetail.FullName || prevFormData?.NEET_Details?.FullName,
+          MobileNumber:
+            studentDetail.MobileNumber ||
+            prevFormData?.NEET_Details?.MobileNumber,
+          WhatsappNumber:
+            studentDetail.WhatsappNumber ||
+            prevFormData?.NEET_Details?.WhatsappNumber,
+          NEET_RegisterNumber:
+            studentDetail.NEET_RegisterNumber ||
+            prevFormData?.NEET_Details?.NEET_RegisterNumber,
+          RollNo: studentDetail.RollNo || prevFormData?.NEET_Details?.RollNo,
+          Marks: studentDetail.Marks || prevFormData?.NEET_Details?.Marks,
+          AllIndiaRank:
+            studentDetail.AllIndiaRank ||
+            prevFormData?.NEET_Details?.AllIndiaRank,
+          StateRank:
+            studentDetail.StateRank || prevFormData?.NEET_Details?.StateRank,
         },
-      });
+      }));
     }
   }, [studentDetail]);
 
@@ -41,7 +40,7 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
         [name]: value,
       },
     });
-    // Pass the updated form data to the parent component
+
     onFormDataChange({
       ...formData,
       NEET_Details: {
@@ -66,7 +65,8 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               placeholder="Enter Full Name"
               name="FullName"
               onChange={handleChange}
-              value={formData.NEET_Details.FullName}
+              value={formData?.NEET_Details?.FullName}
+              maxLength={64}
             />
           </div>
           <div className="col-span-1 profile_input_box">
@@ -76,27 +76,28 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               placeholder="Enter Mobile Number"
               name="MobileNumber"
               onChange={handleChange}
-              value={formData.NEET_Details.MobileNumber}
-              // value={
-              //   formData.NEET_Details.MobileNumber
-              //     ? formData.NEET_Details.MobileNumber
-              //     : studentDetail.MobileNumber
-              // }
+              maxLength={15}
+              value={formData?.NEET_Details?.MobileNumber}
+              onInput={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+                e.target.value = value.slice(0, 15);
+                handleChange(e);
+              }}
             />
           </div>
           <div className="col-span-1 profile_input_box">
             <label> Whatsapp Number</label>
             <input
-              type="text"
               placeholder="Enter Whatsapp Number"
               name="WhatsappNumber"
+              maxLength={15}
               onChange={handleChange}
-              value={formData.NEET_Details.WhatsappNumber}
-              // value={
-              //   formData.NEET_Details.WhatsappNumber
-              //     ? formData.NEET_Details.WhatsappNumber
-              //     : studentDetail.WhatsappNumber
-              // }
+              value={formData?.NEET_Details?.WhatsappNumber}
+              onInput={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+                e.target.value = value.slice(0, 15);
+                handleChange(e);
+              }}
             />
           </div>
           <div className="col-span-1 profile_input_box">
@@ -105,13 +106,9 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               type="text"
               placeholder="Enter NEET Register Number"
               name="NEET_RegisterNumber"
+              maxLength={30}
               onChange={handleChange}
-              value={formData.NEET_Details.NEET_RegisterNumber}
-              // value={
-              //   formData.NEET_Details.NEET_RegisterNumber
-              //     ? formData.NEET_Details.NEET_RegisterNumber
-              //     : studentDetail.NEET_RegisterNumber
-              // }
+              value={formData?.NEET_Details?.NEET_RegisterNumber}
             />
           </div>
           <div className="col-span-1 profile_input_box">
@@ -121,7 +118,9 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               placeholder="Enter Roll No"
               name="RollNo"
               onChange={handleChange}
-              value={formData.NEET_Details.RollNo}
+              value={formData?.NEET_Details?.RollNo}
+              maxLength={30}
+
               // value={
               //   formData.NEET_Details.RollNo
               //     ? formData.NEET_Details.RollNo
@@ -134,14 +133,10 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
             <input
               type="text"
               placeholder="Enter Marks"
+              maxLength={10}
               name="Marks"
               onChange={handleChange}
-              value={formData.NEET_Details.Marks}
-              // value={
-              //   formData.NEET_Details.Marks
-              //     ? formData.NEET_Details.Marks
-              //     : studentDetail.Marks
-              // }
+              value={formData?.NEET_Details?.Marks}
             />
           </div>
           <div className="col-span-1 profile_input_box">
@@ -150,13 +145,10 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               type="text"
               placeholder="Enter All India Rank"
               name="AllIndiaRank"
+              maxLength={15}
+
               onChange={handleChange}
-              value={formData.NEET_Details.AllIndiaRank}
-              // value={
-              //   formData.NEET_Details.AllIndiaRank
-              //     ? formData.NEET_Details.AllIndiaRank
-              //     : studentDetail.AllIndiaRank
-              // }
+              value={formData?.NEET_Details?.AllIndiaRank}
             />
           </div>
           <div className="col-span-1 profile_input_box">
@@ -165,13 +157,10 @@ const Neetdetails = ({ onFormDataChange, studentDetail }) => {
               type="text"
               placeholder="Enter State Rank"
               name="StateRank"
+              maxLength={15}
+
               onChange={handleChange}
-              value={formData.NEET_Details.StateRank}
-              // value={
-              //   formData.NEET_Details.StateRank
-              //     ? formData.NEET_Details.StateRank
-              //     : studentDetail.StateRank
-              // }
+              value={formData?.NEET_Details?.StateRank}
             />
           </div>
         </form>

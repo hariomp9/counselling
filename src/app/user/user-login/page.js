@@ -118,6 +118,7 @@ const UserLogin = () => {
                     <input
                       pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                       required
+                      maxLength={32}
                       onChange={InputHandler}
                       type="email"
                       id="email"
@@ -183,7 +184,7 @@ const UserLogin = () => {
                         minLength={8}
                         required
                         autoComplete="current-password"
-                        maxLength={100}
+                        maxLength={32}
                         id="password"
                         name="password"
                         checked={showPassword}

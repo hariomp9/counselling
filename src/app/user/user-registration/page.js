@@ -19,6 +19,20 @@ import { removeCourse } from "@/redux/adminSlice/authSlice";
 import config from "@/config";
 
 const UserRegistration = () => {
+  const countryCode = [
+    { name: "United States", dialCode: "+1" },
+    { name: "Canada", dialCode: "+1" },
+    { name: "United Kingdom", dialCode: "+44" },
+    { name: "Australia", dialCode: "+61" },
+    { name: "Germany", dialCode: "+49" },
+    { name: "France", dialCode: "+33" },
+    { name: "India", dialCode: "+91" },
+    { name: "China", dialCode: "+86" },
+    { name: "Japan", dialCode: "+81" },
+    { name: "Brazil", dialCode: "+55" },
+    // Add more countries as needed
+  ];
+  const [selectedCode, setSelectedCode] = useState("");
   const { userCourse } = useSelector((state) => state?.auth);
   // console.log(userCourse, "userCourse");
 
@@ -34,7 +48,7 @@ const UserRegistration = () => {
     firstname: "",
     lastname: "",
     email: "",
-    mobile: "",
+    mobile: selectedCode + "",
     password: "",
     role: "",
     careerGoals: userCourse,
@@ -62,7 +76,7 @@ const UserRegistration = () => {
       [name]: value,
     }));
   };
-const [errorM, setErrorM] = useState("")
+  const [errorM, setErrorM] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
@@ -84,7 +98,7 @@ const [errorM, setErrorM] = useState("")
         dispatch(adDetails(response.data.user));
       } else {
         toast.error(response.data.error);
-        setErrorM(response.data.error)
+        setErrorM(response.data.error);
       }
     } catch (error) {
       console.error("Error", error);
@@ -152,11 +166,9 @@ const [errorM, setErrorM] = useState("")
                       </div>
                     </div>
                   </div>
-
                   <div className=""></div>
                 </div>
               </div>
-
               <form onSubmit={handleSubmit}>
                 <div className="mx-auto my-2 xl:my-3 2xl:my-[]">
                   <div className=" w-[80%] lg:w-[60%] mx-auto ">
@@ -174,7 +186,7 @@ const [errorM, setErrorM] = useState("")
                             onChange={inputHandler}
                             maxLength={32}
                             required
-                            type="text"
+                            pattern="[a-zA-Z]+"
                             id="firstname"
                             name="firstname"
                             className="logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
@@ -193,7 +205,7 @@ const [errorM, setErrorM] = useState("")
                             onChange={inputHandler}
                             maxLength={32}
                             required
-                            type="text"
+                            pattern="[a-zA-Z]+"
                             id="lastname"
                             name="lastname"
                             className=" logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-0 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
@@ -230,30 +242,50 @@ const [errorM, setErrorM] = useState("")
                       >
                         Mobile Number
                       </label>
-                      {/* <input
-                        value={studentDetails.mobile}
-                        onChange={inputHandler}
-                        maxLength={10}
-                        pattern="0-9"
-                        required
-                        type="number"
-                        id="mobile"
-                        name="mobile"
-                        className="logininp montserrat-otp  text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px]   my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
-                        placeholder="Enter"
-                      /> */}
-                      <input
-                        value={studentDetails.mobile}
-                        onChange={inputHandler}
-                        maxLength={12}
-                        required
-                        type="tel"
-                        id="mobile"
-                        name="mobile"
-                        className="logininp montserrat-otp text-[#979797] border rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
-                        placeholder="Enter"
-                      />
+                      <div className="flex items-center">
+                        <span className="flex items-center px-3 bg-[#E8F0FE] rounded-s-[6.41px] 2xl:h-[56px] xl:h-[40px] lg:h-[25px] 2xl:text-[16px] xl:text-[12px] text-[10px] 2xl::py-4 lg:py-4 border">
+                          <select
+                            id=""
+                            name=""
+                            value={selectedCode}
+                            onChange={(e) => setSelectedCode(e.target.value)}
+                            className="outline-none 2xl:w-[60px]"
+                          >
+                            <option value="">+91</option>
+                            {Array.isArray(countryCode) &&
+                              countryCode.map((item) => (
+                                <option
+                                  key={item.dialCode}
+                                  value={item.dialCode}
+                                  className="outline-none"
+                                >
+                                  {item.dialCode}
+                                </option>
+                              ))}
+                          </select>
+                        </span>
+                        {/* {selectedCode && (
+                          <div className="mt-2">
+                            {selectedCode}
+                          </div>
+                        )} */}
+                        <input
+                          value={studentDetails.mobile}
+                          onChange={inputHandler}
+                          required
+                          id="mobile"
+                          name="mobile"
+                          className="logininp montserrat-otp text-[#979797] border border-l-0 rounded-s-none rounded-[6.41px] lg:px-6 lg:py-4 w-full 2xl:h-[56px] xl:h-[40px] lg:h-[25px] my-1 xl:my-2 outline-[#0071BC] 2xl:text-[16px] xl:text-[12px] text-[10px] py-3 px-4"
+                          placeholder="Enter"
+                          onInput={(e) => {
+                            const value = e.target.value.replace(/\D/g, "");
+                            e.target.value = value.slice(0, 15);
+                            inputHandler(e);
+                          }}
+                        />
+                      </div>
                     </div>
+
                     <div className="2xl:my-5 xl:my-3 my-2">
                       <label
                         htmlFor="password"

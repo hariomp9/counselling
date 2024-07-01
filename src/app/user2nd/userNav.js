@@ -97,20 +97,20 @@ const UserNavbar = () => {
     <>
       <ToastContainer autoClose={1000} />
       <section>
-        <nav className=" hidden lg:block 2xl:px-10 xl:px-6 lg:px-4 lg:py-[13px] xl:py-[13px] 2xl:p-[9px]  border border-s-0 w-full flex-row ">
+        <nav className=" hidden lg:block 2xl:px-10 xl:px-6 lg:px-4 lg:py-[13px] xl:py-[8px] 2xl:p-[9px]  border border-s-0 w-full flex-row ">
           <div className="flex justify-between ">
-            <div className="flex items-center">
+            <div className="flex items-center w-1/2">
               <h1 className="inter font-[600] 2xl:text-[25px] 2xl:leading-[45px] xl:text-[18px] xl:leading-[28px] lg:text-[14px] lg:leading-[20px] sm:text-[12px] text-[10px] sm:leading-[16px] ">
                 NEET UG 2024
               </h1>
             </div>
-            <div className="flex items-center gap-5 2xl:gap-7">
+            <div className="flex justify-end items-center gap-5 2xl:gap-7 w-1/2">
               {plan === "One on One" ? (
                 <div>
                   <Link href={`/pages/user-stepsForm/${studentDetail._id}`}>
                     <button
                       className="bg-[#4F9ED9] text-white inter font-[700] rounded-[5px] 2xl:text-[15px] 2xl:leading-[20px] xl:text-[11px] xl:leading-[16px] lg:text-[9px] 
-            2xl:w-[216px] 2xl:h-[48px] xl:h-[30px] h-[25px] xl:w-[160px] lg:w-[120px] sm:w-[] w-[]  lg:leading-[14px]"
+                     2xl:w-[216px] 2xl:h-[48px] xl:h-[30px] h-[25px] xl:w-[160px] lg:w-[120px] sm:w-[] w-[]  lg:leading-[14px]"
                     >
                       Complete Your Profile
                     </button>
@@ -135,32 +135,33 @@ const UserNavbar = () => {
                 </div>
               </div> */}
 
-              <div className="dropdown dropdown-end 2xl:w-[170px]">
-                <div tabIndex={0} role="button" className="  btn-circle ">
+              <div className="dropdown dropdown-end w-[100px] xl:w-[100px] 2xl:w-[150px] ">
+                <div tabIndex={0} role="button" className=" btn-circle ">
                   <div className=" rounded-full w-full">
                     <div className="flex items-center gap-2">
                       <Image
                         src={userImg}
                         className="2xl:w-[50px] 2xl:h-[50px] xl:w-[35px] xl:h-[35px] w-[35px] h-[35px] rounded-full"
                       />
-                      <div className="w-[170px]">
-                        <h1 className="inter font-[600] 2xl:text-[20px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[16px] lg:text-[10px] lg:leading-[16px] w-[110px] ">
+                      <div className="">
+                        <h1 className="inter font-[600] 2xl:text-[20px] 2xl:leading-[30px] xl:text-[12px] xl:leading-[16px] lg:text-[10px] lg:leading-[16px] 2xl:w-[150px] xl:w-[70px] w-[70px] ">
                           {studentDetail?.firstname}
                         </h1>
-                        <h2 className="inter font-[400] text-[#6A6A6A] 2xl:text-[16px] 2xl:leading-[26px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[14px] w-[110px]">
+                        <h2 className="inter font-[400] text-[#6A6A6A] 2xl:text-[16px] 2xl:leading-[26px] xl:text-[10px] xl:leading-[16px] lg:text-[8px] lg:leading-[14px] 2xl:w-[150px] xl:w-[70px] w-[70px] ">
                           {studentDetail?.SubscriptionsPlan}
                         </h2>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <ul
                   tabIndex={0}
-                  className="border menu menu-sm dropdown-content mt-3 z-[1] p-2  shadow bg-base-100 rounded-box 2xl:w-[353px] 2xl:h-[320px]"
+                  className="border menu menu-sm dropdown-content mt-3 z-[1] px-2  shadow bg-base-100 rounded-box w-[203px] xl:w-[220px]  2xl:w-[353px] "
                 >
                   <div className="flex justify-between 2xl:px-[30px] xl:px-[20px] px-[15px] 2xl:h-[70px]">
-                    <div className="flex gap-[15px] items-center">
-                      <div className="bg-[#1172BA] rounded-full flex justify-center items-center 2xl:w-[32px] 2xl:h-[32px] xl:w-[45px] xl:h-[45px] w-[45px] h-[45px]">
+                    <div className="flex gap-[15px] items-center 2xl:h-[80px] xl:h-[50px]  h-[40px]">
+                      <div className="bg-[#1172BA] rounded-full flex justify-center items-center 2xl:w-[55px] 2xl:h-[55px] xl:w-[35px] xl:h-[35px] w-[25px] h-[25px]">
                         <h1 className="inter text-white font-[600] 2xl:text-[16px] 2xl:leading-[20px] xl:text-[12px] xl:leading-[16px] text-[10px] my-1 2xl:my-2">
                           {firstNameInitial}
                           {lastNameInitial}
@@ -192,8 +193,11 @@ const UserNavbar = () => {
 
                   <Link href="/user2nd/profile" className="justify-between">
                     <li className="2xl:px-[20px] xl:px-[20px] px-[15px] 2xl:h-[70px]">
-                      <div className="2xl:h-[80px] gap-[15px] flex items-center justify-start">
-                        <Image src={user} className="" />
+                      <div className="2xl:h-[80px] xl:h-[50px]  h-[40px] gap-[15px] flex items-center justify-start">
+                        <Image
+                          src={user}
+                          className="2xl:w-[35px] xl:w-[20px] w-[20px]"
+                        />
 
                         <p className="inter font-[400] 2xl:text-[15px] 2xl:leading-[22px] xl:text-[12px] text-[10px]">
                           My Profile
@@ -205,8 +209,8 @@ const UserNavbar = () => {
 
                   <Link href="/user/update-profile" className="justify-between">
                     <li className="2xl:px-[20px] xl:px-[20px] px-[15px] 2xl:h-[70px]">
-                      <div className="2xl:h-[80px] gap-[15px] flex items-center justify-start">
-                        <Image src={key} className="" />
+                      <div className="2xl:h-[80px] xl:h-[50px]  h-[40px] gap-[15px] flex items-center justify-start">
+                        <Image src={key} className="2xl:w-[35px] xl:w-[20px] w-[20px]" />
                         <p className="inter font-[400] 2xl:text-[15px] 2xl:leading-[22px] xl:text-[12px] text-[10px]">
                           Change Password
                         </p>{" "}
@@ -217,8 +221,11 @@ const UserNavbar = () => {
 
                   <button onClick={handleLogout}>
                     <li className="2xl:px-[20px] xl:px-[20px] px-[15px] 2xl:h-[70px]">
-                      <div className="2xl:h-[60px] gap-[15px] flex items-center justify-start">
-                        <Image src={logout} className="" />
+                      <div className="2xl:h-[80px] xl:h-[50px]  h-[40px] gap-[15px] flex items-center justify-start">
+                        <Image
+                          src={logout}
+                          className="2xl:w-[35px] xl:w-[20px] w-[20px]"
+                        />
                         <p className="inter font-[400] text-[#DC2635] 2xl:text-[15px] 2xl:leading-[22px] xl:text-[12px] text-[10px]">
                           Signout
                         </p>
@@ -255,7 +262,7 @@ const UserNavbar = () => {
               NEET UG 2024
             </h1>
           </div>
-          <div className="flex items-center gap-2 2xl:gap-7">
+          <div className="flex items-center gap-2 2xl:gap-7 w-[200px]">
             <div>
               <button className="bg-[#4F9ED9] text-white inter font-[700] px-1 rounded-[5px] h-[25px] sm:text-[8px] sm:leading-[12px] text-[9px] leading-[11px]">
                 Complete Your Profile
@@ -290,75 +297,3 @@ const UserNavbar = () => {
 };
 
 export default UserNavbar;
-
-<div className="navbar bg-base-100">
-  <div className="flex-1">
-    <a className="btn btn-ghost text-xl">daisyUI</a>
-  </div>
-  <div className="flex-none">
-    <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-        <div className="indicator">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-            />
-          </svg>
-          <span className="badge badge-sm indicator-item">8</span>
-        </div>
-      </div>
-      <div
-        tabIndex={0}
-        className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
-      >
-        <div className="card-body">
-          <span className="font-bold text-lg">8 Items</span>
-          <span className="text-info">Subtotal: $999</span>
-          <div className="card-actions">
-            <button className="btn btn-primary btn-block">View cart</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="dropdown dropdown-end">
-      <div
-        tabIndex={0}
-        role="button"
-        className="btn btn-ghost btn-circle avatar"
-      >
-        <div className="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-          />
-        </div>
-      </div>
-      <ul
-        tabIndex={0}
-        className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-      >
-        <li>
-          <a className="justify-between">
-            Profile
-            <span className="badge">New</span>
-          </a>
-        </li>
-        <li>
-          <a>Settings</a>
-        </li>
-        <li>
-          <a>Logout</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>;
