@@ -902,8 +902,11 @@ exports.updatedUser = async (req, res) => {
       updatedUser.User_Intersted = 'Intersted'; // Corrected spelling
       updatedUser.SubscriptionsPlan = 'One on One';
     }
-    // Save the updated user
-    await updatedUser.save();
+    // Save the updated user with Validation
+    // await updatedUser.save();
+
+    // Save the updated user without Validation
+    updatedUser = await updatedUser.save({ validateBeforeSave: false });
 
     res.json({ message: 'User updated successfully', updatedUser });
 
