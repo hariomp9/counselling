@@ -636,7 +636,8 @@ exports.forgotPassword = async (req, res, next) => {
 
     const resetToken = user.getResetPasswordToken();
     console.log("resetToken:", resetToken);
-    await user.save();
+      // Save the user without validating all fields
+      await user.save({ validateBeforeSave: false });
 
     const resetUrl = `http://35.154.216.63:3000/user/reset-password/${resetToken}`;
 
