@@ -1687,7 +1687,7 @@ exports.getInterstedUsers  = async (req, res) => {
     const skip = (currentPage - 1) * itemsPerPage;
 
     // Construct query conditions
-    const query = { User_Intersted:'Intersted'};
+    const query = { emailSent: 'true' };
     if (firstName) {
       query.firstname = { $regex: new RegExp(firstName, 'i') }; // Case-insensitive search
     }
