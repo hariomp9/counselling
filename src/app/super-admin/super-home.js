@@ -1,6 +1,7 @@
 "use client";
 import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import one from "./assets/one.svg";
 import two from "./assets/two.svg";
 import three from "./assets/three.svg";
@@ -81,7 +82,8 @@ const SuperHome = () => {
   const [isLoading, setLoading] = useState(false);
   const { token } = useSelector((state) => state?.auth);
   const [plan, setPlan] = useState("Pending");
-  const [studentDetail, setStudentDetail] = useState("Approved");
+  const [studentDetail, setStudentDetail] = useState("");
+
   // const statusList = plan.map(user => user.Status);
   // console.log(statusList , "Status")
 
@@ -109,6 +111,10 @@ const SuperHome = () => {
     const option = {
       method: "GET",
       url: `${config.baseURL}/api/auth/getInterstedUsers`,
+      headers: {
+        Accept: "application/json",
+        authorization: token,
+      },
     };
     axios
       .request(option)
@@ -151,21 +157,52 @@ const SuperHome = () => {
       setLoading(false);
     }
   };
+  // const inputHandler = (e) => {
+  //   const { name, value } = e.target;
+  //   setStudentDetail({
+  //     ...studentDetail,
+  //     Status: value,
+  //   });
+  // };
+
+  // const handleUpdateUser = async () => {
+  //   try {
+  //     const response = await axios.put(
+  //       `${config.baseURL}/api/auth/edit-user/${userID}`,
+  //       studentDetail,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           authorization: token,
+  //         },
+  //       }
+  //     );
+
+  //     if (response.status === 200) {
+  //       tonsole.log("Server error");
+  //       toast.error(error?.response?.data?.message || "Server error");
+  //     }
+  //   } catch (error) {
+  //     console.log(error?.response?.data?.message || "Server error");
+  //   }
+  // };
   const inputHandler = (e) => {
     const { name, value } = e.target;
-    console.log("Received name:", name);
-    console.log("Received value:", value);
     setStudentDetail({
       ...studentDetail,
-      Status: value,
+      [name]: value,
     });
   };
-
-  const handleUpdateUser = async () => {
+  const handleUpdateUser = async (status) => {
     try {
+      setStudentDetail((prevState) => ({
+        ...prevState,
+        Status: status,
+      }));
+
       const response = await axios.put(
         `${config.baseURL}/api/auth/edit-user/${userID}`,
-        studentDetail,
+        { Status: status },
         {
           headers: {
             "Content-Type": "application/json",
@@ -180,7 +217,7 @@ const SuperHome = () => {
         refreshData();
       } else {
         console.log("Server error");
-        toast.error(error?.response?.data?.message || "Server error");
+        toast.error(response?.data?.message || "Server error");
       }
     } catch (error) {
       console.log(error?.response?.data?.message || "Server error");
@@ -584,9 +621,11 @@ const SuperHome = () => {
                             </td>
 
                             <td>
-                              <button className="craete_tbl_Pbtn">
-                                Preview
-                              </button>
+                              <Link href={`/pages/studentDetails/${item?._id}`}>
+                                <button className="craete_tbl_Pbtn">
+                                  Preview
+                                </button>
+                              </Link>
                             </td>
                             <td className="">
                               {item?.Status === "Pending" ? (
@@ -750,35 +789,20 @@ const SuperHome = () => {
                   </Dialog.Title>
                   <div className="mt-2"></div>
 
-                  <div className=" mt-4 lg:mt-8">
+                  <div className="mt-4 lg:mt-8">
                     <div className="flex justify-between gap-x-5">
                       <button
-                        className={`w-full  rounded-md 
-            custom_btn_d 
-                              border-red-400 text-red-700 bg-red-200  
-                              hover:border-none
-                        ${isLoading ? "bg-gray-200" : "hover:bg-red-200"}
-                        hover:border-none`}
-                        value="Rejected"
-                        onClick={() => {
-                          handleUpdateUser();
-                          inputHandler({
-                            target: { name: "Status", value: "Rejected" },
-                          });
-                        }}
+                        className={`w-full rounded-md custom_btn_d border-red-400 text-red-700 bg-red-200 hover:border-none ${
+                          isLoading ? "bg-gray-200" : "hover:bg-red-200"
+                        } hover:border-none`}
+                        onClick={() => handleUpdateUser("Pending")}
                         disabled={isLoading}
                       >
                         {isLoading ? "Rejecting..." : "Reject"}
                       </button>
                       <button
-                        value="Approved"
                         className="w-full border border-1 rounded-md border-lightBlue-400 text-lightBlue-700 hover:bg-lightBlue-200 text-sm px-2 py-3 hover:border-none border-green-400 text-green-700 hover:bg-green-200 custom_btn_d"
-                        onClick={() => {
-                          handleUpdateUser();
-                          inputHandler({
-                            target: { name: "Status", value: "Approved" },
-                          });
-                        }}
+                        onClick={() => handleUpdateUser("Approved")}
                       >
                         Approve
                       </button>
