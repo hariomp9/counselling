@@ -1725,7 +1725,13 @@ exports.deleteInterstedUser = async (req, res) => {
 
     // Soft delete the user by setting 'deleted' field to true
     user.emailSent = false;
-    await user.save();
+    // Save with validation
+    // await user.save();
+
+
+    // save without validation
+
+    await user.save({ validateBeforeSave: false });
 
     res.status(200).json({ success: true, message: 'User deleted successfully' });
   } catch (error) {
