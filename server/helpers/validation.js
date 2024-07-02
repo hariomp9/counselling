@@ -38,18 +38,18 @@ const state_districtSchema = joi.array().items(
 );
 
 
-// Define the validation schema for OtherStatePreferences
-const OtherStatePreferencesSchema = joi.array().items(
-    joi.object({
-        select_options: joi.string().allow('', null), // Making select_options optional
-        Preference_Fields: joi.array().items(joi.string().custom((value, helpers) => {
-            if (!mongoose.Types.ObjectId.isValid(value)) {
-                return helpers.error('any.invalid');
-            }
-            return value;
-        })).required() // Assuming Preference_Fields is required
-    })
-);
+// // Define the validation schema for OtherStatePreferences
+// const OtherStatePreferencesSchema = joi.array().items(
+//     joi.object({
+//         select_options: joi.string().allow('', null), // Making select_options optional
+//         Preference_Fields: joi.array().items(joi.string().custom((value, helpers) => {
+//             if (!mongoose.Types.ObjectId.isValid(value)) {
+//                 return helpers.error('any.invalid');
+//             }
+//             return value;
+//         })).required() // Assuming Preference_Fields is required
+//     })
+// );
 
 
 
@@ -70,7 +70,7 @@ exports.validateUser = async (req, res, next) => {
     try {
         const { domicileStateCategory, OtherStatePreferences,Course_Preference,State_Disrict} = req.body;
         await domicileStateCategorySchema.validateAsync(domicileStateCategory);
-        await OtherStatePreferencesSchema.validateAsync(OtherStatePreferences);
+        // await OtherStatePreferencesSchema.validateAsync(OtherStatePreferences);
         await coursePreferenceSchema.validateAsync(Course_Preference);
         await state_districtSchema.validateAsync(State_Disrict);
 

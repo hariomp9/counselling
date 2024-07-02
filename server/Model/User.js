@@ -327,7 +327,10 @@ const UserSchema = new mongoose.Schema(
       },
       Preference_Fields: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "State"
+        ref: "State",
+        required: function () {
+          return this.select_options === 'Yes'; // Required only if Other State Preferences is 'Yes'
+        }
       }]
     }],
 
@@ -546,7 +549,7 @@ UserSchema.methods.getResetPasswordToken = function () {
   const resetToken = crypto.randomBytes(20).toString("hex");
 
   this.passwordResetToken = resetToken;
-  this.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+  this.passwordResetExpires = Date.now() + 15 * 60 * 1000; // 15 minutes
   return resetToken;
 };
 
