@@ -1034,6 +1034,7 @@ exports.getallUser = async (req, res) => {
   }
 };
 
+
 exports.getaUser = async (req, res) => {
   const { _id } = req.user;
   validateMongoDbId(_id);

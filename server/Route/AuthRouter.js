@@ -132,7 +132,7 @@ router.route("/removeFromWishlist/:collegeId").delete(isAuthenticatedUser , remo
 router.route("/uploadImage").post(isAuthenticatedUser, authorizeRoles("admin"), upload.single('file'),uploadImage)
 
 
-router.put("/updatedUser_Steps/:id",validateUser, updatedUser_Steps);
+router.put("/updatedUser_Steps/:id", updatedUser_Steps);
 
 router.get("/getstepsbyuserId/:id", getstepsbyuserId);
 

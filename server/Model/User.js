@@ -262,12 +262,14 @@ const UserSchema = new mongoose.Schema(
     MinorityReservations: [{
       Minority: {
         type: String,
-        enum: ["Jain Minority", "Muslim Minority", "Christian Minority", "Gujarati / Sindhi Minority", "Hindi Linguistic Minority"]
+        enum: ["Jain Minority", "Muslim Minority", "Christian Minority", "Gujarati / Sindhi Minority", "Hindi Linguistic Minority"],
+        required: false
       },
       select_option: {
         type: String,
         enum: ["Yes", "No"],
-        default:"No"
+        default:"No",
+        required: false
       }
   
     }],
@@ -323,11 +325,13 @@ const UserSchema = new mongoose.Schema(
     OtherStatePreferences: [{
       select_options: {
         type: String,
-        enum: ["Yes", "No"]
+        enum: ["Yes", "No"],
+        required: false
       },
       Preference_Fields: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "State"
+        ref: "State",
+        required: false
       }]
     }],
 
