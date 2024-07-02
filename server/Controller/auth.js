@@ -896,6 +896,7 @@ exports.updatedUser = async (req, res) => {
     // Check if the user's status is "Pending"
     if (updatedUser.Status === 'Pending') {
       updatedUser.SubscriptionsPlan = 'Free'; // Update SubscriptionPlan to "Free"
+      updatedUser.emailSent = false;
     }
 
        if (updatedUser.Status === 'Approved') {
