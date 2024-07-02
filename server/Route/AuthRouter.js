@@ -138,9 +138,36 @@ router.get("/getstepsbyuserId/:id", getstepsbyuserId);
 
 router.route("/PushMail/:id").post(PushMail);
 
-router.get("/getInterstedUsers", getInterstedUsers , isAuthenticatedUser)
+router.get("/getInterstedUsers", isAuthenticatedUser , (req, res, next) => {
+  authorizeRoles("admin")(req, res, err => {
+      if (!err) {
+          return next();
+      }
+      authorizeRoles("super-admin")(req, res, err => {
+          if (!err) {
+              return next();
+          }
+          return res.status(403).json({ success: false, message: "Unauthorized access" });
+      });
+  }
+)
+}
+   ,getInterstedUsers)
 
-router.delete("/deleteInterstedUsers/:id",  deleteInterstedUser , isAuthenticatedUser)
+router.delete("/deleteInterstedUsers/:id",  isAuthenticatedUser , (req, res, next) => {
+  authorizeRoles("admin")(req, res, err => {
+      if (!err) {
+          return next();
+      }
+      authorizeRoles("super-admin")(req, res, err => {
+          if (!err) {
+              return next();
+          }
+          return res.status(403).json({ success: false, message: "Unauthorized access" });
+      });
+  }
+)
+}, deleteInterstedUser )
 
 router.get("/getWeeklyUsers", getWeeklyUsers )
 

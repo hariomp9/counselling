@@ -1687,7 +1687,7 @@ exports.getInterstedUsers  = async (req, res) => {
     const skip = (currentPage - 1) * itemsPerPage;
 
     // Construct query conditions
-    const query = { emailSent: 'true' };
+    const query = { User_Intersted: 'Intersted'};
     if (firstName) {
       query.firstname = { $regex: new RegExp(firstName, 'i') }; // Case-insensitive search
     }
@@ -1706,6 +1706,7 @@ exports.getInterstedUsers  = async (req, res) => {
     res.status(200).json({
       success: true,
       users,
+      count: users.length
     });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Internal server error' });
@@ -1725,7 +1726,7 @@ exports.deleteInterstedUser = async (req, res) => {
     }
 
     // Soft delete the user by setting 'deleted' field to true
-    user.emailSent = false;
+    user.User_Intersted = 'Non-Intersted';
     // Save with validation
     // await user.save();
 
