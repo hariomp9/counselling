@@ -1663,6 +1663,7 @@ exports.PushMail = async (req, res) => {
         res.status(500).json({ success: false, message: 'Error sending email' });
       } else {
         user.emailSent = true; // For example, you can set a boolean field to indicate that an email has been sent
+        user.User_Intersted = 'Intersted'; // Corrected spelling
         await user.save(); // Save the updated user
         console.log('Email sent:', info.response);
         res.status(200).json({ success: true, message: 'Email sent successfully' });
