@@ -327,10 +327,7 @@ const UserSchema = new mongoose.Schema(
       },
       Preference_Fields: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "State",
-        required: function () {
-          return this.select_options === 'Yes'; // Required only if Other State Preferences is 'Yes'
-        }
+        ref: "State"
       }]
     }],
 
