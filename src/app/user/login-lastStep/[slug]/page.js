@@ -73,13 +73,13 @@ const LoginLastStep = ({ params }) => {
     try {
       const response = await axios.put(
         `${config.baseURL}/api/auth/edit-user/${userId}`,
-        studentDetail
-        // {
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     authorization: token,
-        //   },
-        // }
+        studentDetail,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: token,
+          },
+        }
       );
 
       if (response.status >= 200 && response.status < 300) {

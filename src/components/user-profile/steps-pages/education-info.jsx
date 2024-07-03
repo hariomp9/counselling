@@ -8,8 +8,18 @@ import config from "@/config";
 const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
   const [isKarnatakaCounselling, setIsKarnatakaCounselling] = useState(true);
   const [studentDetail, setStudentDetail] = useState({});
-  console.log(studentDetail, "studentDetail");
   const [examData, setExamData] = useState({});
+  const standard_12thMarks = [
+    { id: "1", subject: "Physics" },
+    { id: "2", subject: "Chemistry" },
+    { id: "3", subject: "Biology" },
+    { id: "4", subject: "English" },
+    { id: "5", subject: "PCB Total" },
+    { id: "6", subject: "PCBE Total" },
+    { id: "7", subject: "PCB %" },
+    { id: "8", subject: "BASLP" },
+    { id: "9", subject: "PCBE %" },
+  ];
   const Academic_Details = [
     { id: "1", type: "12th" },
     { id: "2", type: "11th" },
@@ -24,25 +34,13 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
     { id: "11", type: "2th" },
     { id: "12", type: "1th" },
   ];
-
-  const standard_12thMarks = [
-    { id: "1", subject: "Physics" },
-    { id: "2", subject: "Chemistry" },
-    { id: "3", subject: "Biology" },
-    { id: "4", subject: "English" },
-    { id: "5", subject: "PCB Total" },
-    { id: "6", subject: "PCBE Total" },
-    { id: "7", subject: "PCB %" },
-    { id: "8", subject: "BASLP" },
-    { id: "9", subject: "PCBE %" },
-  ];
   const exams = [
     { id: "1", type: "12th" },
     { id: "2", type: "10th" },
   ];
+
   const userid = useSelector((state) => state?.auth?.ad_details?._id);
   const [statusinfo, setData] = useState({ step_status: "education_info" });
-
   const [standard, setStandard_12thMarks] = useState(
     standard_12thMarks.map((subject) => ({
       subject: subject.subject,
