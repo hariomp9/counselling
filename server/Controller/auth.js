@@ -84,7 +84,11 @@ exports.register = async (req, res, next) => {
     return res.status(203).json({ error: "User with this email already exists." });
   }
 
-
+     // Prepare user data including standard_12thMarks with default subjects
+     const defaultSubjects = [
+      'Physics', 'Chemistry', 'Biology', 'English',
+      'PCB Total', 'PCBE Total', 'PCB %', 'BASLP', 'PCBE %'
+    ];
 
 
   const userData = {
@@ -111,14 +115,13 @@ exports.register = async (req, res, next) => {
     Id_Number:await generateIdNumber(),
     standard_12thMarks: req.body.standard_12thMarks && req.body.standard_12thMarks.length > 0 ? req.body.standard_12thMarks.map(mark => ({
       subject: mark.subject || 'N/A',
-      obtained: mark.obtained || 0, // Use 0 as the default value for obtained
-      outOf: mark.outOf || 0 // Use 0 as the default value for outOf
-    })) : [{
-      subject: 'N/A',
-      obtained: 0, // Use 0 as the default value for obtained
-      outOf: 0 // Use 0 as the default value for outOf
-    }],
-    
+      obtained: mark.obtained || 0,
+      outOf: mark.outOf || 0
+    })) : defaultSubjects.map(subject => ({
+      subject,
+      obtained: 0,
+      outOf: 0
+    }))
   };
 
   try {
