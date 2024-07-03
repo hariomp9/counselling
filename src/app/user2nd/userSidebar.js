@@ -7,7 +7,11 @@ import documentM from "./assets/documents.svg";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { removeToken, rem_AdDetails, removeUserId } from "@/redux/adminSlice/authSlice";
+import {
+  removeToken,
+  rem_AdDetails,
+  removeUserId,
+} from "@/redux/adminSlice/authSlice";
 import { ToastContainer, toast } from "react-toastify";
 import home from "./assets/home.svg";
 import Subscription from "./assets/subscription.svg";
@@ -120,17 +124,15 @@ const UserSidebar = () => {
           </div>
           <div className="flex justify-center mt-5 2xl:mt-[44px]">
             <div className=" hover:text-[#2083C4]">
-              <a href="/super-admin/create-user">
-                <Image
-                  src={rankP}
-                  className="mx-auto  w-5 h-5 2xl:w-6 2xl:h-6 mx-auto"
-                />
-
-                <p className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[16.94px] text-[10px] inter font-[400] text-center my-[3px]">
-                  {" "}
-                  Rank Predictor
-                </p>
-              </a>
+              <Image
+                src={rankP}
+                className="mx-auto  w-5 h-5 2xl:w-6 2xl:h-6 mx-auto"
+              />
+              <p className="text-[#66696F] 2xl:text-[14px] 2xl:leading-[16.94px] text-[10px] inter font-[400] text-center my-[3px]">
+                {" "}
+                Rank Predictor
+              </p>
+              \
             </div>
           </div>
           <div className="flex justify-center mt-5 2xl:mt-[44px]">
