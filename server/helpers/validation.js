@@ -38,6 +38,7 @@ const state_districtSchema = joi.array().items(
 );
 
 
+
 // // Define the validation schema for OtherStatePreferences
 // const OtherStatePreferencesSchema = joi.array().items(
 //     joi.object({
@@ -64,15 +65,25 @@ const coursePreferenceSchema = joi.array().items(
 );
 
 
+const category_id_schema = joi.object({
+    All_India_Category_id: joi.string().custom((value, helpers) => {
+        if (!mongoose.Types.ObjectId.isValid(value)) {
+            return helpers.error('any.invalid');
+        }
+        return value;
+    })
+});
+
 
 // Validation middleware for domicileStateCategory and OtherStatePreferences
 exports.validateUser = async (req, res, next) => {
     try {
-        const { domicileStateCategory, OtherStatePreferences,Course_Preference,State_Disrict} = req.body;
+        const { domicileStateCategory, OtherStatePreferences,Course_Preference,State_Disrict, All_India_Category_id} = req.body;
         await domicileStateCategorySchema.validateAsync(domicileStateCategory);
         // await OtherStatePreferencesSchema.validateAsync(OtherStatePreferences);
         await coursePreferenceSchema.validateAsync(Course_Preference);
         await state_districtSchema.validateAsync(State_Disrict);
+        await category_id_schema.validateAsync(All_India_Category_id);
 
         next();
     } catch (error) {
