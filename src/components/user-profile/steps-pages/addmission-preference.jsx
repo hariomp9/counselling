@@ -18,6 +18,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   const [Admissions_Preferences, setAdmissions_Preferences] = useState([]);
   const [selectedCollege, setSelectedCollege] = useState(null);
   const [preState, setPreState] = useState([]);
+  const [nriQuotaPreference, setNriQuotaPreference] = useState("");
 
   const data = [
     { id: 1, name: "Government College" },
@@ -34,18 +35,30 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   };
 
   const handleStateChange = (event, index) => {
+    const stateId = event.target.value;
+    const stateName =
+      getAllStates.find((state) => state._id === stateId)?.name || "";
+
+    console.log("State change - selected:", { stateId, stateName });
+
     const updatedPreferences = [...preferencesss];
-    updatedPreferences[index].stateId = event.target.value;
-    updatedPreferences[index].stateName =
-      getAllStates.find((state) => state._id === event.target.value)?.name ||
-      ""; // Get state name for display
+    updatedPreferences[index] = {
+      ...updatedPreferences[index],
+      stateId: stateId,
+      stateName: stateName,
+    };
+
+    console.log("Updated preferences:", updatedPreferences);
 
     setPreferences(updatedPreferences);
 
-    // Update formData.OtherStatePreferences.Preference_Fields on state change
+    // Update formData
     const updatedFormData = { ...formData };
     updatedFormData.OtherStatePreferences[0].Preference_Fields =
-      updatedPreferences.map((pref) => pref.stateId);
+      updatedPreferences.map((pref) => ({
+        _id: pref.stateId,
+        name: pref.stateName,
+      }));
     setFormData(updatedFormData);
   };
 
@@ -134,36 +147,18 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   const handleCategoryClick = (category) => {
     const isSelected = selectedCategories.includes(category._id);
 
-    if (isSelected) {
-      const updatedCategories = selectedCategories.filter(
-        (catId) => catId !== category._id
-      );
-      setSelectedCategories(updatedCategories);
-    } else {
-      const updatedCategories = [...selectedCategories, category._id];
-      setSelectedCategories(updatedCategories);
-    }
-
-    setFormData(
-      {
-        ...formData,
-        Course_Preference: isSelected
-          ? formData.Course_Preference.filter(
-              (pref) => pref._id !== category._id
-            )
-          : [...formData.Course_Preference, category._id],
-        Admissions_Preferences: selectedColleges,
-        OtherStatePreferences: [
-          {
-            select_options: "Yes",
-            Preference_Fields: preState,
-          },
-        ],
-      },
-      () => {
-        console.log("OtherStatePreferences:", formData.OtherStatePreferences);
-      }
+    setSelectedCategories((prevCategories) =>
+      isSelected
+        ? prevCategories.filter((catId) => catId !== category._id)
+        : [...prevCategories, category._id]
     );
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      Course_Preference: isSelected
+        ? prevFormData.Course_Preference.filter((pref) => pref !== category._id)
+        : [...new Set([...prevFormData.Course_Preference, category._id])],
+    }));
   };
 
   // const handleChange = (e) => {
@@ -215,32 +210,56 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
       NRI_Quta_Prefernce: [
         {
           ...prevFormData.NRI_Quta_Prefernce[0],
-          [name]:
-            value ||
-            prevFormData.NRI_Quta_Prefernce[0][name] ||
-            studentDetail[name],
+          [name]: value,
         },
       ],
-      AnnualMedicalCourseBudget:
-        value || prevFormData.AnnualMedicalCourseBudget,
-      Admissions_Preferences:
-        selectedColleges || prevFormData.Admissions_Preferences,
+      // Only update AnnualMedicalCourseBudget if that's the field being changed
+      ...(name === "AnnualMedicalCourseBudget" && {
+        AnnualMedicalCourseBudget: value,
+      }),
+      // Update Admissions_Preferences separately
+      Admissions_Preferences: selectedColleges,
       OtherStatePreferences: [
         {
           ...prevFormData.OtherStatePreferences[0],
-          select_options: "",
-          Preference_Fields: [],
+          select_options: selectedRadio,
+          Preference_Fields:
+            prevFormData.OtherStatePreferences[0]?.Preference_Fields,
         },
       ],
     }));
   };
 
   const sendData = async () => {
+    const cleanData = (obj) => {
+      for (let prop in obj) {
+        if (Array.isArray(obj[prop])) {
+          obj[prop] = obj[prop].map((item) => {
+            if (typeof item === "object") {
+              const { _id, ...rest } = item;
+              return rest;
+            }
+            return item;
+          });
+        } else if (typeof obj[prop] === "object") {
+          cleanData(obj[prop]);
+        }
+      }
+    };
+
     const mergedData = {
       ...statusinfo,
       ...formData,
+      Course_Preference: [
+        ...new Set([...formData.Course_Preference, ...selectedCategories]),
+      ],
+      Admissions_Preferences: selectedColleges,
     };
-    console.log("spa==", mergedData);
+
+    cleanData(mergedData);
+
+    console.log("Data to be sent:", mergedData);
+
     try {
       const response = await axios.put(
         `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
@@ -249,6 +268,9 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
       next();
     } catch (error) {
       console.error("Error making PUT request:", error);
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+      }
     }
   };
   const handleNextClick = () => {
@@ -256,9 +278,44 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   };
 
   const handleRadioChange = (event) => {
-    setSelectedRadio(event.target.value);
-  };
+    const value = event.target.value;
+    console.log("Radio changed to:", value);
+    setSelectedRadio(value);
 
+    if (value === "Yes") {
+      const existingPreferences =
+        formData.OtherStatePreferences[0]?.Preference_Fields || [];
+      console.log("Existing preferences:", existingPreferences);
+
+      if (existingPreferences.length > 0) {
+        const updatedPreferences = existingPreferences.map((state, index) => ({
+          id: index + 1,
+          stateId: state._id,
+          stateName: state.name,
+        }));
+        console.log("Setting preferences:", updatedPreferences);
+        setPreferences(updatedPreferences);
+      } else {
+        setPreferences([{ id: 1, stateId: "", stateName: "" }]);
+      }
+    } else {
+      setPreferences([]);
+    }
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      OtherStatePreferences: [
+        {
+          ...prevFormData.OtherStatePreferences[0],
+          select_options: value,
+          Preference_Fields:
+            value === "Yes"
+              ? prevFormData.OtherStatePreferences[0].Preference_Fields
+              : [],
+        },
+      ],
+    }));
+  };
   // const handlePreference1Change = (event) => {
   //   setPreference1(event.target.value);
   // };
@@ -393,6 +450,103 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
   //     next();
   //   }
   // }, [profileCompleteAddmision]);
+
+  const fetchUserDataFromAPI = async () => {
+    try {
+      const response = await axios.get(
+        `${config.baseURL}/api/auth/getUserById/${userids}`,
+        {
+          headers: {
+            Accept: "application/json",
+            authorization: token,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      throw error;
+    }
+  };
+
+  // Update the fetchUserData function to properly set the initial preferences state
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetchUserDataFromAPI();
+        const userData = response.user;
+
+        console.log("Fetched user data:", userData);
+        console.log("OtherStatePreferences:", userData.OtherStatePreferences);
+
+        setSelectedCategories(
+          userData.Course_Preference.map((course) => course._id || course)
+        );
+        setSelectedColleges(userData.Admissions_Preferences || []);
+
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          Course_Preference: userData.Course_Preference.map(
+            (course) => course._id || course
+          ),
+          NRI_Quta_Prefernce: userData.NRI_Quta_Prefernce || [{}],
+          OtherStatePreferences: userData.OtherStatePreferences || [
+            { select_options: "", Preference_Fields: [] },
+          ],
+          AnnualMedicalCourseBudget: userData.AnnualMedicalCourseBudget || "",
+          Admissions_Preferences: userData.Admissions_Preferences || [],
+        }));
+
+        // Set the initial radio button state
+        setSelectedRadio(
+          userData.OtherStatePreferences[0]?.select_options || ""
+        );
+
+        // Set the initial preferences state
+        if (
+          userData.OtherStatePreferences &&
+          userData.OtherStatePreferences[0]?.Preference_Fields
+        ) {
+          const initialPreferences =
+            userData.OtherStatePreferences[0].Preference_Fields.map(
+              (state, index) => ({
+                id: index + 1,
+                stateId: state._id,
+                stateName: state.name,
+              })
+            );
+          console.log("Setting initial preferences:", initialPreferences);
+          setPreferences(initialPreferences);
+          setSelectedRadio(userData.OtherStatePreferences[0].select_options);
+        } else {
+          console.log("No initial preferences found");
+        }
+
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          OtherStatePreferences: userData.OtherStatePreferences || [
+            { select_options: "", Preference_Fields: [] },
+          ],
+        }));
+      } catch (error) {
+        console.error("Error in fetchUserData:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [userids, token, getAllStates]);
+
+  const handleRemovePreference = (index) => {
+    const updatedPreferences = preferencesss.filter((_, i) => i !== index);
+    setPreferences(updatedPreferences);
+
+    // Update formData
+    const updatedFormData = { ...formData };
+    updatedFormData.OtherStatePreferences[0].Preference_Fields =
+      updatedPreferences.map((pref) => pref.stateId);
+    setFormData(updatedFormData);
+  };
+
   return (
     <section>
       <div className="main_div mx-auto">
@@ -497,6 +651,9 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                   type="radio"
                   name="nriQuotaPreference"
                   value="Yes"
+                  checked={
+                    formData.NRI_Quta_Prefernce[0]?.nriQuotaPreference === "Yes"
+                  }
                   onChange={handleChange}
                   className="radio radio-[#1172BA] 2xl:w-[22px] 2xl:h-[22px] xl:w-[16px] xl:h-[16px] w-[14px] h-[14px]"
                 />
@@ -507,6 +664,9 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                   type="radio"
                   name="nriQuotaPreference"
                   value="No"
+                  checked={
+                    formData.NRI_Quta_Prefernce[0]?.nriQuotaPreference === "No"
+                  }
                   className="radio radio-[#1172BA] 2xl:w-[22px] 2xl:h-[22px] xl:w-[16px] xl:h-[16px] w-[14px] h-[14px]"
                   onChange={handleChange}
                 />
@@ -587,7 +747,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                   checked={selectedRadio === "Yes"}
                   onChange={handleRadioChange}
                   className="radio radio-[#1172BA] 2xl:w-[22px] 2xl:h-[22px] xl:w-[16px] xl:h-[16px] w-[14px] h-[14px]"
-                />{" "}
+                />
                 Yes
               </div>
               <div className="flex items-center xl:gap-[10px] gap-2">
@@ -603,68 +763,48 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
               </div>
             </div>
 
-            <div className="flex gap-[35px] mb-[30px]">
-              <div className=" ">
-                {preferencesss.length > 0 ? (
-                  preferencesss.map((pref, index) => (
-                    <div
-                      key={pref.id}
-                      className="flex items-center gap-[45px] my-2"
-                    >
-                      <label className="pre_input_lable2">
-                        Preference No. {pref.id}
-                      </label>
-                      <div>
-                        <select
-                          id={`states${pref.id}`}
-                          className="pre_input"
-                          value={pref.stateId}
-                          onChange={(event) => handleStateChange(event, index)}
-                        >
-                          <option value={pref.value}>Select State</option>
-                          {getAllStates.map((item) => (
-                            <option
-                              key={item._id}
-                              value={item._id}
-                              className="pre_input"
-                            >
-                              {item.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div className="flex items-center gap-[45px] my-2">
-                    <label className="pre_input_lable2">Preference No. 1</label>
-                    <div>
-                      <select id="statesDefault" className="pre_input">
+            {selectedRadio === "Yes" && getAllStates.length > 0 && (
+              <div>
+                {preferencesss.map((pref, index) => (
+                  <div key={pref.id} className="mb-4">
+                    <label className="block mb-2">
+                      Preference No. {pref.id}
+                    </label>
+                    <div className="flex items-center">
+                      <select
+                        value={pref.stateId || ""}
+                        onChange={(event) => handleStateChange(event, index)}
+                        className="select select-bordered w-full max-w-xs"
+                      >
                         <option value="">Select State</option>
                         {getAllStates.map((item) => (
-                          <option
-                            key={item._id}
-                            value={item._id}
-                            className="pre_input"
-                          >
+                          <option key={item._id} value={item._id}>
                             {item.name}
                           </option>
                         ))}
                       </select>
+                      <button
+                        onClick={() => handleRemovePreference(index)}
+                        className="ml-2 text-red-500 hover:text-red-700"
+                      >
+                        ✕
+                      </button>
                     </div>
+                    {pref.stateName && (
+                      <p className="mt-2 text-sm text-gray-600">
+                        Selected: {pref.stateName}
+                      </p>
+                    )}
                   </div>
-                )}
-              </div>
-
-              <div className=" relative ">
+                ))}
                 <button
                   onClick={handleAddField}
-                  className="gap-2 absolute inter font-[700] bottom-0 2xl:mb-[17px] xl:mb-[17px] lg:mb-[15px] bg-[#4F9ED9] text-white 2xl:w-[143px] xl:w-[100px] w-[80px] 2xl:h-[48px] xl:h-[35px] h-[25px] rounded-[4px] 2xl:text-[14px] xl:text-[12px] 2xl:leading-[20px] text-[10px]"
+                  className="btn btn-primary mt-4"
                 >
                   Add State
                 </button>
               </div>
-            </div>
+            )}
           </div>
           <>
             {/* <div className="flex items-center gap-[45px]">
@@ -728,6 +868,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
                 id="feesBudgetInput"
                 className="pre_input"
                 placeholder="Enter detail"
+                name="AnnualMedicalCourseBudget"
                 value={formData.AnnualMedicalCourseBudget || feesBudget}
                 // onChange={handleChange}
                 onInput={(e) => {
