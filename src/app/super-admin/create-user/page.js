@@ -419,7 +419,7 @@ const CreateUser = () => {
                           </td> */}
 
                               <td className="  ">
-                                <Link href={`/pages/user-profile/${item?._id}`}>
+                                <Link href={`/pages/studentDetails/${item?._id}`}>
                                   <button className="">
                                     <Image
                                       src={edit}

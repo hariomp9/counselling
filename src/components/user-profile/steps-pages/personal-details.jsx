@@ -111,6 +111,7 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
       }),
     }));
   };
+
   useEffect(() => {
     if (studentDetail) {
       setStudentsde({
@@ -194,7 +195,6 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
 
   useEffect(() => {
     defaultAUser();
-    defaultProfileComplete();
   }, []);
 
   const defaultAUser = () => {
@@ -217,27 +217,6 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
         console.log(error, "Error");
       });
   };
-
-  const defaultProfileComplete = () => {
-    const option = {
-      method: "GET",
-      url: `${config.baseURL}/api/auth/getstepsbyuserId/${userids}`,
-    };
-    axios
-      .request(option)
-      .then((response) => {
-        setPersonalDetails(response?.data?.user?.personal_details);
-      })
-      .catch((error) => {
-        alert("failed");
-      });
-  };
-  const router = useRouter();
-  useEffect(() => {
-    if (personalDetails.toLowerCase() === "completed") {
-      router.push("/user2nd/profile");
-    }
-  }, [personalDetails]);
 
   return (
     <>
