@@ -2,6 +2,8 @@ const joi = require('joi');
 const mongoose = require('mongoose');
 
 // Define the validation schema for domicileStateCategory
+
+
 const domicileStateCategorySchema = joi.array().items(
     joi.object({
         state_id: joi.string().custom((value, helpers) => {

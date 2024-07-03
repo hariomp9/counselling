@@ -346,11 +346,13 @@ const UserSchema = new mongoose.Schema(
         // required: true,
       },
       obtained: {
-        type: Number
+        type: Number,
+        default:null
         // required: true,
       },
       outOf: {
         type: Number,
+        default:null
         // required: true,
       },
     }],
