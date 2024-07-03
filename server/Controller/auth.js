@@ -90,6 +90,16 @@ exports.register = async (req, res, next) => {
       'PCB Total', 'PCBE Total', 'PCB %', 'BASLP', 'PCBE %'
     ];
 
+    const defaultExams = [
+      '10th' , '12th'
+    ]
+
+    const defaultAcademicDetails = [
+      '12th' , '10th' , '9th' , '8th' , '7th' , '6th' , '5th' , '4th' , '3rd' , '2nd' , '1st'
+    ]
+
+
+
 
   const userData = {
     email,
@@ -113,6 +123,32 @@ exports.register = async (req, res, next) => {
     Status: req.body.Status || 'Pending',
     activeToken: req.body.activeToken || null,
     Id_Number:await generateIdNumber(),
+    Academic_Details: req.body.Academic_Details && req.body.Academic_Details.length > 0 ? req.body.Academic_Details.map(academic => ({
+      type: academic.type || 'N/A',
+      Board_University: academic.Board_University || 'N/A',
+      School_College: academic.School_College || 'N/A',
+      PassingYear: academic.PassingYear || '0',
+      ObtainedMarks: academic.ObtainedMarks || '0',
+      Result: academic.Result || '0',
+      CGPA: academic.CGPA || '0',
+    })) : defaultAcademicDetails.map(academic => ({
+      type: academic,
+      Board_University: 'N/A',
+      School_College: 'N/A',
+      PassingYear: '0',
+      ObtainedMarks: '0',
+      Result: '0',
+      CGPA: '0',
+    })),
+    exams: req.body.exams && req.body.exams.length > 0 ? req.body.exams.map(exam => ({
+      type: exam.type || 'N/A',
+      passingDistrict: exam.passingDistrict || 'N/A',
+      passingState: exam.passingState || 'N/A',
+    })) : defaultExams.map(exam => ({
+      type: exam,
+      passingDistrict: 'N/A',
+      passingState: 'N/A',
+    })),
     standard_12thMarks: req.body.standard_12thMarks && req.body.standard_12thMarks.length > 0 ? req.body.standard_12thMarks.map(mark => ({
       subject: mark.subject || 'N/A',
       obtained: mark.obtained || 0,
