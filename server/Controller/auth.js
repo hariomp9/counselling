@@ -124,39 +124,39 @@ exports.register = async (req, res, next) => {
     activeToken: req.body.activeToken || null,
     Id_Number:await generateIdNumber(),
     Academic_Details: req.body.Academic_Details && req.body.Academic_Details.length > 0 ? req.body.Academic_Details.map(academic => ({
-      type: academic.type || 0,
-      Board_University: academic.Board_University || 0,
-      School_College: academic.School_College || 0,
-      PassingYear: academic.PassingYear || 0,
-      ObtainedMarks: academic.ObtainedMarks || 0,
-      Result: academic.Result || 0,
-      CGPA: academic.CGPA || 0,
+      type: academic.type || '',
+      Board_University: academic.Board_University || '',
+      School_College: academic.School_College || '',
+      PassingYear: academic.PassingYear || '',
+      ObtainedMarks: academic.ObtainedMarks || '',
+      Result: academic.Result || '',
+      CGPA: academic.CGPA || '',
     })) : defaultAcademicDetails.map(academic => ({
       type: academic,
-      Board_University: 0,
-      School_College: 0,
-      PassingYear: 0,
-      ObtainedMarks: 0,
-      Result: 0,
-      CGPA: 0,
+      Board_University: '',
+      School_College: '',
+      PassingYear: '',
+      ObtainedMarks: '',
+      Result: '',
+      CGPA: '',
     })),
     exams: req.body.exams && req.body.exams.length > 0 ? req.body.exams.map(exam => ({
-      type: exam.type || 0,
-      passingDistrict: exam.passingDistrict || 0,
-      passingState: exam.passingState || 0,
+      type: exam.type || '',
+      passingDistrict: exam.passingDistrict || '',
+      passingState: exam.passingState || '',
     })) : defaultExams.map(exam => ({
       type: exam,
-      passingDistrict: 0,
-      passingState: 0,
+      passingDistrict: '',
+      passingState: '',
     })), 
     standard_12thMarks: req.body.standard_12thMarks && req.body.standard_12thMarks.length > 0 ? req.body.standard_12thMarks.map(mark => ({
-      subject: mark.subject || 0,
-      obtained: mark.obtained || 0,
-      outOf: mark.outOf || 0
+      subject: mark.subject || '',
+      obtained: mark.obtained || '',
+      outOf: mark.outOf || ''
     })) : defaultSubjects.map(subject => ({
       subject,
-      obtained: 0,
-      outOf: 0
+      obtained: '',
+      outOf: ''
     }))
   };
 
