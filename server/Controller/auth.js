@@ -108,7 +108,17 @@ exports.register = async (req, res, next) => {
     User_Intersted: req.body.User_Intersted || 'Non-Intersted',
     Status: req.body.Status || 'Pending',
     activeToken: req.body.activeToken || null,
-    Id_Number:await generateIdNumber()
+    Id_Number:await generateIdNumber(),
+    standard_12thMarks: req.body.standard_12thMarks && req.body.standard_12thMarks.length > 0 ? req.body.standard_12thMarks.map(mark => ({
+      subject: mark.subject || 'N/A',
+      obtained: mark.obtained || 0, // Use 0 as the default value for obtained
+      outOf: mark.outOf || 0 // Use 0 as the default value for outOf
+    })) : [{
+      subject: 'N/A',
+      obtained: 0, // Use 0 as the default value for obtained
+      outOf: 0 // Use 0 as the default value for outOf
+    }],
+    
   };
 
   try {
