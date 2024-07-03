@@ -339,23 +339,160 @@ const UserSchema = new mongoose.Schema(
     },
 
     // Standard 12th Exam Marks 
-    standard_12thMarks: [{
-      subject: {
-        type: String
+    // standard_12thMarks: [{
+    //   subject: {
+    //     type: String
 
-        // required: true,
+    //     // required: true,
+    //   },
+    //   obtained: {
+    //     type: Number
+    //     // required: true,
+    //   },
+    //   outOf: {
+    //     type: Number,
+    //     // required: true,
+    //   },
+    // }],
+
+    standard_12thMarks: [
+      {
+        subject: {
+          type: String,
+          default: 'Physics',
+          required: true
+        },
+        obtained: {
+          type: Number,
+          required: true
+        },
+        outOf: {
+          type: Number,
+          required: true
+        }
       },
-      obtained: {
-        type: Number,
-        default:null
-        // required: true,
+      {
+        subject: {
+          type: String,
+          default: 'Chemistry',
+          required: true
+        },
+        obtained: {
+          type: Number,
+          required: true
+        },
+        outOf: {
+          type: Number,
+          required: true
+        }
       },
-      outOf: {
-        type: Number,
-        default:null
-        // required: true,
+      {
+        subject: {
+          type: String,
+          default: 'Biology',
+          required: true
+        },
+        obtained: {
+          type: Number,
+          required: true
+        },
+        outOf: {
+          type: Number,
+          required: true
+        }
       },
-    }],
+      {
+        subject: {
+          type: String,
+          default: 'English',
+          required: true
+        },
+        obtained: {
+          type: Number,
+          required: true
+        },
+        outOf: {
+          type: Number,
+          required: true
+        }
+      },
+      {
+        subject: {
+          type: String,
+          default: 'PCB Total',
+          required: true
+        },
+        obtained: {
+          type: Number,
+          required: true
+        },
+        outOf: {
+          type: Number,
+          required: true
+        }
+      },
+      {
+        subject: {
+          type: String,
+          default: 'PCBE Total',
+          required: true
+        },
+        obtained: {
+          type: Number,
+          required: true
+        },
+        outOf: {
+          type: Number,
+          required: true
+        }
+      },
+      {
+        subject: {
+          type: String,
+          default: 'PCB %',
+          required: true
+        },
+        obtained: {
+          type: Number,
+          required: true
+        },
+        outOf: {
+          type: Number,
+          required: true
+        }
+      },
+      {
+        subject: {
+          type: String,
+          default: 'BASLP',
+          required: true
+        },
+        obtained: {
+          type: Number,
+          required: true
+        },
+        outOf: {
+          type: Number,
+          required: true
+        }
+      },
+      {
+        subject: {
+          type: String,
+          default: 'PCBE %',
+          required: true
+        },
+        obtained: {
+          type: Number,
+          required: true
+        },
+        outOf: {
+          type: Number,
+          required: true
+        }
+      }
+    ],
+
 
     // Exam Details
     exams: [{
