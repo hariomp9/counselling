@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import config from "@/config";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import logo from "../../../../public/images/logo.svg";
 

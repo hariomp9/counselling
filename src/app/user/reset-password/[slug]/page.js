@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import config from "@/config";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import logo from "../../../../../public/images/logo.svg";
 
@@ -13,7 +14,6 @@ const ResetPassword = ({ params }) => {
   const [password, setPassword] = useState("");
   const [isLoading, setLoading] = useState(false);
   const resetToken = params?.slug;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -29,17 +29,22 @@ const ResetPassword = ({ params }) => {
         }
       );
 
-      if (response.status === 201) {
+      if (response.status === 200 || response.status === 204) {
         setLoading(false);
+        toast.success("Password updated successfully");
         router.push("/user/user-login");
-        toast.success("Password Update Successfully");
+      } else if (response.status === 400) {
+        setLoading(false);
+        toast.error("Invalid request. Please try again.");
+        router.push("/user/forgot-password");
       } else {
         setLoading(false);
+        toast.error("Failed to update password. Please try again.");
       }
     } catch (error) {
-      console.error("Error during login:", error);
-
       setLoading(false);
+      toast.error("Failed to update password. Please try again.");
+      router.push("/user/forgot-password");
     }
   };
 
