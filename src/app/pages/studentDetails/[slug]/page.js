@@ -20,10 +20,13 @@ const StudentDetails = ({ params }) => {
   const formattedDate = createdAt.toLocaleDateString("en-GB");
   const [studentNeetDetail, setStudentNeetDetail] = useState("");
   const coursePre = studentDetail?.Course_Preference;
-  // const otherState = studentDetail?.Preference_Fields?.OtherStatePreferences;
+  const standard12thMarks = studentDetail?.standard_12thMarks;
+  const exams = studentDetail?.exams;
+  const academicDetails = studentDetail?.Academic_Details;
+  const domicileSCategory = studentDetail?.domicileStateCategory;
+  const OtherSPreferences = studentDetail?.OtherStatePreferences;
 
-  // console.log(otherState, "otherState");
-
+  console.log(domicileSCategory, "domicileSCategory");
   useEffect(() => {
     defaultAUser();
   }, []);
@@ -159,7 +162,7 @@ const StudentDetails = ({ params }) => {
                   ))}
                 </div>
               </section>
-              {/* Admission Preferences */}
+              {/* Educational Information  */}
               <section className="userpbox ">
                 <div className="userpboxhbox">
                   <div>
@@ -185,7 +188,92 @@ const StudentDetails = ({ params }) => {
                     </button> */}
                   </div>
                 </div>
+                <div className=" overflow-y-scroll overflow-hidden  h-[80%] px-[30px]">
+                  {/* Exam */}
+                  {exams?.map((item, index) => (
+                    <div key={index} className="flex flex-wrap gap-y-3">
+                      <div className="w-1/4">
+                        <div>
+                          <label className="userpboxlabel">
+                            {item.type === "12th"
+                              ? "District of 12th Passing"
+                              : "District of 10th Passing"}
+                          </label>
+                          <p>{item.passingDistrict}</p>
+                        </div>
+                      </div>
+                      <div className="w-1/4">
+                        <div>
+                          <label className="userpboxlabel">
+                            {item.type === "12th"
+                              ? "State of 12th Passing"
+                              : "State of 10th Passing"}
+                          </label>
+                          <p>{item.passingState}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  <div className="w-1/4 my-5 ">
+                    <div>
+                      <label className="userpboxlabel">Academic Details:</label>
+                    </div>
+                  </div>{" "}
+                  {academicDetails?.map((item, index) => (
+                    <div key={index} className="flex flex-wrap gap-y-3 my-5">
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">Exams</label>
+                          <p>{item?.type}</p>
+                        </div>
+                      </div>{" "}
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">
+                            Board / University{" "}
+                          </label>
+                          <p>{item?.Board_University} </p>
+                        </div>
+                      </div>{" "}
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">
+                            School/College{" "}
+                          </label>
+                          <p>{item?.School_College}</p>
+                        </div>
+                      </div>{" "}
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">Passing Year </label>
+                          <p>{item?.PassingYear}</p>
+                        </div>
+                      </div>{" "}
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">
+                            Obtained Marks{" "}
+                          </label>
+                          <p>{item?.ObtainedMarks}</p>
+                        </div>
+                      </div>{" "}
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">Results </label>
+                          <p>{item?.Result}</p>
+                        </div>
+                      </div>{" "}
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">CGPA </label>
+                          <p>{item?.CGPA}</p>
+                        </div>
+                      </div>{" "}
+                    </div>
+                  ))}
+                </div>
               </section>
+              {/* Personal Details */}
               <section className="userpbox ">
                 <div className="userpboxhbox">
                   <div>
@@ -211,33 +299,128 @@ const StudentDetails = ({ params }) => {
                     </button> */}
                   </div>
                 </div>
-                <div className="flex 2xl:px-[30px] xl:px-[20px] px-[10px]">
-                  <div className="flex flex-wrap justify-between w-full">
-                    <div className="w-1/3 ">
+
+                <div className="flex flex-col gapy-y-5 2xl:px-[30px] xl:px-[20px] px-[10px]">
+                  {" "}
+                  {studentDetail?.StudentAddress?.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-wrap gap-y-5 justify-between w-full"
+                    >
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">
+                            Students Address:
+                          </label>
+                        </div>
+                      </div>
+                      <div className="w-1/4">
+                        <div>
+                          <label className="userpboxlabel">House No/Road</label>
+                          <h2>{item?.HouseNo}</h2>
+                        </div>
+                      </div>
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">Area</label>
+                          <h2>{item?.Area}</h2>
+                        </div>
+                      </div>
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">City</label>
+                          <h2>{item?.City}</h2>
+                        </div>
+                      </div>
+
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">District</label>
+                          <h2>{item?.Distict}</h2>
+                        </div>
+                      </div>
+                      <div className="w-1/4">
+                        <div>
+                          <label className="userpboxlabel">State</label>
+                          <h2>{item?.State}</h2>
+                        </div>
+                      </div>
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">Pin</label>
+                          <h2>{item?.PinCode}</h2>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {studentDetail?.studentDetails?.map((item, index) => (
+                    <div key={index} className="w-1/4  flex my-5">
                       <div>
                         <label className="userpboxlabel">
-                          Name as per NEET Score Card
+                          Student Email Id
                         </label>
-                        <h2>Hariom Patil</h2>
+                        <h2>{item?.Email}</h2>
                       </div>
                     </div>
-                    <div className="w-1/3 flex justify-center">
-                      <div>
-                        <label className="userpboxlabel">Mobile Number</label>
-                        <h2>+91 7894563218</h2>
+                  ))}
+                  {studentDetail?.parentDetails?.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-wrap justify-between gap-y-5 w-full"
+                    >
+                      <div className="w-1/4">
+                        <div>
+                          <label className="userpboxlabel">
+                            Parents Full Name
+                          </label>
+                          <h2>{item?.parentName}</h2>
+                        </div>
+                      </div>
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">
+                            Parents email id
+                          </label>
+                          <h2>{item?.parentEmail}</h2>
+                        </div>
+                      </div>
+                      <div className="w-1/4 ">
+                        <div>
+                          <label className="userpboxlabel">
+                            Parents Mobile Number
+                          </label>
+                          <h2>{item?.parentMobile}</h2>
+                        </div>
+                      </div>
+                      <div className="w-1/3 ">
+                        <div>
+                          <label className="userpboxlabel">
+                            Parents Profession
+                          </label>
+                          <h2>{item?.Parents_Profession}</h2>
+                        </div>
+                      </div>
+                      <div className="w-1/3 ">
+                        <div>
+                          <label className="userpboxlabel">
+                            Is your parent
+                          </label>
+                          <h2>{item?.parentOccupation}</h2>
+                        </div>
+                      </div>
+                      <div className="w-1/3 ">
+                        <div>
+                          <label className="userpboxlabel">
+                            Family Annual Income
+                          </label>
+                          <h2>{item?.FamilyAnualIncome}</h2>
+                        </div>
                       </div>
                     </div>
-                    <div className="w-1/3 ">
-                      <div>
-                        <label className="userpboxlabel">
-                          WhatsApp Number for Updates
-                        </label>
-                        <h2>+91 7894563218</h2>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </section>{" "}
+              {/* Admission Preferences */}
               <section className="userpbox ">
                 <div className="userpboxhbox">
                   <div>
@@ -263,6 +446,7 @@ const StudentDetails = ({ params }) => {
                     </button> */}
                   </div>
                 </div>
+
                 <div className="flex flex-wrap gap-y-5 2xl:px-[30px] xl:px-[20px] px-[10px]">
                   <div className="w-1/2">
                     <div>
@@ -278,6 +462,7 @@ const StudentDetails = ({ params }) => {
                       </div>
                     </div>
                   </div>
+
                   <div className="w-1/2">
                     <div>
                       <label className="userpboxlabel">
@@ -286,6 +471,7 @@ const StudentDetails = ({ params }) => {
                       <h2>{studentDetail?.Admissions_Preferences}</h2>
                     </div>
                   </div>
+
                   <div className="w-1/2">
                     <div>
                       <label className="userpboxlabel">
@@ -294,26 +480,30 @@ const StudentDetails = ({ params }) => {
                       <h2></h2>
                     </div>
                   </div>
-                  <div className="w-1/2">
-                    <div>
-                      <label className="userpboxlabel">
-                        Interested in Other State admissions
-                      </label>
-                      <h2></h2>
+                  {OtherSPreferences?.map((item, index) => (
+                    <div key={index} className="w-1/2">
+                      <div>
+                        <label className="userpboxlabel">
+                          Interested in Other State admissions
+                        </label>
+                        <h2></h2>
+                      </div>
                     </div>
-                  </div>
-                  <div className="w-1/2">
-                    <div>
-                      <label className="userpboxlabel">Domicile State</label>
-                      <h2></h2>
+                  ))}
+                  {domicileSCategory?.map((item, index) => (
+                    <div key={index} className="w-1/2">
+                      <div>
+                        <label className="userpboxlabel">Domicile State</label>
+                        <h2>{item?.state_id?.name}</h2>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                   <div className="w-1/2">
                     <div>
                       <label className="userpboxlabel">
                         Annual Medical Course Budget
                       </label>
-                      <h2></h2>
+                      <h2>{studentDetail?.AnnualMedicalCourseBudget}</h2>
                     </div>
                   </div>
                 </div>
