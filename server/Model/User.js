@@ -483,7 +483,7 @@ const UserSchema = new mongoose.Schema(
 
       parentOccupation: {
         type: String,
-        enum: ['Govt of Maharashtra Employee?', 'Govt of India Employee?']
+        enum: ['Govt of Maharashtra Employee', 'Govt of India Employee']
       },
 
       FamilyAnualIncome: {
