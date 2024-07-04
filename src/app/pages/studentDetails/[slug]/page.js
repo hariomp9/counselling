@@ -19,6 +19,10 @@ const StudentDetails = ({ params }) => {
   const createdAt = new Date(studentDetail?.createdAt);
   const formattedDate = createdAt.toLocaleDateString("en-GB");
   const [studentNeetDetail, setStudentNeetDetail] = useState("");
+  const coursePre = studentDetail?.Course_Preference;
+  // const otherState = studentDetail?.Preference_Fields?.OtherStatePreferences;
+
+  // console.log(otherState, "otherState");
 
   useEffect(() => {
     defaultAUser();
@@ -60,7 +64,7 @@ const StudentDetails = ({ params }) => {
                     <h1 className="userpboxhead">NEET Information</h1>
                   </div>
                   <div>
-                    <button className="userpboxbtn">
+                    {/* <button className="userpboxbtn">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -76,7 +80,7 @@ const StudentDetails = ({ params }) => {
                         />
                       </svg>
                       Edit
-                    </button>
+                    </button> */}
                   </div>
                 </div>
                 <div>
@@ -162,7 +166,7 @@ const StudentDetails = ({ params }) => {
                     <h1 className="userpboxhead">Educational Information</h1>
                   </div>
                   <div>
-                    <button className="userpboxbtn">
+                    {/* <button className="userpboxbtn">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -178,7 +182,7 @@ const StudentDetails = ({ params }) => {
                         />
                       </svg>
                       Edit
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </section>
@@ -188,7 +192,7 @@ const StudentDetails = ({ params }) => {
                     <h1 className="userpboxhead">Personal Details</h1>
                   </div>
                   <div>
-                    <button className="userpboxbtn">
+                    {/* <button className="userpboxbtn">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -204,7 +208,7 @@ const StudentDetails = ({ params }) => {
                         />
                       </svg>
                       Edit
-                    </button>
+                    </button> */}
                   </div>
                 </div>
                 <div className="flex 2xl:px-[30px] xl:px-[20px] px-[10px]">
@@ -240,7 +244,7 @@ const StudentDetails = ({ params }) => {
                     <h1 className="userpboxhead">Admission Preferences</h1>
                   </div>
                   <div>
-                    <button className="userpboxbtn">
+                    {/* <button className="userpboxbtn">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -256,16 +260,22 @@ const StudentDetails = ({ params }) => {
                         />
                       </svg>
                       Edit
-                    </button>
+                    </button> */}
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-y-5 2xl:px-[30px] xl:px-[20px] px-[10px]" >
+                <div className="flex flex-wrap gap-y-5 2xl:px-[30px] xl:px-[20px] px-[10px]">
                   <div className="w-1/2">
                     <div>
                       <label className="userpboxlabel">
                         Course Preferences
                       </label>
-                      <h2></h2>
+                      <div className="flex">
+                        {coursePre?.map((item, index) => (
+                          <h2 key={index} className="flex ">
+                            {item?.course_Preference} ,
+                          </h2>
+                        ))}
+                      </div>
                     </div>
                   </div>
                   <div className="w-1/2">
@@ -273,7 +283,7 @@ const StudentDetails = ({ params }) => {
                       <label className="userpboxlabel">
                         Admission Preference
                       </label>
-                      <h2></h2>
+                      <h2>{studentDetail?.Admissions_Preferences}</h2>
                     </div>
                   </div>
                   <div className="w-1/2">
