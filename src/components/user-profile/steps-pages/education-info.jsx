@@ -89,24 +89,53 @@ const EducationInfo = ({ next, prev, onFormDataChange, userids }) => {
     newData[index][fieldName] = value;
     setExamData(newData);
   };
+
+
   const sendData = async (e) => {
     // e.preventDefault(e);
     const mergedData = {
       ...statusinfo,
+      step_status : 'education_info',
       standard_12thMarks: standard,
       Academic_Details: academicData,
       exams: examData,
     };
+  
     try {
-      const response = await axios.put(
+      // First API call to update user data
+      const updateResponse = await axios.put(
         `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
       );
+      console.log("Update response:", updateResponse.data);
+  
+      // Second API call to get steps by user ID
+      const stepsResponse = await axios.get(
+        `${config.baseURL}/api/auth/getstepsbyuserId/${userid || userids}`,
+        {
+          headers: {
+            Accept: "application/json",
+            authorization: token, // Assuming you have the token available
+          },
+        }
+      );
+      console.log("Steps response:", stepsResponse.data);
+  
+      // Process the steps data if needed
+      // For example, you might want to update some state with this data
+      // setUserSteps(stepsResponse.data);
+  
+      // Proceed to the next step
       next();
     } catch (error) {
-      console.error("Error making PUT request:", error);
+      console.error("Error in API requests:", error);
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+      }
+      // Handle the error appropriately, maybe show an error message to the user
     }
   };
+
   // const handleNextClick = () => {
   //   sendData();
   // };

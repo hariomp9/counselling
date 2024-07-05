@@ -74,24 +74,47 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
     const payload = {
       ...data,
       ...getNeet,
+      step_status: "neet_info",
       All_India_Category_id: allIndiaCategory,
       domicileStateCategory: [domicileStateCategory],
       ParellelReservations: [parallelReservation],
       MinorityReservations: minReservation,
     };
     try {
-      const response = await axios.put(
+      // First API call to update user data
+      const updateResponse = await axios.put(
         `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
         payload
       );
+      console.log("Update response:", updateResponse.data);
+
+      // Second API call to get steps by user ID
+      const stepsResponse = await axios.get(
+        `${config.baseURL}/api/auth/getstepsbyuserId/${userid || userids}`,
+        {
+          headers: {
+            Accept: "application/json",
+            authorization: token, // Assuming you have the token available
+          },
+        }
+      );
+      console.log("Steps response:", stepsResponse.data);
+
+      // Process the steps data if needed
+      // For example, you might want to update some state with this data
+      // setUserSteps(stepsResponse.data);
+
+      // Proceed to the next step
       next();
     } catch (error) {
       console.error("Error making PUT request:", error);
     }
   };
+
   const handleNextClick = () => {
     sendData();
   };
+
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -126,16 +149,12 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
   const [parallelReservtion, setParallelReservation] = useState({});
   const [minorityReservtio, setMinorityReservatio] = useState({});
   const { token } = useSelector((state) => state?.auth);
-  useEffect(() => {
-    defaultAUser();
-    // defaultProfileComplete();
-  }, []);
 
   const defaultAUser = async () => {
     const options = {
       method: "GET",
       url: `${config.baseURL}/api/auth/getUserById/${userids}`,
-      headers: {
+      headers: {  
         Accept: "application/json",
         authorization: token,
       },
@@ -156,11 +175,20 @@ const NeetInformation = ({ next, prev, onFormDataChange, userids }) => {
         setMinorityReservatio(
           response?.data?.user?.MinorityReservations[0]?.Minority
         );
+       
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
+
+  useEffect(() => {
+    defaultAUser();
+    console.log(setMinorityReservatio,"setMinorityReservatio=================")
+    // defaultProfileComplete();
+  }, [userids]);
+
+  
 
   // const defaultProfileComplete = () => {
   //   const option = {

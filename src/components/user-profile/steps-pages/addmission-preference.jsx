@@ -250,6 +250,7 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
     const mergedData = {
       ...statusinfo,
       ...formData,
+      step_status : 'admision_pre',
       Course_Preference: [
         ...new Set([...formData.Course_Preference, ...selectedCategories]),
       ],
@@ -261,18 +262,40 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
     console.log("Data to be sent:", mergedData);
 
     try {
-      const response = await axios.put(
+      // First API call to update user data
+      const updateResponse = await axios.put(
         `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
       );
+      console.log("Update response:", updateResponse.data);
+
+      // Second API call to get steps by user ID
+      const stepsResponse = await axios.get(
+        `${config.baseURL}/api/auth/getstepsbyuserId/${userid || userids}`,
+        {
+          headers: {
+            Accept: "application/json",
+            authorization: token, // Assuming you have the token available
+          },
+        }
+      );
+      console.log("Steps response:", stepsResponse.data);
+
+      // Process the steps data if needed
+      // For example, you might want to update some state with this data
+      // setUserSteps(stepsResponse.data);
+
+      // Proceed to the next step
       next();
     } catch (error) {
-      console.error("Error making PUT request:", error);
+      console.error("Error in API requests:", error);
       if (error.response) {
         console.error("Response data:", error.response.data);
       }
+      // Handle the error appropriately, maybe show an error message to the user
     }
   };
+
   const handleNextClick = () => {
     sendData();
   };
@@ -465,6 +488,22 @@ const AddmissionPreference = ({ next, prev, onFormDataChange, userids }) => {
       return response.data;
     } catch (error) {
       console.error("Error fetching user data:", error);
+      throw error;
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `${config.baseURL}/api/auth/getUserById/${userids}`,
+        {
+          headers: {
+            authorization: "",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
       throw error;
     }
   };
