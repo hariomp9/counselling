@@ -59,6 +59,8 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
         Parents_Profession: "",
         parentOccupation: "",
         FamilyAnualIncome: "",
+        govtMaharashtraEmployee: false,
+        govtIndiaEmployee: false,
       },
     ],
   });
@@ -150,8 +152,11 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
             parentEmail: parentDetailss?.parentEmail || "",
             parentMobile: parentDetailss?.parentMobile || "",
             Parents_Profession: parentDetailss?.Parents_Profession || "",
-            parentOccupation: parentDetailss?.parentOccupation || "",
+            parentOccupation: parentDetailss?.parentOccupation || "", // Ensure this is included
             FamilyAnualIncome: parentDetailss?.FamilyAnualIncome || "",
+            govtMaharashtraEmployee:
+              parentDetailss?.govtMaharashtraEmployee || false,
+            govtIndiaEmployee: parentDetailss?.govtIndiaEmployee || false,
           },
         ],
       });
@@ -159,18 +164,47 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
   }, [parentDetailss]);
 
   const handleInputChanges = (e) => {
-    const { name, value } = e.target;
-    setParentDetails((prevState) => ({
-      parentDetails: prevState.parentDetails?.map((addrs, index) => {
-        if (index === 0) {
-          return {
-            ...addrs,
-            [name]: value,
-          };
-        }
-        return addrs;
-      }),
-    }));
+    const { name, value, type, checked } = e.target;
+    const fieldValue = type === "checkbox" ? checked : value;
+
+    setParentDetails((prevState) => {
+      const newState = {
+        parentDetails: prevState.parentDetails.map((addrs, index) => {
+          if (index === 0) {
+            let updatedAddrs = {
+              ...addrs,
+              [name]: fieldValue,
+            };
+
+            // Update parentOccupation based on checkbox selections
+            if (
+              name === "govtMaharashtraEmployee" ||
+              name === "govtIndiaEmployee"
+            ) {
+              if (fieldValue) {
+                updatedAddrs.parentOccupation =
+                  name === "govtMaharashtraEmployee"
+                    ? "Govt of Maharashtra Employee"
+                    : "Govt of India Employee";
+              } else if (
+                !updatedAddrs.govtMaharashtraEmployee &&
+                !updatedAddrs.govtIndiaEmployee
+              ) {
+                updatedAddrs.parentOccupation = "";
+              }
+            }
+
+            return updatedAddrs;
+          }
+          return addrs;
+        }),
+      };
+      console.log(
+        "New parent details state:",
+        JSON.stringify(newState, null, 2)
+      );
+      return newState;
+    });
   };
 
   const sendData = async () => {
@@ -178,18 +212,40 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
       ...statusinfo,
       ...address,
       ...getStudentsde,
-      ...parentDetail,
+      step_status: "personal_details",
+      parentDetails: [
+        {
+          ...parentDetail.parentDetails[0],
+          parentOccupation: parentDetail.parentDetails[0].parentOccupation,
+        },
+      ],
     };
+    console.log("Data being sent to API:", JSON.stringify(mergedData, null, 2));
+
     try {
+      // First API call to update user data
       const response = await axios.put(
         `${config.baseURL}/api/auth/updatedUser_Steps/${userid || userids}`,
         mergedData
       );
+      console.log("API response:", JSON.stringify(response.data, null, 2));
 
-      console.log("PUT request successful", response.data);
+      // Second API call to get steps by user ID
+      const stepsResponse = await axios.get(
+        `http://localhost:4000/api/auth/getstepsbyuserId/662b3d8071856035cde4a667`
+      );
+      console.log(
+        "Steps response:",
+        JSON.stringify(stepsResponse.data, null, 2)
+      );
+
+      // Proceed to the next step
       next();
     } catch (error) {
-      console.error("Error making PUT request:", error);
+      console.error(
+        "Error making requests:",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -209,14 +265,33 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
     axios
       .request(options)
       .then((response) => {
-        setStudentAddress(response?.data?.user?.StudentAddress[0]);
-        setStudentDetails(response?.data?.user?.studentDetails[0]);
-        setParentDetail(response?.data?.user?.parentDetails[0]);
+        const userData = response?.data?.user;
+        console.log("User data from API:", userData);
+        setStudentAddress(userData?.StudentAddress[0]);
+        setStudentDetails(userData?.studentDetails[0]);
+
+        // Set parent details with proper checkbox values
+        const parentData = userData?.parentDetails[0] || {};
+        setParentDetails({
+          parentDetails: [
+            {
+              ...parentData,
+              govtMaharashtraEmployee:
+                parentData.parentOccupation === "Govt of Maharashtra Employee",
+              govtIndiaEmployee:
+                parentData.parentOccupation === "Govt of India Employee",
+            },
+          ],
+        });
       })
       .catch((error) => {
         console.log(error, "Error");
       });
   };
+
+  useEffect(() => {
+    console.log("Current parentDetail state:", parentDetail);
+  }, [parentDetail]);
 
   return (
     <>
@@ -426,11 +501,13 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
                       type="checkbox"
                       className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px]"
                       name="govtMaharashtraEmployee"
-                      checked={parentDetail?.govtMaharashtraEmployee}
+                      checked={
+                        parentDetail.parentDetails[0].govtMaharashtraEmployee
+                      }
                       onChange={handleInputChanges}
                     />
                     <h1 className="inter font-[400] pre_input_label text-[#000000]">
-                      Govt of Maharashtra Employee?
+                      Govt of Maharashtra Employee
                     </h1>
                   </div>
                   <div className="flex items-center 2xl:gap-2 gap-1">
@@ -438,11 +515,11 @@ const PersonalDetails = ({ prev, onFormDataChange, userids }) => {
                       type="checkbox"
                       className="2xl:w-[22px] 2xl:h-[22px] xl:h-[12px] xl:w-[12px] lg:w-[10px] lg:h-[10px]"
                       name="govtIndiaEmployee"
-                      checked={parentDetail?.govtIndiaEmployee}
+                      checked={parentDetail.parentDetails[0].govtIndiaEmployee}
                       onChange={handleInputChanges}
                     />
                     <h1 className="inter font-[400] pre_input_label text-[#000000]">
-                      Govt of India Employee?
+                      Govt of India Employee
                     </h1>
                   </div>
                 </div>
